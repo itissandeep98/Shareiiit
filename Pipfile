@@ -6,8 +6,13 @@ name = "pypi"
 [packages]
 django = "*"
 djangorestframework = "*"
+django-rest-knox = "*"
 
 [dev-packages]
+black = "*"
 
 [requires]
 python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true
