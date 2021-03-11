@@ -19,7 +19,7 @@ class Post(models.Model):
     is_request = models.BooleanField(default=True)
 
     category = models.ForeignKey(
-        Category, related_name="categories", on_delete=models.CASCADE, null=True
+        Category, related_name="category", on_delete=models.CASCADE, null=True
     )
 
     def __str__(self):

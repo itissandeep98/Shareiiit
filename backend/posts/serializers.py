@@ -13,11 +13,11 @@ from .models import Post
 
 
 class PostSerializer(serializers.ModelSerializer):
-    owner = serializers.CharField(source="owner.username", read_only=True)
+    created_by = serializers.CharField(source="created_by.username", read_only=True)
     # book = BookSerializer()
     # item = serializers.PrimaryKeyRelatedField(read_only=True)
     # group = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = Post
-        fields = ("id", "title", "body", "owner")
+        fields = ("id", "title", "body", "created_by", "is_request", "category")

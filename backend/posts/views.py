@@ -8,8 +8,13 @@ from .serializers import PostSerializer
 
 
 class PostViewSet(viewsets.ModelViewSet):
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
 
 
 # class PostList(generics.ListCreateAPIView):
