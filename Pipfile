@@ -8,6 +8,8 @@ django = "*"
 djangorestframework = "*"
 django-rest-knox = "*"
 gunicorn = "*"
+psycopg2 = "==2.7.5"
+django-heroku = "*"
 
 [dev-packages]
 black = "*"
