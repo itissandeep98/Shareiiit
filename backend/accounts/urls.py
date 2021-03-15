@@ -5,8 +5,8 @@ from . import views
 
 
 urlpatterns = [
-    path("users/", views.UserCreate.as_view()),
-    path("users/list", views.UserList.as_view()),
-    path("login/", views.LoginView.as_view())
+    path("users/", views.UserList.as_view()),
+    path("api-auth/", include("rest_framework.urls")),
+    # path("login/", views.LoginView.as_view())
     # path("users/<int:pk>/", views.UserDetail.as_view()),
 ]

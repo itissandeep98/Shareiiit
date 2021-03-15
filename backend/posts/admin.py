@@ -4,6 +4,8 @@ from .models import *
 # Register your models here.
 
 admin.site.register(Post)
+admin.site.register(Book)
+admin.site.register(Group)
 admin.site.register(Category)
 admin.site.register(Choice)
 admin.site.register(Vote)

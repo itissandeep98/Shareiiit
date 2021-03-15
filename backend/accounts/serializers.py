@@ -5,7 +5,8 @@ from posts.models import Post
 from rest_framework.authtoken.models import Token
 
 # User Serializer
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    # posts = serializers.HyperlinkedRelatedField(many=True, view-name="posts", read_only=True)
     posts = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:

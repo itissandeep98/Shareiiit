@@ -44,15 +44,15 @@ class Vote(models.Model):
         )
 
 
-# class Book(models.Model):
-#     post = models.OneToOneField(Post, on_delete=models.CASCADE)
-#     author = models.CharField(max_length=100)
+class Book(models.Model):
+    post = models.OneToOneField(Post, on_delete=models.CASCADE)
+    author = models.CharField(max_length=100)
 
 
 # class Item(models.Model):
 #     post = models.OneToOneField(Post, on_delete=models.CASCADE)
 
 
-# class Group(models.Model):
-#     post = models.OneToOneField(Post, on_delete=models.CASCADE)
-#     members_needed = models.IntegerField()
+class Group(models.Model):
+    post = models.OneToOneField(Post, on_delete=models.CASCADE)
+    members_needed = models.IntegerField()
