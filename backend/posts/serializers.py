@@ -27,25 +27,29 @@ class PostSerializer(serializers.ModelSerializer):
 
 
 class BookPostSerializer(PostSerializer):
-    book = BookSerializer()
+    book = BookSerializer(required=False)
 
     class Meta:
         model = PostSerializer.Meta.model
         fields = PostSerializer.Meta.fields + ("book",)
 
     def create(self, validated_data):
-        book_data = validated_data.pop("book")
+        if "book" in validated_data:
+            book_data = validated_data.pop("book")
+        else:
+            book_data = {}
+
         validated_data["category"] = Category.objects.get(pk=1)
         post = Post.objects.create(**validated_data)
         book_instance = Book.objects.create(post=post, **book_data)
         return post
 
     def update(self, instance, validated_data):
-        book_data = validated_data.pop("book")
-        print(book_data)
-        book_instance = Book.objects.get(post__id=instance.id)
+        if "book" in validated_data:
+            book_data = validated_data.pop("book")
+            book_instance = Book.objects.get(post__id=instance.id)
+            BookSerializer().update(book_instance, book_data)
 
-        BookSerializer().update(book_instance, book_data)
         # book_instance.author = book_data.get("author", book_instance.author)
         # book_instance.save()
 
@@ -54,25 +58,29 @@ class BookPostSerializer(PostSerializer):
 
 
 class GroupPostSerializer(PostSerializer):
-    group = GroupSerializer()
+    group = GroupSerializer(required=False)
 
     class Meta:
         model = PostSerializer.Meta.model
         fields = PostSerializer.Meta.fields + ("group",)
 
     def create(self, validated_data):
-        group_data = validated_data.pop("group")
+        if "group" in validated_data:
+            group_data = validated_data.pop("group")
+        else:
+            group_data = {}
+
         validated_data["category"] = Category.objects.get(pk=3)
         post = Post.objects.create(**validated_data)
         group = Group.objects.create(post=post, **group_data)
         return post
 
     def update(self, instance, validated_data):
-        group_data = validated_data.pop("group")
-        print(group_data)
-        group_instance = Group.objects.get(post__id=instance.id)
+        if "group" in validated_data:
+            group_data = validated_data.pop("group")
+            group_instance = Group.objects.get(post__id=instance.id)
+            GroupSerializer().update(group_instance, group_data)
 
-        GroupSerializer().update(group_instance, group_data)
         # group_instance.author = book_data.get("author", group_instance.author)
         # group_instance.save()
 
