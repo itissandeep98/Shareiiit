@@ -18,7 +18,7 @@ jobs:
         run: |
           cd frontend
           npm i
-          git config user.name "itissandeep98"
-          git config user.email "itissandeep98@gmail.com"
-          git remote set-url origin https://itissandeep98:${{secrets.ACCESS_TOKEN}}@github.com/gupta-anmol/resource-sharing-app
+          git config user.name "gupta-anmol"
+          git config user.email "anmolgupta1311@gmail.com"
+          git remote set-url origin https://gupta-anmol:${{secrets.ACCESS_TOKEN}}@github.com/gupta-anmol/resource-sharing-app
           npm run deploy
