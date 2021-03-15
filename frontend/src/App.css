@@ -1,0 +1,38 @@
+html,
+body {
+  height: 100%;
+}
+
+.navbar-dark {
+  background-color: #3fada8;
+}
+
+.App {
+  min-height: 100vh;
+  /* background-color: #e9eaeb; */
+  font-family: noto-sans;
+}
+
+.rounded_lg {
+  border-radius: 20px;
+}
+
+.bg-gradient {
+  background: #47a06e;
+  background: -moz-linear-gradient(
+    268deg,
+    rgba(71, 160, 110, 1) 0,
+    rgba(59, 124, 180, 1) 100%
+  );
+  background: -webkit-linear-gradient(
+    268deg,
+    rgba(71, 160, 110, 1) 0,
+    rgba(59, 124, 180, 1) 100%
+  );
+  background: linear-gradient(268deg, #47a06e, #3b7cb4);
+  background-size: 400% 400%;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#47a06e", endColorstr="#3b7cb4", GradientType=1);
+  -webkit-animation: gradient 15s ease infinite;
+  -moz-animation: gradient 15s ease infinite;
+  animation: gradient 15s ease infinite;
+}
