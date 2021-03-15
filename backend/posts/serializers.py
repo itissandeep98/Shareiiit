@@ -6,13 +6,13 @@ from .models import Post, Book, Group, Category
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
-        fields = ("id", "author")
+        fields = ("author",)
 
 
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
-        fields = ("id", "members_needed")
+        fields = ("members_needed",)
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -37,15 +37,20 @@ class BookPostSerializer(PostSerializer):
         book_data = validated_data.pop("book")
         validated_data["category"] = Category.objects.get(pk=1)
         post = Post.objects.create(**validated_data)
-        book = Book.objects.create(post=post, **book_data)
+        book_instance = Book.objects.create(post=post, **book_data)
         return post
 
-    # def update(self, instance, validated_data):
-    #     book_data = validated_data.pop("book")
-    #     book =
-    #     post =
-    #     book = Book.objects.create(post=post, **book_data)
-    #     return post
+    def update(self, instance, validated_data):
+        book_data = validated_data.pop("book")
+        print(book_data)
+        book_instance = Book.objects.get(post__id=instance.id)
+
+        BookSerializer().update(book_instance, book_data)
+        # book_instance.author = book_data.get("author", book_instance.author)
+        # book_instance.save()
+
+        instance = super().update(instance, validated_data)
+        return instance
 
 
 class GroupPostSerializer(PostSerializer):
@@ -61,6 +66,18 @@ class GroupPostSerializer(PostSerializer):
         post = Post.objects.create(**validated_data)
         group = Group.objects.create(post=post, **group_data)
         return post
+
+    def update(self, instance, validated_data):
+        group_data = validated_data.pop("group")
+        print(group_data)
+        group_instance = Group.objects.get(post__id=instance.id)
+
+        GroupSerializer().update(group_instance, group_data)
+        # group_instance.author = book_data.get("author", group_instance.author)
+        # group_instance.save()
+
+        instance = super().update(instance, validated_data)
+        return instance
 
 
 class CategorySerializer(serializers.ModelSerializer):
