@@ -1,1 +1,1 @@
-web: cd backend && gunicorn backend.wsgi --log-file -
+web: gunicorn --chdir backend backend.wsgi --log-file -
