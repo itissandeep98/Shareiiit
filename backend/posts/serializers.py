@@ -1,6 +1,7 @@
 from django.db.models import fields
 from rest_framework import serializers
-from .models import Post, Book, Group, Category
+from rest_framework.validators import UniqueTogetherValidator
+from .models import Post, Book, Group, Category, Vote
 
 
 class BookSerializer(serializers.ModelSerializer):
@@ -13,6 +14,32 @@ class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
         fields = ("members_needed",)
+
+
+class VoteSerializer(serializers.ModelSerializer):
+    voted_by = serializers.CharField(source="voted_by.username", read_only=True)
+
+    class Meta:
+        model = Vote
+        fields = ("id", "voted_by", "post", "choice")
+
+    # def validate(self, attrs):
+    #     voted_by = attrs.get("voted_by", self.instance.voted_by)
+    #     post = attrs.get("post", self.instance.post)
+
+    #     try:
+    #         obj = Vote.objects.get(voted_by=voted_by, post=post)
+    #     except:
+    #         pass
+
+    #     if self.instance and obj.id == self.instance.id:
+    #         return attrs
+    #     else:
+    #         raise serializers.ValidationError("voted_by with post already exists")
+
+    # def create(self, validated_data):
+
+    #     Vote.objects.create(**validated_data)
 
 
 class PostSerializer(serializers.ModelSerializer):
@@ -28,10 +55,11 @@ class PostSerializer(serializers.ModelSerializer):
 
 class BookPostSerializer(PostSerializer):
     book = BookSerializer(required=False)
+    votes = VoteSerializer(read_only=True, many=True)
 
     class Meta:
         model = PostSerializer.Meta.model
-        fields = PostSerializer.Meta.fields + ("book",)
+        fields = PostSerializer.Meta.fields + ("book", "votes")
 
     def create(self, validated_data):
         if "book" in validated_data:

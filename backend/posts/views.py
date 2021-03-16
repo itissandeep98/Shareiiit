@@ -1,14 +1,15 @@
 from django.shortcuts import get_object_or_404
-from rest_framework import generics, permissions, viewsets
+from rest_framework import generics, permissions, viewsets, serializers
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import Post, Category
+from .models import Post, Category, Vote
 from .permissions import IsOwnerOrReadOnly
 from .serializers import (
     PostSerializer,
     CategorySerializer,
     BookPostSerializer,
     GroupPostSerializer,
+    VoteSerializer,
 )
 
 # Create your views here.
@@ -46,6 +47,23 @@ class GroupViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Post.objects.filter(category=3)
+
+
+class VoteViewSet(viewsets.ModelViewSet):
+    serializer_class = VoteSerializer
+    queryset = Vote.objects.all()
+
+    def perform_create(self, serializer):
+        print(self.request.data)
+        try:
+            serializer.save(voted_by=self.request.user)
+        except:
+            raise serializers.ValidationError("voted_by with post already exists")
+
+
+# class VoteUpdateView(generics.UpdateAPIView):
+#     serializer_class = VoteSerializer
+#     queryset = Vote.objects.all()
 
 
 class CategoryList(generics.ListAPIView):
