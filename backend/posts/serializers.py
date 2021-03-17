@@ -31,7 +31,7 @@ class VoteSerializer(serializers.ModelSerializer):
         post = data.get("post", None)
 
         try:
-            obj = self.Meta.model.objects.filter(voted_by=voted_by, post=post)
+            obj = self.Meta.model.objects.get(voted_by=voted_by, post=post)
         except self.Meta.model.DoesNotExist:
             return data
 
