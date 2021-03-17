@@ -25,16 +25,30 @@ class PostViewSet(viewsets.ReadOnlyModelViewSet):
         serializer.save(created_by=self.request.user)
 
 
-class BookViewSet(viewsets.ModelViewSet):
+class BookViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = BookPostSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    # permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+
+    # def perform_create(self, serializer):
+    #     print(self.request)
+    #     serializer.save(created_by=self.request.user)
+
+    def get_queryset(self):
+        return Post.objects.filter(category=1)
+
+
+class MyBooksViewSet(viewsets.ModelViewSet):
+    serializer_class = BookPostSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
         print(self.request)
         serializer.save(created_by=self.request.user)
 
     def get_queryset(self):
-        return Post.objects.filter(category=1)
+        posts = Post.objects.filter(created_by__id=self.request.user.id, category=1)
+        print(posts)
+        return posts
 
 
 class GroupViewSet(viewsets.ModelViewSet):

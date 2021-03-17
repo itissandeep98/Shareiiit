@@ -2,12 +2,15 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from posts.models import Post
+
+# from posts.serializers import BookPostSerializer
 from rest_framework.authtoken.models import Token
 
 # User Serializer
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     # posts = serializers.HyperlinkedRelatedField(many=True, view-name="posts", read_only=True)
-    posts = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    # posts = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    # posts = BookPostSerializer(read_only=True, many=True)
 
     class Meta:
         model = User
