@@ -23,6 +23,20 @@ class VoteSerializer(serializers.ModelSerializer):
         model = Vote
         fields = ("id", "voted_by", "post", "choice")
 
+    def validate(self, data):
+        voted_by = data.get("voted_by", None)
+        post = data.get("post", None)
+
+        try:
+            obj = self.Meta.model.objects.get(voted_by=voted_by, post=post)
+        except self.Meta.model.DoesNotExist:
+            return data
+
+        if self.instance and obj.id == self.instance.id:
+            return data
+        else:
+            raise serializers.ValidationError("voted_by with post already exists")
+
     # def validate(self, attrs):
     #     voted_by = attrs.get("voted_by", self.instance.voted_by)
     #     post = attrs.get("post", self.instance.post)

@@ -55,10 +55,10 @@ class VoteViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         print(self.request.data)
-        try:
-            serializer.save(voted_by=self.request.user)
-        except:
-            raise serializers.ValidationError("voted_by with post already exists")
+        # try:
+        serializer.save(voted_by=self.request.user)
+        # except:
+        # raise serializers.ValidationError("voted_by with post already exists")
 
 
 # class VoteUpdateView(generics.UpdateAPIView):
