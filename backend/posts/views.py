@@ -54,7 +54,6 @@ class VoteViewSet(viewsets.ModelViewSet):
     queryset = Vote.objects.all()
 
     def perform_create(self, serializer):
-        print(self.request.data)
         # try:
         serializer.save(voted_by=self.request.user)
         # except:
