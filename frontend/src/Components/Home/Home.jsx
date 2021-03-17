@@ -1,25 +1,26 @@
 import { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import {
-  Col,
-  Container,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-  Row,
-  UncontrolledDropdown,
-} from "reactstrap";
+import { Col, Container, Row, Spinner } from "reactstrap";
 import { Dropdown, Icon, Search } from "semantic-ui-react";
 import { logoutAction } from "../../store/ActionCreators/auth";
 import { fetchBooks } from "../../store/ActionCreators/books";
+import { fetchGroups } from "../../store/ActionCreators/groups";
 import PostCards from "../Posts/PostCards";
 
 function Home(props) {
   const dispatch = useDispatch();
   const [category, setCategory] = useState("All");
-  useEffect(() => {
-    dispatch(fetchBooks());
-  }, [dispatch]);
+  const [cards, setCards] = useState([]);
+  const changeCategory = (cat) => {
+    setCategory(cat);
+    if (cat === "Books") {
+      dispatch(fetchBooks());
+      setCards(props.books);
+    } else if (cat === "Groups") {
+      dispatch(fetchGroups());
+      setCards(props.groups);
+    }
+  };
 
   return (
     <Container>
@@ -34,17 +35,19 @@ function Home(props) {
         simple
       >
         <Dropdown.Menu>
-          <Dropdown.Item onClick={() => setCategory("All")}>All</Dropdown.Item>
-          <Dropdown.Item onClick={() => setCategory("Books")}>
+          <Dropdown.Item onClick={() => changeCategory("All")}>
+            All
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => changeCategory("Books")}>
             Books
           </Dropdown.Item>
-          <Dropdown.Item onClick={() => setCategory("Electronics")}>
+          <Dropdown.Item onClick={() => changeCategory("Electronics")}>
             Electronic Items
           </Dropdown.Item>
-          <Dropdown.Item onClick={() => setCategory("Groups")}>
+          <Dropdown.Item onClick={() => changeCategory("Groups")}>
             Groups
           </Dropdown.Item>
-          <Dropdown.Item onClick={() => setCategory("Other")}>
+          <Dropdown.Item onClick={() => changeCategory("Other")}>
             Other
           </Dropdown.Item>
         </Dropdown.Menu>
@@ -60,11 +63,20 @@ function Home(props) {
       />
       <br />
       <Row className="justify-content-center">
-        {props.books?.books?.map((book) => (
-          <Col xs={4}>
-            <PostCards {...book} />
-          </Col>
-        ))}
+        {cards.isLoading && (
+          <p className="text-muted">
+            <Spinner /> Fetching new data
+          </p>
+        )}
+        {cards?.data ? (
+          cards.data?.map((book) => (
+            <Col xs={4}>
+              <PostCards {...book} />
+            </Col>
+          ))
+        ) : (
+          <p className="text-muted"> No Posts yet</p>
+        )}
       </Row>
     </Container>
   );
@@ -72,11 +84,8 @@ function Home(props) {
 
 const mapStateToProps = (state) => ({
   user: state.auth.user,
+  groups: state.groups,
   books: state.books,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  logout: () => dispatch(logoutAction()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps)(Home);

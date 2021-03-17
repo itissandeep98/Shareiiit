@@ -14,7 +14,7 @@ function PostCards(props) {
   return (
     <Card fluid>
       <Card.Content header={title} />
-      <Card.Content extra>{book.author}</Card.Content>
+      <Card.Content extra>{book?.author}</Card.Content>
 
       <Card.Content className="text-justify">{body}</Card.Content>
       <Card.Content extra>
