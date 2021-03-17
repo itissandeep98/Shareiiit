@@ -1,50 +1,79 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import { Col, Container, Row } from "reactstrap";
+import {
+  Col,
+  Container,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Row,
+  UncontrolledDropdown,
+} from "reactstrap";
+import { Dropdown, Icon, Search } from "semantic-ui-react";
 import { logoutAction } from "../../store/ActionCreators/auth";
 import { fetchBooks } from "../../store/ActionCreators/books";
 import PostCards from "../Posts/PostCards";
 
 function Home(props) {
   const dispatch = useDispatch();
+  const [category, setCategory] = useState("All");
   useEffect(() => {
     dispatch(fetchBooks());
   }, [dispatch]);
 
   return (
-    <Container fluid className="d-flex h-100 flex-column">
-      <Row className="h-100  p-3 ">
-        <Col xs={12} md={6} lg={4} className="h-100">
-          <Col className=" bg-white rounded_lg h-100 shadow py-3">
-            <h1>Books</h1>
-            <hr />
-            <PostCards />
+    <Container>
+      <br />
+
+      <Dropdown
+        item
+        direction="right"
+        icon={<Icon name="chevron down" />}
+        text={category}
+        className="border p-2 rounded_lg shadow"
+        simple
+      >
+        <Dropdown.Menu>
+          <Dropdown.Item onClick={() => setCategory("All")}>All</Dropdown.Item>
+          <Dropdown.Item onClick={() => setCategory("Books")}>
+            Books
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => setCategory("Electronics")}>
+            Electronic Items
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => setCategory("Groups")}>
+            Groups
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => setCategory("Other")}>
+            Other
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+
+      <h2 className="shadow text-center p-3 bg-light rounded_lg">{category}</h2>
+      <Search
+        category
+        placeholder="Search for some post"
+        maxLength={50}
+        size="small"
+        input={{ fluid: true }}
+      />
+      <br />
+      <Row className="justify-content-center">
+        {props.books?.books?.map((book) => (
+          <Col xs={4}>
+            <PostCards {...book} />
           </Col>
-        </Col>
-        <Col md={6} lg={4} className="d-none d-md-block ">
-          <Col className=" bg-white rounded_lg h-100 shadow py-3">
-            <h1>Electronic Items</h1>
-            <hr />
-            <PostCards />
-          </Col>
-        </Col>
-        <Col lg={4} className="d-none d-lg-block ">
-          <Col className=" bg-white rounded_lg h-100 shadow py-3">
-            <h1>Groups</h1>
-            <hr />
-            <PostCards />
-          </Col>
-        </Col>
+        ))}
       </Row>
     </Container>
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    user: state.auth.user,
-  };
-};
+const mapStateToProps = (state) => ({
+  user: state.auth.user,
+  books: state.books,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   logout: () => dispatch(logoutAction()),

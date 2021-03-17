@@ -1,16 +1,25 @@
 import { Button, Card, Icon } from "semantic-ui-react";
 
-function PostCards() {
+function PostCards(props) {
+  const {
+    id,
+    body,
+    book,
+    category,
+    created_by,
+    is_request,
+    title,
+    votes,
+  } = props;
   return (
     <Card fluid>
-      <Card.Content header="Does anyone have X" />
-      <Card.Content className="text-justify">
-        Lorem ipsum dolor sit amet, consectetur commodo consequat. cupidatat non
-        proident, sunt in culpa qui officia deserunttat non proident, sunt in
-        culpa qui officia deserunt mollit anim id est laborum.
-      </Card.Content>
+      <Card.Content header={title} />
+      <Card.Content extra>{book.author}</Card.Content>
+
+      <Card.Content className="text-justify">{body}</Card.Content>
       <Card.Content extra>
-        <Icon name="user" />4 People need this
+        <Icon name="user" />
+        {votes?.length} People Reacted to this post
       </Card.Content>
       <Card.Content extra>
         <div className="ui three buttons">
@@ -25,6 +34,7 @@ function PostCards() {
           </Button>
         </div>
       </Card.Content>
+      <Card.Content>{created_by}</Card.Content>
     </Card>
   );
 }
