@@ -74,7 +74,7 @@ class BookPostSerializer(PostSerializer):
 
     class Meta:
         model = PostSerializer.Meta.model
-        fields = PostSerializer.Meta.fields + ("book", "user_vote", "votes")
+        fields = PostSerializer.Meta.fields + ("book", "current_user_vote_id", "votes")
 
     def get_current_user_vote_id(self, obj):
         try:
