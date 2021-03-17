@@ -70,10 +70,20 @@ class PostSerializer(serializers.ModelSerializer):
 class BookPostSerializer(PostSerializer):
     book = BookSerializer(required=False)
     votes = VoteSerializer(read_only=True, many=True)
+    current_user_vote_id = serializers.SerializerMethodField()
 
     class Meta:
         model = PostSerializer.Meta.model
-        fields = PostSerializer.Meta.fields + ("book", "votes")
+        fields = PostSerializer.Meta.fields + ("book", "user_vote", "votes")
+
+    def get_current_user_vote_id(self, obj):
+        try:
+            id = Vote.objects.get(
+                post__id=obj.id, voted_by=self.context["request"].user
+            ).id
+        except:
+            id = None
+        return id
 
     def create(self, validated_data):
         if "book" in validated_data:
