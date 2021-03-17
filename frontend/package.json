@@ -1,6 +1,6 @@
 {
   "homepage": "http://gupta-anmol.github.io/resource-sharing-app/",
-  "name": "front-end",
+  "name": "resource-sharing-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

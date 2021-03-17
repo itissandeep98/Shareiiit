@@ -1,36 +1,46 @@
+import axios from "axios";
 import * as ActionTypes from "../ActionTypes";
-import fire, { provider } from "../../config/fire";
+import { apiUrl } from "../Urls";
 
-export const loginAction = () => {
-  return (dispatch) => {
+export const loginAction = (data) => {
+  return async (dispatch) => {
     dispatch({ type: ActionTypes.LOGIN_REQUEST });
-
-    return fire
-      .auth()
-      .signInWithPopup(provider)
-      .then((result) => {
-        var user = result.user;
-        // console.log(user);
-        const custom_user = {
-          name: user.displayName,
-          email: user.email,
-          photo: user.photoURL,
-          uid: user.uid,
-        };
-        dispatch({ type: ActionTypes.LOGIN_SUCCESS, user: custom_user });
+    return await axios
+      .post(`${apiUrl}/login/`, data)
+      .then((response) => {
+        if (response.data.key) {
+          dispatch({
+            type: ActionTypes.LOGIN_SUCCESS,
+            key: response.data.key,
+          });
+        } else
+          dispatch({
+            type: ActionTypes.LOGIN_FAILED,
+            errmess: "Login failed",
+          });
       })
       .catch((error) => {
-        // console.log(error);
-        dispatch({ type: ActionTypes.LOGIN_FAILED, errmess: error.message });
+        dispatch({
+          type: ActionTypes.LOGIN_FAILED,
+          errmess: "Error in connection with Server",
+        });
       });
   };
 };
 
 export const logoutAction = () => {
-  return (dispatch) => {
-    return fire
-      .auth()
-      .signOut()
-      .then((res) => dispatch({ type: ActionTypes.LOGOUT_SUCESS }));
+  return async (dispatch) => {
+    dispatch({ type: ActionTypes.LOGOUT_REQUEST });
+    return await axios
+      .post(`${apiUrl}/logout/`, {})
+      .then((response) => {
+        dispatch({ type: ActionTypes.LOGOUT_SUCCESS });
+      })
+      .catch((error) => {
+        dispatch({
+          type: ActionTypes.LOGOUT_FAILED,
+          errmess: "Error in connection with Server",
+        });
+      });
   };
 };

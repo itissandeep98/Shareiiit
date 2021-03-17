@@ -1,9 +1,16 @@
-import { connect } from "react-redux";
+import { useEffect } from "react";
+import { connect, useDispatch } from "react-redux";
 import { Col, Container, Row } from "reactstrap";
 import { logoutAction } from "../../store/ActionCreators/auth";
+import { fetchBooks } from "../../store/ActionCreators/books";
 import PostCards from "../Posts/PostCards";
 
 function Home(props) {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchBooks());
+  }, [dispatch]);
+
   return (
     <Container fluid className="d-flex h-100 flex-column">
       <Row className="h-100  p-3 ">

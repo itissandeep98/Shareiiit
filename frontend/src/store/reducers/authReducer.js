@@ -1,8 +1,8 @@
+import { setAuthToken, removeAuthToken } from "../../Components/checkAuth";
 import * as ActionTypes from "../ActionTypes";
 
 const initState = {
   isLoading: false,
-  user: {},
 };
 
 export const authReducer = (state = initState, action) => {
@@ -11,13 +11,16 @@ export const authReducer = (state = initState, action) => {
       return { ...state, errmess: null, isLoading: true };
 
     case ActionTypes.LOGIN_SUCCESS:
-      return { ...state, errmess: null, user: action.user, isLoading: false };
+      setAuthToken(action.key);
+      return { ...state, errmess: null, key: action.key, isLoading: false };
 
     case ActionTypes.LOGIN_FAILED:
-      return { ...state, errmess: action.errmess, user: {}, isLoading: false };
+      removeAuthToken();
+      return { ...state, errmess: action.errmess, key: null, isLoading: false };
 
-    case ActionTypes.LOGOUT_SUCESS:
-      return { ...state, errmess: null, user: {}, isLoading: false };
+    case ActionTypes.LOGOUT_SUCCESS:
+      removeAuthToken();
+      return { ...state, errmess: null, key: null, isLoading: false };
 
     default:
       return state;
