@@ -20,7 +20,6 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
             "last_name",
             "username",
             "password",
-            "posts",
         )
         extra_kwargs = {"password": {"write_only": True}}
 
