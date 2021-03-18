@@ -19,7 +19,7 @@ export const fetchGroups = () => {
         });
       })
       .catch((error) => {
-        console.log(error);
+        console.log(error.response);
         dispatch({
           type: ActionTypes.GROUPS_FETCH_FAILED,
           errmess: "Error in connection with Server",
