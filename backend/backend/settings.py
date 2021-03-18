@@ -63,7 +63,10 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-# CORS_ORIGIN_WHITELIST = ["http://localhost:3000"]
+CORS_ORIGIN_WHITELIST = (
+    "https://localhost:3000",
+    "https://gupta-anmol.github.io/resource-sharing-app",
+)
 
 ROOT_URLCONF = "backend.urls"
 
