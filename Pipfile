@@ -12,6 +12,7 @@ psycopg2 = "==2.7.5"
 django-heroku = "*"
 psycopg2-binary = "*"
 django-cors-headers = "*"
+mysqlclient = "*"
 
 [dev-packages]
 black = "*"
