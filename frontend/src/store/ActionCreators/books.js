@@ -13,16 +13,10 @@ export const fetchBooks = () => {
     return await axios
       .get(`${apiUrl}/books/`, headers)
       .then((response) => {
-        if (response.data) {
-          dispatch({
-            type: ActionTypes.BOOKS_FETCH_SUCCESS,
-            data: response.data,
-          });
-        } else
-          dispatch({
-            type: ActionTypes.BOOKS_FETCH_FAILED,
-            errmess: "Fetch failed",
-          });
+        dispatch({
+          type: ActionTypes.BOOKS_FETCH_SUCCESS,
+          data: response.data,
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -30,6 +24,34 @@ export const fetchBooks = () => {
           type: ActionTypes.BOOKS_FETCH_FAILED,
           errmess: "Error in connection with Server",
         });
+      });
+  };
+};
+
+export const createBookPost = (data) => {
+  return async (dispatch) => {
+    dispatch({ type: ActionTypes.BOOK_CREATE_REQUEST });
+    return await axios
+      .post(`${apiUrl}/books/`, data, headers)
+      .then((response) => {
+        dispatch({
+          type: ActionTypes.BOOK_CREATE_SUCCESS,
+          data: response.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error.response);
+        if (error?.response?.data?.detail) {
+          dispatch({
+            type: ActionTypes.BOOK_CREATE_FAILED,
+            errmess: error.response.data.detail,
+          });
+        } else {
+          dispatch({
+            type: ActionTypes.BOOK_CREATE_FAILED,
+            errmess: "Error in connection with Server",
+          });
+        }
       });
   };
 };

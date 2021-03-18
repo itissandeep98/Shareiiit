@@ -1,8 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import { Switch, Redirect, Route } from "react-router-dom";
-import { Col, Container, Row } from "reactstrap";
-// import PublicRoute from './PublicRoute';
-// import PrivateRoute from './PrivateRoute';
+import PublicRoute from "./PublicRoute";
+import PrivateRoute from "./PrivateRoute";
 import Loading from "../Loading";
 
 const Home = lazy(() => import("../Home/Home"));
@@ -11,42 +10,73 @@ const TopHeader = lazy(() => import("../Navigation/TopHeader"));
 const Create = lazy(() => import("../Posts/Create"));
 const AuthComp = lazy(() => import("../Authorization/AuthComp"));
 
+// private => Route requires authentication
+// layout => header should be visible or not
+// restricted => authenticated user cannot visit login type restriction
+
 function Routing() {
   const routes = [
     {
-      path: "/",
-      component: () => <Home />,
-    },
-    {
       path: "/home",
-      component: () => <Home />,
+      private: true,
+      layout: true,
+      render: () => <Home />,
     },
     {
       path: "/posts",
-      component: () => <Postings />,
+      private: true,
+      layout: true,
+      render: () => <Postings />,
     },
     {
       path: "/login",
-      component: () => <AuthComp />,
+      private: false,
+      restricted: true,
+      layout: false,
+      render: () => <AuthComp />,
     },
     {
       path: "/create",
-      component: () => <Create />,
+      private: true,
+      layout: true,
+      render: () => <Create />,
+    },
+    {
+      path: "/",
+      private: false,
+      restricted: true,
+      layout: false,
+      render: () => <AuthComp />,
     },
   ];
   return (
     <Suspense fallback={<Loading />}>
       <Switch>
-        {/* <PublicRoute exact path="/" component={() => <AuthComp />} />
-					<PrivateRoute exact path="/home" component={() => <Home />} /> */}
-
-        {routes.map((route, index) => (
-          <Route key={index} exact path={route.path}>
-            <Layout>
-              <route.component />
-            </Layout>
-          </Route>
-        ))}
+        {routes.map((route, index) =>
+          route.private ? (
+            <PrivateRoute
+              restricted={route.restricted}
+              key={index}
+              exact
+              path={route.path}
+            >
+              <Layout layout={route.layout}>
+                <route.render />
+              </Layout>
+            </PrivateRoute>
+          ) : (
+            <PublicRoute
+              restricted={route.restricted}
+              exact
+              path={route.path}
+              key={index}
+            >
+              <Layout layout={route.layout}>
+                <route.render />
+              </Layout>
+            </PublicRoute>
+          )
+        )}
         <Redirect to="/" />
       </Switch>
     </Suspense>
@@ -54,10 +84,10 @@ function Routing() {
 }
 
 function Layout(params) {
-  const { children, ...props } = params;
+  const { children, layout, ...props } = params;
   return (
     <>
-      <TopHeader />
+      {layout && <TopHeader />}
       {React.cloneElement(children, { ...props })}
     </>
   );
