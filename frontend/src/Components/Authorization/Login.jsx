@@ -14,7 +14,7 @@ function Login() {
       username: username,
       password: paswd,
     };
-    dispatch(loginAction(data));
+    dispatch(loginAction(data)).then((res) => window.location.reload());
   };
   return (
     <>

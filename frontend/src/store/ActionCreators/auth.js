@@ -10,7 +10,7 @@ export const loginAction = (data) => {
       .then((response) => {
         dispatch({
           type: ActionTypes.LOGIN_SUCCESS,
-          key: response.data.key,
+          key: response.data.token,
         });
       })
       .catch((error) => {
@@ -51,11 +51,11 @@ export const registerAction = (data) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.REGISTER_REQUEST });
     return await axios
-      .post(`${apiUrl}/register/`, data)
+      .post(`${apiUrl}/users/`, data)
       .then((response) => {
         dispatch({
           type: ActionTypes.REGISTER_SUCCESS,
-          key: response.data.key,
+          key: response.data,
         });
       })
       .catch((error) => {
