@@ -1,14 +1,10 @@
-import { Component } from "react";
-import { connect } from "react-redux";
 import { Col, Container, Row } from "reactstrap";
-import { Button, Icon, Image } from "semantic-ui-react";
-import { loginAction } from "../../store/ActionCreators/auth";
+import { Image } from "semantic-ui-react";
+import Login from "./Login";
+import Register from "./Register";
 
 function AuthComp(props) {
-  const login = () => {
-    props.login();
-  };
-
+  const { right } = props;
   return (
     <div
       className="align-items-center bg-gradient px-3 pt-5"
@@ -26,25 +22,15 @@ function AuthComp(props) {
           >
             <Image
               src={process.env.PUBLIC_URL + "/assets/login-image.svg"}
-              alt="stadaa"
+              alt="Resource sharing platform"
               size="large"
             />
           </Col>
           <Col className="align-items-center d-flex justify-content-center">
             <div className="w-100 text-center">
-              <h1 className="text-info display-1">Stadaa</h1>
-              <h1 className=" display-5">
-                Resource Sharing Platform for IIITD
-              </h1>
+              <h1 className="text-info display-4">Resource Sharing Platform</h1>
 
-              <Button
-                onClick={login}
-                className="bg-success rounded-pill text-white"
-                size="massive"
-                fluid
-              >
-                IIITD Google Login <Icon name="google" />
-              </Button>
+              {right === "login" ? <Login /> : <Register />}
             </div>
           </Col>
         </Row>
@@ -53,8 +39,4 @@ function AuthComp(props) {
   );
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  login: () => dispatch(loginAction()),
-});
-
-export default connect(null, mapDispatchToProps)(AuthComp);
+export default AuthComp;

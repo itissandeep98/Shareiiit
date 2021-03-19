@@ -8,22 +8,24 @@ export const loginAction = (data) => {
     return await axios
       .post(`${apiUrl}/login/`, data)
       .then((response) => {
-        if (response.data.key) {
-          dispatch({
-            type: ActionTypes.LOGIN_SUCCESS,
-            key: response.data.key,
-          });
-        } else
-          dispatch({
-            type: ActionTypes.LOGIN_FAILED,
-            errmess: "Login failed",
-          });
+        dispatch({
+          type: ActionTypes.LOGIN_SUCCESS,
+          key: response.data.token,
+        });
       })
       .catch((error) => {
-        dispatch({
-          type: ActionTypes.LOGIN_FAILED,
-          errmess: "Error in connection with Server",
-        });
+        console.log(error.response);
+        if (error?.response?.data?.error) {
+          dispatch({
+            type: ActionTypes.LOGIN_FAILED,
+            errmess: error?.response?.data?.error,
+          });
+        } else {
+          dispatch({
+            type: ActionTypes.LOGIN_FAILED,
+            errmess: "Error in connection with Server",
+          });
+        }
       });
   };
 };
@@ -41,6 +43,34 @@ export const logoutAction = () => {
           type: ActionTypes.LOGOUT_FAILED,
           errmess: "Error in connection with Server",
         });
+      });
+  };
+};
+
+export const registerAction = (data) => {
+  return async (dispatch) => {
+    dispatch({ type: ActionTypes.REGISTER_REQUEST });
+    return await axios
+      .post(`${apiUrl}/users/`, data)
+      .then((response) => {
+        dispatch({
+          type: ActionTypes.REGISTER_SUCCESS,
+          key: response.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error.response);
+        if (error?.response?.data?.error) {
+          dispatch({
+            type: ActionTypes.REGISTER_FAILED,
+            errmess: error?.response?.data?.error,
+          });
+        } else {
+          dispatch({
+            type: ActionTypes.REGISTER_FAILED,
+            errmess: "Error in connection with Server",
+          });
+        }
       });
   };
 };

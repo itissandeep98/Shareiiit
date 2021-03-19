@@ -1,5 +1,5 @@
-import { Component, useState } from "react";
-import { connect } from "react-redux";
+import { useState } from "react";
+import { connect, useDispatch } from "react-redux";
 import { NavLink, withRouter } from "react-router-dom";
 import {
   Col,
@@ -12,12 +12,18 @@ import {
   Row,
 } from "reactstrap";
 import "./style.css";
-import { Icon, Image } from "semantic-ui-react";
+import { Dropdown, Icon, Image } from "semantic-ui-react";
+import { logoutAction } from "../../store/ActionCreators/auth";
 
 function TopHeader() {
+  const dispatch = useDispatch();
   const [isNavOpen, setIsNavOpen] = useState(true);
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
+  };
+  const logout = (e) => {
+    e.preventDefault();
+    dispatch(logoutAction());
   };
   return (
     <>
@@ -53,7 +59,24 @@ function TopHeader() {
               </NavItem>
               <NavItem>
                 <NavLink className="nav-link" to="/profile">
-                  <span className="fa fa-user-circle fa-lg" /> Profile
+                  <Dropdown
+                    item
+                    direction="right"
+                    icon={<Icon name="user circle outline" size="large" />}
+                    text="Profile"
+                    simple
+                  >
+                    <Dropdown.Menu>
+                      <Dropdown.Item>
+                        <Icon name="cogs" />
+                        Settings
+                      </Dropdown.Item>
+                      <Dropdown.Item onClick={logout}>
+                        <Icon name="sign out" />
+                        Logout
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
                 </NavLink>
               </NavItem>
             </Nav>
