@@ -87,10 +87,4 @@ function TopHeader() {
   );
 }
 
-const mapDispatchToProps = () => ({});
-
-const mapStateToProps = () => ({});
-
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(TopHeader)
-);
+export default withRouter(TopHeader);

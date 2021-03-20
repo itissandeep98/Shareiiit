@@ -42,7 +42,7 @@ function Books() {
       <Form.Field required className="row">
         <label className="col-1">Description </label>
         <TextArea
-          fluid
+          fluid="true"
           className="col"
           value={body}
           onChange={(e) => setBody(e.target.value)}
