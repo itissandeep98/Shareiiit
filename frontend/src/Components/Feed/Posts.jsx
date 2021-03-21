@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import { Col, Row, Spinner } from "reactstrap";
+import { Col, Container, Row, Spinner } from "reactstrap";
 import { Search } from "semantic-ui-react";
 import { fetchBooks } from "../../store/ActionCreators/books";
 import { fetchGroups } from "../../store/ActionCreators/groups";
 import PostCards from "../Cards/PostCards";
-import CatDropdown from "../Home/CatDropdown";
+import CatDropdown from "./CatDropdown";
 
 function Posts(props) {
   const [cards, setCards] = useState([]);
@@ -32,38 +32,42 @@ function Posts(props) {
   }, [dispatch, category]);
 
   return (
-    <Col className="p-3 shadow bg-white rounded_lg">
-      <CatDropdown
-        category={category}
-        changeCategory={(cat) => setCategory(cat)}
-      />
+    <Container>
+      <Row>
+        <Col>
+          <CatDropdown
+            category={category}
+            changeCategory={(cat) => setCategory(cat)}
+          />
 
-      <br />
-      <Search
-        category
-        placeholder="Search for some post"
-        maxLength={50}
-        size="small"
-        input={{ fluid: true }}
-      />
-      <br />
-      {loading && (
-        <p className="text-muted text-center">
-          <Spinner /> Fetching new data
-        </p>
-      )}
-      <Row className="justify-content-center">
-        {cards?.data && cards?.data?.length > 0 ? (
-          cards.data?.map((book) => (
-            <Col md={6} lg={4} className="my-2">
-              <PostCards {...book} />
-            </Col>
-          ))
-        ) : (
-          <p className="text-muted"> No Posts yet</p>
-        )}
+          <br />
+          <Search
+            category
+            placeholder="Search for some post"
+            maxLength={50}
+            size="small"
+            input={{ fluid: true }}
+          />
+          <br />
+          {loading && (
+            <p className="text-muted text-center">
+              <Spinner /> Fetching new data
+            </p>
+          )}
+          <Row className="justify-content-center">
+            {cards?.data && cards?.data?.length > 0 ? (
+              cards.data?.map((book) => (
+                <Col md={6} lg={4} className="my-2">
+                  <PostCards {...book} />
+                </Col>
+              ))
+            ) : (
+              <p className="text-muted"> No Posts yet</p>
+            )}
+          </Row>
+        </Col>
       </Row>
-    </Col>
+    </Container>
   );
 }
 

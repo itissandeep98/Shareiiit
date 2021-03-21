@@ -1,13 +1,12 @@
 import React, { lazy, Suspense } from "react";
-import { Switch, Redirect, Route } from "react-router-dom";
+import { Switch, Redirect } from "react-router-dom";
 import PublicRoute from "./PublicRoute";
 import PrivateRoute from "./PrivateRoute";
 import Loading from "../Loading";
 
 const Home = lazy(() => import("../Home/Home"));
-const Postings = lazy(() => import("../Postings/Postings"));
+const Feed = lazy(() => import("../Feed/Feed"));
 const TopHeader = lazy(() => import("../Navigation/TopHeader"));
-const Create = lazy(() => import("../Posts/Create"));
 const AuthComp = lazy(() => import("../Authorization/AuthComp"));
 
 // private => Route requires authentication
@@ -23,10 +22,28 @@ function Routing() {
       render: () => <Home />,
     },
     {
-      path: "/posts",
+      path: "/feed",
       private: true,
       layout: true,
-      render: () => <Postings />,
+      render: () => <Feed active="feed" />,
+    },
+    {
+      path: "/create",
+      private: true,
+      layout: true,
+      render: () => <Feed active="create" />,
+    },
+    {
+      path: "/interest",
+      private: true,
+      layout: true,
+      render: () => <Feed active="interest" />,
+    },
+    {
+      path: "/postings",
+      private: true,
+      layout: true,
+      render: () => <Feed active="postings" />,
     },
     {
       path: "/login",
@@ -42,12 +59,7 @@ function Routing() {
       layout: false,
       render: () => <AuthComp right="register" />,
     },
-    {
-      path: "/create",
-      private: true,
-      layout: true,
-      render: () => <Create />,
-    },
+
     {
       path: "/",
       private: false,

@@ -12,6 +12,9 @@ body {
 .rounded_lg {
   border-radius: 20px;
 }
+.ui.segment {
+  box-shadow: none !important;
+}
 
 .bg-gradient {
   background: #47a06e;

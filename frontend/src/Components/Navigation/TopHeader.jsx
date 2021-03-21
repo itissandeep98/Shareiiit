@@ -48,13 +48,8 @@ function TopHeader() {
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink className="nav-link" to="/posts">
-                  My Posts
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink className="nav-link" to="/create">
-                  Create Post
+                <NavLink className="nav-link" to="/feed">
+                  Feed
                 </NavLink>
               </NavItem>
               <NavItem>
