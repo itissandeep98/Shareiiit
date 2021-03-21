@@ -17,7 +17,7 @@ function ProfileCard() {
     },
   ];
   return (
-    <Container className="border bg-white py-4 rounded_lg sticky-top mt-3">
+    <Container className="shadow bg-white py-4 rounded_lg sticky-top mt-3">
       <Row>
         <Col className="justify-content-center d-flex">
           <Image
