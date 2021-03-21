@@ -7,15 +7,18 @@ import "font-awesome/css/font-awesome.css";
 import "bootstrap-social/bootstrap-social.css";
 import "semantic-ui-css/semantic.min.css";
 import { Provider } from "react-redux";
-import { configureStore } from "./store/configureStore";
+import { configureStore, persistor } from "./store/configureStore";
+import { PersistGate } from "redux-persist/integration/react";
 
-const store = configureStore();
+const store = configureStore;
 
 ReactDOM.render(
   <Provider store={store}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <PersistGate loading={null} persistor={persistor}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </PersistGate>
   </Provider>,
   document.getElementById("root")
 );

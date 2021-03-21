@@ -11,15 +11,15 @@ export const authReducer = (state = initState, action) => {
       return { ...state, errmess: null, isLoading: true };
 
     case ActionTypes.LOGIN_SUCCESS:
-      setAuthToken(action.key);
+      // setAuthToken(action.key);
       return { ...state, errmess: null, key: action.key, isLoading: false };
 
     case ActionTypes.LOGIN_FAILED:
-      removeAuthToken();
+      // removeAuthToken();
       return { ...state, errmess: action.errmess, key: null, isLoading: false };
 
     case ActionTypes.LOGOUT_SUCCESS:
-      removeAuthToken();
+      // removeAuthToken();
       return { ...state, errmess: null, key: null, isLoading: false };
 
     default:

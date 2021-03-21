@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
-import { isLoggedIn } from "../checkAuth";
 
 const updateChildrenWithProps = (props, children) =>
   React.Children.map(children, (child, i) => {
@@ -16,7 +15,7 @@ const PrivateRouteComponent = (props) => {
     <Route
       {...props.routeProps}
       render={(renderProps) => {
-        if (!isLoggedIn()) {
+        if (!props.logged_in) {
           return (
             <Redirect
               to={{
