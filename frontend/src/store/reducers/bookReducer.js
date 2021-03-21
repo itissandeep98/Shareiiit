@@ -1,4 +1,4 @@
-import { setAuthToken, removeAuthToken } from "../../Components/checkAuth";
+import { removeAuthToken } from "../../Components/checkAuth";
 import * as ActionTypes from "../ActionTypes";
 
 const initState = {
@@ -11,11 +11,9 @@ export const bookReducer = (state = initState, action) => {
       return { ...state, errmess: null, isLoading: true };
 
     case ActionTypes.BOOKS_FETCH_SUCCESS:
-      setAuthToken(action.key);
       return { ...state, errmess: null, data: action.data, isLoading: false };
 
     case ActionTypes.BOOKS_FETCH_FAILED:
-      removeAuthToken();
       return {
         ...state,
         errmess: action.errmess,

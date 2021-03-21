@@ -1,4 +1,3 @@
-import { setAuthToken, removeAuthToken } from "../../Components/checkAuth";
 import * as ActionTypes from "../ActionTypes";
 
 const initState = {
@@ -11,11 +10,9 @@ export const groupReducer = (state = initState, action) => {
       return { ...state, errmess: null, isLoading: true };
 
     case ActionTypes.GROUPS_FETCH_SUCCESS:
-      setAuthToken(action.key);
       return { ...state, errmess: null, data: action.data, isLoading: false };
 
     case ActionTypes.GROUPS_FETCH_FAILED:
-      removeAuthToken();
       return {
         ...state,
         errmess: action.errmess,

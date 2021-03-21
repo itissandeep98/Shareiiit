@@ -1,37 +1,29 @@
-import { Table } from "semantic-ui-react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { Col, Container, Row } from "reactstrap";
+import { fetchMyBooks } from "../../../store/ActionCreators/books";
+import PostCards from "../../Posts/PostCards";
 
 function Books() {
+  const dispatch = useDispatch();
+  const [cards, setCards] = useState([]);
+  useEffect(() => {
+    dispatch(fetchMyBooks()).then((res) => setCards(res));
+  }, [dispatch]);
   return (
-    <Table celled>
-      <Table.Header>
-        <Table.Row className="text-center">
-          <Table.HeaderCell>Name</Table.HeaderCell>
-          <Table.HeaderCell>Author</Table.HeaderCell>
-          <Table.HeaderCell>Description</Table.HeaderCell>
-          <Table.HeaderCell>Responses</Table.HeaderCell>
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>
-        <Table.Row>
-          <Table.Cell>Cell</Table.Cell>
-          <Table.Cell>Cell</Table.Cell>
-          <Table.Cell>Cell</Table.Cell>
-          <Table.Cell>Cell</Table.Cell>
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell>Cell</Table.Cell>
-          <Table.Cell>Cell</Table.Cell>
-          <Table.Cell>Cell</Table.Cell>
-          <Table.Cell>Cell</Table.Cell>
-        </Table.Row>
-        <Table.Row>
-          <Table.Cell>Cell</Table.Cell>
-          <Table.Cell>Cell</Table.Cell>
-          <Table.Cell>Cell</Table.Cell>
-          <Table.Cell>Cell</Table.Cell>
-        </Table.Row>
-      </Table.Body>
-    </Table>
+    <Container fluid>
+      <Row className="justify-content-center">
+        {cards && cards.length > 0 ? (
+          cards.map((card) => (
+            <Col md={6} lg={4} className="my-2">
+              <PostCards {...card} />
+            </Col>
+          ))
+        ) : (
+          <p className="text-muted p-3">No Cards Here !!!</p>
+        )}
+      </Row>
+    </Container>
   );
 }
 

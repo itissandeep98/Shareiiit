@@ -12,7 +12,7 @@ function PostCards(props) {
     votes,
   } = props;
   return (
-    <Card fluid>
+    <Card fluid className=" h-100">
       <Card.Content header={title} />
       <Card.Content extra>{book?.author}</Card.Content>
 
@@ -24,10 +24,10 @@ function PostCards(props) {
       <Card.Content extra>
         <div className="ui three buttons">
           <Button basic color="green">
-            I can Help
+            Interested
           </Button>
           <Button basic color="green">
-            I need this
+            Upvote
           </Button>
           <Button basic color="red">
             Dismiss

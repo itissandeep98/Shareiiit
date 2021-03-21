@@ -23,7 +23,7 @@ function Home(props) {
   };
 
   return (
-    <Container>
+    <Container className="mb-4">
       <br />
 
       <Dropdown
@@ -70,7 +70,7 @@ function Home(props) {
         )}
         {cards?.data ? (
           cards.data?.map((book) => (
-            <Col xs={4}>
+            <Col md={6} lg={4} className="my-2">
               <PostCards {...book} />
             </Col>
           ))
