@@ -6,6 +6,8 @@ import { logoutAction } from "../../store/ActionCreators/auth";
 import { fetchBooks } from "../../store/ActionCreators/books";
 import { fetchGroups } from "../../store/ActionCreators/groups";
 import PostCards from "../Posts/PostCards";
+import CatDropdown from "./CatDropdown";
+import ProfileCard from "./ProfileCard";
 
 function Home(props) {
   const dispatch = useDispatch();
@@ -23,60 +25,41 @@ function Home(props) {
   };
 
   return (
-    <Container className="mb-4">
+    <Container fluid className="mb-4 bg-light h-100">
       <br />
+      <Row>
+        <Col xs={2}>
+          <ProfileCard />
+        </Col>
+        <Col>
+          <CatDropdown category={category} changeCategory={changeCategory} />
 
-      <Dropdown
-        item
-        direction="right"
-        icon={<Icon name="chevron down" />}
-        text={category}
-        className="border p-2 rounded_lg shadow"
-        simple
-      >
-        <Dropdown.Menu>
-          <Dropdown.Item onClick={() => changeCategory("All")}>
-            All
-          </Dropdown.Item>
-          <Dropdown.Item onClick={() => changeCategory("Books")}>
-            Books
-          </Dropdown.Item>
-          <Dropdown.Item onClick={() => changeCategory("Electronics")}>
-            Electronic Items
-          </Dropdown.Item>
-          <Dropdown.Item onClick={() => changeCategory("Groups")}>
-            Groups
-          </Dropdown.Item>
-          <Dropdown.Item onClick={() => changeCategory("Other")}>
-            Other
-          </Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
-
-      <h2 className="shadow text-center p-3 bg-light rounded_lg">{category}</h2>
-      <Search
-        category
-        placeholder="Search for some post"
-        maxLength={50}
-        size="small"
-        input={{ fluid: true }}
-      />
-      <br />
-      <Row className="justify-content-center">
-        {cards.isLoading && (
-          <p className="text-muted">
-            <Spinner /> Fetching new data
-          </p>
-        )}
-        {cards?.data ? (
-          cards.data?.map((book) => (
-            <Col md={6} lg={4} className="my-2">
-              <PostCards {...book} />
-            </Col>
-          ))
-        ) : (
-          <p className="text-muted"> No Posts yet</p>
-        )}
+          <br />
+          <Search
+            category
+            placeholder="Search for some post"
+            maxLength={50}
+            size="small"
+            input={{ fluid: true }}
+          />
+          <br />
+          <Row className="justify-content-center">
+            {cards.isLoading && (
+              <p className="text-muted">
+                <Spinner /> Fetching new data
+              </p>
+            )}
+            {cards?.data ? (
+              cards.data?.map((book) => (
+                <Col md={6} lg={4} className="my-2">
+                  <PostCards {...book} />
+                </Col>
+              ))
+            ) : (
+              <p className="text-muted"> No Posts yet</p>
+            )}
+          </Row>
+        </Col>
       </Row>
     </Container>
   );

@@ -30,9 +30,7 @@ const PrivateRouteComponent = (props) => {
           return props.render({ match: props.computedMatch });
         }
 
-        return (
-          <div>{updateChildrenWithProps(renderProps, props.children)}</div>
-        );
+        return <>{updateChildrenWithProps(renderProps, props.children)}</>;
       }}
     />
   );
