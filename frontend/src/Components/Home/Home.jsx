@@ -1,27 +1,32 @@
-import { useState } from "react";
 import { Col, Container, Row } from "reactstrap";
 import Posts from "../Posts/Posts";
-import CatDropdown from "./CatDropdown";
-import ProfileCard from "./ProfileCard";
+import SummaryCard from "../Cards/SummaryCard";
+import ProfileCard from "../Cards/ProfileCard";
 
 function Home(props) {
-  const [category, setCategory] = useState("All");
-
   return (
-    <Container fluid className="p-4 bg-light h-100">
+    <Container fluid className="p-3 bg-light h-100">
       <br />
-      <Row>
+      <Row className="d-flex justify-content-center h-100 ">
         <Col xs={2}>
           <ProfileCard />
         </Col>
-        <Col>
-          <CatDropdown
-            category={category}
-            changeCategory={(cat) => setCategory(cat)}
+        <Col xs={3}>
+          <SummaryCard
+            image={process.env.PUBLIC_URL + "/assets/images/book.png"}
+            title="Most Active Category"
           />
-
-          <br />
-          <Posts cat={category} key="posts" />
+        </Col>
+        <Col xs={3}>
+          <SummaryCard
+            image={process.env.PUBLIC_URL + "/assets/images/book.png"}
+            title="Recent Activity"
+          />
+        </Col>
+      </Row>
+      <Row className="mt-5">
+        <Col>
+          <Posts />
         </Col>
       </Row>
     </Container>

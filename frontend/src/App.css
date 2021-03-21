@@ -3,10 +3,6 @@ body {
   height: 100%;
 }
 
-.navbar-dark {
-  background-color: #3fada8;
-}
-
 .App {
   min-height: 100vh;
   /* background-color: #e9eaeb; */

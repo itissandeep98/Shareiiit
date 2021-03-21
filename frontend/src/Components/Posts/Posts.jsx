@@ -4,22 +4,23 @@ import { Col, Row, Spinner } from "reactstrap";
 import { Search } from "semantic-ui-react";
 import { fetchBooks } from "../../store/ActionCreators/books";
 import { fetchGroups } from "../../store/ActionCreators/groups";
-import PostCards from "./PostCards";
+import PostCards from "../Cards/PostCards";
+import CatDropdown from "../Home/CatDropdown";
 
 function Posts(props) {
-  const { cat } = props;
   const [cards, setCards] = useState([]);
+  const [category, setCategory] = useState("All");
+
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log(cat);
     setLoading(true);
-    if (cat === "Books") {
+    if (category === "Books") {
       dispatch(fetchBooks()).then((res) => {
         setCards(props.books);
         setLoading(false);
       });
-    } else if (cat === "Groups") {
+    } else if (category === "Groups") {
       dispatch(fetchGroups()).then((res) => {
         setCards(props.groups);
         setLoading(false);
@@ -28,10 +29,16 @@ function Posts(props) {
       setCards({});
       setLoading(false);
     }
-  }, [dispatch, props.cat]);
+  }, [dispatch, category]);
 
   return (
-    <>
+    <Col className="p-3 shadow bg-white rounded_lg">
+      <CatDropdown
+        category={category}
+        changeCategory={(cat) => setCategory(cat)}
+      />
+
+      <br />
       <Search
         category
         placeholder="Search for some post"
@@ -56,7 +63,7 @@ function Posts(props) {
           <p className="text-muted"> No Posts yet</p>
         )}
       </Row>
-    </>
+    </Col>
   );
 }
 

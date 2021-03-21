@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Col, Container, Row } from "reactstrap";
 import { fetchMyBooks } from "../../../store/ActionCreators/books";
-import PostCards from "../../Posts/PostCards";
+import PostCards from "../../Cards/PostCards";
 
 function Books() {
   const dispatch = useDispatch();
