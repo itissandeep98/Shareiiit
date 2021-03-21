@@ -3,10 +3,6 @@ body {
   height: 100%;
 }
 
-.navbar-dark {
-  background-color: #3fada8;
-}
-
 .App {
   min-height: 100vh;
   /* background-color: #e9eaeb; */
@@ -15,6 +11,9 @@ body {
 
 .rounded_lg {
   border-radius: 20px;
+}
+.ui.segment {
+  box-shadow: none !important;
 }
 
 .bg-gradient {

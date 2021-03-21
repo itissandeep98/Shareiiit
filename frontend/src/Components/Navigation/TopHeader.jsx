@@ -44,28 +44,17 @@ function TopHeader() {
             <Nav navbar>
               <NavItem>
                 <NavLink className="nav-link" to="/home">
-                  <span className="fa fa-home fa-lg" /> Home
+                  Home
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink className="nav-link" to="/posts">
-                  <span className="fa fa-list fa-lg" /> My Posts
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink className="nav-link" to="/create">
-                  <span className="fa fa-plus fa-lg" /> Create Post
+                <NavLink className="nav-link" to="/feed">
+                  Feed
                 </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink className="nav-link" to="/profile">
-                  <Dropdown
-                    item
-                    direction="right"
-                    icon={<Icon name="user circle outline" size="large" />}
-                    text="Profile"
-                    simple
-                  >
+                  <Dropdown item direction="right" text="Profile" simple>
                     <Dropdown.Menu>
                       <Dropdown.Item>
                         <Icon name="cogs" />
