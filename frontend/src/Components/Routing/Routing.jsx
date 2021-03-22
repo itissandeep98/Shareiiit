@@ -8,6 +8,7 @@ const Home = lazy(() => import("../Home/Home"));
 const Feed = lazy(() => import("../Feed/Feed"));
 const TopHeader = lazy(() => import("../Navigation/TopHeader"));
 const AuthComp = lazy(() => import("../Authorization/AuthComp"));
+const Profile = lazy(() => import("../Profile/Profile"));
 
 // private => Route requires authentication
 // layout => header should be visible or not
@@ -20,6 +21,12 @@ function Routing() {
       private: true,
       layout: true,
       render: () => <Home />,
+    },
+    {
+      path: "/profile",
+      private: true,
+      layout: true,
+      render: () => <Profile />,
     },
     {
       path: "/feed",
@@ -108,6 +115,14 @@ function Layout(params) {
     <>
       {layout && <TopHeader />}
       {React.cloneElement(children, { ...props })}
+      {layout && (
+        <footer
+          className="text-center bg-dark p-3 text-white position-relative"
+          style={{ bottom: "0" }}
+        >
+          Copyright © 2021 IIITD | All rights reserved
+        </footer>
+      )}
     </>
   );
 }

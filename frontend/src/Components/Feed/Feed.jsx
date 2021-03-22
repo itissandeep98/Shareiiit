@@ -10,14 +10,14 @@ function Feed(props) {
   const { active } = props;
 
   return (
-    <Container>
+    <Container fluid className="p-3 bg-light h-100">
       <Row>
         <Col xs={2}>
           <NavCard active={active} />
         </Col>
         <Col>
           <Row>
-            <Col className="shadow my-3 py-3 rounded_lg">
+            <Col className="shadow my-3 py-3 rounded_lg bg-white">
               {active === "feed" && <Posts />}
               {active === "create" && <Create />}
               {active === "interest" && <Interests />}
