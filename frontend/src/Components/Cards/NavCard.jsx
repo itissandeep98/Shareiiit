@@ -5,33 +5,33 @@ import { Icon, List } from "semantic-ui-react";
 function NavCard(props) {
   const { active } = props;
   return (
-    <Container className="sticky-top" style={{ zIndex: 0 }}>
-      <Row className="shadow bg-white rounded_lg p-3 mt-5">
+    <Container className="sticky-top" style={{ zIndex: 1 }}>
+      <Row className="shadow bg-white  p-3 mt-5">
         <Col>
           <hr />
           <List link size="big">
-            <List.Item active={active === "feed"}>
+            <List.Item active={active === "feed"} className="mb-3">
               <NavLink to="/feed">
-                <Icon name="feed" />
-                Posts
+                <Icon name="feed" size="large" />
+                <p className="d-none d-lg-inline">Posts</p>
               </NavLink>
             </List.Item>
-            <List.Item active={active === "create"}>
+            <List.Item active={active === "create"} className="mb-3">
               <NavLink to="/create">
-                <Icon name="add circle" />
-                Create
+                <Icon name="add circle" size="large" />
+                <p className="d-none d-lg-inline">Create</p>
               </NavLink>
             </List.Item>
-            <List.Item active={active === "interest"}>
+            <List.Item active={active === "interest"} className="mb-3">
               <NavLink to="/interest">
-                <Icon name="users" />
-                Interested
+                <Icon name="users" size="large" />
+                <p className="d-none d-lg-inline">Interested</p>
               </NavLink>
             </List.Item>
-            <List.Item active={active === "postings"}>
-              <NavLink to="/postings">
-                <Icon name="zip" />
-                Postings
+            <List.Item active={active === "myposts"} className="mb-3">
+              <NavLink to="/myposts">
+                <Icon name="zip" size="large" />
+                <p className="d-none d-lg-inline"> My Posts</p>
               </NavLink>
             </List.Item>
           </List>

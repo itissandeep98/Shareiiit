@@ -1,4 +1,7 @@
-import { Button, Card, Icon } from "semantic-ui-react";
+import { Col, Container, Row } from "reactstrap";
+import { Button, Card, Icon, Image } from "semantic-ui-react";
+import classNames from "classnames";
+import { useState } from "react";
 
 function PostCards(props) {
   const {
@@ -11,31 +14,59 @@ function PostCards(props) {
     title,
     votes,
   } = props;
+  const [liked, setLiked] = useState(false);
+  const [dismiss, setDismiss] = useState(false);
+  const [message, setMessage] = useState(false);
   return (
-    <Card fluid className=" h-100">
-      <Card.Content header={title} />
-      <Card.Content extra>{book?.author}</Card.Content>
-
-      <Card.Content className="text-justify">{body}</Card.Content>
-      <Card.Content extra>
-        <Icon name="user" />
-        {votes?.length} People Reacted to this post
-      </Card.Content>
-      <Card.Content extra>
-        <div className="ui three buttons">
-          <Button basic color="green">
-            Interested
-          </Button>
-          <Button basic color="green">
-            Upvote
-          </Button>
-          <Button basic color="red">
-            Dismiss
-          </Button>
-        </div>
-      </Card.Content>
-      <Card.Content>{created_by}</Card.Content>
-    </Card>
+    <Container className="shadow bg-white pt-4 rounded_lg border-info border mt-3 h-100 d-flex justify-content-between flex-column">
+      <Row className="text-center">
+        <Col>
+          <Row>
+            <Col>
+              <Image
+                src={process.env.PUBLIC_URL + "/assets/images/book.png"}
+                size="small"
+              />
+            </Col>
+            <Col xs={9}>
+              <h3 className="text-capitalize">{title}</h3>
+              <small className="text-muted float-right"> - {created_by}</small>
+            </Col>
+          </Row>
+          <Row className="mt-1">
+            <Col className="text-justify">{body}</Col>
+          </Row>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <hr />
+          <div className="d-flex justify-content-around mb-3 w-100">
+            <Icon
+              name="star outline"
+              className={classNames({ "text-info": liked })}
+              onClick={() => setLiked(!liked)}
+              style={{ cursor: "pointer" }}
+              size="large"
+            />
+            <Icon
+              name="envelope"
+              className={classNames({ "text-info": message })}
+              onClick={() => setMessage(!message)}
+              style={{ cursor: "pointer" }}
+              size="large"
+            />
+            <Icon
+              name="times"
+              className={classNames({ "text-danger": dismiss })}
+              onClick={() => setDismiss(!dismiss)}
+              style={{ cursor: "pointer" }}
+              size="large"
+            />
+          </div>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 

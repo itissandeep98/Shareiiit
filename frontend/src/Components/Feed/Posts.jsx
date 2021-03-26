@@ -5,7 +5,8 @@ import { Search } from "semantic-ui-react";
 import { fetchBooks } from "../../store/ActionCreators/books";
 import { fetchGroups } from "../../store/ActionCreators/groups";
 import PostCards from "../Cards/PostCards";
-import CatDropdown from "./CatDropdown";
+import FilterBar from "../Navigation/Filter/FilterBar";
+import CatDropdown from "../Navigation/Filter/CatDropdown";
 
 function Posts(props) {
   const [cards, setCards] = useState([]);
@@ -15,7 +16,7 @@ function Posts(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     setLoading(true);
-    if (category === "Books") {
+    if (category === "Books" || category === "All") {
       dispatch(fetchBooks()).then((res) => {
         setCards(props.books);
         setLoading(false);
@@ -35,18 +36,10 @@ function Posts(props) {
     <Container>
       <Row>
         <Col>
-          <CatDropdown
+          <br />
+          <FilterBar
             category={category}
             changeCategory={(cat) => setCategory(cat)}
-          />
-
-          <br />
-          <Search
-            category
-            placeholder="Search for some post"
-            maxLength={50}
-            size="small"
-            input={{ fluid: true }}
           />
           <br />
           {loading && (
@@ -57,7 +50,7 @@ function Posts(props) {
           <Row className="justify-content-center">
             {cards?.data && cards?.data?.length > 0 ? (
               cards.data?.map((book) => (
-                <Col md={6} lg={4} className="my-2">
+                <Col xs={12} md={6} lg={4} className="my-2">
                   <PostCards {...book} />
                 </Col>
               ))

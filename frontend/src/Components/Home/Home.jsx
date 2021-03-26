@@ -17,17 +17,17 @@ function Home(props) {
         </Col>
       </Row>
       <Row className="d-flex justify-content-center h-100 ">
-        <Col xs={2}>
+        <Col sm={3} xl={2} className="mb-2">
           <ProfileCard />
         </Col>
-        <Col xs={3}>
+        <Col sm={4} xl={3} className="mb-2">
           <SummaryCard
             image={process.env.PUBLIC_URL + "/assets/images/book.png"}
             title="Most Active Category"
             key="category"
           />
         </Col>
-        <Col xs={3}>
+        <Col sm={4} xl={3} className="mb-2">
           <SummaryCard
             image={process.env.PUBLIC_URL + "/assets/images/book.png"}
             title="Recent Activity"

@@ -44,7 +44,7 @@ function Postings(props) {
     <Container>
       <Row>
         <Col>
-          <h1>View Your Postings</h1>
+          <h1>View Your Posts</h1>
           <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
         </Col>
       </Row>

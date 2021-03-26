@@ -4,6 +4,9 @@ import { Accordion, Icon } from "semantic-ui-react";
 
 function Faq() {
   const [active, setActive] = useState(-1);
+  const toggle = (i) => {
+    setActive(i === active ? -1 : i);
+  };
   const quesList = [
     {
       ques: "What is this platform?",
@@ -47,7 +50,7 @@ function Faq() {
                 <Accordion.Title
                   active={active === index}
                   index={index}
-                  onClick={() => setActive(index)}
+                  onClick={() => toggle(index)}
                 >
                   <Icon name="dropdown" />
                   {item.ques}

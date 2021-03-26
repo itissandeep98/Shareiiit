@@ -3,10 +3,10 @@ import { Switch, Redirect } from "react-router-dom";
 import PublicRoute from "./PublicRoute";
 import PrivateRoute from "./PrivateRoute";
 import Loading from "../Loading";
+import TopHeader from "../Navigation/TopHeader";
 
 const Home = lazy(() => import("../Home/Home"));
 const Feed = lazy(() => import("../Feed/Feed"));
-const TopHeader = lazy(() => import("../Navigation/TopHeader"));
 const AuthComp = lazy(() => import("../Authorization/AuthComp"));
 const Profile = lazy(() => import("../Profile/Profile"));
 
@@ -47,10 +47,10 @@ function Routing() {
       render: () => <Feed active="interest" />,
     },
     {
-      path: "/postings",
+      path: "/myposts",
       private: true,
       layout: true,
-      render: () => <Feed active="postings" />,
+      render: () => <Feed active="myposts" />,
     },
     {
       path: "/login",
@@ -76,36 +76,34 @@ function Routing() {
     },
   ];
   return (
-    <Suspense fallback={<Loading />}>
-      <Switch>
-        {routes.map((route, index) =>
-          route.private ? (
-            <PrivateRoute
-              restricted={route.restricted}
-              key={index}
-              exact
-              path={route.path}
-            >
-              <Layout layout={route.layout}>
-                <route.render />
-              </Layout>
-            </PrivateRoute>
-          ) : (
-            <PublicRoute
-              restricted={route.restricted}
-              exact
-              path={route.path}
-              key={index}
-            >
-              <Layout layout={route.layout}>
-                <route.render />
-              </Layout>
-            </PublicRoute>
-          )
-        )}
-        <Redirect to="/" />
-      </Switch>
-    </Suspense>
+    <Switch>
+      {routes.map((route, index) =>
+        route.private ? (
+          <PrivateRoute
+            restricted={route.restricted}
+            key={index}
+            exact
+            path={route.path}
+          >
+            <Layout layout={route.layout}>
+              <route.render />
+            </Layout>
+          </PrivateRoute>
+        ) : (
+          <PublicRoute
+            restricted={route.restricted}
+            exact
+            path={route.path}
+            key={index}
+          >
+            <Layout layout={route.layout}>
+              <route.render />
+            </Layout>
+          </PublicRoute>
+        )
+      )}
+      <Redirect to="/" />
+    </Switch>
   );
 }
 
@@ -113,13 +111,14 @@ function Layout(params) {
   const { children, layout, ...props } = params;
   return (
     <>
-      {layout && <TopHeader />}
-      {React.cloneElement(children, { ...props })}
+      <div>
+        {layout && <TopHeader />}
+        <Suspense fallback={<Loading />}>
+          {React.cloneElement(children, { ...props })}
+        </Suspense>
+      </div>
       {layout && (
-        <footer
-          className="text-center bg-dark p-3 text-white position-relative"
-          style={{ bottom: "0" }}
-        >
+        <footer className="text-center bg-dark p-3 text-white">
           Copyright © 2021 IIITD | All rights reserved
         </footer>
       )}

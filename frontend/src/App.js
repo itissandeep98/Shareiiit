@@ -5,7 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 function App() {
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
-      <div className="App">
+      <div className="App d-flex justify-content-between flex-column">
         <Routing />
       </div>
     </BrowserRouter>
