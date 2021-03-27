@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { connect, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { NavLink, withRouter } from "react-router-dom";
 import {
   Col,
@@ -12,7 +12,7 @@ import {
   Row,
 } from "reactstrap";
 import "./style.css";
-import { Dropdown, Icon, Image } from "semantic-ui-react";
+import { Image } from "semantic-ui-react";
 import { logoutAction } from "../../store/ActionCreators/auth";
 
 function TopHeader() {
@@ -37,35 +37,29 @@ function TopHeader() {
           </Col>
         </Row>
       </Container>
-      <Navbar dark expand="md">
+      <Navbar dark expand="md" className="p-0">
         <Container>
           <NavbarToggler onClick={toggleNav} />
-          <Collapse isOpen={isNavOpen} navbar>
+          <Collapse isOpen={isNavOpen} navbar className="p-0">
             <Nav navbar>
               <NavItem>
-                <NavLink className="nav-link" to="/home">
+                <NavLink className="nav-link p-3 cust_link" to="/home">
                   Home
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink className="nav-link" to="/feed">
+                <NavLink className="nav-link p-3 cust_link" to="/feed">
                   Feed
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink className="nav-link" to="/profile">
-                  <Dropdown item direction="right" text="Profile" simple>
-                    <Dropdown.Menu>
-                      <Dropdown.Item>
-                        <Icon name="cogs" />
-                        Settings
-                      </Dropdown.Item>
-                      <Dropdown.Item onClick={logout}>
-                        <Icon name="sign out" />
-                        Logout
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
+                <NavLink className="nav-link p-3 cust_link" to="/profile">
+                  Profile
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink className="nav-link p-3" to="#" onClick={logout}>
+                  Logout
                 </NavLink>
               </NavItem>
             </Nav>

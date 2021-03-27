@@ -4,7 +4,6 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.css";
-import "bootstrap-social/bootstrap-social.css";
 import "semantic-ui-css/semantic.min.css";
 import { Provider } from "react-redux";
 import { configureStore, persistor } from "./store/configureStore";

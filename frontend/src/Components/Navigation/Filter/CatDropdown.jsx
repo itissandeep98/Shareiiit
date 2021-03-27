@@ -8,7 +8,7 @@ function CatDropdown(props) {
       direction="right"
       icon={<Icon name="chevron down" />}
       text={category}
-      className="border bg-white p-2 rounded_lg shadow-sm mb-3"
+      className="border bg-white p-2  shadow-sm mb-3"
       simple
     >
       <Dropdown.Menu>

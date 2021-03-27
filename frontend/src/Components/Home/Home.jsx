@@ -2,6 +2,7 @@ import { Col, Container, Row } from "reactstrap";
 import SummaryCard from "../Cards/SummaryCard";
 import ProfileCard from "../Cards/ProfileCard";
 import { Image } from "semantic-ui-react";
+import Faq from "./Faq";
 
 function Home(props) {
   return (
@@ -16,21 +17,26 @@ function Home(props) {
         </Col>
       </Row>
       <Row className="d-flex justify-content-center h-100 ">
-        <Col xs={2}>
+        <Col sm={3} xl={2} className="mb-2">
           <ProfileCard />
         </Col>
-        <Col xs={3}>
+        <Col sm={4} xl={3} className="mb-2">
           <SummaryCard
             image={process.env.PUBLIC_URL + "/assets/images/book.png"}
             title="Most Active Category"
+            key="category"
           />
         </Col>
-        <Col xs={3}>
+        <Col sm={4} xl={3} className="mb-2">
           <SummaryCard
             image={process.env.PUBLIC_URL + "/assets/images/book.png"}
             title="Recent Activity"
+            key="activity"
           />
         </Col>
+      </Row>
+      <Row className="mt-5">
+        <Faq />
       </Row>
       <br />
       <br />

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { Spinner } from "reactstrap";
 import { Button, Form, Input } from "semantic-ui-react";
 import { loginAction } from "../../store/ActionCreators/auth";
 
@@ -8,13 +9,18 @@ function Login() {
   const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [paswd, setPaswd] = useState("");
+  const [loading, setLoading] = useState(false);
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = {
       username: username,
       password: paswd,
     };
-    dispatch(loginAction(data)).then((res) => window.location.reload());
+    setLoading(true);
+    dispatch(loginAction(data)).then((res) => {
+      setLoading(false);
+      window.location.reload();
+    });
   };
   return (
     <>
@@ -35,7 +41,7 @@ function Login() {
             onChange={(e) => setPaswd(e.target.value)}
           />
         </Form.Field>
-        <Button onClick={handleSubmit}>Login</Button>
+        {loading ? <Spinner /> : <Button onClick={handleSubmit}>Login</Button>}
       </Form>
       <hr />
       <NavLink to="/register">Not Registered? Register Here</NavLink>

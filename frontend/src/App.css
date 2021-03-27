@@ -1,17 +1,18 @@
 html,
 body {
   height: 100%;
+  min-height: 100vh;
 }
 
 .App {
   min-height: 100vh;
-  /* background-color: #e9eaeb; */
-  font-family: noto-sans;
+  font-family: "Times New Roman", Times, serif;
 }
 
 .rounded_lg {
   border-radius: 20px;
 }
+
 .ui.segment {
   box-shadow: none !important;
 }
