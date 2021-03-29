@@ -9,6 +9,7 @@ const Home = lazy(() => import("../Home/Home"));
 const Feed = lazy(() => import("../Feed/Feed"));
 const AuthComp = lazy(() => import("../Authorization/AuthComp"));
 const Profile = lazy(() => import("../Profile/Profile"));
+const PostDetail = lazy(() => import("../Feed/PostDetail"));
 
 // private => Route requires authentication
 // layout => header should be visible or not
@@ -65,6 +66,14 @@ function Routing() {
       restricted: true,
       layout: false,
       render: () => <AuthComp right="register" />,
+    },
+    {
+      path: "/posts/:postId",
+      private: true,
+      layout: true,
+      render: (props) => (
+        <PostDetail key={props.match.params.postId} {...props} />
+      ),
     },
 
     {

@@ -39,6 +39,11 @@ const PrivateRouteComponent = (props) => {
 const mapStateToProps = (state, ownProps) => {
   return {
     logged_in: state?.auth?.key,
+    routeProps: {
+      exact: ownProps.exact,
+      path: ownProps.path,
+      component: ownProps.component,
+    },
   };
 };
 

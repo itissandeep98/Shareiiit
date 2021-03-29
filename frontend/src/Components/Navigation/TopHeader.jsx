@@ -37,7 +37,7 @@ function TopHeader() {
           </Col>
         </Row>
       </Container>
-      <Navbar dark expand="md" className="p-0">
+      <Navbar dark expand="md" className="p-0 sticky-top">
         <Container>
           <NavbarToggler onClick={toggleNav} />
           <Collapse isOpen={isNavOpen} navbar className="p-0">

@@ -50,7 +50,7 @@ function Posts(props) {
           <Row className="justify-content-center">
             {cards?.data && cards?.data?.length > 0 ? (
               cards.data?.map((book) => (
-                <Col xs={12} md={6} lg={4} className="my-2">
+                <Col xs={12} md={6} lg={4} className="my-3">
                   <PostCards {...book} />
                 </Col>
               ))
