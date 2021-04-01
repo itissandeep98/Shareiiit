@@ -28,13 +28,18 @@ function TopHeader() {
   return (
     <>
       <Container>
-        <Row>
-          <Col className="float-left">
+        <Row className="d-flex flex-row justify-content-between align-items-center">
+          <div>
             <Image
               src={process.env.PUBLIC_URL + "/assets/images/iiitd2.png"}
               alt="IIIT-Delhi"
             />
-          </Col>
+          </div>
+          <Image
+            src={process.env.PUBLIC_URL + "/assets/images/logo.png"}
+            alt="resource sharing app"
+            className="d-none d-md-block"
+          />
         </Row>
       </Container>
       <Navbar dark expand="md" className="p-0 sticky-top">

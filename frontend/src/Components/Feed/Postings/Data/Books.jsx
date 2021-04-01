@@ -1,21 +1,31 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { Col, Container, Row } from "reactstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { Col, Container, Row, Spinner } from "reactstrap";
 import { fetchMyBooks } from "../../../../store/ActionCreators/books";
 import PostCards from "../../../Cards/PostCards";
 
 function Books() {
   const dispatch = useDispatch();
-  const [cards, setCards] = useState([]);
+  const books = useSelector((state) => state.user?.books);
+  const [cards, setCards] = useState(books ?? []);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
-    dispatch(fetchMyBooks()).then((res) => setCards(res));
+    dispatch(fetchMyBooks()).then((res) => {
+      setCards(res);
+      setLoading(false);
+    });
   }, [dispatch]);
   return (
     <Container fluid>
+      {loading && (
+        <div className="text-muted text-center">
+          <Spinner /> Fetching new data
+        </div>
+      )}
       <Row className="justify-content-center">
         {cards && cards.length > 0 ? (
           cards.map((card) => (
-            <Col md={6} lg={4} className="my-2">
+            <Col md={6} lg={4} className="my-2" key={Math.random()}>
               <PostCards {...card} />
             </Col>
           ))

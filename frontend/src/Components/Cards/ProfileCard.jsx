@@ -37,7 +37,7 @@ function ProfileCard() {
           <h3>Summary</h3>
           <List>
             {details.map((det) => (
-              <List.Item>
+              <List.Item key={Math.random()}>
                 <List.Header>{det.type}:</List.Header>
                 <List.Description>{det.value}</List.Description>
               </List.Item>

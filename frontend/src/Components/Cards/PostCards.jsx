@@ -1,5 +1,5 @@
 import { Col, Container, Row } from "reactstrap";
-import { Button, Card, Icon, Image } from "semantic-ui-react";
+import { Icon, Image } from "semantic-ui-react";
 import classNames from "classnames";
 import { useState } from "react";
 import { withRouter } from "react-router";
@@ -21,7 +21,7 @@ function PostCards(props) {
   return (
     <Container className="shadow bg-white pt-3 rounded_lg border-info border mt-3 h-100 d-flex justify-content-between flex-column">
       <Row
-        className="text-center h-100"
+        className=" h-100"
         onClick={() => props.history.push(`/posts/${id}`)}
         style={{ cursor: "pointer" }}
       >

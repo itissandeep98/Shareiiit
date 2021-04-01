@@ -32,8 +32,8 @@ function SummaryCard(props) {
         <Col>
           <List>
             {details.map((det) => (
-              <List.Item>
-                <Icon name="user circle " size="large" />
+              <List.Item key={Math.random()}>
+                <Icon name="user circle" size="large" />
                 <List.Content>
                   <List.Header>{det.type}</List.Header>
                   <List.Description>
