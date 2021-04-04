@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { Col, Container, Row, Spinner } from "reactstrap";
-import { fetchBooks } from "../../store/ActionCreators/books";
-import { fetchGroups } from "../../store/ActionCreators/groups";
+import { fetchBooks } from "../../Store/ActionCreators/books";
+import { fetchGroups } from "../../Store/ActionCreators/groups";
 import PostCards from "../Cards/PostCards";
 import FilterBar from "../Navigation/Filter/FilterBar";
 

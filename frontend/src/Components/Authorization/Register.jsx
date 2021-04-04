@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Button, Form, Input } from "semantic-ui-react";
-import { registerAction } from "../../store/ActionCreators/auth";
+import { registerAction } from "../../Store/ActionCreators/auth";
 
 function Register() {
   const dispatch = useDispatch();

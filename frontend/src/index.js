@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "font-awesome/css/font-awesome.css";
 import "semantic-ui-css/semantic.min.css";
 import { Provider } from "react-redux";
-import { configureStore, persistor } from "./store/configureStore";
+import { configureStore, persistor } from "./Store/configureStore";
 import { PersistGate } from "redux-persist/integration/react";
 
 const store = configureStore;

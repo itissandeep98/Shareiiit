@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Col, Container, Row } from "reactstrap";
 import { Image, Placeholder } from "semantic-ui-react";
-import { fetchPostDetails } from "../../store/ActionCreators/books";
+import { fetchPostDetails } from "../../Store/ActionCreators/books";
 import Messages from "./Messages/Messages";
 
 function PostDetail(props) {

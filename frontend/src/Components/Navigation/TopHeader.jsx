@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink, withRouter } from "react-router-dom";
 import {
-  Col,
   Collapse,
   Container,
   Nav,
@@ -13,7 +12,7 @@ import {
 } from "reactstrap";
 import "./style.css";
 import { Image } from "semantic-ui-react";
-import { logoutAction } from "../../store/ActionCreators/auth";
+import { logoutAction } from "../../Store/ActionCreators/auth";
 
 function TopHeader() {
   const dispatch = useDispatch();
