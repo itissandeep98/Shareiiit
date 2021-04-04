@@ -9,7 +9,7 @@ const Home = lazy(() => import("../Home/Home"));
 const Feed = lazy(() => import("../Feed/Feed"));
 const AuthComp = lazy(() => import("../Authorization/AuthComp"));
 const Profile = lazy(() => import("../Profile/Profile"));
-const PostDetail = lazy(() => import("../Feed/PostDetail"));
+const PostDetail = lazy(() => import("../Posts/PostDetail"));
 
 // private => Route requires authentication
 // layout => header should be visible or not

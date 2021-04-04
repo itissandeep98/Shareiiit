@@ -1,37 +1,83 @@
-import { lazy, Suspense } from "react";
-import { Col, Container, Row } from "reactstrap";
-import Loading from "../Loading";
-const NavCard = lazy(() => import("../Cards/NavCard"));
-const Create = lazy(() => import("./Create/Create"));
-const Posts = lazy(() => import("./Posts"));
-const Postings = lazy(() => import("./Postings/Postings"));
-const Interests = lazy(() => import("./Interests"));
+import { Button } from "@material-ui/core";
+import { useEffect, useState } from "react";
+import { connect, useDispatch } from "react-redux";
+import { Col, Container, Row, Spinner } from "reactstrap";
+import { fetchBooks } from "../../Store/ActionCreators/books";
+import { fetchGroups } from "../../Store/ActionCreators/groups";
+import PostCards from "../Posts/PostCard";
+import FilterBar from "../Navigation/Filter/FilterBar";
+import AddIcon from "@material-ui/icons/Add";
+import Create from "../Posts/Create/Create";
 
-function Feed(props) {
-  const { active } = props;
+function Posts(props) {
+  const [cards, setCards] = useState(props?.posts?.books ?? []);
+  const [category, setCategory] = useState("All");
+  const [modal, setModal] = useState(false);
+
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    setLoading(true);
+    if (category === "Books" || category === "All") {
+      dispatch(fetchBooks()).then((res) => {
+        setCards(props.posts?.books);
+        setLoading(false);
+      });
+    } else if (category === "Groups") {
+      dispatch(fetchGroups()).then((res) => {
+        setCards(props.posts?.groups);
+        setLoading(false);
+      });
+    } else {
+      setCards([]);
+      setLoading(false);
+    }
+  }, [dispatch, category]);
 
   return (
-    <Container fluid className="p-3 bg-light h-100">
-      <Row className="justify-content-center">
-        <Col md={10}>
-          <Row>
-            <Col xs={2}>
-              <Suspense fallback={<Loading />}>
-                <NavCard active={active} />
-              </Suspense>
-            </Col>
-            <Col>
-              <Row>
-                <Col className="my-3 py-3 pb-5 rounded_lg bg-white">
-                  <Suspense fallback={<Loading />}>
-                    {active === "feed" && <Posts />}
-                    {active === "create" && <Create />}
-                    {active === "interest" && <Interests />}
-                    {active === "myposts" && <Postings />}
-                  </Suspense>
+    <Container className="my-3 py-3 pb-5 rounded_lg bg-white  shadow">
+      <Row>
+        <Col>
+          <Create
+            modal={modal}
+            setModal={setModal}
+            trigger={
+              <Button
+                variant="outlined"
+                className="mt-3"
+                startIcon={<AddIcon />}
+                size="large"
+                onClick={() => setModal(!modal)}
+              >
+                Create New Post
+              </Button>
+            }
+          />
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <br />
+          <FilterBar
+            category={category}
+            changeCategory={(cat) => setCategory(cat)}
+          />
+          <br />
+          {loading && (
+            <div className="text-muted text-center">
+              <Spinner /> Fetching new data
+            </div>
+          )}
+          <Row className="justify-content-center">
+            {cards && cards?.length > 0 ? (
+              cards?.map((book) => (
+                <Col xs={12} md={6} lg={4} className="my-3" key={Math.random()}>
+                  <PostCards {...book} />
                 </Col>
-              </Row>
-            </Col>
+              ))
+            ) : (
+              <p className="text-muted"> No Posts yet</p>
+            )}
           </Row>
         </Col>
       </Row>
@@ -39,4 +85,9 @@ function Feed(props) {
   );
 }
 
-export default Feed;
+const mapStateToProps = (state) => ({
+  user: state.auth.user,
+  posts: state.posts,
+});
+
+export default connect(mapStateToProps)(Posts);

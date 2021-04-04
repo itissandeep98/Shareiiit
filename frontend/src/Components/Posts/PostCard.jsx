@@ -19,7 +19,7 @@ function PostCards(props) {
   const [dismiss, setDismiss] = useState(false);
   const [message, setMessage] = useState(false);
   return (
-    <Container className="shadow bg-white pt-3 rounded_lg border-info border mt-3 h-100 d-flex justify-content-between flex-column">
+    <Container className="shadow bg-white pt-3 rounded_lg border-info border mt-3 h-100 d-flex justify-content-between flex-column zoom_on_hover">
       <Row
         className=" h-100"
         onClick={() => props.history.push(`/posts/${id}`)}
@@ -55,7 +55,7 @@ function PostCards(props) {
               size="large"
             />
             <Icon
-              name="envelope outline"
+              name="bookmark outline"
               className={classNames({ "text-info": message })}
               onClick={() => setMessage(!message)}
               style={{ cursor: "pointer" }}

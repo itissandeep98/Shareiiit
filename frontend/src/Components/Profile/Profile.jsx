@@ -1,7 +1,11 @@
+import { Button, TextField } from "@material-ui/core";
 import { Col, Container, Row } from "reactstrap";
-import { Button, Form, Image, Input } from "semantic-ui-react";
+import { Image } from "semantic-ui-react";
+import BookmarksIcon from "@material-ui/icons/Bookmarks";
+import GridOnIcon from "@material-ui/icons/GridOn";
+import { withRouter } from "react-router";
 
-function Profile() {
+function Profile(props) {
   const details = {
     name: "Sandeep",
     email: "Sandeep18363@iiitd.ac.in",
@@ -11,6 +15,28 @@ function Profile() {
   return (
     <Container fluid className="p-3 bg-light h-100">
       <Container>
+        <Row>
+          <Col className="d-flex justify-content-end">
+            <Button
+              variant="outlined"
+              className="mr-2 rounded-pill "
+              startIcon={<GridOnIcon />}
+              size="large"
+              onClick={() => props.history.push("/myposts")}
+            >
+              My Posts
+            </Button>
+            <Button
+              variant="outlined"
+              className="float-right rounded-pill "
+              startIcon={<BookmarksIcon />}
+              size="large"
+              onClick={() => props.history.push("/saved")}
+            >
+              Saved Post
+            </Button>
+          </Col>
+        </Row>
         <Row className="shadow my-3 py-4 rounded_lg bg-white align-items-center">
           <Col xs={2}>
             <Image src={process.env.PUBLIC_URL + "/assets/images/user.png"} />
@@ -18,46 +44,82 @@ function Profile() {
           <Col>
             <h2>Edit Basic Details</h2>
             <hr />
-            <Form>
-              <Form.Field>
-                <label>Username</label>
-                <Input value={details.name} disabled />
-              </Form.Field>
-              <Form.Field>
-                <label>Email</label>
-                <Input type="email" value={details.email} disabled />
-              </Form.Field>
-              <Form.Field>
-                <label>Batch</label>
-                <Input type="number" value={details.batch} disabled />
-              </Form.Field>
-              <Form.Field>
-                <label>Role</label>
-                <Input value={details.role} disabled />
-              </Form.Field>
-              <Button floated="right">Update</Button>
-            </Form>
+            <form>
+              <TextField
+                label="Name"
+                className="w-100"
+                variant="outlined"
+                required
+                value={details.name}
+                disabled
+              />
+              <TextField
+                label="Email"
+                className="w-100 mt-3"
+                variant="outlined"
+                required
+                value={details.email}
+                disabled
+              />
+              <TextField
+                label="Batch"
+                type="number"
+                className="w-100 mt-3"
+                variant="outlined"
+                required
+                value={details.batch}
+                disabled
+              />
+              <TextField
+                label="Role"
+                className="w-100 mt-3"
+                variant="outlined"
+                required
+                value={details.role}
+                disabled
+              />
+              <Button
+                variant="outlined"
+                className="mt-3 float-right rounded-pill bg-info text-white"
+              >
+                Update
+              </Button>
+            </form>
           </Col>
         </Row>
         <Row className="shadow my-3 py-4 rounded_lg bg-white align-items-center">
           <Col>
             <h2>Update Password</h2>
             <hr />
-            <Form>
-              <Form.Field required>
-                <label>Old Password</label>
-                <Input type="password" />
-              </Form.Field>
-              <Form.Field required>
-                <label>New Password</label>
-                <Input type="password" />
-              </Form.Field>
-              <Form.Field required>
-                <label>Confirm Password</label>
-                <Input type="password" />
-              </Form.Field>
-              <Button floated="right">Update</Button>
-            </Form>
+            <form>
+              <TextField
+                label="Old Password"
+                type="password"
+                className="w-100 mt-3"
+                variant="outlined"
+                required
+              />
+              <TextField
+                label="New Password"
+                type="password"
+                className="w-100 mt-3"
+                variant="outlined"
+                required
+              />
+              <TextField
+                label="Confirm Password"
+                type="password"
+                className="w-100 mt-3"
+                variant="outlined"
+                required
+              />
+              <Button
+                variant="outlined"
+                className="mt-3 float-right rounded-pill bg-info text-white"
+              >
+                Update
+              </Button>
+            </form>
           </Col>
           <Col xs={2}>
             <Image
@@ -70,4 +132,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default withRouter(Profile);
