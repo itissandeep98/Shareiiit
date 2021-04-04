@@ -17,7 +17,7 @@ function ProfileCard() {
     },
   ];
   return (
-    <Container className="shadow bg-white py-4 rounded_lg sticky-top mt-3 h-100">
+    <Container className="shadow bg-white py-4 rounded_lg  mt-3 h-100">
       <Row>
         <Col className="justify-content-center d-flex">
           <Image
@@ -37,7 +37,7 @@ function ProfileCard() {
           <h3>Summary</h3>
           <List>
             {details.map((det) => (
-              <List.Item>
+              <List.Item key={Math.random()}>
                 <List.Header>{det.type}:</List.Header>
                 <List.Description>{det.value}</List.Description>
               </List.Item>

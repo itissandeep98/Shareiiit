@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 import { Spinner } from "reactstrap";
 import { Button, Form, Input } from "semantic-ui-react";
 import { loginAction } from "../../store/ActionCreators/auth";
 
-function Login() {
+function Login(props) {
   const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [paswd, setPaswd] = useState("");
@@ -19,7 +19,7 @@ function Login() {
     setLoading(true);
     dispatch(loginAction(data)).then((res) => {
       setLoading(false);
-      window.location.reload();
+      props.history.push("/home");
     });
   };
   return (
@@ -49,4 +49,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default withRouter(Login);

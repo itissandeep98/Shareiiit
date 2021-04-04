@@ -19,7 +19,7 @@ function SummaryCard(props) {
     },
   ];
   return (
-    <Container className="shadow bg-white py-4 rounded_lg sticky-top my-3 h-100">
+    <Container className="shadow bg-white py-4 rounded_lg  my-3 h-100">
       <Row className="text-center">
         <Col xs={12}>
           <h3>{title}</h3>
@@ -32,8 +32,8 @@ function SummaryCard(props) {
         <Col>
           <List>
             {details.map((det) => (
-              <List.Item>
-                <Icon name="user circle " size="large" />
+              <List.Item key={Math.random()}>
+                <Icon name="user circle" size="large" />
                 <List.Content>
                   <List.Header>{det.type}</List.Header>
                   <List.Description>

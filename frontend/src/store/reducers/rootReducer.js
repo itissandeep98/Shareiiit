@@ -1,9 +1,6 @@
 import { combineReducers } from "redux";
-import { authReducer } from "./authReducer";
-import { bookReducer } from "./bookReducer";
-import { electronicsReducer } from "./electonicsReducer";
-import { groupReducer } from "./groupReducer";
-import { otherReducer } from "./otherReducer";
+import { authReducer, detailsReducer } from "./userReducer";
+import { postReducer } from "./postReducer";
 import localForage from "localforage";
 import { persistReducer } from "redux-persist";
 import { encryptTransform } from "redux-persist-transform-encrypt";
@@ -20,10 +17,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   auth: authReducer,
-  books: bookReducer,
-  groups: groupReducer,
-  electronics: electronicsReducer,
-  others: otherReducer,
+  posts: postReducer,
+  user: detailsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

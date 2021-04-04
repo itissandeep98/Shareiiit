@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
-import { connect, useDispatch } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Col, Container, Row, Spinner } from "reactstrap";
-import { Search } from "semantic-ui-react";
 import { fetchBooks } from "../../store/ActionCreators/books";
 import { fetchGroups } from "../../store/ActionCreators/groups";
 import PostCards from "../Cards/PostCards";
 import FilterBar from "../Navigation/Filter/FilterBar";
-import CatDropdown from "../Navigation/Filter/CatDropdown";
 
 function Posts(props) {
-  const [cards, setCards] = useState([]);
+  const [cards, setCards] = useState(props?.posts?.books ?? []);
   const [category, setCategory] = useState("All");
 
   const [loading, setLoading] = useState(false);
@@ -18,16 +16,16 @@ function Posts(props) {
     setLoading(true);
     if (category === "Books" || category === "All") {
       dispatch(fetchBooks()).then((res) => {
-        setCards(props.books);
+        setCards(props.posts?.books);
         setLoading(false);
       });
     } else if (category === "Groups") {
       dispatch(fetchGroups()).then((res) => {
-        setCards(props.groups);
+        setCards(props.posts?.groups);
         setLoading(false);
       });
     } else {
-      setCards({});
+      setCards([]);
       setLoading(false);
     }
   }, [dispatch, category]);
@@ -43,14 +41,14 @@ function Posts(props) {
           />
           <br />
           {loading && (
-            <p className="text-muted text-center">
+            <div className="text-muted text-center">
               <Spinner /> Fetching new data
-            </p>
+            </div>
           )}
           <Row className="justify-content-center">
-            {cards?.data && cards?.data?.length > 0 ? (
-              cards.data?.map((book) => (
-                <Col xs={12} md={6} lg={4} className="my-2">
+            {cards && cards?.length > 0 ? (
+              cards?.map((book) => (
+                <Col xs={12} md={6} lg={4} className="my-3" key={Math.random()}>
                   <PostCards {...book} />
                 </Col>
               ))
@@ -66,8 +64,7 @@ function Posts(props) {
 
 const mapStateToProps = (state) => ({
   user: state.auth.user,
-  groups: state.groups,
-  books: state.books,
+  posts: state.posts,
 });
 
 export default connect(mapStateToProps)(Posts);
