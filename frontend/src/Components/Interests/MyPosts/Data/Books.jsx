@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Col, Container, Row, Spinner } from "reactstrap";
 import { fetchMyBooks } from "../../../../Store/ActionCreators/books";
-import PostCards from "../../../Posts/PostCards";
+import PostCard from "../../../Posts/PostCard";
 
 function Books() {
   const dispatch = useDispatch();
@@ -26,7 +26,7 @@ function Books() {
         {cards && cards.length > 0 ? (
           cards.map((card) => (
             <Col md={6} lg={4} className="my-2" key={Math.random()}>
-              <PostCards {...card} />
+              <PostCard {...card} />
             </Col>
           ))
         ) : (

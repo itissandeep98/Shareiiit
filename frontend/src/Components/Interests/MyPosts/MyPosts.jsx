@@ -5,7 +5,7 @@ import Electronics from "./Data/Electronics";
 import Groups from "./Data/Groups";
 import Other from "./Data/Other";
 
-function Postings(props) {
+function MyPosts(props) {
   const panes = [
     {
       menuItem: "Books",
@@ -41,15 +41,17 @@ function Postings(props) {
     },
   ];
   return (
-    <Container>
-      <Row>
-        <Col>
-          <h1>View Your Posts</h1>
-          <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
-        </Col>
-      </Row>
+    <Container fluid className="p-3 bg-light h-100">
+      <Container>
+        <Row className="shadow my-3 py-4 rounded_lg bg-white align-items-center">
+          <Col>
+            <h1>View Your Posts</h1>
+            <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
+          </Col>
+        </Row>
+      </Container>
     </Container>
   );
 }
 
-export default Postings;
+export default MyPosts;

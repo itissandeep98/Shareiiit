@@ -35,52 +35,60 @@ function Posts(props) {
   }, [dispatch, category]);
 
   return (
-    <Container className="my-3 py-3 pb-5 rounded_lg bg-white  shadow">
-      <Row>
-        <Col>
-          <Create
-            modal={modal}
-            setModal={setModal}
-            trigger={
-              <Button
-                variant="outlined"
-                className="mt-3"
-                startIcon={<AddIcon />}
-                size="large"
-                onClick={() => setModal(!modal)}
-              >
-                Create New Post
-              </Button>
-            }
-          />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <br />
-          <FilterBar
-            category={category}
-            changeCategory={(cat) => setCategory(cat)}
-          />
-          <br />
-          {loading && (
-            <div className="text-muted text-center">
-              <Spinner /> Fetching new data
-            </div>
-          )}
-          <Row className="justify-content-center">
-            {cards && cards?.length > 0 ? (
-              cards?.map((book) => (
-                <Col xs={12} md={6} lg={4} className="my-3" key={Math.random()}>
-                  <PostCards {...book} />
-                </Col>
-              ))
-            ) : (
-              <p className="text-muted"> No Posts yet</p>
+    <Container fluid className="p-3 bg-light h-100">
+      <Container className="shadow my-3 py-4 rounded_lg bg-white align-items-center">
+        <Row>
+          <Col>
+            <Create
+              modal={modal}
+              setModal={setModal}
+              trigger={
+                <Button
+                  variant="outlined"
+                  className="mt-3"
+                  startIcon={<AddIcon />}
+                  size="large"
+                  onClick={() => setModal(!modal)}
+                >
+                  Create New Post
+                </Button>
+              }
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <br />
+            <FilterBar
+              category={category}
+              changeCategory={(cat) => setCategory(cat)}
+            />
+            <br />
+            {loading && (
+              <div className="text-muted text-center">
+                <Spinner /> Fetching new data
+              </div>
             )}
-          </Row>
-        </Col>
-      </Row>
+            <Row className="justify-content-center">
+              {cards && cards?.length > 0 ? (
+                cards?.map((book) => (
+                  <Col
+                    xs={12}
+                    md={6}
+                    lg={4}
+                    className="my-3"
+                    key={Math.random()}
+                  >
+                    <PostCards {...book} />
+                  </Col>
+                ))
+              ) : (
+                <p className="text-muted"> No Posts yet</p>
+              )}
+            </Row>
+          </Col>
+        </Row>
+      </Container>
     </Container>
   );
 }
