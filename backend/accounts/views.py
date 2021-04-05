@@ -4,8 +4,10 @@ from rest_framework.views import APIView
 
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 
 from .serializers import UserSerializer
+from .permissions import IsUser
 
 
 class LoginView(APIView):
@@ -38,6 +40,42 @@ class LogoutView(APIView):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+    def get_permissions(self):
+        """
+        Instantiates and returns the list of permissions that this view requires.
+        """
+        if self.action in ["list", "retrieve"]:
+            permission_classes = [permissions.IsAuthenticated]
+        elif self.action in ["update", "partial_update"]:
+            permission_classes = [IsUser]
+        else:
+            permission_classes = [permissions.AllowAny]
+
+        return [permission() for permission in permission_classes]
+
+    # def get_object(self):
+    #     # username = self.kwargs["username"]
+    #     username = self.request.query_params.get("username")
+    #     obj = get_object_or_404(User, username=username)
+    #     return obj
+
+    def get_queryset(self):
+        username = self.request.query_params.get("username")
+
+        if username is not None:
+            return User.objects.filter(username=username)
+        else:
+            return User.objects.all()
+
+
+# class UserDetailsViewSet(viewsets.ModelViewSet):
+#     queryset = User.objects.all()
+#     serializer_class = UserDetailsSerializer
+#     permission_classes = [permissions.IsAuthenticated]
+
+#     def get_queryset(self):
+#         return User.objects.filter(username=self.request.user.username)
 
 
 # class UserList(generics.ListAPIView):

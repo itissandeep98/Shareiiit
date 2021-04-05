@@ -7,6 +7,7 @@ from rest_framework.authtoken.views import obtain_auth_token
 
 router = DefaultRouter()
 router.register("users", views.UserViewSet, basename="users")
+# router.register("profile", views.UserDetailsViewSet, basename="profile")
 urlpatterns = router.urls
 
 
