@@ -3,6 +3,8 @@ import { Icon, Image } from "semantic-ui-react";
 import classNames from "classnames";
 import { useState } from "react";
 import { withRouter } from "react-router";
+import { useDispatch } from "react-redux";
+import { addVote } from "../../Store/ActionCreators/post";
 
 function PostCards(props) {
   const {
@@ -17,7 +19,22 @@ function PostCards(props) {
   } = props;
   const [liked, setLiked] = useState(false);
   const [dismiss, setDismiss] = useState(false);
-  const [message, setMessage] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const dispatch = useDispatch();
+  const Vote = (option) => {
+    if (option == 1) {
+      setLiked(!liked);
+    } else if (option == 2) {
+      setSaved(!saved);
+    } else if (option == 2) {
+      setDismiss(!dismiss);
+    }
+    const data = {
+      post: id,
+      choice: option,
+    };
+    dispatch(addVote(data));
+  };
   return (
     <Container className="shadow bg-white pt-3 rounded_lg border-info border mt-3 h-100 d-flex justify-content-between flex-column zoom_on_hover">
       <Row
@@ -50,21 +67,21 @@ function PostCards(props) {
             <Icon
               name="arrow up circle"
               className={classNames({ "text-success": liked })}
-              onClick={() => setLiked(!liked)}
+              onClick={() => Vote(1)}
               style={{ cursor: "pointer" }}
               size="large"
             />
             <Icon
               name="bookmark outline"
-              className={classNames({ "text-info": message })}
-              onClick={() => setMessage(!message)}
+              className={classNames({ "text-info": saved })}
+              onClick={() => Vote(2)}
               style={{ cursor: "pointer" }}
               size="large"
             />
             <Icon
               name="times"
               className={classNames({ "text-danger": dismiss })}
-              onClick={() => setDismiss(!dismiss)}
+              onClick={() => Vote(3)}
               style={{ cursor: "pointer" }}
               size="large"
             />
