@@ -38,8 +38,8 @@ class Vote(models.Model):
     post = models.ForeignKey(Post, related_name="votes", on_delete=models.CASCADE)
     voted_by = models.ForeignKey(User, related_name="votes", on_delete=models.CASCADE)
 
-    # class Meta:
-    #     unique_together = ("voted_by", "post")
+    class Meta:
+        unique_together = ("voted_by", "post", "choice")
 
     def __str__(self):
         return (

@@ -29,16 +29,21 @@ class VoteSerializer(serializers.ModelSerializer):
         """
         voted_by = self.context["request"].user
         post = data.get("post", None)
+        choice = data.get("choice", None)
 
         try:
-            obj = self.Meta.model.objects.get(voted_by=voted_by, post=post)
+            obj = self.Meta.model.objects.get(
+                voted_by=voted_by, post=post, choice=choice
+            )
         except self.Meta.model.DoesNotExist:
             return data
 
         if self.instance and obj.id == self.instance.id:
             return data
         else:
-            raise serializers.ValidationError("User has already voted on this post.")
+            raise serializers.ValidationError(
+                f"User has already voted {choice} on this post."
+            )
 
 
 class PostSerializer(serializers.ModelSerializer):
