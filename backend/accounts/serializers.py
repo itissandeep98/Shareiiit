@@ -36,6 +36,13 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         return user
 
 
+class UserDetailsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("id", "first_name", "last_name", "username")
+        extra_kwargs = {"username": {"read_only": True}}
+
+
 # # Register Serializer
 # class RegisterSerializer(serializers.ModelSerializer):
 #     class Meta:
