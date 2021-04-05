@@ -1,7 +1,9 @@
 from django.shortcuts import get_object_or_404
+
 from rest_framework import generics, permissions, viewsets, serializers
 from rest_framework.views import APIView
 from rest_framework.response import Response
+
 from .models import Post, Category, Vote
 from .permissions import IsOwnerOrReadOnly
 from .serializers import (
