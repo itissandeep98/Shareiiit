@@ -26,22 +26,22 @@ function Routing() {
       render: () => <Home />,
     },
     {
-      path: "/profile",
-      private: true,
-      layout: true,
-      render: () => <Profile />,
-    },
-    {
-      path: "/myposts",
+      path: "/profile/myposts",
       private: true,
       layout: true,
       render: () => <MyPosts />,
     },
     {
-      path: "/saved",
+      path: "/profile/saved",
       private: true,
       layout: true,
       render: () => <Saved />,
+    },
+    {
+      path: "/profile",
+      private: true,
+      layout: true,
+      render: () => <Profile />,
     },
     {
       path: "/feed",

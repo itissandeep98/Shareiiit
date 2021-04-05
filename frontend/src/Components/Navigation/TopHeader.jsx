@@ -61,6 +61,8 @@ function TopHeader() {
                   Profile
                 </NavLink>
               </NavItem>
+            </Nav>
+            <Nav className="ml-auto" navbar>
               <NavItem>
                 <NavLink className="nav-link p-3" to="#" onClick={logout}>
                   Logout

@@ -3,15 +3,19 @@ import { Col, Container, Row } from "reactstrap";
 import { Image } from "semantic-ui-react";
 import BookmarksIcon from "@material-ui/icons/Bookmarks";
 import GridOnIcon from "@material-ui/icons/GridOn";
-import { withRouter } from "react-router";
+import { useEffect } from "react";
+import { connect, useDispatch } from "react-redux";
+import { fetchUser } from "../../Store/ActionCreators/people";
+import { useHistory } from "react-router-dom";
 
 function Profile(props) {
-  const details = {
-    name: "Sandeep",
-    email: "Sandeep18363@iiitd.ac.in",
-    batch: "2022",
-    role: "Student",
-  };
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, [dispatch]);
+  const history = useHistory();
+
+  const details = props.user?.details;
   return (
     <Container fluid className="p-3 bg-light h-100">
       <Container>
@@ -22,7 +26,7 @@ function Profile(props) {
               className="mr-2 rounded-pill "
               startIcon={<GridOnIcon />}
               size="large"
-              onClick={() => props.history.push("/myposts")}
+              onClick={() => history.push("/profile/myposts")}
             >
               My Posts
             </Button>
@@ -31,18 +35,26 @@ function Profile(props) {
               className="float-right rounded-pill "
               startIcon={<BookmarksIcon />}
               size="large"
-              onClick={() => props.history.push("/saved")}
+              onClick={() => history.push("/profile/saved")}
             >
               Saved Post
             </Button>
           </Col>
         </Row>
         <Row className="shadow my-3 py-4 rounded_lg bg-white align-items-center">
-          <Col xs={2}>
+          <Col xs={12} md={2} className="d-none d-md-block">
             <Image src={process.env.PUBLIC_URL + "/assets/images/user.png"} />
           </Col>
           <Col>
-            <h2>Edit Basic Details</h2>
+            <h2>
+              Edit Basic Details{" "}
+              <div className="d-inline ml-2 d-md-none">
+                <Image
+                  src={process.env.PUBLIC_URL + "/assets/images/user.png"}
+                  avatar
+                />
+              </div>
+            </h2>
             <hr />
             <form>
               <TextField
@@ -50,16 +62,14 @@ function Profile(props) {
                 className="w-100"
                 variant="outlined"
                 required
-                value={details.name}
-                disabled
+                value={details?.name}
               />
               <TextField
                 label="Email"
                 className="w-100 mt-3"
                 variant="outlined"
                 required
-                value={details.email}
-                disabled
+                value={details?.email}
               />
               <TextField
                 label="Batch"
@@ -67,16 +77,14 @@ function Profile(props) {
                 className="w-100 mt-3"
                 variant="outlined"
                 required
-                value={details.batch}
-                disabled
+                value={details?.batch}
               />
               <TextField
                 label="Role"
                 className="w-100 mt-3"
                 variant="outlined"
                 required
-                value={details.role}
-                disabled
+                value={details?.role}
               />
               <Button
                 variant="outlined"
@@ -89,7 +97,15 @@ function Profile(props) {
         </Row>
         <Row className="shadow my-3 py-4 rounded_lg bg-white align-items-center">
           <Col>
-            <h2>Update Password</h2>
+            <h2>
+              Update Password
+              <div className="d-inline ml-2 d-md-none">
+                <Image
+                  src={process.env.PUBLIC_URL + "/assets/images/password.png"}
+                  avatar
+                />
+              </div>
+            </h2>
             <hr />
             <form>
               <TextField
@@ -121,9 +137,10 @@ function Profile(props) {
               </Button>
             </form>
           </Col>
-          <Col xs={2}>
+          <Col xs={12} md={2} className="d-none d-md-block">
             <Image
               src={process.env.PUBLIC_URL + "/assets/images/password.png"}
+              fluid
             />
           </Col>
         </Row>
@@ -132,4 +149,8 @@ function Profile(props) {
   );
 }
 
-export default withRouter(Profile);
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
+
+export default connect(mapStateToProps)(Profile);

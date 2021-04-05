@@ -94,7 +94,6 @@ function Posts(props) {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.auth.user,
   posts: state.posts,
 });
 

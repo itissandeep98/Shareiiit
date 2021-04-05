@@ -48,8 +48,8 @@ function PostCards(props) {
           <hr />
           <div className="d-flex justify-content-around mb-3 w-100">
             <Icon
-              name="star outline"
-              className={classNames({ "text-warning": liked })}
+              name="arrow up circle"
+              className={classNames({ "text-success": liked })}
               onClick={() => setLiked(!liked)}
               style={{ cursor: "pointer" }}
               size="large"
