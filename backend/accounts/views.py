@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 
-from .serializers import UserSerializer
+from .serializers import UserSerializer, UserDetailsSerializer
 from .permissions import IsUser
 
 
@@ -69,13 +69,13 @@ class UserViewSet(viewsets.ModelViewSet):
             return User.objects.all()
 
 
-# class UserDetailsViewSet(viewsets.ModelViewSet):
-#     queryset = User.objects.all()
-#     serializer_class = UserDetailsSerializer
-#     permission_classes = [permissions.IsAuthenticated]
+class UserDetailsViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserDetailsSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
-#     def get_queryset(self):
-#         return User.objects.filter(username=self.request.user.username)
+    def get_queryset(self):
+        return User.objects.filter(username=self.request.user.username)
 
 
 # class UserList(generics.ListAPIView):
