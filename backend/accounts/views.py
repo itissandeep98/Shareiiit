@@ -54,12 +54,6 @@ class UserViewSet(viewsets.ModelViewSet):
 
         return [permission() for permission in permission_classes]
 
-    # def get_object(self):
-    #     # username = self.kwargs["username"]
-    #     username = self.request.query_params.get("username")
-    #     obj = get_object_or_404(User, username=username)
-    #     return obj
-
     def get_queryset(self):
         username = self.request.query_params.get("username")
 
@@ -69,10 +63,14 @@ class UserViewSet(viewsets.ModelViewSet):
             return User.objects.all()
 
 
-class UserDetailsViewSet(viewsets.ModelViewSet):
+class UserProfileView(generics.RetrieveUpdateAPIView):
     queryset = User.objects.all()
     serializer_class = UserDetailsSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self):
+        obj = get_object_or_404(User, username=self.request.user.username)
+        return obj
 
     def get_queryset(self):
         return User.objects.filter(username=self.request.user.username)
