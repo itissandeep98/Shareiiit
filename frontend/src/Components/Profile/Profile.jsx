@@ -1,53 +1,31 @@
-import { Button, TextField } from "@material-ui/core";
 import { Col, Container, Row } from "reactstrap";
-import { Image } from "semantic-ui-react";
-import BookmarksIcon from "@material-ui/icons/Bookmarks";
-import GridOnIcon from "@material-ui/icons/GridOn";
-import { useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
-import { fetchUser } from "../../Store/ActionCreators/people";
-import { useHistory } from "react-router-dom";
+import { Image } from "semantic-ui-react";
+import { Chip, IconButton } from "@material-ui/core";
+import FaceIcon from "@material-ui/icons/Face";
+import MessageIcon from "@material-ui/icons/Message";
+import { fetchPeople } from "../../Store/ActionCreators/people";
+import { useEffect } from "react";
 
 function Profile(props) {
+  const { user } = props.match.params;
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchUser());
+    dispatch(fetchPeople(user));
   }, [dispatch]);
-  const history = useHistory();
 
-  const details = props.user?.details;
+  const knowledge = ["React", "Django", "Firebase", "React Native"];
+
   return (
     <Container fluid className="p-3 bg-light h-100">
-      <Container>
+      <Container className="shadow my-3 py-4 rounded_lg bg-white align-items-center">
         <Row>
-          <Col className="d-flex justify-content-end">
-            <Button
-              variant="outlined"
-              className="mr-2 rounded-pill "
-              startIcon={<GridOnIcon />}
-              size="large"
-              onClick={() => history.push("/profile/myposts")}
-            >
-              My Posts
-            </Button>
-            <Button
-              variant="outlined"
-              className="float-right rounded-pill "
-              startIcon={<BookmarksIcon />}
-              size="large"
-              onClick={() => history.push("/profile/saved")}
-            >
-              Saved Post
-            </Button>
-          </Col>
-        </Row>
-        <Row className="shadow my-3 py-4 rounded_lg bg-white align-items-center">
           <Col xs={12} md={2} className="d-none d-md-block">
             <Image src={process.env.PUBLIC_URL + "/assets/images/user.png"} />
           </Col>
           <Col>
-            <h2>
-              Edit Basic Details{" "}
+            <h2 className="d-inline">
+              {user}
               <div className="d-inline ml-2 d-md-none">
                 <Image
                   src={process.env.PUBLIC_URL + "/assets/images/user.png"}
@@ -55,93 +33,23 @@ function Profile(props) {
                 />
               </div>
             </h2>
+            <IconButton className="float-right d-inline">
+              <MessageIcon fontSize="large" />
+            </IconButton>
             <hr />
-            <form>
-              <TextField
-                label="Name"
-                className="w-100"
-                variant="outlined"
-                required
-                value={details?.name}
-              />
-              <TextField
-                label="Email"
-                className="w-100 mt-3"
-                variant="outlined"
-                required
-                value={details?.email}
-              />
-              <TextField
-                label="Batch"
-                type="number"
-                className="w-100 mt-3"
-                variant="outlined"
-                required
-                value={details?.batch}
-              />
-              <TextField
-                label="Role"
-                className="w-100 mt-3"
-                variant="outlined"
-                required
-                value={details?.role}
-              />
-              <Button
-                variant="outlined"
-                className="mt-3 float-right rounded-pill bg-info text-white"
-              >
-                Update
-              </Button>
-            </form>
           </Col>
         </Row>
-        <Row className="shadow my-3 py-4 rounded_lg bg-white align-items-center">
-          <Col>
-            <h2>
-              Update Password
-              <div className="d-inline ml-2 d-md-none">
-                <Image
-                  src={process.env.PUBLIC_URL + "/assets/images/password.png"}
-                  avatar
-                />
-              </div>
-            </h2>
-            <hr />
-            <form>
-              <TextField
-                label="Old Password"
-                type="password"
-                className="w-100 mt-3"
-                variant="outlined"
-                required
+        <Row>
+          <Col className="text-center">
+            <h3>Knows About</h3>
+            {knowledge.map((term) => (
+              <Chip
+                label={term}
+                className="mr-2"
+                icon={<FaceIcon />}
+                key={Math.random()}
               />
-              <TextField
-                label="New Password"
-                type="password"
-                className="w-100 mt-3"
-                variant="outlined"
-                required
-              />
-              <TextField
-                label="Confirm Password"
-                type="password"
-                className="w-100 mt-3"
-                variant="outlined"
-                required
-              />
-              <Button
-                variant="outlined"
-                className="mt-3 float-right rounded-pill bg-info text-white"
-              >
-                Update
-              </Button>
-            </form>
-          </Col>
-          <Col xs={12} md={2} className="d-none d-md-block">
-            <Image
-              src={process.env.PUBLIC_URL + "/assets/images/password.png"}
-              fluid
-            />
+            ))}
           </Col>
         </Row>
       </Container>

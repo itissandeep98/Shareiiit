@@ -9,12 +9,10 @@ function Home(props) {
     <Container fluid className="p-3 bg-light h-100">
       <br />
       <Row>
-        <Col>
-          <Image
-            fluid
-            src={process.env.PUBLIC_URL + "/assets/images/campus.jpg"}
-          />
-        </Col>
+        <Image
+          fluid
+          src={process.env.PUBLIC_URL + "/assets/images/campus.jpg"}
+        />
       </Row>
       <Row className="d-flex justify-content-center h-100 ">
         <Col sm={3} xl={2} className="mb-2">

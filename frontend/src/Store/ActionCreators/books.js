@@ -11,7 +11,7 @@ export const fetchBooks = () => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.BOOKS_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/books/`, headers)
+      .get(`${apiUrl}/books/`, { headers })
       .then((response) => {
         dispatch({
           type: ActionTypes.BOOKS_FETCH_SUCCESS,

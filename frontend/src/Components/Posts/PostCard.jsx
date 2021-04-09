@@ -5,6 +5,7 @@ import { useState } from "react";
 import { withRouter } from "react-router";
 import { useDispatch } from "react-redux";
 import { addVote } from "../../Store/ActionCreators/post";
+import { NavLink } from "react-router-dom";
 
 function PostCards(props) {
   const {
@@ -37,11 +38,7 @@ function PostCards(props) {
   };
   return (
     <Container className="shadow bg-white pt-3 rounded_lg border-info border mt-3 h-100 d-flex justify-content-between flex-column zoom_on_hover">
-      <Row
-        className=" h-100"
-        onClick={() => props.history.push(`/posts/${id}`)}
-        style={{ cursor: "pointer" }}
-      >
+      <Row className=" h-100">
         <Col>
           <Row>
             <Col>
@@ -52,10 +49,16 @@ function PostCards(props) {
             </Col>
             <Col xs={9}>
               <h3 className="text-capitalize">{title}</h3>
-              <small className="text-muted float-right"> - {created_by}</small>
+              <small className="text-muted float-right">
+                - <NavLink to={`/${created_by}`}>{created_by}</NavLink>
+              </small>
             </Col>
           </Row>
-          <Row className="mt-1">
+          <Row
+            className="mt-1"
+            onClick={() => props.history.push(`/posts/${id}`)}
+            style={{ cursor: "pointer" }}
+          >
             <Col className="text-justify">{body}</Col>
           </Row>
         </Col>
