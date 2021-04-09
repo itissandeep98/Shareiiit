@@ -8,8 +8,11 @@ import TopHeader from "../Navigation/TopHeader";
 const Home = lazy(() => import("../Home/Home"));
 const Feed = lazy(() => import("../Feed/Feed"));
 const AuthComp = lazy(() => import("../Authorization/AuthComp"));
+const ProfileSettings = lazy(() => import("../ProfileSettings/Profile"));
 const Profile = lazy(() => import("../Profile/Profile"));
-const PostDetail = lazy(() => import("../Feed/PostDetail"));
+const PostDetail = lazy(() => import("../Posts/PostDetail"));
+const MyPosts = lazy(() => import("../Interests/MyPosts/MyPosts"));
+const Saved = lazy(() => import("../Interests/Saved"));
 
 // private => Route requires authentication
 // layout => header should be visible or not
@@ -24,34 +27,28 @@ function Routing() {
       render: () => <Home />,
     },
     {
+      path: "/profile/myposts",
+      private: true,
+      layout: true,
+      render: () => <MyPosts />,
+    },
+    {
+      path: "/profile/saved",
+      private: true,
+      layout: true,
+      render: () => <Saved />,
+    },
+    {
       path: "/profile",
       private: true,
       layout: true,
-      render: () => <Profile />,
+      render: () => <ProfileSettings />,
     },
     {
       path: "/feed",
       private: true,
       layout: true,
-      render: () => <Feed active="feed" />,
-    },
-    {
-      path: "/create",
-      private: true,
-      layout: true,
-      render: () => <Feed active="create" />,
-    },
-    {
-      path: "/interest",
-      private: true,
-      layout: true,
-      render: () => <Feed active="interest" />,
-    },
-    {
-      path: "/myposts",
-      private: true,
-      layout: true,
-      render: () => <Feed active="myposts" />,
+      render: () => <Feed />,
     },
     {
       path: "/login",
@@ -75,7 +72,14 @@ function Routing() {
         <PostDetail key={props.match.params.postId} {...props} />
       ),
     },
-
+    {
+      path: "/:user",
+      private: true,
+      layout: true,
+      render: (props) => (
+        <Profile key={props.match.params.username} {...props} />
+      ),
+    },
     {
       path: "/",
       private: false,

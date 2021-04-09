@@ -1,63 +1,61 @@
 import { Col, Container, Row } from "reactstrap";
-import { Button, Form, Image, Input } from "semantic-ui-react";
+import { connect, useDispatch } from "react-redux";
+import { Image } from "semantic-ui-react";
+import { Chip, IconButton, List, ListItem } from "@material-ui/core";
+import FaceIcon from "@material-ui/icons/Face";
+import MessageIcon from "@material-ui/icons/Message";
+import { fetchPeople } from "../../Store/ActionCreators/people";
+import { useEffect } from "react";
 
-function Profile() {
-  const details = {
-    name: "Sandeep",
-    email: "Sandeep18363@iiitd.ac.in",
-    batch: "2022",
-  };
+function Profile(props) {
+  const { user } = props.match.params;
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchPeople(user));
+  }, [dispatch]);
+  const { details } = props.people;
+
+  const knowledge = ["React", "Django", "Firebase", "React Native"];
+
   return (
     <Container fluid className="p-3 bg-light h-100">
-      <Container>
-        <Row className="shadow my-3 py-3 rounded_lg bg-white align-items-center">
-          <Col xs={2}>
+      <Container className="shadow my-3 py-4 rounded_lg bg-white align-items-center">
+        <Row>
+          <Col xs={12} md={2} className="d-none d-md-block">
             <Image src={process.env.PUBLIC_URL + "/assets/images/user.png"} />
           </Col>
           <Col>
-            <h2>Edit Basic Details</h2>
+            <h2 className="d-inline">
+              {details?.username}
+              <div className="d-inline ml-2 d-md-none">
+                <Image
+                  src={process.env.PUBLIC_URL + "/assets/images/user.png"}
+                  avatar
+                />
+              </div>
+            </h2>
+            <IconButton className="float-right d-inline">
+              <MessageIcon fontSize="large" />
+            </IconButton>
             <hr />
-            <Form>
-              <Form.Field>
-                <label>Username</label>
-                <Input value={details.name} disabled />
-              </Form.Field>
-              <Form.Field>
-                <label>Email</label>
-                <Input type="email" value={details.email} disabled />
-              </Form.Field>
-              <Form.Field>
-                <label>Batch</label>
-                <Input type="number" value={details.batch} disabled />
-              </Form.Field>
-              <Button floated="right">Update</Button>
-            </Form>
+            <List>
+              <ListItem className="text-capitalize">
+                {details?.first_name} {details?.last_name}
+              </ListItem>
+            </List>
           </Col>
         </Row>
-        <Row className="shadow my-3 py-3 rounded_lg bg-white align-items-center">
-          <Col>
-            <h2>Update Password</h2>
-            <hr />
-            <Form>
-              <Form.Field>
-                <label>Old Password</label>
-                <Input type="password" />
-              </Form.Field>
-              <Form.Field>
-                <label>New Password</label>
-                <Input type="password" />
-              </Form.Field>
-              <Form.Field>
-                <label>Confirm Password</label>
-                <Input type="password" />
-              </Form.Field>
-              <Button floated="right">Update</Button>
-            </Form>
-          </Col>
-          <Col xs={2}>
-            <Image
-              src={process.env.PUBLIC_URL + "/assets/images/password.png"}
-            />
+        <Row>
+          <Col className="text-center">
+            <h3>Knows About</h3>
+            {knowledge.map((term) => (
+              <Chip
+                label={term}
+                className="m-1 "
+                icon={<FaceIcon />}
+                key={Math.random()}
+              />
+            ))}
           </Col>
         </Row>
       </Container>
@@ -65,4 +63,8 @@ function Profile() {
   );
 }
 
-export default Profile;
+const mapStateToProps = (state) => ({
+  people: state.people,
+});
+
+export default connect(mapStateToProps)(Profile);

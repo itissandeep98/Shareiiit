@@ -1,4 +1,4 @@
-import { configureStore } from "../store/configureStore";
+import { configureStore } from "../Store/configureStore";
 
 // export const isLoggedIn = () => localStorage.getItem("user_key") !== null;
 export const getAuthToken = () => {

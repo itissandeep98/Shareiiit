@@ -7,21 +7,21 @@ const headers = {
   Authorization: "Token " + getAuthToken(),
 };
 
-export const fetchGroups = () => {
+export const fetchElectronics = () => {
   return async (dispatch) => {
-    dispatch({ type: ActionTypes.GROUPS_FETCH_REQUEST });
+    dispatch({ type: ActionTypes.ELECTRONICS_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/groups/`, headers)
+      .get(`${apiUrl}/electronics/`, { headers })
       .then((response) => {
         dispatch({
-          type: ActionTypes.GROUPS_FETCH_SUCCESS,
+          type: ActionTypes.ELECTRONICS_FETCH_SUCCESS,
           data: response.data,
         });
       })
       .catch((error) => {
-        console.log(error.response);
+        console.log(error);
         dispatch({
-          type: ActionTypes.GROUPS_FETCH_FAILED,
+          type: ActionTypes.ELECTRONICS_FETCH_FAILED,
           errmess: "Error in connection with Server",
         });
       });
