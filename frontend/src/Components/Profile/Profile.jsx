@@ -1,7 +1,7 @@
 import { Col, Container, Row } from "reactstrap";
 import { connect, useDispatch } from "react-redux";
 import { Image } from "semantic-ui-react";
-import { Chip, IconButton } from "@material-ui/core";
+import { Chip, IconButton, List, ListItem } from "@material-ui/core";
 import FaceIcon from "@material-ui/icons/Face";
 import MessageIcon from "@material-ui/icons/Message";
 import { fetchPeople } from "../../Store/ActionCreators/people";
@@ -13,6 +13,7 @@ function Profile(props) {
   useEffect(() => {
     dispatch(fetchPeople(user));
   }, [dispatch]);
+  const { details } = props.people;
 
   const knowledge = ["React", "Django", "Firebase", "React Native"];
 
@@ -25,7 +26,7 @@ function Profile(props) {
           </Col>
           <Col>
             <h2 className="d-inline">
-              {user}
+              {details?.username}
               <div className="d-inline ml-2 d-md-none">
                 <Image
                   src={process.env.PUBLIC_URL + "/assets/images/user.png"}
@@ -37,6 +38,11 @@ function Profile(props) {
               <MessageIcon fontSize="large" />
             </IconButton>
             <hr />
+            <List>
+              <ListItem className="text-capitalize">
+                {details?.first_name} {details?.last_name}
+              </ListItem>
+            </List>
           </Col>
         </Row>
         <Row>
@@ -45,7 +51,7 @@ function Profile(props) {
             {knowledge.map((term) => (
               <Chip
                 label={term}
-                className="mr-2"
+                className="m-1 "
                 icon={<FaceIcon />}
                 key={Math.random()}
               />
@@ -58,7 +64,7 @@ function Profile(props) {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.user,
+  people: state.people,
 });
 
 export default connect(mapStateToProps)(Profile);

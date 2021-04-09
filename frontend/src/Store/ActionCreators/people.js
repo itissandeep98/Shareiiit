@@ -52,11 +52,11 @@ export const fetchPeople = (id) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.PEOPLE_DETAILS_FETCH_FAILED });
     return await axios
-      .get(`${apiUrl}/users/${id}/`, { headers })
+      .get(`${apiUrl}/users`, { params: { username: id }, headers })
       .then((response) => {
         dispatch({
           type: ActionTypes.PEOPLE_DETAILS_FETCH_SUCCESS,
-          data: response.data,
+          data: response.data[0],
         });
       })
       .catch((error) => {
