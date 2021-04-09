@@ -1,3 +1,4 @@
+from django.db.models import query
 from django.shortcuts import get_object_or_404
 
 from rest_framework import generics, permissions, viewsets, serializers
@@ -12,6 +13,7 @@ from .serializers import (
     BookPostSerializer,
     GroupPostSerializer,
     VoteSerializer,
+    VotedPostSerializer,
 )
 
 # Create your views here.
@@ -51,6 +53,27 @@ class MyBooksViewSet(viewsets.ModelViewSet):
         posts = Post.objects.filter(created_by__id=self.request.user.id, category=1)
         print(posts)
         return posts
+
+
+class VotedPostsView(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_class = VotedPostSerializer
+
+    def get_queryset(self):
+        choice = self.request.query_params.get("choice")
+        category = self.request.query_params.get("category")
+
+        queryset = Vote.objects.all()
+
+        kwargs = {"voted_by__id": self.request.user.id}
+
+        if choice:
+            kwargs["choice__name"] = choice
+        if category:
+            kwargs["post__category__name"] = category
+
+        queryset = queryset.filter(**kwargs)
+        return queryset
 
 
 class GroupViewSet(viewsets.ModelViewSet):
