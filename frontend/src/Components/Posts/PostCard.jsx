@@ -27,7 +27,7 @@ function PostCards(props) {
       setLiked(!liked);
     } else if (option == 2) {
       setSaved(!saved);
-    } else if (option == 2) {
+    } else if (option == 3) {
       setDismiss(!dismiss);
     }
     const data = {
