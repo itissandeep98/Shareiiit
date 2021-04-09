@@ -48,3 +48,25 @@ export const addVote = (data) => {
       });
   };
 };
+
+export const fetchVotedPosts = (data) => {
+  return async (dispatch) => {
+    dispatch({ type: ActionTypes.VOTED_POST_FETCH_REQUEST });
+    return await axios
+      .get(`${apiUrl}/voted`, { params: data, headers })
+      .then((response) => {
+        dispatch({
+          type: ActionTypes.VOTED_POST_FETCH_SUCCESS,
+          data: response.data,
+        });
+        return response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch({
+          type: ActionTypes.VOTED_POST_FETCH_FAILED,
+          errmess: "Error in connection with Server",
+        });
+      });
+  };
+};

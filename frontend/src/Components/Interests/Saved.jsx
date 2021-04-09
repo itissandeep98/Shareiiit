@@ -1,6 +1,17 @@
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Col, Container, Row } from "reactstrap";
+import { fetchVotedPosts } from "../../Store/ActionCreators/post";
 
-function Saved() {
+function Saved(props) {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const data = {
+      category: "book",
+      choice: "save",
+    };
+    dispatch(fetchVotedPosts(data));
+  }, [dispatch]);
   return (
     <Container fluid className="p-3 bg-light h-100">
       <Container>

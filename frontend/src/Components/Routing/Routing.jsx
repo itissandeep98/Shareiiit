@@ -48,25 +48,7 @@ function Routing() {
       path: "/feed",
       private: true,
       layout: true,
-      render: () => <Feed active="feed" />,
-    },
-    {
-      path: "/create",
-      private: true,
-      layout: true,
-      render: () => <Feed active="create" />,
-    },
-    {
-      path: "/interest",
-      private: true,
-      layout: true,
-      render: () => <Feed active="interest" />,
-    },
-    {
-      path: "/myposts",
-      private: true,
-      layout: true,
-      render: () => <Feed active="myposts" />,
+      render: () => <Feed />,
     },
     {
       path: "/login",
