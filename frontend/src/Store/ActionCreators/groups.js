@@ -11,7 +11,7 @@ export const fetchGroups = () => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.GROUPS_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/groups/`, headers)
+      .get(`${apiUrl}/groups/`, { headers })
       .then((response) => {
         dispatch({
           type: ActionTypes.GROUPS_FETCH_SUCCESS,

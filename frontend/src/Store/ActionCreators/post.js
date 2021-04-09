@@ -11,7 +11,7 @@ export const fetchPostDetails = (id) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.POST_DETAILS_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/posts/${id}`)
+      .get(`${apiUrl}/posts/${id}`, { headers })
       .then((response) => {
         dispatch({
           type: ActionTypes.POST_DETAILS_FETCH_SUCCESS,
@@ -33,7 +33,7 @@ export const addVote = (data) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.LIKE_ADD_REQUEST, data: data });
     return await axios
-      .post(`${apiUrl}/votes/`, data, headers)
+      .post(`${apiUrl}/votes/`, data, { headers })
       .then((response) => {
         dispatch({
           type: ActionTypes.LIKE_ADD_SUCCESS,

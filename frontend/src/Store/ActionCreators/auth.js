@@ -34,7 +34,7 @@ export const logoutAction = () => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.LOGOUT_REQUEST });
     return await axios
-      .post(`${apiUrl}/logout/`, {})
+      .post(`${apiUrl}/logout/`)
       .then((response) => {
         dispatch({ type: ActionTypes.LOGOUT_SUCCESS });
       })
