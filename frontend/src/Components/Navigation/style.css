@@ -10,3 +10,8 @@
   background-color: white;
   color: #3fada8 !important;
 }
+
+.cust_link.nav-link:hover {
+  background-color: white;
+  color: #3fada8 !important;
+}
