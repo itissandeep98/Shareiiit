@@ -12,4 +12,5 @@ router.register(r"votes", views.VoteViewSet, basename="votes")
 urlpatterns = [
     path("", include(router.urls)),
     path("categories/", views.CategoryList.as_view()),
+    path("voted/", views.VotedPostsView.as_view()),
 ]

@@ -16,12 +16,58 @@ class GroupSerializer(serializers.ModelSerializer):
         fields = ("members_needed",)
 
 
-class VoteSerializer(serializers.ModelSerializer):
+class VotedPostSerializer(serializers.ModelSerializer):
     voted_by = serializers.CharField(source="voted_by.username", read_only=True)
+    # post = serializers.SerializerMethodField()
 
     class Meta:
         model = Vote
-        fields = ("id", "voted_by", "post", "choice")
+        fields = ("id", "voted_by", "choice", "post")
+
+    def to_representation(self, obj):
+        rep = super().to_representation(obj)
+
+        print("Context request:", self.context["request"])
+
+        args = {obj.post}
+        kwargs = {"context": {"request": self.context["request"]}}
+
+        serializer = None
+        category = self.context.get("request").query_params.get("category")
+
+        if category == "book":
+            serializer = BookPostSerializer(*args, **kwargs)
+
+        rep["post"] = serializer.data
+
+        return rep
+
+    # def get_post(self, obj):
+    #     try:
+    #         qs = Post.objects.get(id=obj.post.id)
+    #         # print(qs)
+    #         # print("Post Detail Context User", self.context)
+    #         # print()
+
+    #         serializer = BookPostSerializer(
+    #             instance=qs, context={"request": self.context["request"]}
+    #         )
+
+    #         return serializer.data
+    #     except Exception as e:
+    #         print("Exception" + str(e))
+    #         print("book=", qs)
+    #         print()
+    #         return None
+
+
+class VoteSerializer(serializers.ModelSerializer):
+    voted_by = serializers.CharField(source="voted_by.username", read_only=True)
+    # post = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Vote
+        fields = ("id", "voted_by", "choice")
 
     def validate(self, data):
         """
@@ -73,7 +119,6 @@ class BookPostSerializer(PostSerializer):
 
     def get_current_user_votes(self, obj):
         qs = Vote.objects.filter(post__id=obj.id, voted_by=self.context["request"].user)
-
         serializer = VoteSerializer(instance=qs, many=True)
         return serializer.data
 
