@@ -100,7 +100,15 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ("id", "title", "body", "created_by", "is_request", "category")
+        fields = (
+            "id",
+            "title",
+            "body",
+            "created_by",
+            "created_at",
+            "is_request",
+            "category",
+        )
 
 
 class BookPostSerializer(PostSerializer):
@@ -111,11 +119,7 @@ class BookPostSerializer(PostSerializer):
 
     class Meta:
         model = PostSerializer.Meta.model
-        fields = PostSerializer.Meta.fields + (
-            "book",
-            "upvotes",
-            "current_user_votes",
-        )
+        fields = PostSerializer.Meta.fields + ("book", "upvotes", "current_user_votes")
 
     def get_current_user_votes(self, obj):
         qs = Vote.objects.filter(post__id=obj.id, voted_by=self.context["request"].user)
