@@ -15,7 +15,7 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, related_name="posts", on_delete=models.CASCADE)
     title = models.CharField(max_length=50, blank=True, null=True)
-    body = models.CharField(max_length=200, blank=True, null=True)
+    description = models.CharField(max_length=200, blank=True, null=True)
     is_request = models.BooleanField(default=True)
 
     category = models.ForeignKey(

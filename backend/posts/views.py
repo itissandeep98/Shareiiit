@@ -38,7 +38,22 @@ class BookViewSet(viewsets.ReadOnlyModelViewSet):
     #     serializer.save(created_by=self.request.user)
 
     def get_queryset(self):
-        return Post.objects.filter(category=1)
+        kwargs = {}
+
+        title__icontains = self.request.query_params.get("title")
+        description__icontains = self.request.query_params.get("body")
+        created_by__username__icontains = self.request.query_params.get("username")
+
+        if title__icontains:
+            kwargs["title__icontains"] = title__icontains
+
+        if description__icontains:
+            kwargs["description__icontains"] = description__icontains
+
+        if created_by__username__icontains:
+            kwargs["created_by__username__icontains"] = created_by__username__icontains
+
+        return Post.objects.filter(category=1, **kwargs)
 
 
 class MyBooksViewSet(viewsets.ModelViewSet):
