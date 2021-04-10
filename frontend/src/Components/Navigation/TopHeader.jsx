@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink, withRouter } from "react-router-dom";
 import {
-  Col,
   Collapse,
   Container,
   Nav,
@@ -13,7 +12,7 @@ import {
 } from "reactstrap";
 import "./style.css";
 import { Image } from "semantic-ui-react";
-import { logoutAction } from "../../store/ActionCreators/auth";
+import { logoutAction } from "../../Store/ActionCreators/auth";
 
 function TopHeader() {
   const dispatch = useDispatch();
@@ -36,7 +35,7 @@ function TopHeader() {
             />
           </div>
           <Image
-            src={process.env.PUBLIC_URL + "/assets/images/logo.png"}
+            src={process.env.PUBLIC_URL + "/assets/images/logo1.png"}
             alt="resource sharing app"
             className="d-none d-md-block"
           />
@@ -62,6 +61,8 @@ function TopHeader() {
                   Profile
                 </NavLink>
               </NavItem>
+            </Nav>
+            <Nav className="ml-auto" navbar>
               <NavItem>
                 <NavLink className="nav-link p-3" to="#" onClick={logout}>
                   Logout

@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { NavLink, withRouter } from "react-router-dom";
 import { Spinner } from "reactstrap";
 import { Button, Form, Input } from "semantic-ui-react";
-import { loginAction } from "../../store/ActionCreators/auth";
+import { loginAction } from "../../Store/ActionCreators/auth";
 
 function Login(props) {
   const dispatch = useDispatch();

@@ -1,21 +1,11 @@
-import {
-  Button,
-  Col,
-  Container,
-  Form,
-  FormGroup,
-  FormText,
-  Input,
-  Label,
-  Row,
-} from "reactstrap";
-import { Dropdown, Tab } from "semantic-ui-react";
-import Books from "./Forms/Books";
-import Electronics from "./Forms/Electronics";
-import Groups from "./Forms/Groups";
-import Other from "./Forms/Other";
+import { Col, Container, Row } from "reactstrap";
+import { Tab } from "semantic-ui-react";
+import Books from "./Data/Books";
+import Electronics from "./Data/Electronics";
+import Groups from "./Data/Groups";
+import Other from "./Data/Other";
 
-function Create() {
+function MyPosts(props) {
   const panes = [
     {
       menuItem: "Books",
@@ -51,15 +41,17 @@ function Create() {
     },
   ];
   return (
-    <Container>
-      <Row>
-        <Col>
-          <h1> Create New Posting</h1>
-          <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
-        </Col>
-      </Row>
+    <Container fluid className="p-3 bg-light h-100">
+      <Container>
+        <Row className="shadow my-3 py-4 rounded_lg bg-white align-items-center">
+          <Col>
+            <h1>View Your Posts</h1>
+            <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
+          </Col>
+        </Row>
+      </Container>
     </Container>
   );
 }
 
-export default Create;
+export default MyPosts;

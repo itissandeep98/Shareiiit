@@ -11,7 +11,7 @@ export const fetchBooks = () => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.BOOKS_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/books/`, headers)
+      .get(`${apiUrl}/books/`, { headers })
       .then((response) => {
         dispatch({
           type: ActionTypes.BOOKS_FETCH_SUCCESS,
@@ -72,28 +72,6 @@ export const fetchMyBooks = () => {
         console.log(error);
         dispatch({
           type: ActionTypes.USER_BOOKS_FETCH_FAILED,
-          errmess: "Error in connection with Server",
-        });
-      });
-  };
-};
-
-export const fetchPostDetails = (id) => {
-  return async (dispatch) => {
-    dispatch({ type: ActionTypes.POST_DETAILS_FETCH_REQUEST });
-    return await axios
-      .get(`${apiUrl}/posts/${id}`)
-      .then((response) => {
-        dispatch({
-          type: ActionTypes.POST_DETAILS_FETCH_SUCCESS,
-          data: response.data,
-        });
-        return response.data;
-      })
-      .catch((error) => {
-        console.log(error);
-        dispatch({
-          type: ActionTypes.POST_DETAILS_FETCH_FAILED,
           errmess: "Error in connection with Server",
         });
       });

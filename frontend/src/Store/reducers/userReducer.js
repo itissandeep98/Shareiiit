@@ -31,6 +31,24 @@ export const authReducer = (state = initState, action) => {
 
 export const detailsReducer = (state = initState, action) => {
   switch (action.type) {
+    case ActionTypes.USER_DETAILS_FETCH_REQUEST:
+      return { ...state, errmess: null, isLoading: true };
+
+    case ActionTypes.USER_DETAILS_FETCH_SUCCESS:
+      return {
+        ...state,
+        errmess: null,
+        details: action.data,
+        isLoading: false,
+      };
+
+    case ActionTypes.USER_DETAILS_FETCH_FAILED:
+      return {
+        ...state,
+        errmess: action.errmess,
+        details: null,
+        isLoading: false,
+      };
     case ActionTypes.USER_BOOKS_FETCH_REQUEST:
       return { ...state, errmess: null, isLoading: true };
 
