@@ -11,6 +11,13 @@ class Category(models.Model):
         return self.name
 
 
+class SkillList(models.Model):
+    name = models.CharField(max_length=100, blank=False)
+
+    def __str__(self):
+        return self.name
+
+
 class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, related_name="posts", on_delete=models.CASCADE)
@@ -52,8 +59,10 @@ class Book(models.Model):
     author = models.CharField(max_length=100, blank=True, null=True)
 
 
-# class Item(models.Model):
-#     post = models.OneToOneField(Post, on_delete=models.CASCADE)
+class Skill(models.Model):
+    post = models.OneToOneField(Post, on_delete=models.CASCADE)
+    skill_item = models.OneToOneField(SkillList, on_delete=models.CASCADE)
+    rating = models.IntegerField()
 
 
 class Group(models.Model):

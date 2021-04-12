@@ -1,7 +1,7 @@
 from django.db.models import fields
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
-from .models import Post, Book, Group, Category, Vote
+from .models import Post, Book, Group, Category, Vote, Skill, SkillList
 
 
 class BookSerializer(serializers.ModelSerializer):
@@ -73,6 +73,7 @@ class VoteSerializer(serializers.ModelSerializer):
         """
         Data.get("user") cannot be used here because validate is called before voted_by parameter is added to the data. But it is necessary to call it because the entire validated_data is used in the create method of the VoteSerializer.
         """
+
         voted_by = self.context["request"].user
         post = data.get("post", None)
         choice = data.get("choice", None)
@@ -127,16 +128,7 @@ class BookPostSerializer(PostSerializer):
         return serializer.data
 
     def get_upvotes(self, obj):
-        return Vote.objects.filter(post__id=obj.id, choice=1).count()
-
-    # def get_current_user_vote_id(self, obj):
-    #     try:
-    #         id = Vote.objects.get(
-    #             post__id=obj.id, voted_by=self.context["request"].user
-    #         ).id
-    #     except:
-    #         id = None
-    #     return id
+        return Vote.objects.filter(post__id=obj.id, choice__name="upvote").count()
 
     def create(self, validated_data):
         if "book" in validated_data:
@@ -191,6 +183,54 @@ class GroupPostSerializer(PostSerializer):
 
         instance = super().update(instance, validated_data)
         return instance
+
+
+class SkillItemSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SkillList
+        fields = "__all__"
+
+
+class SkillSerializer(serializers.ModelSerializer):
+    skill_item = SkillItemSerializer(required=False)
+
+    class Meta:
+        model = Skill
+        fields = ("skill_item", "rating")
+
+
+class SkillPostSerializer(PostSerializer):
+    skill = SkillSerializer(required=False)
+    upvotes = serializers.SerializerMethodField()
+    current_user_votes = serializers.SerializerMethodField()
+
+    class Meta:
+        model = PostSerializer.Meta.model
+        fields = PostSerializer.Meta.fields + ("skill", "upvotes", "current_user_votes")
+
+    def get_current_user_votes(self, obj):
+        qs = Vote.objects.filter(post__id=obj.id, voted_by=self.context["request"].user)
+        serializer = VoteSerializer(instance=qs, many=True)
+        return serializer.data
+
+    def get_upvotes(self, obj):
+        return Vote.objects.filter(post__id=obj.id, choice__name="upvote").count()
+
+    def create(self, validated_data):
+        if "skill" in validated_data:
+            skill_data = validated_data.pop("skill")
+        else:
+            skill_data = {}
+
+        print(skill_data)
+
+        validated_data["category"] = Category.objects.get(name="skill")
+        post = Post.objects.create(**validated_data)
+        skill_item = SkillList.objects.get(name=skill_data.pop("skill_item")["name"])
+        skill_instance = Skill.objects.create(
+            post=post, skill_item=skill_item, **skill_data
+        )
+        return post
 
 
 class CategorySerializer(serializers.ModelSerializer):
