@@ -68,6 +68,25 @@ export const detailsReducer = (state = initState, action) => {
         isLoading: false,
       };
 
+    case ActionTypes.VOTED_POST_FETCH_REQUEST:
+      return { ...state, errmess: null, isLoading: true };
+
+    case ActionTypes.VOTED_POST_FETCH_SUCCESS:
+      return {
+        ...state,
+        errmess: null,
+        voted: action.data,
+        isLoading: false,
+      };
+
+    case ActionTypes.VOTED_POST_FETCH_FAILED:
+      return {
+        ...state,
+        errmess: action.errmess,
+        voted: null,
+        isLoading: false,
+      };
+
     default:
       return state;
   }

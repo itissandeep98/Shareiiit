@@ -6,6 +6,7 @@ import { withRouter } from "react-router";
 import { useDispatch } from "react-redux";
 import { addVote } from "../../Store/ActionCreators/post";
 import { NavLink } from "react-router-dom";
+import { Tooltip } from "@material-ui/core";
 
 function PostCards(props) {
   const {
@@ -16,11 +17,18 @@ function PostCards(props) {
     created_by,
     is_request,
     title,
-    votes,
+    upvotes,
+    current_user_votes,
   } = props;
-  const [liked, setLiked] = useState(false);
-  const [dismiss, setDismiss] = useState(false);
-  const [saved, setSaved] = useState(false);
+  const [liked, setLiked] = useState(
+    current_user_votes.filter((vote) => vote.choice == 1).length
+  );
+  const [saved, setSaved] = useState(
+    current_user_votes.filter((vote) => vote.choice == 2).length
+  );
+  const [dismiss, setDismiss] = useState(
+    current_user_votes.filter((vote) => vote.choice == 3).length
+  );
   const dispatch = useDispatch();
   const Vote = (option) => {
     if (option == 1) {
@@ -66,28 +74,37 @@ function PostCards(props) {
       <Row>
         <Col>
           <hr />
-          <div className="d-flex justify-content-around mb-3 w-100">
-            <Icon
-              name="arrow up circle"
-              className={classNames({ "text-success": liked })}
-              onClick={() => Vote(1)}
-              style={{ cursor: "pointer" }}
-              size="large"
-            />
-            <Icon
-              name="bookmark outline"
-              className={classNames({ "text-info": saved })}
-              onClick={() => Vote(2)}
-              style={{ cursor: "pointer" }}
-              size="large"
-            />
-            <Icon
-              name="times"
-              className={classNames({ "text-danger": dismiss })}
-              onClick={() => Vote(3)}
-              style={{ cursor: "pointer" }}
-              size="large"
-            />
+          <div className="d-flex justify-content-around mb-1 w-100">
+            <Tooltip title="Upvote" placement="top">
+              <p>
+                <Icon
+                  name="arrow up circle"
+                  className={classNames({ "text-success": liked })}
+                  onClick={() => Vote(1)}
+                  style={{ cursor: "pointer" }}
+                  size="large"
+                />
+                {upvotes > 0 && upvotes}
+              </p>
+            </Tooltip>
+            <Tooltip title="Save" placement="top">
+              <Icon
+                name="bookmark outline"
+                className={classNames({ "text-info": saved })}
+                onClick={() => Vote(2)}
+                style={{ cursor: "pointer" }}
+                size="large"
+              />
+            </Tooltip>
+            <Tooltip title="Dismiss" placement="top">
+              <Icon
+                name="times"
+                className={classNames({ "text-danger": dismiss })}
+                onClick={() => Vote(3)}
+                style={{ cursor: "pointer" }}
+                size="large"
+              />
+            </Tooltip>
           </div>
         </Col>
       </Row>

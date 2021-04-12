@@ -45,9 +45,9 @@ function Profile(props) {
               className="float-right rounded-pill "
               startIcon={<BookmarksIcon />}
               size="large"
-              onClick={() => history.push("/profile/saved")}
+              onClick={() => history.push("/profile/interactions")}
             >
-              Saved Post
+              Interactions
             </Button>
           </Col>
         </Row>
