@@ -1,9 +1,12 @@
-from django.db.models import query
+from django.db.models import query, Count, Q
 from django.shortcuts import get_object_or_404
 
-from rest_framework import generics, permissions, viewsets, serializers
+
+from rest_framework import generics, permissions, viewsets, serializers, filters
 from rest_framework.views import APIView
 from rest_framework.response import Response
+
+from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import Post, Category, Vote
 from .permissions import IsOwnerOrReadOnly
@@ -35,6 +38,16 @@ class BookViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = BookPostSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    filter_backends = [
+        DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter,
+    ]
+
+    search_fields = ["created_by__username", "title", "description"]
+    ordering_fields = ["upvotes", "created_at"]
+    ordering = ["-upvotes", "-created_at"]
+
     # def perform_create(self, serializer):
     #     print(self.request)
     #     serializer.save(created_by=self.request.user)
@@ -59,30 +72,55 @@ class BookViewSet(viewsets.ReadOnlyModelViewSet):
         if is_request:
             kwargs["is_request"] = is_request
 
-        return Post.objects.filter(category=1, **kwargs)
+        queryset = Post.objects.filter(category__name="book", **kwargs)
+
+        queryset = queryset.annotate(
+            upvotes=Count("votes", filter=Q(votes__choice__name="upvote"))
+        )
+
+        return queryset
 
 
 class MyBooksViewSet(viewsets.ModelViewSet):
     serializer_class = BookPostSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    filter_backends = [
+        DjangoFilterBackend,
+        filters.OrderingFilter,
+    ]
+
+    ordering = ["-created_at"]
+
     def perform_create(self, serializer):
         print(self.request)
         serializer.save(created_by=self.request.user)
 
     def get_queryset(self):
-        posts = Post.objects.filter(created_by__id=self.request.user.id, category=1)
-        print(posts)
-        return posts
+        queryset = Post.objects.filter(
+            created_by__id=self.request.user.id, category__name="book"
+        )
+
+        queryset = queryset.annotate(
+            upvotes=Count("votes", filter=Q(votes__choice__name="upvote"))
+        )
+
+        return queryset
 
 
 class SkillViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = SkillPostSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-    # def perform_create(self, serializer):
-    #     print(self.request)
-    #     serializer.save(created_by=self.request.user)
+    filter_backends = [
+        DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter,
+    ]
+
+    search_fields = ["created_by__username", "title", "description"]
+    ordering_fields = ["upvotes", "created_at"]
+    ordering = ["-upvotes", "-created_at"]
 
     def get_queryset(self):
         kwargs = {}
@@ -106,21 +144,39 @@ class SkillViewSet(viewsets.ReadOnlyModelViewSet):
         if is_request:
             kwargs["is_request"] = is_request
 
-        return Post.objects.filter(category__name="skill", **kwargs)
+        queryset = Post.objects.filter(category__name="skill", **kwargs)
+
+        queryset = queryset.annotate(
+            upvotes=Count("votes", filter=Q(votes__choice__name="upvote"))
+        )
+
+        return queryset
 
 
 class MySkillsViewSet(viewsets.ModelViewSet):
     serializer_class = SkillPostSerializer
     permission_classes = [permissions.IsAuthenticated]
 
+    filter_backends = [
+        DjangoFilterBackend,
+        filters.OrderingFilter,
+    ]
+
+    ordering = ["-created_at"]
+
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
 
     def get_queryset(self):
-        posts = Post.objects.filter(
+        queryset = Post.objects.filter(
             created_by__id=self.request.user.id, category__name="skill"
         )
-        return posts
+
+        queryset = queryset.annotate(
+            upvotes=Count("votes", filter=Q(votes__choice__name="upvote"))
+        )
+
+        return queryset
 
 
 class VotedPostsView(generics.ListAPIView):
