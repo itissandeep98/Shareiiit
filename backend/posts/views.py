@@ -41,7 +41,7 @@ class BookViewSet(viewsets.ReadOnlyModelViewSet):
         kwargs = {}
 
         title__icontains = self.request.query_params.get("title")
-        description__icontains = self.request.query_params.get("body")
+        description__icontains = self.request.query_params.get("description")
         created_by__username__icontains = self.request.query_params.get("username")
 
         if title__icontains:

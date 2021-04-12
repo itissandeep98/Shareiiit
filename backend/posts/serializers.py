@@ -103,7 +103,7 @@ class PostSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "title",
-            "body",
+            "description",
             "created_by",
             "created_at",
             "is_request",
