@@ -14,6 +14,8 @@ from .serializers import (
     GroupPostSerializer,
     VoteSerializer,
     VotedPostSerializer,
+    SkillPostSerializer,
+    SkillSerializer,
 )
 
 # Create your views here.
@@ -25,13 +27,13 @@ class PostViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = PostSerializer
 
     def perform_create(self, serializer):
-        print(self.request)
+        # print(self.request)
         serializer.save(created_by=self.request.user)
 
 
 class BookViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = BookPostSerializer
-    # permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated]
 
     # def perform_create(self, serializer):
     #     print(self.request)
@@ -43,6 +45,7 @@ class BookViewSet(viewsets.ReadOnlyModelViewSet):
         title__icontains = self.request.query_params.get("title")
         description__icontains = self.request.query_params.get("description")
         created_by__username__icontains = self.request.query_params.get("username")
+        is_request = self.request.query_params.get("is_request")
 
         if title__icontains:
             kwargs["title__icontains"] = title__icontains
@@ -52,6 +55,9 @@ class BookViewSet(viewsets.ReadOnlyModelViewSet):
 
         if created_by__username__icontains:
             kwargs["created_by__username__icontains"] = created_by__username__icontains
+
+        if is_request:
+            kwargs["is_request"] = is_request
 
         return Post.objects.filter(category=1, **kwargs)
 
@@ -67,6 +73,53 @@ class MyBooksViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         posts = Post.objects.filter(created_by__id=self.request.user.id, category=1)
         print(posts)
+        return posts
+
+
+class SkillViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = SkillPostSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    # def perform_create(self, serializer):
+    #     print(self.request)
+    #     serializer.save(created_by=self.request.user)
+
+    def get_queryset(self):
+        kwargs = {}
+
+        skill__skill_item__name__icontains = self.request.query_params.get("name")
+        description__icontains = self.request.query_params.get("body")
+        created_by__username__icontains = self.request.query_params.get("username")
+        is_request = self.request.query_params.get("is_request")
+
+        if skill__skill_item__name__icontains:
+            kwargs[
+                "skill__skill_item__name__icontains"
+            ] = skill__skill_item__name__icontains
+
+        if description__icontains:
+            kwargs["description__icontains"] = description__icontains
+
+        if created_by__username__icontains:
+            kwargs["created_by__username__icontains"] = created_by__username__icontains
+
+        if is_request:
+            kwargs["is_request"] = is_request
+
+        return Post.objects.filter(category__name="skill", **kwargs)
+
+
+class MySkillsViewSet(viewsets.ModelViewSet):
+    serializer_class = SkillPostSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
+
+    def get_queryset(self):
+        posts = Post.objects.filter(
+            created_by__id=self.request.user.id, category__name="skill"
+        )
         return posts
 
 
@@ -96,7 +149,7 @@ class GroupViewSet(viewsets.ModelViewSet):
     serializer_class = GroupPostSerializer
 
     def perform_create(self, serializer):
-        print(self.request)
+        # print(self.request)
         serializer.save(created_by=self.request.user)
 
     def get_queryset(self):
