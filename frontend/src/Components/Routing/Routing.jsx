@@ -15,6 +15,7 @@ const MyPosts = lazy(() => import("../Interests/MyPosts/MyPosts"));
 const Interactions = lazy(() =>
   import("../Interests/Interactions/Interactions")
 );
+const Technical = lazy(() => import("../Technical/Technical"));
 
 // private => Route requires authentication
 // layout => header should be visible or not
@@ -51,6 +52,12 @@ function Routing() {
       private: true,
       layout: true,
       render: () => <Feed />,
+    },
+    {
+      path: "/technical",
+      private: true,
+      layout: true,
+      render: () => <Technical />,
     },
     {
       path: "/login",

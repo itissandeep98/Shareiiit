@@ -67,7 +67,7 @@ class VoteSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Vote
-        fields = ("id", "voted_by", "choice")
+        fields = ("id", "voted_by", "post","choice")
 
     def validate(self, data):
         """
