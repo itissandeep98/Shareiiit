@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "accounts.apps.AccountsConfig",
     "posts.apps.PostsConfig",
     "corsheaders",
+    "django_filters",
 ]
 
 REST_FRAMEWORK = {
@@ -62,8 +63,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-CORS_ORIGIN_WHITELIST = ["http://localhost:3000",
-                         "https://gupta-anmol.github.io"]
+CORS_ORIGIN_WHITELIST = ["http://localhost:3000", "https://gupta-anmol.github.io"]
 
 ROOT_URLCONF = "backend.urls"
 

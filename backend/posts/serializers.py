@@ -115,7 +115,8 @@ class PostSerializer(serializers.ModelSerializer):
 class BookPostSerializer(PostSerializer):
     book = BookSerializer(required=False)
     # votes = VoteSerializer(read_only=True, many=True)
-    upvotes = serializers.SerializerMethodField()
+    # upvotes = serializers.SerializerMethodField()
+    upvotes = serializers.IntegerField(read_only=True)
     current_user_votes = serializers.SerializerMethodField()
 
     class Meta:
@@ -127,8 +128,8 @@ class BookPostSerializer(PostSerializer):
         serializer = VoteSerializer(instance=qs, many=True)
         return serializer.data
 
-    def get_upvotes(self, obj):
-        return Vote.objects.filter(post__id=obj.id, choice__name="upvote").count()
+    # def get_upvotes(self, obj):
+    #     return Vote.objects.filter(post__id=obj.id, choice__name="upvote").count()
 
     def create(self, validated_data):
         if "book" in validated_data:
@@ -201,7 +202,8 @@ class SkillSerializer(serializers.ModelSerializer):
 
 class SkillPostSerializer(PostSerializer):
     skill = SkillSerializer(required=False)
-    upvotes = serializers.SerializerMethodField()
+    # upvotes = serializers.SerializerMethodField()
+    upvotes = serializers.IntegerField(read_only=True)
     current_user_votes = serializers.SerializerMethodField()
 
     class Meta:
@@ -213,8 +215,8 @@ class SkillPostSerializer(PostSerializer):
         serializer = VoteSerializer(instance=qs, many=True)
         return serializer.data
 
-    def get_upvotes(self, obj):
-        return Vote.objects.filter(post__id=obj.id, choice__name="upvote").count()
+    # def get_upvotes(self, obj):
+    #     return Vote.objects.filter(post__id=obj.id, choice__name="upvote").count()
 
     def create(self, validated_data):
         if "skill" in validated_data:
