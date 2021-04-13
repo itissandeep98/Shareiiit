@@ -11,5 +11,6 @@ admin.site.register(Choice)
 admin.site.register(Vote)
 admin.site.register(SkillList)
 admin.site.register(Skill)
+admin.site.register(Message)
 
 # admin.site.register(Book)

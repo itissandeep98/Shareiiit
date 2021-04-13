@@ -8,7 +8,7 @@ from rest_framework.response import Response
 
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .models import Post, Category, Vote
+from .models import Post, Category, Vote, Message
 from .permissions import IsOwnerOrReadOnly
 from .serializers import (
     PostSerializer,
@@ -19,6 +19,7 @@ from .serializers import (
     VotedPostSerializer,
     SkillPostSerializer,
     SkillSerializer,
+    MessageSerializer,
 )
 
 # Create your views here.
@@ -58,6 +59,7 @@ class BookViewSet(viewsets.ReadOnlyModelViewSet):
         title__icontains = self.request.query_params.get("title")
         description__icontains = self.request.query_params.get("description")
         created_by__username__icontains = self.request.query_params.get("username")
+        author = self.request.query_params.get("author")
         is_request = self.request.query_params.get("is_request")
 
         if title__icontains:
@@ -68,6 +70,9 @@ class BookViewSet(viewsets.ReadOnlyModelViewSet):
 
         if created_by__username__icontains:
             kwargs["created_by__username__icontains"] = created_by__username__icontains
+
+        if author:
+            kwargs["book__author__icontains"] = author
 
         if is_request:
             kwargs["is_request"] = is_request
@@ -129,6 +134,7 @@ class SkillViewSet(viewsets.ReadOnlyModelViewSet):
         description__icontains = self.request.query_params.get("body")
         created_by__username__icontains = self.request.query_params.get("username")
         is_request = self.request.query_params.get("is_request")
+        rating = self.request.query_params.get("rating")
 
         if skill__skill_item__name__icontains:
             kwargs[
@@ -143,6 +149,9 @@ class SkillViewSet(viewsets.ReadOnlyModelViewSet):
 
         if is_request:
             kwargs["is_request"] = is_request
+
+        if rating:
+            kwargs["skill__rating"] = rating
 
         queryset = Post.objects.filter(category__name="skill", **kwargs)
 
@@ -234,18 +243,42 @@ class CategoryList(generics.ListAPIView):
     serializer_class = CategorySerializer
 
 
-# class PostList(generics.ListCreateAPIView):
-#     queryset = Post.objects.all()
-#     serializer_class = PostSerializer
+class MessageViewSet(generics.ListCreateAPIView):
+    serializer_class = MessageSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
-# permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    # filter_backends = [
+    #     DjangoFilterBackend,
+    #     filters.OrderingFilter,
+    # ]
 
-# def perform_create(self, serializer):
-#     serializer.save(owner=self.request.user)
+    # ordering = ["-created_at"]
 
+    def perform_create(self, serializer):
+        serializer.save(sender=self.request.user)
 
-# class PostDetail(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = Post.objects.all()
-#     serializer_class = PostSerializer
+    def get_queryset(self):
+        queryset = Message.objects.all()
+        post = self.request.query_params.get("post")
+        user1 = self.request.user.username
+        user2 = self.request.query_params.get("user2")
 
-#     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+        print(post, user1, user2)
+
+        queryset = queryset.filter(
+            Q(sender__username=user1) | Q(sender__username=user2),
+            Q(recipient__username=user1) | Q(recipient__username=user2),
+            post__id=post,
+        )
+
+        # kwargs = {"voted_by__id": self.request.user.id}
+
+        # if choice:
+        #     kwargs["choice__name"] = choice
+        # if category:
+        #     kwargs["post__category__name"] = category
+
+        # queryset = queryset.filter(**kwargs)
+        return queryset
+
+        return queryset

@@ -55,7 +55,7 @@ class Vote(models.Model):
 
 
 class Book(models.Model):
-    post = models.OneToOneField(Post, on_delete=models.CASCADE)
+    post = models.OneToOneField(Post, related_name="book", on_delete=models.CASCADE)
     author = models.CharField(max_length=100, blank=True, null=True)
 
 
@@ -68,3 +68,20 @@ class Skill(models.Model):
 class Group(models.Model):
     post = models.OneToOneField(Post, on_delete=models.CASCADE)
     members_needed = models.IntegerField()
+
+
+class Message(models.Model):
+    post = models.ForeignKey(Post, related_name="messages", on_delete=models.CASCADE)
+    sender = models.ForeignKey(
+        User, related_name="messages_sender", on_delete=models.CASCADE
+    )
+    recipient = models.ForeignKey(
+        User, related_name="messages_recepient", on_delete=models.CASCADE
+    )
+    text = models.CharField(max_length=1024, blank=False, null=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    order_by = ["-created-at"]
+
+    def __unicode__(self):
+        return f"{sender__username} to {recipient__username}: {text}"

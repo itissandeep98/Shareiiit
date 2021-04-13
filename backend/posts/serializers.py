@@ -1,7 +1,8 @@
 from django.db.models import fields
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
-from .models import Post, Book, Group, Category, Vote, Skill, SkillList
+from .models import Post, Book, Group, Category, Vote, Skill, SkillList, Message
+from django.contrib.auth.models import User
 
 
 class BookSerializer(serializers.ModelSerializer):
@@ -233,6 +234,23 @@ class SkillPostSerializer(PostSerializer):
             post=post, skill_item=skill_item, **skill_data
         )
         return post
+
+
+class MessageSerializer(serializers.ModelSerializer):
+    sender = serializers.CharField(source="sender.username", read_only=True)
+    recipient = serializers.CharField(source="recipient.username")
+
+    class Meta:
+        model = Message
+        fields = ("created_at", "sender", "recipient", "post", "text")
+
+    def create(self, validated_data):
+        print(validated_data)
+        validated_data["recipient"] = User.objects.get(
+            **validated_data.get("recipient")
+        )
+        message = Message.objects.create(**validated_data)
+        return message
 
 
 class CategorySerializer(serializers.ModelSerializer):
