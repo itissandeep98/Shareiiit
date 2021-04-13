@@ -8,7 +8,7 @@ from rest_framework.response import Response
 
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .models import Post, Category, Vote
+from .models import Post, Category, Vote, Message
 from .permissions import IsOwnerOrReadOnly
 from .serializers import (
     PostSerializer,
@@ -19,6 +19,7 @@ from .serializers import (
     VotedPostSerializer,
     SkillPostSerializer,
     SkillSerializer,
+    MessageSerializer,
 )
 
 # Create your views here.
@@ -234,18 +235,42 @@ class CategoryList(generics.ListAPIView):
     serializer_class = CategorySerializer
 
 
-# class PostList(generics.ListCreateAPIView):
-#     queryset = Post.objects.all()
-#     serializer_class = PostSerializer
+class MessageViewSet(generics.ListCreateAPIView):
+    serializer_class = MessageSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
-# permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    # filter_backends = [
+    #     DjangoFilterBackend,
+    #     filters.OrderingFilter,
+    # ]
 
-# def perform_create(self, serializer):
-#     serializer.save(owner=self.request.user)
+    # ordering = ["-created_at"]
 
+    def perform_create(self, serializer):
+        serializer.save(sender=self.request.user)
 
-# class PostDetail(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = Post.objects.all()
-#     serializer_class = PostSerializer
+    def get_queryset(self):
+        queryset = Message.objects.all()
+        post = self.request.query_params.get("post")
+        user1 = self.request.user.username
+        user2 = self.request.query_params.get("user2")
 
-#     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+        print(post, user1, user2)
+
+        queryset = queryset.filter(
+            Q(sender__username=user1) | Q(sender__username=user2),
+            Q(recipient__username=user1) | Q(recipient__username=user2),
+            post__id=post,
+        )
+
+        # kwargs = {"voted_by__id": self.request.user.id}
+
+        # if choice:
+        #     kwargs["choice__name"] = choice
+        # if category:
+        #     kwargs["post__category__name"] = category
+
+        # queryset = queryset.filter(**kwargs)
+        return queryset
+
+        return queryset
