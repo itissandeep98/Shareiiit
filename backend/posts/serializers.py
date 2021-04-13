@@ -1,7 +1,17 @@
-from django.db.models import fields
+from django.db.models import fields, Q
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
-from .models import Post, Book, Group, Category, Vote, Skill, SkillList, Message
+from .models import (
+    Conversation,
+    Post,
+    Book,
+    Group,
+    Category,
+    Vote,
+    Skill,
+    SkillList,
+    Message,
+)
 from django.contrib.auth.models import User
 
 
@@ -239,18 +249,54 @@ class SkillPostSerializer(PostSerializer):
 class MessageSerializer(serializers.ModelSerializer):
     sender = serializers.CharField(source="sender.username", read_only=True)
     recipient = serializers.CharField(source="recipient.username")
+    # post = serializers.IntegerField()
 
     class Meta:
         model = Message
-        fields = ("created_at", "sender", "recipient", "post", "text")
+        fields = ("created_at", "sender", "recipient", "text")
 
     def create(self, validated_data):
         print(validated_data)
+        print("Context", self.context)
+        post = self.context["post"]
+
         validated_data["recipient"] = User.objects.get(
             **validated_data.get("recipient")
         )
+
+        try:
+            conversation = Conversation.objects.get(
+                Q(user2=validated_data["sender"])
+                | Q(user2=validated_data["recipient"]),
+                post__id=post,
+            )
+        except Conversation.DoesNotExist as e:
+            print("here")
+            conversation = Conversation(
+                user2=validated_data["sender"],
+                post=Post.objects.get(id=post),
+            )
+            conversation.save()
+
+        validated_data["conversation"] = conversation
+
         message = Message.objects.create(**validated_data)
         return message
+
+
+class ConversationSerializer(serializers.ModelSerializer):
+    messages = MessageSerializer(source="message_set", many=True)
+    user2 = serializers.CharField(source="user2.username")
+
+    class Meta:
+        model = Conversation
+        fields = ("id", "user2", "messages")
+
+    # def create(self, validated_data):
+    #     validated_data["category"] = Category.objects.get(pk=1)
+    #     post = Post.objects.create(**validated_data)
+    #     book_instance = Book.objects.create(post=post, **book_data)
+    #     return post
 
 
 class CategorySerializer(serializers.ModelSerializer):

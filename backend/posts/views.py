@@ -8,7 +8,7 @@ from rest_framework.response import Response
 
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .models import Post, Category, Vote, Message
+from .models import Conversation, Post, Category, Vote, Message
 from .permissions import IsOwnerOrReadOnly
 from .serializers import (
     PostSerializer,
@@ -20,6 +20,7 @@ from .serializers import (
     SkillPostSerializer,
     SkillSerializer,
     MessageSerializer,
+    ConversationSerializer,
 )
 
 # Create your views here.
@@ -243,7 +244,16 @@ class CategoryList(generics.ListAPIView):
     serializer_class = CategorySerializer
 
 
-class MessageViewSet(generics.ListCreateAPIView):
+class ConversationView(generics.ListAPIView):
+    serializer_class = ConversationSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        post = self.request.query_params.get("post")
+        return Conversation.objects.filter(post=post)
+
+
+class MessageView(generics.CreateAPIView):
     serializer_class = MessageSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -255,30 +265,36 @@ class MessageViewSet(generics.ListCreateAPIView):
     # ordering = ["-created_at"]
 
     def perform_create(self, serializer):
+        print(self.request.data)
         serializer.save(sender=self.request.user)
 
-    def get_queryset(self):
-        queryset = Message.objects.all()
-        post = self.request.query_params.get("post")
-        user1 = self.request.user.username
-        user2 = self.request.query_params.get("user2")
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context["post"] = self.request.data.pop("post")
+        return context
 
-        print(post, user1, user2)
+    # def get_queryset(self):
+    #     queryset = Message.objects.all()
+    #     post = self.request.query_params.get("post")
+    #     user1 = self.request.user.username
+    #     user2 = self.request.query_params.get("user2")
 
-        queryset = queryset.filter(
-            Q(sender__username=user1) | Q(sender__username=user2),
-            Q(recipient__username=user1) | Q(recipient__username=user2),
-            post__id=post,
-        )
+    #     print(post, user1, user2)
 
-        # kwargs = {"voted_by__id": self.request.user.id}
+    #     queryset = queryset.filter(
+    #         Q(sender__username=user1) | Q(sender__username=user2),
+    #         Q(recipient__username=user1) | Q(recipient__username=user2),
+    #         post__id=post,
+    #     )
 
-        # if choice:
-        #     kwargs["choice__name"] = choice
-        # if category:
-        #     kwargs["post__category__name"] = category
+    #     # kwargs = {"voted_by__id": self.request.user.id}
 
-        # queryset = queryset.filter(**kwargs)
-        return queryset
+    #     # if choice:
+    #     #     kwargs["choice__name"] = choice
+    #     # if category:
+    #     #     kwargs["post__category__name"] = category
 
-        return queryset
+    #     # queryset = queryset.filter(**kwargs)
+    #     return queryset
+
+    #     return queryset

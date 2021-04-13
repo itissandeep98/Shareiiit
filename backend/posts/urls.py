@@ -16,5 +16,6 @@ urlpatterns = [
     path("", include(router.urls)),
     path("categories/", views.CategoryList.as_view()),
     path("voted/", views.VotedPostsView.as_view()),
-    path("messages/", views.MessageViewSet.as_view()),
+    path("messages/", views.MessageView.as_view()),
+    path("conversations/", views.ConversationView.as_view()),
 ]
