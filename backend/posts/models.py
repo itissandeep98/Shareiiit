@@ -70,11 +70,23 @@ class Group(models.Model):
     members_needed = models.IntegerField()
 
 
+class Conversation(models.Model):
+    user2 = models.ForeignKey(
+        User, related_name="conversations", on_delete=models.CASCADE
+    )
+    post = models.ForeignKey(
+        Post, related_name="conversations", on_delete=models.CASCADE
+    )
+
+
 class Message(models.Model):
-    post = models.ForeignKey(Post, related_name="messages", on_delete=models.CASCADE)
+    conversation = models.ForeignKey(
+        Conversation, blank=False, null=True, on_delete=models.CASCADE
+    )
     sender = models.ForeignKey(
         User, related_name="messages_sender", on_delete=models.CASCADE
     )
+
     recipient = models.ForeignKey(
         User, related_name="messages_recepient", on_delete=models.CASCADE
     )
