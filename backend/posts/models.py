@@ -55,7 +55,7 @@ class Vote(models.Model):
 
 
 class Book(models.Model):
-    post = models.OneToOneField(Post, on_delete=models.CASCADE)
+    post = models.OneToOneField(Post, related_name="book", on_delete=models.CASCADE)
     author = models.CharField(max_length=100, blank=True, null=True)
 
 

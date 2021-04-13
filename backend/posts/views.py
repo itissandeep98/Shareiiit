@@ -59,6 +59,7 @@ class BookViewSet(viewsets.ReadOnlyModelViewSet):
         title__icontains = self.request.query_params.get("title")
         description__icontains = self.request.query_params.get("description")
         created_by__username__icontains = self.request.query_params.get("username")
+        author = self.request.query_params.get("author")
         is_request = self.request.query_params.get("is_request")
 
         if title__icontains:
@@ -69,6 +70,9 @@ class BookViewSet(viewsets.ReadOnlyModelViewSet):
 
         if created_by__username__icontains:
             kwargs["created_by__username__icontains"] = created_by__username__icontains
+
+        if author:
+            kwargs["book__author__icontains"] = author
 
         if is_request:
             kwargs["is_request"] = is_request
@@ -130,6 +134,7 @@ class SkillViewSet(viewsets.ReadOnlyModelViewSet):
         description__icontains = self.request.query_params.get("body")
         created_by__username__icontains = self.request.query_params.get("username")
         is_request = self.request.query_params.get("is_request")
+        rating = self.request.query_params.get("rating")
 
         if skill__skill_item__name__icontains:
             kwargs[
@@ -144,6 +149,9 @@ class SkillViewSet(viewsets.ReadOnlyModelViewSet):
 
         if is_request:
             kwargs["is_request"] = is_request
+
+        if rating:
+            kwargs["skill__rating"] = rating
 
         queryset = Post.objects.filter(category__name="skill", **kwargs)
 
