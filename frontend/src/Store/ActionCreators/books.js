@@ -13,11 +13,10 @@ export const fetchBooks = () => {
     return await axios
       .get(`${apiUrl}/books/`, { headers })
       .then((response) => {
+        const data = response.data.results;
         dispatch({
           type: ActionTypes.BOOKS_FETCH_SUCCESS,
-          data: response.data.sort((a, b) =>
-            a.created_at < b.created_At ? 1 : -1
-          ),
+          data: data,
         });
       })
       .catch((error) => {

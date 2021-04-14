@@ -37,7 +37,7 @@ function Posts(props) {
   return (
     <Container fluid className="p-3 bg-light h-100">
       <Row className="justify-content-center">
-        <Col xs={10}>
+        <Col md={10}>
           <Container
             fluid
             className="shadow my-3 py-4 rounded_lg bg-white align-items-center"
