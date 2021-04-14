@@ -65,9 +65,9 @@ export const fetchMyBooks = () => {
       .then((response) => {
         dispatch({
           type: ActionTypes.USER_BOOKS_FETCH_SUCCESS,
-          data: response.data,
+          data: response.data.results,
         });
-        return response.data;
+        return response.data.results;
       })
       .catch((error) => {
         console.log(error);
