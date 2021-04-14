@@ -15,7 +15,9 @@ export const fetchBooks = () => {
       .then((response) => {
         dispatch({
           type: ActionTypes.BOOKS_FETCH_SUCCESS,
-          data: response.data,
+          data: response.data.sort((a, b) =>
+            a.created_at < b.created_At ? 1 : -1
+          ),
         });
       })
       .catch((error) => {
