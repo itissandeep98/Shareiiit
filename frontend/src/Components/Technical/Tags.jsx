@@ -1,31 +1,37 @@
 import {
+  InputAdornment,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
+  TextField,
   Typography,
 } from "@material-ui/core";
 import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import { Col, Container, Row } from "reactstrap";
+import SearchIcon from "@material-ui/icons/Search";
+import { TagList } from "../../Config/Tags";
 
 function Tags() {
-  const tags = [
-    "React",
-    "React Native",
-    "Firebase",
-    "Angular",
-    "Django",
-    "Flask",
-  ];
-
   return (
     <Container className="bg-white p-2 rounded_lg">
       <Row>
         <Col>
           <Typography variant="h3">Tags</Typography>
+          <TextField
+            label="Filter Tags"
+            fullWidth
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <SearchIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
           <List component="nav" aria-label="main mailbox folders">
-            {tags.map((tag) => (
-              <ListItem button>
+            {TagList.map((tag) => (
+              <ListItem button key={Math.random()}>
                 <ListItemIcon>
                   <LocalOfferIcon />
                 </ListItemIcon>

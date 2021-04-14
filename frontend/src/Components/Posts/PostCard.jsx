@@ -7,14 +7,17 @@ import { useDispatch } from "react-redux";
 import { addVote } from "../../Store/ActionCreators/post";
 import { NavLink } from "react-router-dom";
 import { Tooltip } from "@material-ui/core";
+import moment from "moment";
+import "./style.scss";
 
 function PostCards(props) {
   const {
     id,
-    body,
+    description,
     book,
     category,
     created_by,
+    created_at,
     is_request,
     title,
     upvotes,
@@ -45,7 +48,7 @@ function PostCards(props) {
     dispatch(addVote(data));
   };
   return (
-    <Container className="shadow bg-white pt-3 rounded_lg border-info border mt-3 h-100 d-flex justify-content-between flex-column zoom_on_hover">
+    <Container className="bg-white pt-3 rounded_lg border-info border mt-3 h-100 d-flex justify-content-between flex-column card_hover">
       <Row className=" h-100">
         <Col>
           <Row>
@@ -67,10 +70,13 @@ function PostCards(props) {
             onClick={() => props.history.push(`/posts/${id}`)}
             style={{ cursor: "pointer" }}
           >
-            <Col className="text-justify">{body}</Col>
+            <Col className="text-justify">{description}</Col>
           </Row>
         </Col>
       </Row>
+      <small className="text-muted text-center">
+        Posted {moment(created_at).fromNow()}
+      </small>
       <Row>
         <Col>
           <hr />
