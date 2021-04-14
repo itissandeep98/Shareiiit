@@ -11,11 +11,18 @@ class Category(models.Model):
         return self.name
 
 
+class SkillList(models.Model):
+    name = models.CharField(max_length=100, blank=False)
+
+    def __str__(self):
+        return self.name
+
+
 class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     created_by = models.ForeignKey(User, related_name="posts", on_delete=models.CASCADE)
     title = models.CharField(max_length=50, blank=True, null=True)
-    body = models.CharField(max_length=200, blank=True, null=True)
+    description = models.CharField(max_length=200, blank=True, null=True)
     is_request = models.BooleanField(default=True)
 
     category = models.ForeignKey(
@@ -48,14 +55,45 @@ class Vote(models.Model):
 
 
 class Book(models.Model):
-    post = models.OneToOneField(Post, on_delete=models.CASCADE)
+    post = models.OneToOneField(Post, related_name="book", on_delete=models.CASCADE)
     author = models.CharField(max_length=100, blank=True, null=True)
 
 
-# class Item(models.Model):
-#     post = models.OneToOneField(Post, on_delete=models.CASCADE)
+class Skill(models.Model):
+    post = models.OneToOneField(Post, on_delete=models.CASCADE)
+    skill_item = models.OneToOneField(SkillList, on_delete=models.CASCADE)
+    rating = models.IntegerField()
 
 
 class Group(models.Model):
     post = models.OneToOneField(Post, on_delete=models.CASCADE)
     members_needed = models.IntegerField()
+
+
+class Conversation(models.Model):
+    user2 = models.ForeignKey(
+        User, related_name="conversations", on_delete=models.CASCADE
+    )
+    post = models.ForeignKey(
+        Post, related_name="conversations", on_delete=models.CASCADE
+    )
+
+
+class Message(models.Model):
+    conversation = models.ForeignKey(
+        Conversation, blank=False, null=True, on_delete=models.CASCADE
+    )
+    sender = models.ForeignKey(
+        User, related_name="messages_sender", on_delete=models.CASCADE
+    )
+
+    recipient = models.ForeignKey(
+        User, related_name="messages_recepient", on_delete=models.CASCADE
+    )
+    text = models.CharField(max_length=1024, blank=False, null=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    order_by = ["-created-at"]
+
+    def __unicode__(self):
+        return f"{sender__username} to {recipient__username}: {text}"

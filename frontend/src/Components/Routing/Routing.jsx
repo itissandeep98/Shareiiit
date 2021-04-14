@@ -12,7 +12,10 @@ const ProfileSettings = lazy(() => import("../ProfileSettings/Profile"));
 const Profile = lazy(() => import("../Profile/Profile"));
 const PostDetail = lazy(() => import("../Posts/PostDetail"));
 const MyPosts = lazy(() => import("../Interests/MyPosts/MyPosts"));
-const Saved = lazy(() => import("../Interests/Saved"));
+const Interactions = lazy(() =>
+  import("../Interests/Interactions/Interactions")
+);
+const Technical = lazy(() => import("../Technical/Technical"));
 
 // private => Route requires authentication
 // layout => header should be visible or not
@@ -33,10 +36,10 @@ function Routing() {
       render: () => <MyPosts />,
     },
     {
-      path: "/profile/saved",
+      path: "/profile/interactions",
       private: true,
       layout: true,
-      render: () => <Saved />,
+      render: () => <Interactions />,
     },
     {
       path: "/profile",
@@ -49,6 +52,12 @@ function Routing() {
       private: true,
       layout: true,
       render: () => <Feed />,
+    },
+    {
+      path: "/technical",
+      private: true,
+      layout: true,
+      render: () => <Technical />,
     },
     {
       path: "/login",

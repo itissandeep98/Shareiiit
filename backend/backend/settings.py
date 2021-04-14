@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "accounts.apps.AccountsConfig",
     "posts.apps.PostsConfig",
     "corsheaders",
+    "django_filters",
 ]
 
 REST_FRAMEWORK = {
@@ -49,6 +50,8 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.TokenAuthentication",
         "rest_framework.authentication.SessionAuthentication",
     ),
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "PAGE_SIZE": 12,
 }
 
 MIDDLEWARE = [
@@ -62,8 +65,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-CORS_ORIGIN_WHITELIST = ["http://localhost:3000",
-                         "https://gupta-anmol.github.io"]
+CORS_ORIGIN_WHITELIST = ["http://localhost:3000", "https://gupta-anmol.github.io"]
 
 ROOT_URLCONF = "backend.urls"
 
