@@ -13,7 +13,7 @@ function Books() {
     e.preventDefault();
     const data = {
       title,
-      body,
+      description: body,
       book: { author },
     };
     dispatch(createBookPost(data));
