@@ -63,7 +63,13 @@ function PostCards(props) {
               />
             </Col>
             <Col xs={9}>
-              <h3 className="text-capitalize">{title}</h3>
+              <h3
+                className="text-capitalize"
+                onClick={() => props.history.push(`/posts/${id}`)}
+                style={{ cursor: "pointer" }}
+              >
+                {title}
+              </h3>
               <small className="text-muted float-right">
                 - <NavLink to={`/${created_by}`}>{created_by}</NavLink>
               </small>
@@ -94,7 +100,7 @@ function PostCards(props) {
                   style={{ cursor: "pointer" }}
                   size="large"
                 />
-                {num_upvotes > 0 && num_upvotes}
+                <small> {num_upvotes > 0 && num_upvotes}</small>
               </p>
             </Tooltip>
             <Tooltip title="Save" placement="top">

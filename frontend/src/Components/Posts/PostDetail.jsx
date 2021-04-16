@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Col, Container, NavLink, Row } from "reactstrap";
 import { Image, Placeholder } from "semantic-ui-react";
 import { fetchPostDetails } from "../../Store/ActionCreators/post";
 import Messages from "./Messages/Messages";
 
 function PostDetail(props) {
+  const id = props.match.params.postId;
   const dispatch = useDispatch();
   const [details, setDetails] = useState({});
   const [loading, setLoading] = useState(true);
+  const username = useSelector((state) => state.user?.details?.username);
   useEffect(() => {
-    const id = props.match.params.postId;
     dispatch(fetchPostDetails(id)).then((res) => {
       setDetails(res);
       setLoading(false);
@@ -126,7 +127,7 @@ function PostDetail(props) {
       </Row>
       <Row className="mt-5">
         <Col>
-          <Messages users={users} />
+          <Messages users={users} id={id} recipient={username} />
         </Col>
       </Row>
     </Container>
