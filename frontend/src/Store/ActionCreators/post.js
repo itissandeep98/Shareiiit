@@ -57,9 +57,9 @@ export const fetchVotedPosts = (data) => {
       .then((response) => {
         dispatch({
           type: ActionTypes.VOTED_POST_FETCH_SUCCESS,
-          data: response.data,
+          data: response.data.results,
         });
-        return response.data;
+        return response.data.results;
       })
       .catch((error) => {
         console.log(error);

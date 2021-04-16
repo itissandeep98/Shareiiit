@@ -58,7 +58,7 @@ function TopHeader() {
               </NavItem>
               <NavItem>
                 <NavLink className="nav-link p-3 cust_link" to="/technical">
-                  Technical
+                  Skills
                 </NavLink>
               </NavItem>
               <NavItem>

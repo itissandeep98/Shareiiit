@@ -114,7 +114,7 @@ function PostDetail(props) {
               <h2 className="text-capitalize text-center">{details.title}</h2>
               <p className="text-muted float-right"> - {details.created_by}</p>
               <Row className="mt-5">
-                <Col className="text-justify">{details.body}</Col>
+                <Col className="text-justify">{details.description}</Col>
               </Row>
             </>
           )}

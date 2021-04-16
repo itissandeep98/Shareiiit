@@ -17,7 +17,7 @@ function Tags() {
     <Container className="bg-white p-2 rounded_lg">
       <Row>
         <Col>
-          <Typography variant="h3">Tags</Typography>
+          <Typography variant="h3">Skills</Typography>
           <TextField
             label="Filter Tags"
             fullWidth

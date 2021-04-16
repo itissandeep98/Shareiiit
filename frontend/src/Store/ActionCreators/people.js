@@ -56,7 +56,7 @@ export const fetchPeople = (id) => {
       .then((response) => {
         dispatch({
           type: ActionTypes.PEOPLE_DETAILS_FETCH_SUCCESS,
-          data: response.data[0],
+          data: response.data.results[0],
         });
       })
       .catch((error) => {
