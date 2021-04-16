@@ -1,4 +1,5 @@
 import { TextField } from "@material-ui/core";
+import moment from "moment";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Comment, Label, Menu, Tab } from "semantic-ui-react";
@@ -12,12 +13,11 @@ function Messages(props) {
   const { id, recipient } = props;
   const [mess, setMess] = useState("");
   const dispatch = useDispatch();
+  const [users, setUsers] = useState([]);
   useEffect(() => {
-    const data = {
-      post: id,
-      user2: recipient,
-    };
-    dispatch(fetchMessages(data));
+    dispatch(fetchMessages({ post: id })).then((res) => {
+      setUsers(res);
+    });
   }, [dispatch]);
   const onChange = (e) => {
     if (e.charCode === 13 && e.target.value !== "") {
@@ -32,16 +32,22 @@ function Messages(props) {
       setMess(e.target.value);
     }
   };
-  const panes = props.users.map((user, i) => ({
+  const panes = users?.map((user, i) => ({
     menuItem: (
       <Menu.Item key={i}>
-        {user.name}
-        {user.unread > 0 && <Label>{user.unread}</Label>}
+        {user.user2}
+        {user?.unread > 0 && <Label>{user.unread}</Label>}
       </Menu.Item>
     ),
     render: () => (
       <Tab.Pane attached={false}>
-        <UserMessage messages={user.messages} mess={mess} onChange={onChange} />
+        <Comment.Group>
+          <UserMessage
+            messages={user.messages}
+            mess={mess}
+            onChange={onChange}
+          />
+        </Comment.Group>
       </Tab.Pane>
     ),
   }));
@@ -50,16 +56,18 @@ function Messages(props) {
 }
 
 function UserMessage(props) {
-  const { mess, onChange } = props;
+  const { mess, onChange, messages } = props;
   return (
-    <Comment.Group>
-      {props.messages.map((message) => (
+    <>
+      {messages.map((message) => (
         <Comment key={Math.random()}>
-          <Comment.Avatar src={message.pic} />
+          <Comment.Avatar
+            src={process.env.PUBLIC_URL + "/assets/images/user.png"}
+          />
           <Comment.Content>
-            <Comment.Author as="a">{message.user}</Comment.Author>
+            <Comment.Author as="a">{message.sender}</Comment.Author>
             <Comment.Metadata>
-              <div>Today at 5:42PM</div>
+              <div>{moment(message.created_at).fromNow()}</div>
             </Comment.Metadata>
             <Comment.Text>{message.text}</Comment.Text>
           </Comment.Content>
@@ -75,7 +83,7 @@ function UserMessage(props) {
           onKeyPress={onChange}
         />
       </Comment.Action>
-    </Comment.Group>
+    </>
   );
 }
 

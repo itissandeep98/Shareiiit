@@ -10,13 +10,14 @@ export const fetchMessages = (data) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.MESSAGE_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/messages/`, { params: data, headers })
+      .get(`${apiUrl}/conversations/`, { params: data, headers })
       .then((response) => {
         const data = response.data.results;
         dispatch({
           type: ActionTypes.MESSAGE_FETCH_SUCCESS,
           data: data,
         });
+        return data;
       })
       .catch((error) => {
         console.log(error);
