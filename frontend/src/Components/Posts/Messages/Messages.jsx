@@ -16,7 +16,11 @@ function Messages(props) {
   const [users, setUsers] = useState([]);
   useEffect(() => {
     dispatch(fetchMessages({ post: id })).then((res) => {
-      setUsers(res);
+      if (res.filter((user) => user.user2 === recipient).length === 0) {
+        setUsers([...res, { user2: recipient, messages: [] }]);
+      } else {
+        setUsers(res);
+      }
     });
   }, [dispatch]);
   const onChange = (e) => {
@@ -43,7 +47,7 @@ function Messages(props) {
       <Tab.Pane attached={false}>
         <Comment.Group>
           <UserMessage
-            messages={user.messages}
+            messages={user?.messages}
             mess={mess}
             onChange={onChange}
           />
@@ -65,7 +69,9 @@ function UserMessage(props) {
             src={process.env.PUBLIC_URL + "/assets/images/user.png"}
           />
           <Comment.Content>
-            <Comment.Author as="a">{message.sender}</Comment.Author>
+            <Comment.Author as="a" href={`/${message.sender}`}>
+              {message.sender}
+            </Comment.Author>
             <Comment.Metadata>
               <div>{moment(message.created_at).fromNow()}</div>
             </Comment.Metadata>
