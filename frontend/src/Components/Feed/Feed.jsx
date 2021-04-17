@@ -5,13 +5,13 @@ import { Col, Container, Row, Spinner } from "reactstrap";
 import { fetchBooks } from "../../Store/ActionCreators/books";
 import { fetchGroups } from "../../Store/ActionCreators/groups";
 import PostCards from "../Posts/PostCard";
-import FilterBar from "../Navigation/Filter/FilterBar";
+import FilterBar from "./FilterBar";
 import AddIcon from "@material-ui/icons/Add";
 import Create from "../Posts/Create/Create";
 
 function Posts(props) {
   const [cards, setCards] = useState(props?.posts?.books ?? []);
-  const [category, setCategory] = useState("All");
+  const [category, setCategory] = useState("Books");
   const [modal, setModal] = useState(false);
 
   const [loading, setLoading] = useState(false);
@@ -65,8 +65,9 @@ function Posts(props) {
               <Col>
                 <br />
                 <FilterBar
+                  setResult={setCards}
                   category={category}
-                  changeCategory={(cat) => setCategory(cat)}
+                  setCategory={setCategory}
                 />
                 <br />
                 {loading && (
