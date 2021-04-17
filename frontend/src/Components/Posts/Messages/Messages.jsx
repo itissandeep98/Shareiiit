@@ -1,17 +1,57 @@
-import { Comment, Input, Label, Menu, Tab } from "semantic-ui-react";
+import { TextField } from "@material-ui/core";
+import moment from "moment";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { Comment, Label, Menu, Tab } from "semantic-ui-react";
+import {
+  createMessage,
+  fetchMessages,
+} from "../../../Store/ActionCreators/message";
 import "./style.css";
 
 function Messages(props) {
-  const panes = props.users.map((user, i) => ({
+  const { id, recipient } = props;
+  const [mess, setMess] = useState("");
+  const dispatch = useDispatch();
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    dispatch(fetchMessages({ post: id })).then((res) => {
+      if (res.filter((user) => user.user2 === recipient).length === 0) {
+        setUsers([...res, { user2: recipient, messages: [] }]);
+      } else {
+        setUsers(res);
+      }
+    });
+  }, [dispatch]);
+  const onChange = (e) => {
+    if (e.charCode === 13 && e.target.value !== "") {
+      const data = {
+        recipient: recipient,
+        post: id,
+        text: mess,
+      };
+      setMess("");
+      dispatch(createMessage(data));
+    } else {
+      setMess(e.target.value);
+    }
+  };
+  const panes = users?.map((user, i) => ({
     menuItem: (
       <Menu.Item key={i}>
-        {user.name}
-        {user.unread > 0 && <Label>{user.unread}</Label>}
+        {user.user2}
+        {user?.unread > 0 && <Label>{user.unread}</Label>}
       </Menu.Item>
     ),
     render: () => (
       <Tab.Pane attached={false}>
-        <UserMessage messages={user.messages} />
+        <Comment.Group>
+          <UserMessage
+            messages={user?.messages}
+            mess={mess}
+            onChange={onChange}
+          />
+        </Comment.Group>
       </Tab.Pane>
     ),
   }));
@@ -20,15 +60,20 @@ function Messages(props) {
 }
 
 function UserMessage(props) {
+  const { mess, onChange, messages } = props;
   return (
-    <Comment.Group>
-      {props.messages.map((message) => (
+    <>
+      {messages.map((message) => (
         <Comment key={Math.random()}>
-          <Comment.Avatar src={message.pic} />
+          <Comment.Avatar
+            src={process.env.PUBLIC_URL + "/assets/images/user.png"}
+          />
           <Comment.Content>
-            <Comment.Author as="a">{message.user}</Comment.Author>
+            <Comment.Author as="a" href={`/${message.sender}`}>
+              {message.sender}
+            </Comment.Author>
             <Comment.Metadata>
-              <div>Today at 5:42PM</div>
+              <div>{moment(message.created_at).fromNow()}</div>
             </Comment.Metadata>
             <Comment.Text>{message.text}</Comment.Text>
           </Comment.Content>
@@ -36,9 +81,15 @@ function UserMessage(props) {
       ))}
 
       <Comment.Action>
-        <Input fluid placeholder="Type Your Message Here" />
+        <TextField
+          fullWidth
+          label="Type Your Message Here"
+          value={mess}
+          onChange={onChange}
+          onKeyPress={onChange}
+        />
       </Comment.Action>
-    </Comment.Group>
+    </>
   );
 }
 

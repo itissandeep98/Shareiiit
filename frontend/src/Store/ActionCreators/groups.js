@@ -15,8 +15,9 @@ export const fetchGroups = () => {
       .then((response) => {
         dispatch({
           type: ActionTypes.GROUPS_FETCH_SUCCESS,
-          data: response.data,
+          data: response.data.results,
         });
+        return response.data.results;
       })
       .catch((error) => {
         console.log(error.response);
