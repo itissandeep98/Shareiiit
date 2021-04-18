@@ -12,7 +12,7 @@ function Create(props) {
       menuItem: "Book",
       render: () => (
         <Tab.Pane attached={false} className="p-0 border-0">
-          <Books />
+          <Books toggle={() => setModal(!modal)} />
         </Tab.Pane>
       ),
     },
@@ -49,13 +49,7 @@ function Create(props) {
           Create New Post
         </ModalHeader>
         <ModalBody>
-          <Container>
-            <Row>
-              <Col>
-                <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
-              </Col>
-            </Row>
-          </Container>
+          <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
         </ModalBody>
       </Modal>
     </>
