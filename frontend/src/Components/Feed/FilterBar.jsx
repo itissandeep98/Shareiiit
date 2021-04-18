@@ -4,16 +4,18 @@ import {
   Select,
   MenuItem,
   TextField,
+  Button,
 } from "@material-ui/core";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Col, Container, Row } from "reactstrap";
-import { searchBooks } from "../../Store/ActionCreators/books";
+import { Col, Container, Modal, ModalBody, ModalHeader, Row } from "reactstrap";
+import { searchAdvanced, searchBooks } from "../../Store/ActionCreators/search";
 
 function FilterBar(props) {
   const { category, setCategory } = props;
   const [search, setSearch] = useState("");
   const categories = ["Books", "Groups", "Electronics", "Other"];
+  const [modal, setModal] = useState(false);
   const dispatch = useDispatch();
   const onChange = (value) => {
     setSearch(value);
@@ -49,8 +51,77 @@ function FilterBar(props) {
           />
         </Col>
       </Row>
+      <Row>
+        <Col>
+          <Button
+            className="float-right text-info"
+            onClick={() => setModal(true)}
+          >
+            Advanced Search
+          </Button>
+          <AdvancedSearch
+            open={modal}
+            toggle={() => setModal(!modal)}
+            setResult={props.setResult}
+          />
+        </Col>
+      </Row>
     </Container>
   );
 }
 
+function AdvancedSearch(props) {
+  const { open, toggle, setResult } = props;
+  const dispatch = useDispatch();
+  const [data, setData] = useState({
+    title: "",
+    description: "",
+    username: "",
+  });
+  const handleChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+  const handleSearch = () => {
+    dispatch(searchAdvanced(data)).then((res) => setResult(res));
+  };
+  return (
+    <Modal isOpen={open} toggle={toggle}>
+      <ModalHeader toggle={toggle}>Advanced Search</ModalHeader>
+      <ModalBody>
+        <form>
+          <TextField
+            label="Title"
+            fullWidth
+            variant="outlined"
+            name="title"
+            onChange={handleChange}
+          />
+          <TextField
+            label="Description"
+            fullWidth
+            variant="outlined"
+            className="mt-2"
+            name="description"
+            onChange={handleChange}
+          />
+          <TextField
+            label="Username"
+            fullWidth
+            variant="outlined"
+            className="mt-2"
+            name="username"
+            onChange={handleChange}
+          />
+          <Button
+            variant="outlined"
+            className="mt-2 float-right"
+            onClick={handleSearch}
+          >
+            Search
+          </Button>
+        </form>
+      </ModalBody>
+    </Modal>
+  );
+}
 export default FilterBar;
