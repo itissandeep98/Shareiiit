@@ -3,8 +3,6 @@ import {
   Chip,
   FormControl,
   InputLabel,
-  List,
-  ListItem,
   MenuItem,
   Select,
   TextField,
