@@ -57,6 +57,26 @@ export const createBookPost = (data) => {
   };
 };
 
+export const deleteBookPost = (id) => {
+  return async (dispatch) => {
+    dispatch({ type: ActionTypes.BOOK_DELETE_REQUEST });
+    return await axios
+      .delete(`${apiUrl}/mybooks/${id}/`, { headers })
+      .then((response) => {
+        dispatch({
+          type: ActionTypes.BOOK_DELETE_SUCCESS,
+          data: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: ActionTypes.BOOK_DELETE_FAILED,
+          errmess: "Error in connection with Server",
+        });
+      });
+  };
+};
+
 export const fetchMyBooks = () => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.USER_BOOKS_FETCH_REQUEST });
