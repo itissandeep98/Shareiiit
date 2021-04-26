@@ -39,6 +39,7 @@ function Tags(props) {
               (tag) => (
                 <ListItem
                   button
+                  selected={tags?.includes(tag)}
                   key={Math.random()}
                   onClick={() => modifyTags(tag)}
                 >

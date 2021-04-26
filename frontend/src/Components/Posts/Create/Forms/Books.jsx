@@ -72,10 +72,11 @@ function Books(props) {
           />
         }
         label="This is a Request Post"
-      />{" "}
+      />
       <Button
         variant="outlined"
-        className="mt-3 float-right  "
+        className="mt-3 float-right"
+        disabled={!title || !author || !body}
         onClick={handleSubmit}
         startIcon={<CheckIcon />}
       >
