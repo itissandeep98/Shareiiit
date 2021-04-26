@@ -43,7 +43,7 @@ function Posts(props) {
             className="shadow my-3 py-4 rounded_lg bg-white align-items-center"
           >
             <Row>
-              <Col>
+              <Col className="text-center">
                 <Create
                   modal={modal}
                   setModal={setModal}
@@ -78,13 +78,7 @@ function Posts(props) {
                 <Row className="justify-content-center">
                   {cards && cards?.length > 0 ? (
                     cards?.map((book) => (
-                      <Col
-                        xs={12}
-                        md={6}
-                        lg={4}
-                        className="my-3"
-                        key={Math.random()}
-                      >
+                      <Col xs={12} md={6} lg={4} className="my-3" key={book.id}>
                         <PostCards {...book} />
                       </Col>
                     ))

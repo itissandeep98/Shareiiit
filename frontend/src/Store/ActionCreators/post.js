@@ -49,6 +49,26 @@ export const addVote = (data) => {
   };
 };
 
+export const deleteVote = (id) => {
+  return async (dispatch) => {
+    dispatch({ type: ActionTypes.LIKE_DELETE_REQUEST, id: id });
+    return await axios
+      .delete(`${apiUrl}/votes/${id}`, { headers })
+      .then((response) => {
+        dispatch({
+          type: ActionTypes.LIKE_DELETE_SUCCESS,
+          data: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: ActionTypes.LIKE_DELETE_FAILED,
+          errmess: "Error in connection with Server",
+        });
+      });
+  };
+};
+
 export const fetchVotedPosts = (data) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.VOTED_POST_FETCH_REQUEST });
