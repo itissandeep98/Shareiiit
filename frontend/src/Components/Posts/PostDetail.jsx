@@ -17,75 +17,6 @@ function PostDetail(props) {
       setLoading(false);
     });
   }, [dispatch]);
-  const users = [
-    {
-      name: "Sandeep",
-      unread: "15",
-      messages: [
-        {
-          user: "Sandeep",
-          text: "Hi I can help you",
-          pic: process.env.PUBLIC_URL + "/assets/images/user1.png",
-        },
-        {
-          user: "Anmol",
-          text: "Thank You ",
-          pic: process.env.PUBLIC_URL + "/assets/images/user.png",
-        },
-        {
-          user: "Anmol",
-          text: "Hi I can help you",
-          pic: process.env.PUBLIC_URL + "/assets/images/user.png",
-        },
-        {
-          user: "Sandeep",
-          text: "Thank You ",
-          pic: process.env.PUBLIC_URL + "/assets/images/user1.png",
-        },
-      ],
-    },
-    {
-      name: "Anmol",
-      unread: "1",
-      messages: [
-        {
-          user: "Anmol",
-          text: "Hi I can help you",
-          pic: process.env.PUBLIC_URL + "/assets/images/user.png",
-        },
-        {
-          user: "Sandeep",
-          text: "Thank You ",
-          pic: process.env.PUBLIC_URL + "/assets/images/user1.png",
-        },
-        {
-          user: "Sandeep",
-          text: "Hi I can help you",
-          pic: process.env.PUBLIC_URL + "/assets/images/user1.png",
-        },
-        {
-          user: "Anmol",
-          text: "Thank You ",
-          pic: process.env.PUBLIC_URL + "/assets/images/user.png",
-        },
-      ],
-    },
-    {
-      name: "Naman",
-      messages: [
-        {
-          user: "Naman",
-          text: "Hi I can help you",
-          pic: process.env.PUBLIC_URL + "/assets/images/user.png",
-        },
-        {
-          user: "Sandeep",
-          text: "Thank You ",
-          pic: process.env.PUBLIC_URL + "/assets/images/user1.png",
-        },
-      ],
-    },
-  ];
   return (
     <Container className="shadow p-3 mt-4">
       <Row>
@@ -127,7 +58,7 @@ function PostDetail(props) {
       </Row>
       <Row className="mt-5">
         <Col>
-          <Messages users={users} id={id} recipient={username} />
+          <Messages id={id} recipient={username} />
         </Col>
       </Row>
     </Container>

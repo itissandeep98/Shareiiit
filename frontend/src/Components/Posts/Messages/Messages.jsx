@@ -31,7 +31,7 @@ function Messages(props) {
         text: mess,
       };
       setMess("");
-      dispatch(createMessage(data));
+      dispatch(createMessage(data)).then(setUsers([...users]));
     } else {
       setMess(e.target.value);
     }

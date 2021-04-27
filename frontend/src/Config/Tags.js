@@ -8,4 +8,9 @@ export const TagList = [
   "Angular",
   "Django",
   "Flask",
+  "PHP",
+  "Heroku",
+  "Github",
+  "Bash",
+  "Linux",
 ];

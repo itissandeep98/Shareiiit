@@ -9,29 +9,34 @@ import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import { CardActionArea, CardMedia } from "@material-ui/core";
+import moment from "moment";
 
-function TechCard() {
+function TechCard(props) {
+  const {
+    title,
+    description,
+    created_by,
+    created_at,
+    is_request,
+    skill,
+    upvotes,
+  } = props;
   return (
     <Card>
       <CardActionArea>
-        <CardHeader
-          avatar={<Avatar>RSP</Avatar>}
-          title=" Lorem ipsum dolor sit amet"
-          subheader="Sandeep"
-        />
-        <CardMedia
-          image={process.env.PUBLIC_URL + "/assets/images/iiitd2.png"}
-        />
+        <CardHeader avatar={<Avatar>RSP</Avatar>} title={title} />
+        <CardContent>
+          <small className="text-muted text-center">
+            {created_by} Posted {moment(created_at).fromNow()}
+          </small>
+        </CardContent>
         <CardContent>
           <Typography
             variant="body2"
             color="textSecondary"
             className="text-justify"
           >
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea
+            {description}
           </Typography>
         </CardContent>
       </CardActionArea>
