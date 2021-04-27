@@ -26,3 +26,45 @@ export const createSkillPost = (data) => {
       });
   };
 };
+
+export const fetchSkillPosts = () => {
+  return async (dispatch) => {
+    dispatch({ type: ActionTypes.SKILL_POSTS_FETCH_REQUEST });
+    return await axios
+      .get(`${apiUrl}/skills/`, { headers })
+      .then((response) => {
+        dispatch({
+          type: ActionTypes.SKILL_POSTS_FETCH_SUCCESS,
+          data: response.data.results,
+        });
+        return response.data.results;
+      })
+      .catch((error) => {
+        dispatch({
+          type: ActionTypes.SKILL_POSTS_FETCH_FAILED,
+          errmess: "Error in connection with Server",
+        });
+      });
+  };
+};
+
+export const fetchUserSkills = () => {
+  return async (dispatch) => {
+    dispatch({ type: ActionTypes.USER_SKILLS_FETCH_REQUEST });
+    return await axios
+      .get(`${apiUrl}/myskills/`, { headers })
+      .then((response) => {
+        dispatch({
+          type: ActionTypes.USER_SKILLS_FETCH_SUCCESS,
+          data: response.data.results,
+        });
+        return response.data.results;
+      })
+      .catch((error) => {
+        dispatch({
+          type: ActionTypes.USER_SKILLS_FETCH_FAILED,
+          errmess: "Error in connection with Server",
+        });
+      });
+  };
+};
