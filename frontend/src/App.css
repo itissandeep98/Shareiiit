@@ -19,17 +19,15 @@ body {
 
 .bg-gradient {
   background: #47a06e;
-  background: -moz-linear-gradient(
-    268deg,
-    rgba(71, 160, 110, 1) 0,
-    rgba(59, 124, 180, 1) 100%
-  );
+  background: -moz-linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   background: -webkit-linear-gradient(
-    268deg,
-    rgba(71, 160, 110, 1) 0,
-    rgba(59, 124, 180, 1) 100%
+    -45deg,
+    #ee7752,
+    #e73c7e,
+    #23a6d5,
+    #23d5ab
   );
-  background: linear-gradient(268deg, #47a06e, #3b7cb4);
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   background-size: 400% 400%;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#47a06e", endColorstr="#3b7cb4", GradientType=1);
   -webkit-animation: gradient 15s ease infinite;
