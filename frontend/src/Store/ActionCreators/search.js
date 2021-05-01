@@ -3,15 +3,15 @@ import axios from "axios";
 import { apiUrl } from "../Urls";
 import { getAuthToken } from "../../Components/checkAuth";
 
-const headers = {
+const headers = () => ({
   Authorization: "Token " + getAuthToken(),
-};
+});
 
 export const searchBooks = (data) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.BOOK_SEARCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/books/`, { params: data, headers })
+      .get(`${apiUrl}/books/`, { params: data, headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.BOOK_SEARCH_SUCCESS,
@@ -33,7 +33,7 @@ export const searchAdvanced = (data) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.SEARCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/books/`, { params: data, headers })
+      .get(`${apiUrl}/books/`, { params: data, headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.SEARCH_SUCCESS,

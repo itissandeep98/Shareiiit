@@ -3,14 +3,15 @@ import axios from "axios";
 import { apiUrl } from "../Urls";
 import { getAuthToken } from "../../Components/checkAuth";
 
-const headers = {
+const headers = () => ({
   Authorization: "Token " + getAuthToken(),
-};
+});
+
 export const fetchMessages = (data) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.MESSAGE_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/conversations/`, { params: data, headers })
+      .get(`${apiUrl}/conversations/`, { params: data, headers: headers() })
       .then((response) => {
         const data = response.data.results;
         dispatch({
@@ -33,7 +34,7 @@ export const createMessage = (data) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.MESSAGE_CREATE_REQUEST });
     return await axios
-      .post(`${apiUrl}/messages/`, data, { headers })
+      .post(`${apiUrl}/messages/`, data, { headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.MESSAGE_CREATE_SUCCESS,

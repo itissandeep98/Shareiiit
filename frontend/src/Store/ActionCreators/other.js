@@ -3,15 +3,15 @@ import axios from "axios";
 import { apiUrl } from "../Urls";
 import { getAuthToken } from "../../Components/checkAuth";
 
-const headers = {
+const headers = () => ({
   Authorization: "Token " + getAuthToken(),
-};
+});
 
 export const fetchOther = () => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.OTHER_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/other/`, { headers })
+      .get(`${apiUrl}/other/`, { headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.OTHER_FETCH_SUCCESS,

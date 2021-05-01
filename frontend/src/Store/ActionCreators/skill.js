@@ -3,15 +3,15 @@ import axios from "axios";
 import { apiUrl } from "../Urls";
 import { getAuthToken } from "../../Components/checkAuth";
 
-const headers = {
+const headers = () => ({
   Authorization: "Token " + getAuthToken(),
-};
+});
 
 export const createSkillPost = (data) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.SKILL_CREATE_REQUEST });
     return await axios
-      .post(`${apiUrl}/myskills/`, data, { headers })
+      .post(`${apiUrl}/myskills/`, data, { headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.SKILL_CREATE_SUCCESS,
@@ -31,7 +31,7 @@ export const fetchSkillPosts = () => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.SKILL_POSTS_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/skills/`, { headers })
+      .get(`${apiUrl}/skills/`, { headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.SKILL_POSTS_FETCH_SUCCESS,
@@ -52,7 +52,7 @@ export const fetchUserSkills = () => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.USER_SKILLS_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/myskills/`, { headers })
+      .get(`${apiUrl}/myskills/`, { headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.USER_SKILLS_FETCH_SUCCESS,

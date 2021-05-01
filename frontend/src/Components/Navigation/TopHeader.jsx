@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink, withRouter } from "react-router-dom";
 import {
@@ -13,10 +13,14 @@ import {
 import "./style.css";
 import { Image } from "semantic-ui-react";
 import { logoutAction } from "../../Store/ActionCreators/auth";
+import { fetchUser } from "../../Store/ActionCreators/people";
 
 function TopHeader() {
   const dispatch = useDispatch();
   const [isNavOpen, setIsNavOpen] = useState(true);
+  useEffect(() => {
+    dispatch(fetchUser());
+  }, [dispatch]);
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
   };
@@ -35,7 +39,7 @@ function TopHeader() {
             />
           </div>
           <Image
-            src={process.env.PUBLIC_URL + "/assets/images/logo2.png"}
+            src={process.env.PUBLIC_URL + "/assets/images/logo3.png"}
             alt="resource sharing app"
             size="medium"
             className="d-none d-md-block"

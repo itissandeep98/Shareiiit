@@ -11,6 +11,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import CheckIcon from "@material-ui/icons/Check";
+import ImageUploader from "./ImageUploader";
 
 function Books(props) {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ function Books(props) {
   const [body, setBody] = useState("");
   const [author, setAuthor] = useState("");
   const [checked, setChecked] = useState(false);
+  const [image, setImage] = useState(null);
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = {
@@ -62,6 +64,7 @@ function Books(props) {
         value={body}
         onChange={(e) => setBody(e.target.value)}
       />
+      <ImageUploader image={image} setImage={setImage} />
       <FormControlLabel
         control={
           <Checkbox
