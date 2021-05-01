@@ -3,15 +3,15 @@ import axios from "axios";
 import { apiUrl } from "../Urls";
 import { getAuthToken } from "../../Components/checkAuth";
 
-const headers = {
+const headers = () => ({
   Authorization: "Token " + getAuthToken(),
-};
+});
 
 export const fetchPostDetails = (id) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.POST_DETAILS_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/posts/${id}`, { headers })
+      .get(`${apiUrl}/posts/${id}`, { headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.POST_DETAILS_FETCH_SUCCESS,
@@ -33,7 +33,7 @@ export const addVote = (data) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.LIKE_ADD_REQUEST, data: data });
     return await axios
-      .post(`${apiUrl}/votes/`, data, { headers })
+      .post(`${apiUrl}/votes/`, data, { headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.LIKE_ADD_SUCCESS,
@@ -53,7 +53,7 @@ export const deleteVote = (id) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.LIKE_DELETE_REQUEST, id: id });
     return await axios
-      .delete(`${apiUrl}/votes/${id}`, { headers })
+      .delete(`${apiUrl}/votes/${id}`, { headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.LIKE_DELETE_SUCCESS,
@@ -73,7 +73,7 @@ export const fetchVotedPosts = (data) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.VOTED_POST_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/voted`, { params: data, headers })
+      .get(`${apiUrl}/voted`, { params: data, headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.VOTED_POST_FETCH_SUCCESS,

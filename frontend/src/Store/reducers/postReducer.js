@@ -1,4 +1,3 @@
-import { removeAuthToken } from "../../Components/checkAuth";
 import * as ActionTypes from "../ActionTypes";
 
 const initState = {

@@ -1,12 +1,16 @@
 import firebase from "firebase/app";
-import "firebase/firestore";
-require("firebase/auth");
-require("firebase/database");
+require("firebase/storage");
 
-const json = require("./fire.json"); // fire.json is created at deploy time on github actions
-var firebaseConfig = json;
+var firebaseConfig = {
+  apiKey: "AIzaSyCVqYfMUIyBlRqE4S3d-0z3KetkAxG9Pj0",
+  authDomain: "rsplat-dde9e.firebaseapp.com",
+  projectId: "rsplat-dde9e",
+  storageBucket: "rsplat-dde9e.appspot.com",
+  messagingSenderId: "107586975868",
+  appId: "1:107586975868:web:ad9a36ec530ce1fb4071f9",
+};
 
 const fire = firebase.initializeApp(firebaseConfig);
-export const provider = new firebase.auth.GoogleAuthProvider();
-// fire.firestore().settings({ timestampsInSnapshots: true });
+
+export const storage = firebase.storage();
 export default fire;

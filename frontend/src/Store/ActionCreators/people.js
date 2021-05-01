@@ -3,15 +3,15 @@ import axios from "axios";
 import { apiUrl } from "../Urls";
 import { getAuthToken } from "../../Components/checkAuth";
 
-const headers = {
+const headers = () => ({
   Authorization: "Token " + getAuthToken(),
-};
+});
 
 export const fetchUser = () => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.USER_DETAILS_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/profile/`, { headers })
+      .get(`${apiUrl}/profile/`, { headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.USER_DETAILS_FETCH_SUCCESS,
@@ -31,7 +31,7 @@ export const updateUser = ({ id, data }) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.USER_DETAILS_UPDATE_REQUEST });
     return await axios
-      .patch(`${apiUrl}/users/${id}/`, data, { headers })
+      .patch(`${apiUrl}/users/${id}/`, data, { headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.USER_DETAILS_UPDATE_SUCCESS,
@@ -52,7 +52,7 @@ export const fetchPeople = (id) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.PEOPLE_DETAILS_FETCH_FAILED });
     return await axios
-      .get(`${apiUrl}/users`, { params: { username: id }, headers })
+      .get(`${apiUrl}/users`, { params: { username: id }, headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.PEOPLE_DETAILS_FETCH_SUCCESS,

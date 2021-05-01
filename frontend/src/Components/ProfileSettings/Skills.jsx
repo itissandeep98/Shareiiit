@@ -1,23 +1,21 @@
-import {
-  Button,
-  Chip,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-  Tooltip,
-} from "@material-ui/core";
-import React, { useState } from "react";
+import { Button, Chip, Tooltip } from "@material-ui/core";
+import { useEffect, useState } from "react";
 import { Col, Row } from "reactstrap";
 import { Image } from "semantic-ui-react";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
-import { TagList } from "../../Config/Tags";
 import AddSkill from "./AddSkill";
+import { useDispatch } from "react-redux";
+import { fetchUserSkills } from "../../Store/ActionCreators/skill";
 
 function Skills() {
   const [userTags, setuserTags] = useState([]);
   const [modal, setModal] = useState(false);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchUserSkills()).then((res) => {
+      setuserTags(res ?? userTags);
+    });
+  }, [dispatch]);
   const handleDelete = (i) => {
     setuserTags([...userTags.slice(0, i), ...userTags.slice(i + 1)]);
   };
