@@ -1,19 +1,28 @@
-import { Button, Chip, Tooltip } from "@material-ui/core";
+import { Button, Typography } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { Col, Row } from "reactstrap";
-import { Image } from "semantic-ui-react";
-import HighlightOffIcon from "@material-ui/icons/HighlightOff";
+import { Image, Rating } from "semantic-ui-react";
 import AddSkill from "./AddSkill";
 import { useDispatch } from "react-redux";
 import { fetchUserSkills } from "../../Store/ActionCreators/skill";
+import Accordion from "@material-ui/core/Accordion";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import AccordionActions from "@material-ui/core/AccordionActions";
 
 function Skills() {
   const [userTags, setuserTags] = useState([]);
   const [modal, setModal] = useState(false);
   const dispatch = useDispatch();
+  const [expanded, setExpanded] = useState(0);
+
+  const handleChange = (value) => {
+    setExpanded(value === expanded ? -1 : value);
+  };
   useEffect(() => {
     dispatch(fetchUserSkills()).then((res) => {
-      setuserTags(res ?? userTags);
+      // setuserTags(res ?? userTags);
     });
   }, [dispatch]);
   const handleDelete = (i) => {
@@ -45,18 +54,34 @@ function Skills() {
         <Row>
           <Col className="text-center mb-3">
             {userTags.map((tag, i) => (
-              <Tooltip
-                title={tag.desc}
-                placement="top"
-                key={Math.random()}
-                className="mx-1 my-2"
+              <Accordion
+                key={i}
+                expanded={expanded === i}
+                onChange={() => handleChange(i)}
               >
-                <Chip
-                  label={tag.label}
-                  onDelete={() => handleDelete(i)}
-                  deleteIcon={<HighlightOffIcon />}
-                />
-              </Tooltip>
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  <Typography>{tag.label}</Typography>
+                  <Rating
+                    className="ml-3"
+                    rating={tag.rate}
+                    icon="star"
+                    maxRating={5}
+                    size="huge"
+                    disabled
+                  />
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>{tag.desc}</Typography>
+                </AccordionDetails>
+                <AccordionActions>
+                  <Button size="small" onClick={() => handleDelete(i)}>
+                    Delete
+                  </Button>
+                  <Button size="small" color="primary">
+                    Edit
+                  </Button>
+                </AccordionActions>
+              </Accordion>
             ))}
           </Col>
         </Row>

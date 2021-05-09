@@ -54,7 +54,7 @@ function MainView(props) {
       </Row>
       <Row className="mt-3">
         {cards?.map((card) => (
-          <Col md={3}>
+          <Col md={4} className="mt-4">
             <TechCard {...card} />
           </Col>
         ))}

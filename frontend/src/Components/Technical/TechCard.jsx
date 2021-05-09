@@ -1,15 +1,12 @@
-import React from "react";
 import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
-import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
 import { CardActionArea, CardMedia } from "@material-ui/core";
 import moment from "moment";
+import ThumbUpIcon from "@material-ui/icons/ThumbUp";
+import ThumbDownIcon from "@material-ui/icons/ThumbDown";
+import TelegramIcon from "@material-ui/icons/Telegram";
 
 function TechCard(props) {
   const {
@@ -22,32 +19,33 @@ function TechCard(props) {
     upvotes,
   } = props;
   return (
-    <Card>
-      <CardActionArea>
-        <CardHeader avatar={<Avatar>RSP</Avatar>} title={title} />
+    <Card className=" border border-info d-flex justify-content-between h-100">
+      <div>
         <CardContent>
+          <Typography variant="subtitle1" color="textSecondary">
+            {created_by}
+          </Typography>
+          <Typography>{description}</Typography>
           <small className="text-muted text-center">
-            {created_by} Posted {moment(created_at).fromNow()}
+            Posted {moment(created_at).fromNow()}
           </small>
         </CardContent>
-        <CardContent>
-          <Typography
-            variant="body2"
-            color="textSecondary"
-            className="text-justify"
-          >
-            {description}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-      </CardActions>
+        <div className="d-flex flex-row">
+          <IconButton>
+            <ThumbUpIcon />
+          </IconButton>
+          <IconButton>
+            <ThumbDownIcon />
+          </IconButton>
+          <IconButton>
+            <TelegramIcon fontSize="large" />
+          </IconButton>
+        </div>
+      </div>
+      <CardMedia
+        className="float-right w-50"
+        image={process.env.PUBLIC_URL + "/assets/images/skill.svg"}
+      />
     </Card>
   );
 }
