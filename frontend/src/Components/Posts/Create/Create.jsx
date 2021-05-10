@@ -33,7 +33,7 @@ function Create(props) {
       ),
     },
     {
-      menuItem: "Other",
+      menuItem: "Other Item",
       render: () => (
         <Tab.Pane attached={false} className="p-0 border-0">
           <Other />

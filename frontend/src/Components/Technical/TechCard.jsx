@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import { CardActionArea, CardMedia } from "@material-ui/core";
 import moment from "moment";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
-import ThumbDownIcon from "@material-ui/icons/ThumbDown";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import TelegramIcon from "@material-ui/icons/Telegram";
 
 function TechCard(props) {
@@ -35,7 +35,7 @@ function TechCard(props) {
             <ThumbUpIcon />
           </IconButton>
           <IconButton>
-            <ThumbDownIcon />
+            <FavoriteBorderIcon />
           </IconButton>
           <IconButton>
             <TelegramIcon fontSize="large" />

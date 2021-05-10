@@ -26,12 +26,12 @@ function Groups() {
         rows={4}
       />
       <Button
-        variant="contained"
-        className="mt-3 float-right rounded-pill "
+        variant="outlined"
+        className="mt-3 float-right"
         startIcon={<CheckIcon />}
       >
         Submit
-      </Button>{" "}
+      </Button>
     </form>
   );
 }
