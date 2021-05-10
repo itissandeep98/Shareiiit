@@ -7,6 +7,8 @@ import moment from "moment";
 import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import TelegramIcon from "@material-ui/icons/Telegram";
+import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
+import { NavLink } from "react-router-dom";
 
 function TechCard(props) {
   const {
@@ -20,28 +22,31 @@ function TechCard(props) {
   } = props;
   return (
     <Card className=" border border-info d-flex justify-content-between h-100">
-      <div>
-        <CardContent>
-          <Typography variant="subtitle1" color="textSecondary">
-            {created_by}
-          </Typography>
-          <Typography>{description}</Typography>
-          <small className="text-muted text-center">
-            Posted {moment(created_at).fromNow()}
-          </small>
-        </CardContent>
-        <div className="d-flex flex-row">
-          <IconButton>
-            <ThumbUpIcon />
-          </IconButton>
-          <IconButton>
-            <FavoriteBorderIcon />
-          </IconButton>
-          <IconButton>
-            <TelegramIcon fontSize="large" />
-          </IconButton>
+      <CardActionArea>
+        <div className="d-flex justify-content-between flex-column">
+          <CardContent>
+            <Typography variant="h5">{title}</Typography>
+            <Typography variant="overline" color="textSecondary">
+              <NavLink to={`/${created_by}`}> {created_by}</NavLink>
+            </Typography>
+            <Typography variant="body2">{description}</Typography>
+            <small className="text-muted text-center">
+              Posted {moment(created_at).fromNow()}
+            </small>
+          </CardContent>
+          <div className="d-flex flex-row">
+            <IconButton>
+              <BookmarkBorderIcon />
+            </IconButton>
+            <IconButton>
+              <FavoriteBorderIcon />
+            </IconButton>
+            <IconButton>
+              <TelegramIcon fontSize="large" />
+            </IconButton>
+          </div>
         </div>
-      </div>
+      </CardActionArea>
       <CardMedia
         className="float-right w-50"
         image={process.env.PUBLIC_URL + "/assets/images/skill.svg"}

@@ -1,7 +1,10 @@
 import { Col, Container, Row } from "reactstrap";
 import { Image, List } from "semantic-ui-react";
+import { useSelector } from "react-redux";
 
 function ProfileCard() {
+  const user = useSelector((state) => state.user);
+
   const details = [
     {
       type: "Requests Made",
@@ -28,7 +31,7 @@ function ProfileCard() {
       </Row>
       <Row>
         <Col className="text-center">
-          <p className="text-muted">Sandeep</p>
+          <p className="text-muted">{user?.details?.username}</p>
         </Col>
       </Row>
       <hr />
