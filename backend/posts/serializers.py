@@ -1,8 +1,9 @@
-from django.db.models import fields, Q
-from rest_framework import serializers
+from django.contrib.auth import get_user_model
+
 from rest_framework.validators import UniqueTogetherValidator
+from rest_framework import serializers
+
 from .models import (
-    Conversation,
     Post,
     Book,
     Group,
@@ -10,9 +11,12 @@ from .models import (
     Vote,
     Skill,
     SkillList,
-    Message,
 )
-from django.contrib.auth.models import User
+
+# from django.contrib.auth.models import User
+
+
+User = get_user_model()
 
 
 class BookSerializer(serializers.ModelSerializer):
@@ -105,7 +109,9 @@ class VoteSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
-    created_by = serializers.CharField(source="created_by.username", read_only=True)
+    created_by = serializers.CharField(
+        source="created_by.username", read_only=True
+    )
     # book = BookSerializer()
     # item = serializers.PrimaryKeyRelatedField(read_only=True)
     category = serializers.SlugRelatedField(read_only=True, slug_field="name")
@@ -119,6 +125,9 @@ class PostSerializer(serializers.ModelSerializer):
             "created_by",
             "created_at",
             "is_request",
+            "price",
+            "is_price_negotiable",
+            "status",
             "category",
         )
 
@@ -132,10 +141,16 @@ class BookPostSerializer(PostSerializer):
 
     class Meta:
         model = PostSerializer.Meta.model
-        fields = PostSerializer.Meta.fields + ("book", "upvotes", "current_user_votes")
+        fields = PostSerializer.Meta.fields + (
+            "book",
+            "upvotes",
+            "current_user_votes",
+        )
 
     def get_current_user_votes(self, obj):
-        qs = Vote.objects.filter(post__id=obj.id, voted_by=self.context["request"].user)
+        qs = Vote.objects.filter(
+            post__id=obj.id, voted_by=self.context["request"].user
+        )
         serializer = VoteSerializer(instance=qs, many=True)
         return serializer.data
 
@@ -197,18 +212,23 @@ class GroupPostSerializer(PostSerializer):
         return instance
 
 
-class SkillItemSerializer(serializers.ModelSerializer):
+class SkillListSerializer(serializers.ModelSerializer):
     class Meta:
         model = SkillList
-        fields = "__all__"
+        fields = ("id", "name", "type")
+        read_only_fields = ("type",)
+        # read_only_fields = ("name",)
 
 
 class SkillSerializer(serializers.ModelSerializer):
-    skill_item = SkillItemSerializer(required=False)
+    type = serializers.SerializerMethodField()
 
     class Meta:
         model = Skill
-        fields = ("skill_item", "rating")
+        fields = ("name", "rating", "type")
+
+    def get_type(self, obj):
+        return SkillList.objects.get(name=obj.name).type.name
 
 
 class SkillPostSerializer(PostSerializer):
@@ -219,10 +239,16 @@ class SkillPostSerializer(PostSerializer):
 
     class Meta:
         model = PostSerializer.Meta.model
-        fields = PostSerializer.Meta.fields + ("skill", "upvotes", "current_user_votes")
+        fields = PostSerializer.Meta.fields + (
+            "skill",
+            "upvotes",
+            "current_user_votes",
+        )
 
     def get_current_user_votes(self, obj):
-        qs = Vote.objects.filter(post__id=obj.id, voted_by=self.context["request"].user)
+        qs = Vote.objects.filter(
+            post__id=obj.id, voted_by=self.context["request"].user
+        )
         serializer = VoteSerializer(instance=qs, many=True)
         return serializer.data
 
@@ -231,72 +257,32 @@ class SkillPostSerializer(PostSerializer):
 
     def create(self, validated_data):
         if "skill" in validated_data:
-            skill_data = validated_data.pop("skill")
+            skill = validated_data.pop("skill")
         else:
-            skill_data = {}
+            skill = {}
 
-        print(skill_data)
+        print(skill)
+        # print(skill["skill_item"])
 
         validated_data["category"] = Category.objects.get(name="skill")
-        post = Post.objects.create(**validated_data)
-        skill_item = SkillList.objects.get(name=skill_data.pop("skill_item")["name"])
-        skill_instance = Skill.objects.create(
-            post=post, skill_item=skill_item, **skill_data
-        )
-        return post
+        post = Post(**validated_data)
 
-
-class MessageSerializer(serializers.ModelSerializer):
-    sender = serializers.CharField(source="sender.username", read_only=True)
-    recipient = serializers.CharField(source="recipient.username")
-    # post = serializers.IntegerField()
-
-    class Meta:
-        model = Message
-        fields = ("created_at", "sender", "recipient", "text")
-
-    def create(self, validated_data):
-        print(validated_data)
-        print("Context", self.context)
-        post = self.context["post"]
-
-        validated_data["recipient"] = User.objects.get(
-            **validated_data.get("recipient")
-        )
+        # skill_item_name = skill.pop("skill_item").get("name")
+        # print("skill_item_name", skill_item_name)
 
         try:
-            conversation = Conversation.objects.get(
-                Q(user2=validated_data["sender"])
-                | Q(user2=validated_data["recipient"]),
-                post__id=post,
+            SkillList.objects.get(name=skill.get("name"))
+        except SkillList.DoesNotExist:
+            raise serializers.ValidationError(
+                {"Skill list": "Please enter a valid skill name."}
             )
-        except Conversation.DoesNotExist as e:
-            print("here")
-            conversation = Conversation(
-                user2=validated_data["sender"],
-                post=Post.objects.get(id=post),
-            )
-            conversation.save()
 
-        validated_data["conversation"] = conversation
+        skill_instance = Skill(post=post, **skill)
 
-        message = Message.objects.create(**validated_data)
-        return message
+        post.save()
+        skill_instance.save()
 
-
-class ConversationSerializer(serializers.ModelSerializer):
-    messages = MessageSerializer(source="message_set", many=True)
-    user2 = serializers.CharField(source="user2.username")
-
-    class Meta:
-        model = Conversation
-        fields = ("id", "user2", "messages")
-
-    # def create(self, validated_data):
-    #     validated_data["category"] = Category.objects.get(pk=1)
-    #     post = Post.objects.create(**validated_data)
-    #     book_instance = Book.objects.create(post=post, **book_data)
-    #     return post
+        return post
 
 
 class CategorySerializer(serializers.ModelSerializer):

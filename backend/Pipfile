@@ -21,6 +21,8 @@ sqlparse = "==0.4.1"
 Django = "==3.1.7"
 mysqlclient = "*"
 django-filter = "*"
+requests = "*"
+django-extensions = "*"
 
 [dev-packages]
 black = "*"

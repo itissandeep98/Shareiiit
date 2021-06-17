@@ -14,8 +14,9 @@ router.register(r"votes", views.VoteViewSet, basename="votes")
 
 urlpatterns = [
     path("", include(router.urls)),
-    path("categories/", views.CategoryList.as_view()),
+    path("categories/", views.CategoryListView.as_view()),
+    path("skilllist/", views.SkillListView.as_view()),
     path("voted/", views.VotedPostsView.as_view()),
-    path("messages/", views.MessageView.as_view()),
-    path("conversations/", views.ConversationView.as_view()),
+    # path("messages/", views.MessageView.as_view()),
+    # path("conversations/", views.ConversationView.as_view()),
 ]

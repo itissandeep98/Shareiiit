@@ -1,30 +1,31 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
+
+# from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from posts.models import Post
+
+from django.contrib.auth import get_user_model
+from accounts.models import Profile
+
+User = get_user_model()
 
 # from posts.serializers import BookPostSerializer
 from rest_framework.authtoken.models import Token
 
 # User Serializer
 class UserSerializer(serializers.HyperlinkedModelSerializer):
-    # posts = serializers.HyperlinkedRelatedField(many=True, view-name="posts", read_only=True)
-    # posts = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    # posts = BookPostSerializer(read_only=True, many=True)
-
     class Meta:
         model = User
         fields = (
             "id",
-            "first_name",
-            "last_name",
             "username",
             "password",
         )
+
         extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
-        print(validated_data)
+        # print(validated_data)
         user = User(
             username=validated_data["username"],
             first_name=validated_data["first_name"],
@@ -36,39 +37,27 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         return user
 
 
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ("role", "phone_number")
+
+
 class UserDetailsSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer()
+
     class Meta:
         model = User
-        fields = ("id", "first_name", "last_name", "username")
+        fields = ("id", "first_name", "last_name", "username", "profile")
         extra_kwargs = {"username": {"read_only": True}}
 
+    def update(self, instance, validated_data):
+        profile_data = validated_data.pop("profile", None)
 
-# # Register Serializer
-# class RegisterSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = User
-#         fields = ("id", "first_name", "last_name", "username", "password")
-#         extra_kwargs = {"password": {"write_only": True}}
+        if profile_data is not None:
+            profile_serializer = self.fields["profile"]
+            profile_serializer.update(instance.profile, profile_data)
 
-#     def create(self, validated_data):
-#         user = User.objects.create_user(
-#             validated_data["first_name"],
-#             validated_data["last_name"],
-#             validated_data["username"],
-#             validated_data["password"],
-#         )
-#         return user
-
-
-# # Login Serializer
-# class LoginSerializer(serializers.Serializer):
-#     username = serializers.CharField()
-#     password = serializers.CharField()
-
-#     def validate(self, attrs):
-#         user = authenticate(**attrs)
-
-#         if user and user.is_active:
-#             return user
-
-#         raise serializers.ValidationError("Incorrect credentials")
+        return super(UserDetailsSerializer, self).update(
+            instance, validated_data
+        )
