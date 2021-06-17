@@ -5,12 +5,7 @@ function Electronics() {
   return (
     <form>
       <TextField label="Name" className="w-100" variant="outlined" required />
-      <TextField
-        label="Author"
-        className="w-100 mt-3"
-        variant="outlined"
-        required
-      />
+
       <TextField
         label="Description"
         className="w-100 mt-3"
@@ -20,8 +15,8 @@ function Electronics() {
         rows={4}
       />
       <Button
-        variant="contained"
-        className="mt-3 float-right rounded-pill "
+        variant="outlined"
+        className="mt-3 float-right"
         startIcon={<CheckIcon />}
       >
         Submit

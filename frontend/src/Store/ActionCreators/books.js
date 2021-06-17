@@ -3,15 +3,15 @@ import axios from "axios";
 import { apiUrl } from "../Urls";
 import { getAuthToken } from "../../Components/checkAuth";
 
-const headers = {
+const headers = () => ({
   Authorization: "Token " + getAuthToken(),
-};
+});
 
 export const fetchBooks = () => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.BOOKS_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/books/`, { headers })
+      .get(`${apiUrl}/books/`, { headers: headers() })
       .then((response) => {
         const data = response.data.results;
         dispatch({
@@ -33,7 +33,7 @@ export const createBookPost = (data) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.BOOK_CREATE_REQUEST });
     return await axios
-      .post(`${apiUrl}/mybooks/`, data, { headers })
+      .post(`${apiUrl}/mybooks/`, data, { headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.BOOK_CREATE_SUCCESS,
@@ -57,11 +57,31 @@ export const createBookPost = (data) => {
   };
 };
 
+export const deleteBookPost = (id) => {
+  return async (dispatch) => {
+    dispatch({ type: ActionTypes.BOOK_DELETE_REQUEST });
+    return await axios
+      .delete(`${apiUrl}/mybooks/${id}/`, { headers: headers() })
+      .then((response) => {
+        dispatch({
+          type: ActionTypes.BOOK_DELETE_SUCCESS,
+          data: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: ActionTypes.BOOK_DELETE_FAILED,
+          errmess: "Error in connection with Server",
+        });
+      });
+  };
+};
+
 export const fetchMyBooks = () => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.USER_BOOKS_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/mybooks/`, { headers })
+      .get(`${apiUrl}/mybooks/`, { headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.USER_BOOKS_FETCH_SUCCESS,

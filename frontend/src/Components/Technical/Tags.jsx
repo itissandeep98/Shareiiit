@@ -11,8 +11,11 @@ import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import { Col, Container, Row } from "reactstrap";
 import SearchIcon from "@material-ui/icons/Search";
 import { TagList } from "../../Config/Tags";
+import { useState } from "react";
 
-function Tags() {
+function Tags(props) {
+  const { tags, modifyTags } = props;
+  const [query, setQuery] = useState("");
   return (
     <Container className="bg-white p-2 rounded_lg">
       <Row>
@@ -20,6 +23,8 @@ function Tags() {
           <Typography variant="h3">Skills</Typography>
           <TextField
             label="Filter Tags"
+            value={query}
+            onChange={(e) => setQuery(e.target.value.toLowerCase())}
             fullWidth
             InputProps={{
               endAdornment: (
@@ -30,14 +35,21 @@ function Tags() {
             }}
           />
           <List component="nav" aria-label="main mailbox folders">
-            {TagList.map((tag) => (
-              <ListItem button key={Math.random()}>
-                <ListItemIcon>
-                  <LocalOfferIcon />
-                </ListItemIcon>
-                <ListItemText primary={tag} />
-              </ListItem>
-            ))}
+            {TagList.filter((tag) => tag.toLowerCase().includes(query)).map(
+              (tag) => (
+                <ListItem
+                  button
+                  selected={tags?.includes(tag)}
+                  key={Math.random()}
+                  onClick={() => modifyTags(tag)}
+                >
+                  <ListItemIcon>
+                    <LocalOfferIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={tag} />
+                </ListItem>
+              )
+            )}
           </List>
         </Col>
       </Row>

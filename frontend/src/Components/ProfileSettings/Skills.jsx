@@ -1,32 +1,32 @@
-import {
-  Button,
-  Chip,
-  FormControl,
-  InputLabel,
-  List,
-  ListItem,
-  MenuItem,
-  Select,
-  TextField,
-  Tooltip,
-} from "@material-ui/core";
-import React, { useState } from "react";
+import { Button, Typography } from "@material-ui/core";
+import { useEffect, useState } from "react";
 import { Col, Row } from "reactstrap";
-import { Image } from "semantic-ui-react";
-import HighlightOffIcon from "@material-ui/icons/HighlightOff";
-import { TagList } from "../../Config/Tags";
+import { Image, Rating } from "semantic-ui-react";
+import AddSkill from "./AddSkill";
+import { useDispatch } from "react-redux";
+import { fetchUserSkills } from "../../Store/ActionCreators/skill";
+import Accordion from "@material-ui/core/Accordion";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import AccordionActions from "@material-ui/core/AccordionActions";
 
 function Skills() {
-  const [currentTag, setCurrentTag] = useState("");
-  const [description, setDescription] = useState("");
   const [userTags, setuserTags] = useState([]);
+  const [modal, setModal] = useState(false);
+  const dispatch = useDispatch();
+  const [expanded, setExpanded] = useState(0);
+
+  const handleChange = (value) => {
+    setExpanded(value === expanded ? -1 : value);
+  };
+  useEffect(() => {
+    dispatch(fetchUserSkills()).then((res) => {
+      // setuserTags(res ?? userTags);
+    });
+  }, [dispatch]);
   const handleDelete = (i) => {
     setuserTags([...userTags.slice(0, i), ...userTags.slice(i + 1)]);
-  };
-  const addSkill = () => {
-    setuserTags([...userTags, { label: currentTag, desc: description }]);
-    setCurrentTag("");
-    setDescription("");
   };
 
   return (
@@ -42,56 +42,46 @@ function Skills() {
           </div>
           <hr />
         </h2>
-        <Row>
-          <Col xs={3}>
-            <FormControl variant="outlined" fullWidth>
-              <InputLabel>Tag</InputLabel>
-              <Select
-                label="Tag"
-                value={currentTag}
-                onChange={(e) => setCurrentTag(e.target.value)}
-              >
-                {TagList.map((tag) => (
-                  <MenuItem value={tag}>{tag}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Col>
-          <Col xs={6}>
-            <TextField
-              label="Short Description"
-              variant="outlined"
-              value={description}
-              multiline
-              fullWidth
-              onChange={(e) => setDescription(e.target.value)}
-            />
-          </Col>
-          <Col xs={2}>
-            <Button
-              variant="outlined"
-              className="float-right "
-              onClick={addSkill}
-            >
-              Add Skill
-            </Button>
-          </Col>
-        </Row>
+        <AddSkill
+          userTags={userTags}
+          setuserTags={setuserTags}
+          modal={modal}
+          toggle={() => setModal(!modal)}
+        />
+        <Button variant="outlined" onClick={() => setModal(true)}>
+          Add New Skill Post
+        </Button>
         <Row>
           <Col className="text-center mb-3">
             {userTags.map((tag, i) => (
-              <Tooltip
-                title={tag.desc}
-                placement="top"
-                key={Math.random()}
-                className="mx-1 my-2"
+              <Accordion
+                key={i}
+                expanded={expanded === i}
+                onChange={() => handleChange(i)}
               >
-                <Chip
-                  label={tag.label}
-                  onDelete={() => handleDelete(i)}
-                  deleteIcon={<HighlightOffIcon />}
-                />
-              </Tooltip>
+                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                  <Typography>{tag.label}</Typography>
+                  <Rating
+                    className="ml-3"
+                    rating={tag.rate}
+                    icon="star"
+                    maxRating={5}
+                    size="huge"
+                    disabled
+                  />
+                </AccordionSummary>
+                <AccordionDetails>
+                  <Typography>{tag.desc}</Typography>
+                </AccordionDetails>
+                <AccordionActions>
+                  <Button size="small" onClick={() => handleDelete(i)}>
+                    Delete
+                  </Button>
+                  <Button size="small" color="primary">
+                    Edit
+                  </Button>
+                </AccordionActions>
+              </Accordion>
             ))}
           </Col>
         </Row>

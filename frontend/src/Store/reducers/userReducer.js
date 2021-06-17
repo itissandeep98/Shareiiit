@@ -86,6 +86,24 @@ export const detailsReducer = (state = initState, action) => {
         voted: null,
         isLoading: false,
       };
+    case ActionTypes.USER_SKILLS_FETCH_REQUEST:
+      return { ...state, errmess: null, isLoading: true };
+
+    case ActionTypes.USER_SKILLS_FETCH_SUCCESS:
+      return {
+        ...state,
+        errmess: null,
+        skills: action.data,
+        isLoading: false,
+      };
+
+    case ActionTypes.USER_SKILLS_FETCH_FAILED:
+      return {
+        ...state,
+        errmess: action.errmess,
+        skills: null,
+        isLoading: false,
+      };
 
     default:
       return state;

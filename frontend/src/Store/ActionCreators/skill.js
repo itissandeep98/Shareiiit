@@ -7,61 +7,62 @@ const headers = () => ({
   Authorization: "Token " + getAuthToken(),
 });
 
-export const fetchUser = () => {
+export const createSkillPost = (data) => {
   return async (dispatch) => {
-    dispatch({ type: ActionTypes.USER_DETAILS_FETCH_REQUEST });
+    dispatch({ type: ActionTypes.SKILL_CREATE_REQUEST });
     return await axios
-      .get(`${apiUrl}/profile/`, { headers: headers() })
+      .post(`${apiUrl}/myskills/`, data, { headers: headers() })
       .then((response) => {
         dispatch({
-          type: ActionTypes.USER_DETAILS_FETCH_SUCCESS,
+          type: ActionTypes.SKILL_CREATE_SUCCESS,
           data: response.data,
         });
       })
       .catch((error) => {
         dispatch({
-          type: ActionTypes.USER_DETAILS_FETCH_FAILED,
+          type: ActionTypes.SKILL_CREATE_FAILED,
           errmess: "Error in connection with Server",
         });
       });
   };
 };
 
-export const updateUser = ({ id, data }) => {
+export const fetchSkillPosts = () => {
   return async (dispatch) => {
-    dispatch({ type: ActionTypes.USER_DETAILS_UPDATE_REQUEST });
+    dispatch({ type: ActionTypes.SKILL_POSTS_FETCH_REQUEST });
     return await axios
-      .patch(`${apiUrl}/users/${id}/`, data, { headers: headers() })
+      .get(`${apiUrl}/skills/`, { headers: headers() })
       .then((response) => {
         dispatch({
-          type: ActionTypes.USER_DETAILS_UPDATE_SUCCESS,
-          data: response.data,
+          type: ActionTypes.SKILL_POSTS_FETCH_SUCCESS,
+          data: response.data.results,
         });
+        return response.data.results;
       })
       .catch((error) => {
-        console.log(error.response);
         dispatch({
-          type: ActionTypes.USER_DETAILS_UPDATE_FAILED,
+          type: ActionTypes.SKILL_POSTS_FETCH_FAILED,
           errmess: "Error in connection with Server",
         });
       });
   };
 };
 
-export const fetchPeople = (id) => {
+export const fetchUserSkills = () => {
   return async (dispatch) => {
-    dispatch({ type: ActionTypes.PEOPLE_DETAILS_FETCH_FAILED });
+    dispatch({ type: ActionTypes.USER_SKILLS_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/users`, { params: { username: id }, headers: headers() })
+      .get(`${apiUrl}/myskills/`, { headers: headers() })
       .then((response) => {
         dispatch({
-          type: ActionTypes.PEOPLE_DETAILS_FETCH_SUCCESS,
-          data: response.data.results[0],
+          type: ActionTypes.USER_SKILLS_FETCH_SUCCESS,
+          data: response.data.results,
         });
+        return response.data.results;
       })
       .catch((error) => {
         dispatch({
-          type: ActionTypes.PEOPLE_DETAILS_FETCH_FAILED,
+          type: ActionTypes.USER_SKILLS_FETCH_FAILED,
           errmess: "Error in connection with Server",
         });
       });

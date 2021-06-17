@@ -5,13 +5,13 @@ import { Col, Container, Row, Spinner } from "reactstrap";
 import { fetchBooks } from "../../Store/ActionCreators/books";
 import { fetchGroups } from "../../Store/ActionCreators/groups";
 import PostCards from "../Posts/PostCard";
-import FilterBar from "../Navigation/Filter/FilterBar";
+import FilterBar from "./FilterBar";
 import AddIcon from "@material-ui/icons/Add";
 import Create from "../Posts/Create/Create";
 
 function Posts(props) {
   const [cards, setCards] = useState(props?.posts?.books ?? []);
-  const [category, setCategory] = useState("All");
+  const [category, setCategory] = useState("Books");
   const [modal, setModal] = useState(false);
 
   const [loading, setLoading] = useState(false);
@@ -43,7 +43,7 @@ function Posts(props) {
             className="shadow my-3 py-4 rounded_lg bg-white align-items-center"
           >
             <Row>
-              <Col>
+              <Col className="text-center">
                 <Create
                   modal={modal}
                   setModal={setModal}
@@ -65,8 +65,9 @@ function Posts(props) {
               <Col>
                 <br />
                 <FilterBar
+                  setResult={setCards}
                   category={category}
-                  changeCategory={(cat) => setCategory(cat)}
+                  setCategory={setCategory}
                 />
                 <br />
                 {loading && (
@@ -77,13 +78,7 @@ function Posts(props) {
                 <Row className="justify-content-center">
                   {cards && cards?.length > 0 ? (
                     cards?.map((book) => (
-                      <Col
-                        xs={12}
-                        md={6}
-                        lg={4}
-                        className="my-3"
-                        key={Math.random()}
-                      >
+                      <Col xs={12} md={6} lg={4} className="my-3" key={book.id}>
                         <PostCards {...book} />
                       </Col>
                     ))

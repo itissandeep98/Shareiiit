@@ -11,7 +11,7 @@ import moment from "moment";
 import "./style.scss";
 
 function PostCards(props) {
-  const {
+  let {
     id,
     description,
     book,
@@ -23,19 +23,23 @@ function PostCards(props) {
     upvotes,
     current_user_votes,
   } = props;
+  const [num_upvotes, setNum_upvotes] = useState(upvotes);
   const [liked, setLiked] = useState(
-    current_user_votes.filter((vote) => vote.choice == 1).length
+    current_user_votes?.filter((vote) => vote.choice == 1).length
   );
   const [saved, setSaved] = useState(
-    current_user_votes.filter((vote) => vote.choice == 2).length
+    current_user_votes?.filter((vote) => vote.choice == 2).length
   );
   const [dismiss, setDismiss] = useState(
-    current_user_votes.filter((vote) => vote.choice == 3).length
+    current_user_votes?.filter((vote) => vote.choice == 3).length
   );
   const dispatch = useDispatch();
   const Vote = (option) => {
     if (option == 1) {
-      setLiked(!liked);
+      if (!liked) {
+        setNum_upvotes(num_upvotes + 1);
+      }
+      setLiked(true);
     } else if (option == 2) {
       setSaved(!saved);
     } else if (option == 3) {
@@ -59,7 +63,13 @@ function PostCards(props) {
               />
             </Col>
             <Col xs={9}>
-              <h3 className="text-capitalize">{title}</h3>
+              <h3
+                className="text-capitalize"
+                onClick={() => props.history.push(`/posts/${id}`)}
+                style={{ cursor: "pointer" }}
+              >
+                {title}
+              </h3>
               <small className="text-muted float-right">
                 - <NavLink to={`/${created_by}`}>{created_by}</NavLink>
               </small>
@@ -90,7 +100,7 @@ function PostCards(props) {
                   style={{ cursor: "pointer" }}
                   size="large"
                 />
-                {upvotes > 0 && upvotes}
+                <small> {num_upvotes > 0 && num_upvotes}</small>
               </p>
             </Tooltip>
             <Tooltip title="Save" placement="top">

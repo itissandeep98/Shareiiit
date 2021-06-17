@@ -6,13 +6,14 @@ import { peopleReducer } from "./peopleReducer";
 import localForage from "localforage";
 import { persistReducer } from "redux-persist";
 import { encryptTransform } from "redux-persist-transform-encrypt";
+import { skillReducer } from "./skillReducer";
 
 const persistConfig = {
   key: "root",
   storage: localForage,
   transforms: [
     encryptTransform({
-      secretKey: "as5a168asd1a8a3fds5g157x687sd",
+      secretKey: "fas56a5da19af64asda6a8s6a54sd98",
     }),
   ],
 };
@@ -20,6 +21,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   auth: authReducer,
   posts: postReducer,
+  skill: skillReducer,
   user: detailsReducer,
   people: peopleReducer,
 });
