@@ -40,7 +40,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ("role", "phone_number")
+        fields = "__all__"
 
 
 class UserDetailsSerializer(serializers.ModelSerializer):
