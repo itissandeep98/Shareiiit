@@ -6,7 +6,7 @@ export const loginAction = (data) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.LOGIN_REQUEST });
     return await axios
-      .post(`${apiUrl}/login/`, data)
+      .post(`${apiUrl}/api/login/`, data)
       .then((response) => {
         dispatch({
           type: ActionTypes.LOGIN_SUCCESS,

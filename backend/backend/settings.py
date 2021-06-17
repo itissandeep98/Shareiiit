@@ -161,8 +161,9 @@ django_heroku.settings(locals())
 # PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 # STATIC_ROOT = os.path.join(PROJECT_DIR, "static")
 
-OSA_AUTHENTICATION_URL = "http://localhost:8001/token-auth/"
-OSA_EDIT_PROFILE_URL = "http://localhost:8001/core/edit_profile/"
-OSA_CURRENT_USER_URL = "http://localhost:8001/core/current_user/"
+
+OSA_AUTHENTICATION_URL = "https://osa-iiitd.herokuapp.com/token-auth/"
+OSA_EDIT_PROFILE_URL = "https://osa-iiitd.herokuapp.com/core/edit_profile/"
+OSA_CURRENT_USER_URL = "https://osa-iiitd.herokuapp.com/core/current_user/"
 
 AUTH_USER_MODEL = "accounts.User"
