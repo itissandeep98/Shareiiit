@@ -17,7 +17,7 @@ class Profile(models.Model):
     # ROLE_CHOICES = ("Student", "Faculty", "Staff", "Other")
 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    role = models.CharField(max_length=7)
+    role = models.CharField(max_length=7, default="Student")
     phone_number = models.CharField(max_length=13, blank=True, null=True)
     bio = models.CharField(max_length=1024, blank=True, null=True)
     linkedin_url = models.URLField(max_length=127, blank=True, null=True)
