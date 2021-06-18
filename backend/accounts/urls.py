@@ -14,8 +14,8 @@ urlpatterns = router.urls
 urlpatterns += [
     # path("users/", views.UserList.as_view()),
     # path("api-auth/", include("rest_framework.urls")),
-    path(r"profile/", views.UserProfileView.as_view()),
-    path(r"login/", obtain_auth_token),
+    path(r"details/", views.UserProfileView.as_view()),
+    path(r"login/", views.LoginView.as_view()),
     path(r"logout/", views.LogoutView.as_view())
     # path("users/<int:pk>/", views.UserDetail.as_view()),
 ]

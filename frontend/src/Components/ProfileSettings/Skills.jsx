@@ -22,7 +22,7 @@ function Skills() {
   };
   useEffect(() => {
     dispatch(fetchUserSkills()).then((res) => {
-      // setuserTags(res ?? userTags);
+      setuserTags(res);
     });
   }, [dispatch]);
   const handleDelete = (i) => {
@@ -60,10 +60,10 @@ function Skills() {
                 onChange={() => handleChange(i)}
               >
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                  <Typography>{tag.label}</Typography>
+                  <Typography>{tag.skill.name}</Typography>
                   <Rating
                     className="ml-3"
-                    rating={tag.rate}
+                    rating={tag.skill.rating}
                     icon="star"
                     maxRating={5}
                     size="huge"
@@ -71,7 +71,7 @@ function Skills() {
                   />
                 </AccordionSummary>
                 <AccordionDetails>
-                  <Typography>{tag.desc}</Typography>
+                  <Typography>{tag.description}</Typography>
                 </AccordionDetails>
                 <AccordionActions>
                   <Button size="small" onClick={() => handleDelete(i)}>

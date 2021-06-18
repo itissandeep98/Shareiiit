@@ -11,7 +11,7 @@ export const createSkillPost = (data) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.SKILL_CREATE_REQUEST });
     return await axios
-      .post(`${apiUrl}/myskills/`, data, { headers: headers() })
+      .post(`${apiUrl}/api/myskills/`, data, { headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.SKILL_CREATE_SUCCESS,
@@ -21,7 +21,7 @@ export const createSkillPost = (data) => {
       .catch((error) => {
         dispatch({
           type: ActionTypes.SKILL_CREATE_FAILED,
-          errmess: "Error in connection with Server",
+          errmess: error.response,
         });
       });
   };
@@ -31,7 +31,7 @@ export const fetchSkillPosts = () => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.SKILL_POSTS_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/skills/`, { headers: headers() })
+      .get(`${apiUrl}/api/skills/`, { headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.SKILL_POSTS_FETCH_SUCCESS,
@@ -52,7 +52,7 @@ export const fetchUserSkills = () => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.USER_SKILLS_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/myskills/`, { headers: headers() })
+      .get(`${apiUrl}/api/myskills/`, { headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.USER_SKILLS_FETCH_SUCCESS,
@@ -63,6 +63,27 @@ export const fetchUserSkills = () => {
       .catch((error) => {
         dispatch({
           type: ActionTypes.USER_SKILLS_FETCH_FAILED,
+          errmess: "Error in connection with Server",
+        });
+      });
+  };
+};
+
+export const fetchSkillList = () => {
+  return async (dispatch) => {
+    dispatch({ type: ActionTypes.SKILL_LIST_FETCH_REQUEST });
+    return await axios
+      .get(`${apiUrl}/api/skilllist/`, { headers: headers() })
+      .then((response) => {
+        dispatch({
+          type: ActionTypes.SKILL_LIST_FETCH_SUCCESS,
+          data: response.data.results,
+        });
+        return response.data.results;
+      })
+      .catch((error) => {
+        dispatch({
+          type: ActionTypes.SKILL_LIST_FETCH_FAILED,
           errmess: "Error in connection with Server",
         });
       });

@@ -41,18 +41,23 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "accounts.apps.AccountsConfig",
     "posts.apps.PostsConfig",
+    "messaging.apps.MessagingConfig",
     "corsheaders",
     "django_filters",
+    "django_extensions",
 ]
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework.authentication.TokenAuthentication",
-        "rest_framework.authentication.SessionAuthentication",
+        "accounts.authentications.OSAAuthentication",
+        # "rest_framework.authentication.SessionAuthentication",
     ),
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": 12,
 }
+
+# AUTHENTICATION_BACKENDS = ["accounts.backends.OSABackend"]
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
@@ -65,7 +70,10 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-CORS_ORIGIN_WHITELIST = ["http://localhost:3000", "https://gupta-anmol.github.io"]
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000",
+    "https://gupta-anmol.github.io",
+]
 
 ROOT_URLCONF = "backend.urls"
 
@@ -92,18 +100,18 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "AgTOq8SfO8",
-        "USER": "AgTOq8SfO8",
-        "PASSWORD": "reoSn1zi5R",
-        "HOST": "remotemysql.com",
-        "PORT": "3306",
-    }
     # "default": {
-    #     "ENGINE": "django.db.backends.sqlite3",
-    #     "NAME": BASE_DIR / "db.sqlite3",
+    #     "ENGINE": "django.db.backends.mysql",
+    #     "NAME": "AgTOq8SfO8",
+    #     "USER": "AgTOq8SfO8",
+    #     "PASSWORD": "reoSn1zi5R",
+    #     "HOST": "remotemysql.com",
+    #     "PORT": "3306",
     # }
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
 }
 
 
@@ -143,7 +151,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-# import os
 
 STATIC_URL = "/static/"
 
@@ -153,3 +160,10 @@ django_heroku.settings(locals())
 
 # PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 # STATIC_ROOT = os.path.join(PROJECT_DIR, "static")
+
+
+OSA_AUTHENTICATION_URL = "https://osa-iiitd.herokuapp.com/token-auth/"
+OSA_EDIT_PROFILE_URL = "https://osa-iiitd.herokuapp.com/core/edit_profile/"
+OSA_CURRENT_USER_URL = "https://osa-iiitd.herokuapp.com/core/current_user/"
+
+AUTH_USER_MODEL = "accounts.User"

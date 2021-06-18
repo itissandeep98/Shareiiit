@@ -11,7 +11,7 @@ export const fetchMessages = (data) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.MESSAGE_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/conversations/`, { params: data, headers: headers() })
+      .get(`${apiUrl}/api/conversations/`, { params: data, headers: headers() })
       .then((response) => {
         const data = response.data.results;
         dispatch({
@@ -30,16 +30,20 @@ export const fetchMessages = (data) => {
   };
 };
 
-export const createMessage = (data) => {
+export const createMessage = ({ type, data }) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.MESSAGE_CREATE_REQUEST });
     return await axios
-      .post(`${apiUrl}/messages/`, data, { headers: headers() })
+      .post(`${apiUrl}/api/messages/`, data, {
+        params: type,
+        headers: headers(),
+      })
       .then((response) => {
         dispatch({
           type: ActionTypes.MESSAGE_CREATE_SUCCESS,
           data: response.data,
         });
+        return response.data;
       })
       .catch((error) => {
         console.log(error.response);

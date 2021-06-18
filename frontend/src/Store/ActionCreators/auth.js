@@ -1,12 +1,18 @@
 import axios from "axios";
+import { getAuthToken } from "../../Components/checkAuth";
+import { showAlert } from "../../Components/showAlert";
 import * as ActionTypes from "../ActionTypes";
 import { apiUrl } from "../Urls";
+
+const headers = () => ({
+  Authorization: "Token " + getAuthToken(),
+});
 
 export const loginAction = (data) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.LOGIN_REQUEST });
     return await axios
-      .post(`${apiUrl}/login/`, data)
+      .post(`${apiUrl}/api/login/`, data)
       .then((response) => {
         dispatch({
           type: ActionTypes.LOGIN_SUCCESS,
@@ -14,6 +20,7 @@ export const loginAction = (data) => {
         });
       })
       .catch((error) => {
+        showAlert("Invalid Username or Password", "error");
         console.log(error.response);
         if (error?.response?.data?.error) {
           dispatch({
@@ -34,7 +41,7 @@ export const logoutAction = () => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.LOGOUT_REQUEST });
     return await axios
-      .post(`${apiUrl}/logout/`)
+      .post(`${apiUrl}/api/logout/`, {}, { headers: headers() })
       .then((response) => {
         dispatch({ type: ActionTypes.LOGOUT_SUCCESS });
       })

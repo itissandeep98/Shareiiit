@@ -1,7 +1,6 @@
 import { Col, Container, Row } from "reactstrap";
 import { Image } from "semantic-ui-react";
 import Login from "./Login";
-import Register from "./Register";
 import "./style.scss";
 
 function AuthComp(props) {
@@ -23,15 +22,15 @@ function AuthComp(props) {
           >
             <Image
               src={process.env.PUBLIC_URL + "/assets/images/auth-image.png"}
-              alt="Resource sharing platform"
+              alt="ShareIIITD"
               size="large"
             />
           </Col>
           <Col className="align-items-center d-flex justify-content-center">
             <div className="w-100 text-center">
-              <h1 className="text-info text-grad">Resource Sharing Platform</h1>
+              <h1 className="text-info text-grad">ShareIIITD</h1>
 
-              {right === "login" ? <Login /> : <Register />}
+              <Login />
             </div>
           </Col>
         </Row>

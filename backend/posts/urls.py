@@ -9,13 +9,12 @@ router.register(r"skills", views.SkillViewSet, basename="skills")
 router.register(r"myskills", views.MySkillsViewSet, basename="myskills")
 router.register(r"groups", views.GroupViewSet, basename="groups")
 router.register(r"posts", views.PostViewSet, basename="posts")
-router.register(r"votes", views.VoteViewSet, basename="votes")
+# router.register(r"votes", views.VoteViewSet, basename="votes")
 # router.register(r"messages", views.MessageViewSet, basename="messages")
 
 urlpatterns = [
     path("", include(router.urls)),
-    path("categories/", views.CategoryList.as_view()),
-    path("voted/", views.VotedPostsView.as_view()),
-    path("messages/", views.MessageView.as_view()),
-    path("conversations/", views.ConversationView.as_view()),
+    path("categories/", views.CategoryListView.as_view()),
+    path("skilllist/", views.SkillListView.as_view()),
+    path("votelog/", views.VoteLogView.as_view()),
 ]

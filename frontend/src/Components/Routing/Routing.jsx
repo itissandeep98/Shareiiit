@@ -64,15 +64,15 @@ function Routing() {
       private: false,
       restricted: true,
       layout: false,
-      render: () => <AuthComp right="login" />,
+      render: () => <AuthComp />,
     },
-    {
-      path: "/register",
-      private: false,
-      restricted: true,
-      layout: false,
-      render: () => <AuthComp right="register" />,
-    },
+    // {
+    //   path: "/register",
+    //   private: false,
+    //   restricted: true,
+    //   layout: false,
+    //   render: () => <AuthComp right="register" />,
+    // },
     {
       path: "/posts/:postId",
       private: true,

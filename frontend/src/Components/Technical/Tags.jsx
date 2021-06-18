@@ -11,11 +11,20 @@ import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import { Col, Container, Row } from "reactstrap";
 import SearchIcon from "@material-ui/icons/Search";
 import { TagList } from "../../Config/Tags";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { fetchSkillList } from "../../Store/ActionCreators/skill";
 
 function Tags(props) {
   const { tags, modifyTags } = props;
   const [query, setQuery] = useState("");
+  const dispatch = useDispatch();
+  const [skillList, setSkillList] = useState([]);
+  useEffect(() => {
+    dispatch(fetchSkillList()).then((res) => {
+      setSkillList(res);
+    });
+  }, [dispatch]);
   return (
     <Container className="bg-white p-2 rounded_lg">
       <Row>
@@ -35,21 +44,21 @@ function Tags(props) {
             }}
           />
           <List component="nav" aria-label="main mailbox folders">
-            {TagList.filter((tag) => tag.toLowerCase().includes(query)).map(
-              (tag) => (
+            {skillList
+              .filter((tag) => tag.name.toLowerCase().includes(query))
+              .map((tag) => (
                 <ListItem
                   button
-                  selected={tags?.includes(tag)}
+                  selected={tags?.includes(tag.name)}
                   key={Math.random()}
-                  onClick={() => modifyTags(tag)}
+                  onClick={() => modifyTags(tag.name)}
                 >
                   <ListItemIcon>
                     <LocalOfferIcon />
                   </ListItemIcon>
-                  <ListItemText primary={tag} />
+                  <ListItemText primary={tag.name} />
                 </ListItem>
-              )
-            )}
+              ))}
           </List>
         </Col>
       </Row>

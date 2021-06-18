@@ -21,35 +21,34 @@ function PostCards(props) {
     is_request,
     title,
     upvotes,
-    current_user_votes,
+    vote_log,
   } = props;
   const [num_upvotes, setNum_upvotes] = useState(upvotes);
-  const [liked, setLiked] = useState(
-    current_user_votes?.filter((vote) => vote.choice == 1).length
-  );
-  const [saved, setSaved] = useState(
-    current_user_votes?.filter((vote) => vote.choice == 2).length
-  );
-  const [dismiss, setDismiss] = useState(
-    current_user_votes?.filter((vote) => vote.choice == 3).length
-  );
+  const [liked, setLiked] = useState(vote_log.upvoted_flag);
+  const [saved, setSaved] = useState(vote_log.saved_flag);
+  const [dismiss, setDismiss] = useState(vote_log.dismiss_flag);
   const dispatch = useDispatch();
   const Vote = (option) => {
+    let data = {
+      dismiss_flag: dismiss,
+      saved_flag: saved,
+      upvoted_flag: liked,
+    };
     if (option == 1) {
       if (!liked) {
         setNum_upvotes(num_upvotes + 1);
       }
-      setLiked(true);
+      data.upvoted_flag = !liked;
+      setLiked(!liked);
     } else if (option == 2) {
+      data.saved_flag = !saved;
       setSaved(!saved);
     } else if (option == 3) {
+      data.dismiss_flag = !dismiss;
       setDismiss(!dismiss);
     }
-    const data = {
-      post: id,
-      choice: option,
-    };
-    dispatch(addVote(data));
+
+    dispatch(addVote({ id, data }));
   };
   return (
     <Container className="bg-white pt-3 rounded_lg border-info border mt-3 h-100 d-flex justify-content-between flex-column card_hover">

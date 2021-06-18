@@ -11,7 +11,7 @@ export const fetchUser = () => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.USER_DETAILS_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/profile/`, { headers: headers() })
+      .get(`${apiUrl}/api/details/`, { headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.USER_DETAILS_FETCH_SUCCESS,
@@ -27,11 +27,11 @@ export const fetchUser = () => {
   };
 };
 
-export const updateUser = ({ id, data }) => {
+export const updateUser = (data) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.USER_DETAILS_UPDATE_REQUEST });
     return await axios
-      .patch(`${apiUrl}/users/${id}/`, data, { headers: headers() })
+      .patch(`${apiUrl}/api/details/`, data, { headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.USER_DETAILS_UPDATE_SUCCESS,
@@ -42,7 +42,7 @@ export const updateUser = ({ id, data }) => {
         console.log(error.response);
         dispatch({
           type: ActionTypes.USER_DETAILS_UPDATE_FAILED,
-          errmess: "Error in connection with Server",
+          errmess: error.response,
         });
       });
   };
