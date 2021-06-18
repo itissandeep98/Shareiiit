@@ -58,7 +58,7 @@ function PostDetail(props) {
       </Row>
       <Row className="mt-5">
         <Col>
-          <Messages id={id} recipient={username} />
+          <Messages id={id} recipient={username} creator={details.created_by} />
         </Col>
       </Row>
     </Container>

@@ -27,7 +27,7 @@ function Profile(props) {
 
   const updateDetails = () => {
     const { id, ...data } = details;
-    dispatch(updateUser({ id, data }));
+    dispatch(updateUser(data));
   };
   return (
     <Container fluid className="p-3 bg-light h-100">

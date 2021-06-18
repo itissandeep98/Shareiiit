@@ -39,7 +39,7 @@ function TopHeader() {
             />
           </div>
           <Image
-            src={process.env.PUBLIC_URL + "/assets/images/logo3.png"}
+            src={process.env.PUBLIC_URL + "/assets/images/logo.png"}
             alt="resource sharing app"
             size="medium"
             className="d-none d-md-block"
