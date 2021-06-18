@@ -8,7 +8,7 @@ from rest_framework.response import Response
 
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .models import Post, Category, Vote, SkillList
+from .models import Post, Category, SkillList, VoteLog
 from .permissions import IsOwnerOrReadOnly
 from .serializers import (
     PostSerializer,
@@ -16,10 +16,8 @@ from .serializers import (
     BookPostSerializer,
     GroupPostSerializer,
     SkillListSerializer,
-    VoteSerializer,
-    VotedPostSerializer,
+    VoteLogSerializer,
     SkillPostSerializer,
-    SkillSerializer,
 )
 
 # Create your views here.
@@ -83,10 +81,6 @@ class BookViewSet(viewsets.ReadOnlyModelViewSet):
 
         queryset = Post.objects.filter(category__name="book", **kwargs)
 
-        queryset = queryset.annotate(
-            upvotes=Count("votes", filter=Q(votes__choice__name="upvote"))
-        )
-
         return queryset
 
 
@@ -108,10 +102,6 @@ class MyBooksViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = Post.objects.filter(
             created_by__id=self.request.user.id, category__name="book"
-        )
-
-        queryset = queryset.annotate(
-            upvotes=Count("votes", filter=Q(votes__choice__name="upvote"))
         )
 
         return queryset
@@ -198,25 +188,25 @@ class MySkillsViewSet(viewsets.ModelViewSet):
         return queryset
 
 
-class VotedPostsView(generics.ListAPIView):
-    permission_classes = [permissions.IsAuthenticated]
-    serializer_class = VotedPostSerializer
+# class VotedPostsView(generics.ListAPIView):
+#     permission_classes = [permissions.IsAuthenticated]
+#     serializer_class = VotedPostSerializer
 
-    def get_queryset(self):
-        choice = self.request.query_params.get("choice")
-        category = self.request.query_params.get("category")
+#     def get_queryset(self):
+#         choice = self.request.query_params.get("choice")
+#         category = self.request.query_params.get("category")
 
-        queryset = Vote.objects.all()
+#         queryset = Vote.objects.all()
 
-        kwargs = {"voted_by__id": self.request.user.id}
+#         kwargs = {"voted_by__id": self.request.user.id}
 
-        if choice:
-            kwargs["choice__name"] = choice
-        if category:
-            kwargs["post__category__name"] = category
+#         if choice:
+#             kwargs["choice__name"] = choice
+#         if category:
+#             kwargs["post__category__name"] = category
 
-        queryset = queryset.filter(**kwargs)
-        return queryset
+#         queryset = queryset.filter(**kwargs)
+#         return queryset
 
 
 class GroupViewSet(viewsets.ModelViewSet):
@@ -231,15 +221,15 @@ class GroupViewSet(viewsets.ModelViewSet):
         return Post.objects.filter(category__name="group")
 
 
-class VoteViewSet(viewsets.ModelViewSet):
-    serializer_class = VoteSerializer
-    queryset = Vote.objects.all()
+# class VoteViewSet(viewsets.ModelViewSet):
+#     serializer_class = VoteSerializer
+#     queryset = Vote.objects.all()
 
-    def perform_create(self, serializer):
-        # try:
-        serializer.save(voted_by=self.request.user)
-        # except:
-        # raise serializers.ValidationError("voted_by with post already exists")
+#     def perform_create(self, serializer):
+#         # try:
+#         serializer.save(voted_by=self.request.user)
+#         # except:
+#         # raise serializers.ValidationError("voted_by with post already exists")
 
 
 # class VoteUpdateView(generics.UpdateAPIView):
@@ -257,3 +247,16 @@ class SkillListView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
     queryset = SkillList.objects.all()
     serializer_class = SkillListSerializer
+
+
+class VoteLogView(generics.RetrieveUpdateAPIView):
+    serializer_class = VoteLogSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self):
+        post = self.request.query_params.get("post")
+
+        return VoteLog.objects.get_or_create(
+            voted_by=self.request.user,
+            post__id=post,
+        )[0]
