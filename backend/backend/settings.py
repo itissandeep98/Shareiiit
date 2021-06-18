@@ -73,6 +73,7 @@ MIDDLEWARE = [
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
     "https://gupta-anmol.github.io",
+    "https://shareiiitd.tk"
 ]
 
 ROOT_URLCONF = "backend.urls"
