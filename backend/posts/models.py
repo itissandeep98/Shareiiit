@@ -49,6 +49,9 @@ class Post(models.Model):
         Category, related_name="category", on_delete=models.CASCADE, null=True
     )
 
+    class Meta:
+        ordering = ["-vote_count_log__upvote_count", "-created_at"]
+
     def __str__(self):
         return self.title
 

@@ -44,12 +44,6 @@ class BookViewSet(viewsets.ReadOnlyModelViewSet):
     ]
 
     search_fields = ["created_by__username", "title", "description"]
-    ordering_fields = ["upvotes", "created_at"]
-    ordering = ["-upvotes", "-created_at"]
-
-    # def perform_create(self, serializer):
-    #     print(self.request)
-    #     serializer.save(created_by=self.request.user)
 
     def get_queryset(self):
         kwargs = {}
@@ -118,8 +112,6 @@ class SkillViewSet(viewsets.ReadOnlyModelViewSet):
     ]
 
     search_fields = ["created_by__username", "title", "description"]
-    ordering_fields = ["upvotes", "created_at"]
-    ordering = ["-upvotes", "-created_at"]
 
     def get_queryset(self):
         kwargs = {}
