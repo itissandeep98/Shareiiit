@@ -6,30 +6,37 @@ import {
   Select,
   TextField,
 } from "@material-ui/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import { Rating } from "semantic-ui-react";
-import { TagList } from "../../Config/Tags";
 import { useDispatch } from "react-redux";
-import { createSkillPost } from "../../Store/ActionCreators/skill";
+import {
+  createSkillPost,
+  fetchSkillList,
+} from "../../Store/ActionCreators/skill";
 
 function AddSkill(props) {
   const { modal, toggle, userTags, setuserTags } = props;
   const [data, setData] = useState({});
+  const [skillList, setSkillList] = useState([]);
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchSkillList()).then((res) => {
+      setSkillList(res);
+    });
+  }, [dispatch]);
   const addSkill = () => {
     const body = {
       description: data.desc,
       is_request: data.checked,
       skill: {
-        skill_item: {
-          name: data.label,
-        },
+        name: data.label,
         rating: data.rate,
       },
     };
+    console.log(body);
     dispatch(createSkillPost(body));
-    setuserTags([...userTags, { ...data }]);
+    setuserTags([...userTags, { ...body }]);
     setData({});
     toggle();
   };
@@ -45,8 +52,8 @@ function AddSkill(props) {
             value={data.label}
             onChange={(e) => setData({ ...data, label: e.target.value })}
           >
-            {TagList.map((tag) => (
-              <MenuItem value={tag}>{tag}</MenuItem>
+            {skillList.map((tag) => (
+              <MenuItem value={tag.name}>{tag.name}</MenuItem>
             ))}
           </Select>
         </FormControl>

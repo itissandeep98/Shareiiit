@@ -44,7 +44,7 @@ function Login(props) {
         {loading ? <Spinner /> : <Button onClick={handleSubmit}>Login</Button>}
       </Form>
       <hr />
-      <NavLink to="/register">Not Registered? Register Here</NavLink>
+      {/* <NavLink to="/register">Not Registered? Register Here</NavLink> */}
     </>
   );
 }

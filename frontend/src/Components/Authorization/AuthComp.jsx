@@ -1,7 +1,6 @@
 import { Col, Container, Row } from "reactstrap";
 import { Image } from "semantic-ui-react";
 import Login from "./Login";
-import Register from "./Register";
 import "./style.scss";
 
 function AuthComp(props) {
@@ -31,7 +30,7 @@ function AuthComp(props) {
             <div className="w-100 text-center">
               <h1 className="text-info text-grad">ShareIIITD</h1>
 
-              {right === "login" ? <Login /> : <Register />}
+              <Login />
             </div>
           </Col>
         </Row>

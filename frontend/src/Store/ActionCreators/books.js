@@ -11,7 +11,7 @@ export const fetchBooks = () => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.BOOKS_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/books/`, { headers: headers() })
+      .get(`${apiUrl}/api/books/`, { headers: headers() })
       .then((response) => {
         const data = response.data.results;
         dispatch({
@@ -33,7 +33,7 @@ export const createBookPost = (data) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.BOOK_CREATE_REQUEST });
     return await axios
-      .post(`${apiUrl}/mybooks/`, data, { headers: headers() })
+      .post(`${apiUrl}/api/mybooks/`, data, { headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.BOOK_CREATE_SUCCESS,
@@ -61,7 +61,7 @@ export const deleteBookPost = (id) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.BOOK_DELETE_REQUEST });
     return await axios
-      .delete(`${apiUrl}/mybooks/${id}/`, { headers: headers() })
+      .delete(`${apiUrl}/api/mybooks/${id}/`, { headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.BOOK_DELETE_SUCCESS,
@@ -81,7 +81,7 @@ export const fetchMyBooks = () => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.USER_BOOKS_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/mybooks/`, { headers: headers() })
+      .get(`${apiUrl}/api/mybooks/`, { headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.USER_BOOKS_FETCH_SUCCESS,

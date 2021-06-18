@@ -11,7 +11,7 @@ export const fetchPostDetails = (id) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.POST_DETAILS_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/posts/${id}`, { headers: headers() })
+      .get(`${apiUrl}/api/posts/${id}`, { headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.POST_DETAILS_FETCH_SUCCESS,
@@ -29,11 +29,14 @@ export const fetchPostDetails = (id) => {
   };
 };
 
-export const addVote = (data) => {
+export const addVote = ({ id, data }) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.LIKE_ADD_REQUEST, data: data });
     return await axios
-      .post(`${apiUrl}/votes/`, data, { headers: headers() })
+      .patch(`${apiUrl}/api/votelog/`, data, {
+        params: { post: id },
+        headers: headers(),
+      })
       .then((response) => {
         dispatch({
           type: ActionTypes.LIKE_ADD_SUCCESS,
