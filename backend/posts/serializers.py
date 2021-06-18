@@ -8,9 +8,10 @@ from .models import (
     Book,
     Group,
     Category,
-    Vote,
     Skill,
     SkillList,
+    VoteCountLog,
+    VoteLog,
 )
 
 # from django.contrib.auth.models import User
@@ -31,90 +32,108 @@ class GroupSerializer(serializers.ModelSerializer):
         fields = ("members_needed",)
 
 
-class VotedPostSerializer(serializers.ModelSerializer):
-    voted_by = serializers.CharField(source="voted_by.username", read_only=True)
-    # post = serializers.SerializerMethodField()
+# class VotedPostSerializer(serializers.ModelSerializer):
+#     voted_by = serializers.CharField(source="voted_by.username", read_only=True)
+#     # post = serializers.SerializerMethodField()
+
+#     class Meta:
+#         model = Vote
+#         fields = ("id", "voted_by", "choice", "post")
+
+#     def to_representation(self, obj):
+#         rep = super().to_representation(obj)
+
+#         print("Context request:", self.context["request"])
+
+#         args = {obj.post}
+#         kwargs = {"context": {"request": self.context["request"]}}
+
+#         serializer = None
+#         category = self.context.get("request").query_params.get("category")
+
+#         if category == "book":
+#             serializer = BookPostSerializer(*args, **kwargs)
+
+#         rep["post"] = serializer.data
+
+#         return rep
+
+
+# class VoteSerializer(serializers.ModelSerializer):
+#     voted_by = serializers.CharField(source="voted_by.username", read_only=True)
+#     # post = serializers.SerializerMethodField()
+
+#     class Meta:
+#         model = Vote
+#         fields = ("id", "voted_by", "post", "choice")
+
+#     def validate(self, data):
+#         """
+#         Data.get("user") cannot be used here because validate is called before voted_by parameter is added to the data. But it is necessary to call it because the entire validated_data is used in the create method of the VoteSerializer.
+#         """
+
+#         voted_by = self.context["request"].user
+#         post = data.get("post", None)
+#         choice = data.get("choice", None)
+
+#         try:
+#             obj = self.Meta.model.objects.get(
+#                 voted_by=voted_by, post=post, choice=choice
+#             )
+#         except self.Meta.model.DoesNotExist:
+#             return data
+
+#         if self.instance and obj.id == self.instance.id:
+#             return data
+#         else:
+#             raise serializers.ValidationError(
+#                 f"User has already voted {choice} on this post."
+#             )
+
+
+class VoteCountLogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VoteCountLog
+        fields = ("upvote_count",)
+
+
+class VoteLogSerializer(serializers.ModelSerializer):
+    # document_id = serializers.IntegerField()
 
     class Meta:
-        model = Vote
-        fields = ("id", "voted_by", "choice", "post")
+        model = VoteLog
+        fields = ("upvoted_flag", "saved_flag", "dismiss_flag")
+        read_only_fields = ("timestamp",)
 
-    def to_representation(self, obj):
-        rep = super().to_representation(obj)
+    def update(self, instance, validated_data):
+        # override the update method to update doc count log
+        count_log = VoteCountLog.objects.get_or_create(post=instance.post)[0]
 
-        print("Context request:", self.context["request"])
+        if (
+            validated_data.get("upvoted_flag") == True
+            and instance.upvoted_flag == False
+        ):
+            count_log.upvote_count += 1
 
-        args = {obj.post}
-        kwargs = {"context": {"request": self.context["request"]}}
+        if (
+            validated_data.get("upvoted_flag") == False
+            and instance.upvoted_flag == True
+        ):
+            count_log.upvote_count -= 1
 
-        serializer = None
-        category = self.context.get("request").query_params.get("category")
+        count_log.save()
 
-        if category == "book":
-            serializer = BookPostSerializer(*args, **kwargs)
-
-        rep["post"] = serializer.data
-
-        return rep
-
-    # def get_post(self, obj):
-    #     try:
-    #         qs = Post.objects.get(id=obj.post.id)
-    #         # print(qs)
-    #         # print("Post Detail Context User", self.context)
-    #         # print()
-
-    #         serializer = BookPostSerializer(
-    #             instance=qs, context={"request": self.context["request"]}
-    #         )
-
-    #         return serializer.data
-    #     except Exception as e:
-    #         print("Exception" + str(e))
-    #         print("book=", qs)
-    #         print()
-    #         return None
-
-
-class VoteSerializer(serializers.ModelSerializer):
-    voted_by = serializers.CharField(source="voted_by.username", read_only=True)
-    # post = serializers.SerializerMethodField()
-
-    class Meta:
-        model = Vote
-        fields = ("id", "voted_by", "post", "choice")
-
-    def validate(self, data):
-        """
-        Data.get("user") cannot be used here because validate is called before voted_by parameter is added to the data. But it is necessary to call it because the entire validated_data is used in the create method of the VoteSerializer.
-        """
-
-        voted_by = self.context["request"].user
-        post = data.get("post", None)
-        choice = data.get("choice", None)
-
-        try:
-            obj = self.Meta.model.objects.get(
-                voted_by=voted_by, post=post, choice=choice
-            )
-        except self.Meta.model.DoesNotExist:
-            return data
-
-        if self.instance and obj.id == self.instance.id:
-            return data
-        else:
-            raise serializers.ValidationError(
-                f"User has already voted {choice} on this post."
-            )
+        return super(VoteLogSerializer, self).update(instance, validated_data)
 
 
 class PostSerializer(serializers.ModelSerializer):
     created_by = serializers.CharField(
         source="created_by.username", read_only=True
     )
-    # book = BookSerializer()
-    # item = serializers.PrimaryKeyRelatedField(read_only=True)
+
     category = serializers.SlugRelatedField(read_only=True, slug_field="name")
+    vote_count_log = VoteCountLogSerializer(read_only=True)
+    vote_log = serializers.SerializerMethodField()
 
     class Meta:
         model = Post
@@ -129,30 +148,39 @@ class PostSerializer(serializers.ModelSerializer):
             "is_price_negotiable",
             "status",
             "category",
+            "vote_log",
+            "vote_count_log",
         )
+
+    def get_vote_log(self, obj):
+        request = self.context.get("request")
+        vote_log = VoteLog.objects.get_or_create(
+            voted_by=request.user, post=obj
+        )[0]
+        return VoteLogSerializer(vote_log).data
 
 
 class BookPostSerializer(PostSerializer):
     book = BookSerializer(required=False)
     # votes = VoteSerializer(read_only=True, many=True)
     # upvotes = serializers.SerializerMethodField()
-    upvotes = serializers.IntegerField(read_only=True)
-    current_user_votes = serializers.SerializerMethodField()
+    # upvotes = serializers.IntegerField(read_only=True)
+    # current_user_votes = serializers.SerializerMethodField()
 
     class Meta:
         model = PostSerializer.Meta.model
         fields = PostSerializer.Meta.fields + (
             "book",
-            "upvotes",
-            "current_user_votes",
+            # "upvotes",
+            # "current_user_votes",
         )
 
-    def get_current_user_votes(self, obj):
-        qs = Vote.objects.filter(
-            post__id=obj.id, voted_by=self.context["request"].user
-        )
-        serializer = VoteSerializer(instance=qs, many=True)
-        return serializer.data
+    # def get_current_user_votes(self, obj):
+    #     qs = Vote.objects.filter(
+    #         post__id=obj.id, voted_by=self.context["request"].user
+    #     )
+    #     serializer = VoteSerializer(instance=qs, many=True)
+    #     return serializer.data
 
     # def get_upvotes(self, obj):
     #     return Vote.objects.filter(post__id=obj.id, choice__name="upvote").count()

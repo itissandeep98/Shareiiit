@@ -2,6 +2,7 @@ from django.db import models
 
 # from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
+from django.db.models.fields import IntegerField
 
 User = get_user_model()
 
@@ -59,22 +60,27 @@ class Choice(models.Model):
         return self.name
 
 
-class Vote(models.Model):
-    choice = models.ForeignKey(
-        Choice, related_name="votes", on_delete=models.CASCADE
+class VoteCountLog(models.Model):
+    post = models.OneToOneField(
+        Post, related_name="vote_count_log", on_delete=models.CASCADE
     )
+    upvote_count = models.PositiveIntegerField(default=0)
+
+
+class VoteLog(models.Model):
     post = models.ForeignKey(
-        Post, related_name="votes", on_delete=models.CASCADE
+        Post, related_name="vote_log", on_delete=models.CASCADE
     )
     voted_by = models.ForeignKey(
-        User, related_name="votes", on_delete=models.CASCADE
+        User, related_name="vote_log", on_delete=models.CASCADE
     )
 
-    class Meta:
-        unique_together = ("voted_by", "post", "choice")
+    # auto_now_add is timestamp for creation, auto_now will also be updated every time the entry is updated.
+    timestamp = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return f"Voted by {self.voted_by.first_name} -- {self.choice} -- {self.post.title}"
+    saved_flag = models.BooleanField(default=False)
+    upvoted_flag = models.BooleanField(default=False)
+    dismiss_flag = models.BooleanField(default=False)
 
 
 class Book(models.Model):
