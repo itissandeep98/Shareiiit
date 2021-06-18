@@ -115,6 +115,8 @@ class UserProfileView(generics.RetrieveUpdateAPIView):
             json=data,
         )
 
+        print(response.json())
+
         if status.is_success(response.status_code):
             serializer.save()
 

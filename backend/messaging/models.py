@@ -28,9 +28,11 @@ class Message(models.Model):
         User, related_name="receiver", on_delete=models.CASCADE
     )
     text = models.CharField(max_length=1024, blank=False, null=False)
-    created_at = models.DateTimeField(auto_now_add=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
     is_seen = models.BooleanField(default=False)
-    order_by = ["-created-at"]
 
-    def __str__(self):
-        return f"{sender__username} to {recipient__username}: {text}"
+    class Meta:
+        ordering = ["-timestamp", "pk"]
+
+    # def __str__(self):
+    #     return f"{sender__username} to {recipient__username}: {text}"

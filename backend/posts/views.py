@@ -155,10 +155,6 @@ class SkillViewSet(viewsets.ReadOnlyModelViewSet):
 
         queryset = Post.objects.filter(category__name="skill", **kwargs)
 
-        queryset = queryset.annotate(
-            upvotes=Count("votes", filter=Q(votes__choice__name="upvote"))
-        )
-
         return queryset
 
 
@@ -179,10 +175,6 @@ class MySkillsViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         queryset = Post.objects.filter(
             created_by__id=self.request.user.id, category__name="skill"
-        )
-
-        queryset = queryset.annotate(
-            upvotes=Count("votes", filter=Q(votes__choice__name="upvote"))
         )
 
         return queryset

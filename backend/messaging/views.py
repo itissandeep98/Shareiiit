@@ -30,7 +30,7 @@ class MessageView(generics.CreateAPIView):
     #     filters.OrderingFilter,
     # ]
 
-    # ordering = ["-created_at"]
+    ordering = ["-created_at"]
 
     def perform_create(self, serializer):
         print(self.request.data)
