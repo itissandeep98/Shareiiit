@@ -1,10 +1,12 @@
 import { Col, Container, Row, Spinner } from "reactstrap";
+import Meta from "../../Meta";
 import PostCard from "../../Posts/PostCard";
 
 function Saved(props) {
   const { cards, loading } = props;
   return (
     <Container fluid className="py-4 h-100 rounded_lg bg-white">
+      <Meta head="Saved Posts | ShareIIITD" />
       <Row>
         <Col>
           <h1>Saved Posts</h1>

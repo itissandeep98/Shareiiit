@@ -12,6 +12,7 @@ import { NavLink } from "react-router-dom";
 
 function TechCard(props) {
   const {
+    id,
     title,
     description,
     created_by,
@@ -25,14 +26,19 @@ function TechCard(props) {
       <CardActionArea>
         <div className="d-flex justify-content-between flex-column">
           <CardContent>
-            <Typography variant="h5">{title}</Typography>
+            <NavLink to={`/tech/${id}`}>
+              <Typography variant="h4">{skill?.name}</Typography>
+              <Typography variant="h5">{title}</Typography>
+            </NavLink>
             <Typography variant="overline" color="textSecondary">
               <NavLink to={`/${created_by}`}> {created_by}</NavLink>
             </Typography>
-            <Typography variant="body2">{description}</Typography>
-            <small className="text-muted text-center">
-              Posted {moment(created_at).fromNow()}
-            </small>
+            <NavLink to={`/tech/${id}`}>
+              <Typography variant="body2">{description}</Typography>
+              <small className="text-muted text-center">
+                Posted {moment(created_at).fromNow()}
+              </small>
+            </NavLink>
           </CardContent>
           <div className="d-flex flex-row">
             <IconButton>

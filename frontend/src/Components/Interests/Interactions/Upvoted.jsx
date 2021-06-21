@@ -1,7 +1,5 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 import { Col, Container, Row, Spinner } from "reactstrap";
-import { fetchVotedPosts } from "../../../Store/ActionCreators/post";
+import Meta from "../../Meta";
 import PostCard from "../../Posts/PostCard";
 
 function Upvoted(props) {
@@ -9,6 +7,7 @@ function Upvoted(props) {
 
   return (
     <Container fluid className="py-4 h-100 rounded_lg bg-white">
+      <Meta head="Upvoted Posts | ShareIIITD" />
       <Row>
         <Col>
           <h1>Upvoted Posts</h1>

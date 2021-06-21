@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Col, Container, Row } from "reactstrap";
+import Meta from "../Meta";
 import MainView from "./MainView";
 import Tags from "./Tags";
 
@@ -18,6 +19,7 @@ function Technical() {
   };
   return (
     <Container fluid className="p-3 bg-light h-100">
+      <Meta head="Skills | ShareIIITD" />
       <Row>
         <Col xs={2}>
           <Tags tags={selectedTags} modifyTags={modifyTags} />

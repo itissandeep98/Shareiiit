@@ -4,6 +4,8 @@ import PublicRoute from "./PublicRoute";
 import PrivateRoute from "./PrivateRoute";
 import Loading from "../Loading";
 import TopHeader from "../Navigation/TopHeader";
+import TechDetails from "../Technical/TechDetails";
+import Meta from "../Meta";
 
 const Home = lazy(() => import("../Home/Home"));
 const Feed = lazy(() => import("../Feed/Feed"));
@@ -82,6 +84,12 @@ function Routing() {
       ),
     },
     {
+      path: "/tech/:id",
+      private: true,
+      layout: true,
+      render: (props) => <TechDetails key={props.match.params.id} {...props} />,
+    },
+    {
       path: "/:user",
       private: true,
       layout: true,
@@ -98,34 +106,37 @@ function Routing() {
     },
   ];
   return (
-    <Switch>
-      {routes.map((route, index) =>
-        route.private ? (
-          <PrivateRoute
-            restricted={route.restricted}
-            key={index}
-            exact
-            path={route.path}
-          >
-            <Layout layout={route.layout}>
-              <route.render />
-            </Layout>
-          </PrivateRoute>
-        ) : (
-          <PublicRoute
-            restricted={route.restricted}
-            exact
-            path={route.path}
-            key={index}
-          >
-            <Layout layout={route.layout}>
-              <route.render />
-            </Layout>
-          </PublicRoute>
-        )
-      )}
-      <Redirect to="/" />
-    </Switch>
+    <>
+      <Meta />
+      <Switch>
+        {routes.map((route, index) =>
+          route.private ? (
+            <PrivateRoute
+              restricted={route.restricted}
+              key={index}
+              exact
+              path={route.path}
+            >
+              <Layout layout={route.layout}>
+                <route.render />
+              </Layout>
+            </PrivateRoute>
+          ) : (
+            <PublicRoute
+              restricted={route.restricted}
+              exact
+              path={route.path}
+              key={index}
+            >
+              <Layout layout={route.layout}>
+                <route.render />
+              </Layout>
+            </PublicRoute>
+          )
+        )}
+        <Redirect to="/" />
+      </Switch>
+    </>
   );
 }
 

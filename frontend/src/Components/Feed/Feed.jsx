@@ -8,6 +8,7 @@ import PostCards from "../Posts/PostCard";
 import FilterBar from "./FilterBar";
 import AddIcon from "@material-ui/icons/Add";
 import Create from "../Posts/Create/Create";
+import Meta from "../Meta";
 
 function Posts(props) {
   const [cards, setCards] = useState([]);
@@ -36,6 +37,7 @@ function Posts(props) {
 
   return (
     <Container fluid className="p-3 bg-light h-100">
+      <Meta head="Feed | ShareIIITD" />
       <Row className="justify-content-center">
         <Col md={10}>
           <Container

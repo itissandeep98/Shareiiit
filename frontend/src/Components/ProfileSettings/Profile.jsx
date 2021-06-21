@@ -10,6 +10,7 @@ import { useHistory } from "react-router-dom";
 import BasicDetails from "./BasicDetails";
 import Password from "./Password";
 import Skills from "./Skills";
+import Meta from "../Meta";
 
 function Profile(props) {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ function Profile(props) {
   };
   return (
     <Container fluid className="p-3 bg-light h-100">
+      <Meta head="Profile | ShareIIITD" />
       <Container>
         <Row>
           <Col className="d-flex justify-content-end">

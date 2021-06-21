@@ -1,4 +1,5 @@
 import { Col, Container, Row, Spinner } from "reactstrap";
+import Meta from "../../Meta";
 import PostCard from "../../Posts/PostCard";
 
 function Dismissed(props) {
@@ -6,6 +7,7 @@ function Dismissed(props) {
 
   return (
     <Container fluid className="py-4 h-100 rounded_lg bg-white">
+      <Meta head="Dismissed Posts | ShareIIITD" />
       <Row>
         <Col>
           <h1>Dismissed Posts</h1>
