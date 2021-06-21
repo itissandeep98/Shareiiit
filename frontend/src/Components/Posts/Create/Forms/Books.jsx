@@ -115,7 +115,7 @@ function Books(props) {
       <Button
         variant="outlined"
         className="mt-3 float-right"
-        disabled={!state.title || !state.author || !state.body}
+        disabled={!state.title || !state.author || !state.description}
         onClick={handleSubmit}
         startIcon={<CheckIcon />}
       >
