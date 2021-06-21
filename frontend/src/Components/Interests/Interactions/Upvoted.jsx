@@ -19,7 +19,7 @@ function Upvoted(props) {
             </div>
           )}
           <Row>
-            {cards?.length == 0 ? (
+            {cards === undefined || cards?.length == 0 ? (
               <Col>
                 <h3 className="text-muted"> Nothing to show here</h3>
               </Col>

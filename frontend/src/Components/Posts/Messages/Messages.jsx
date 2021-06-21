@@ -1,12 +1,7 @@
-import { TextField } from "@material-ui/core";
-import moment from "moment";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Comment, Label, Menu, Tab } from "semantic-ui-react";
-import {
-  createMessage,
-  fetchMessages,
-} from "../../../Store/ActionCreators/message";
+import { fetchMessages } from "../../../Store/ActionCreators/message";
 import "./style.css";
 import UserMessage from "./UserMessage";
 

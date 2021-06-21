@@ -1,8 +1,12 @@
-import { Button, TextField } from "@material-ui/core";
+import { Button, InputAdornment, TextField } from "@material-ui/core";
 import { useState } from "react";
 import { Col, Row } from "reactstrap";
 import { Icon, Image } from "semantic-ui-react";
 import ProfileUpload from "./ProfileUpload";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import PhoneIcon from "@material-ui/icons/Phone";
+import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
+import SocialLinks from "./SocialLinks";
 
 function BasicDetails(props) {
   const { details, onChange, updateDetails } = props;
@@ -32,8 +36,7 @@ function BasicDetails(props) {
           <br />
           <br />
           <br />
-          <Icon name="telegram" size="big" />
-          <Icon name="linkedin" size="big" />
+          <SocialLinks details={details.profile} />
         </div>
       </Col>
       <Col>
@@ -57,6 +60,13 @@ function BasicDetails(props) {
             defaultValue={details?.username}
             name="username"
             onChange={onChange}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="start">
+                  <AccountCircle />
+                </InputAdornment>
+              ),
+            }}
           />
           <div className="mt-3">
             <TextField
@@ -67,6 +77,13 @@ function BasicDetails(props) {
               defaultValue={details?.first_name}
               name="first_name"
               onChange={onChange}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="start">
+                    <AccountCircle />
+                  </InputAdornment>
+                ),
+              }}
             />
             <TextField
               label="Last Name"
@@ -76,6 +93,13 @@ function BasicDetails(props) {
               name="last_name"
               defaultValue={details?.last_name}
               onChange={onChange}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="start">
+                    <AccountCircle />
+                  </InputAdornment>
+                ),
+              }}
             />
           </div>
           <TextField
@@ -85,6 +109,13 @@ function BasicDetails(props) {
             fullWidth
             required
             defaultValue={details?.profile.bio}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="start">
+                  <AssignmentIndIcon />
+                </InputAdornment>
+              ),
+            }}
           />
           <div className="mt-3">
             <TextField
@@ -103,6 +134,13 @@ function BasicDetails(props) {
               fullWidth
               required
               defaultValue={details?.profile.phone_number}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="start">
+                    <PhoneIcon />
+                  </InputAdornment>
+                ),
+              }}
             />
           </div>
 

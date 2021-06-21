@@ -29,11 +29,7 @@ function PostCards(props) {
   const [dismiss, setDismiss] = useState(vote_log.dismiss_flag);
   const dispatch = useDispatch();
   const Vote = (option) => {
-    let data = {
-      dismiss_flag: dismiss,
-      saved_flag: saved,
-      upvoted_flag: liked,
-    };
+    let data = {};
     if (option == 1) {
       if (!liked) {
         setNum_upvotes(num_upvotes + 1);
@@ -75,9 +71,8 @@ function PostCards(props) {
             </Col>
           </Row>
           <Row
-            className="mt-1"
+            className="mt-1 btn p-0"
             onClick={() => props.history.push(`/posts/${id}`)}
-            style={{ cursor: "pointer" }}
           >
             <Col className="text-justify">{description}</Col>
           </Row>

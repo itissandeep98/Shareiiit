@@ -1,7 +1,8 @@
+import { Tooltip } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Col, Container, NavLink, Row } from "reactstrap";
-import { Image, Placeholder } from "semantic-ui-react";
+import { Icon, Image, Label, Placeholder } from "semantic-ui-react";
 import { fetchPostDetails } from "../../Store/ActionCreators/post";
 import Messages from "./Messages/Messages";
 
@@ -26,10 +27,25 @@ function PostDetail(props) {
               <Placeholder.Image />
             </Placeholder>
           ) : (
-            <Image
-              src={process.env.PUBLIC_URL + "/assets/images/book.png"}
-              size="small"
-            />
+            <div className="text-center p-2  d-flex flex-column">
+              <Image
+                src={process.env.PUBLIC_URL + "/assets/images/book.png"}
+                fluid
+              />
+
+              <Tooltip
+                title={
+                  details.is_price_negotiable
+                    ? "Price is negotiable"
+                    : "Fixed Price"
+                }
+              >
+                <Label size="large">
+                  <Icon name="rupee" />
+                  {details.price}
+                </Label>
+              </Tooltip>
+            </div>
           )}
         </Col>
         <Col xs={9}>
@@ -44,6 +60,7 @@ function PostDetail(props) {
           ) : (
             <>
               <h2 className="text-capitalize text-center">{details.title}</h2>
+              <h4>By {details?.book?.author}</h4>
               <p className="text-muted float-right">
                 <NavLink to={`/${details.created_by}`}>
                   - {details.created_by}
