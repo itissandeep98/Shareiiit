@@ -18,6 +18,7 @@ export const fetchBooks = () => {
           type: ActionTypes.BOOKS_FETCH_SUCCESS,
           data: data,
         });
+        return data;
       })
       .catch((error) => {
         console.log(error);

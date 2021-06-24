@@ -1,10 +1,12 @@
 import { Col, Container, Row, Spinner } from "reactstrap";
+import Meta from "../../Meta";
 import PostCard from "../../Posts/PostCard";
 
 function Saved(props) {
   const { cards, loading } = props;
   return (
     <Container fluid className="py-4 h-100 rounded_lg bg-white">
+      <Meta head="Saved Posts | ShareIIITD" />
       <Row>
         <Col>
           <h1>Saved Posts</h1>
@@ -15,13 +17,13 @@ function Saved(props) {
             </div>
           )}
           <Row>
-            {cards?.length == 0 ? (
+            {cards === undefined || cards?.length == 0 ? (
               <Col>
                 <h3 className="text-muted"> Nothing to show here</h3>
               </Col>
             ) : (
               <>
-                {cards.map((card) => (
+                {cards?.map((card) => (
                   <Col
                     xs={12}
                     md={6}

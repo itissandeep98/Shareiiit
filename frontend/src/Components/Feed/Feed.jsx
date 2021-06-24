@@ -8,9 +8,10 @@ import PostCards from "../Posts/PostCard";
 import FilterBar from "./FilterBar";
 import AddIcon from "@material-ui/icons/Add";
 import Create from "../Posts/Create/Create";
+import Meta from "../Meta";
 
 function Posts(props) {
-  const [cards, setCards] = useState(props?.posts?.books ?? []);
+  const [cards, setCards] = useState([]);
   const [category, setCategory] = useState("Books");
   const [modal, setModal] = useState(false);
 
@@ -18,14 +19,14 @@ function Posts(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     setLoading(true);
-    if (category === "Books" || category === "All") {
+    if (category === "Books") {
       dispatch(fetchBooks()).then((res) => {
-        setCards(props.posts?.books);
+        setCards(res);
         setLoading(false);
       });
     } else if (category === "Groups") {
       dispatch(fetchGroups()).then((res) => {
-        setCards(props.posts?.groups);
+        setCards(res);
         setLoading(false);
       });
     } else {
@@ -36,6 +37,7 @@ function Posts(props) {
 
   return (
     <Container fluid className="p-3 bg-light h-100">
+      <Meta head="Feed | ShareIIITD" />
       <Row className="justify-content-center">
         <Col md={10}>
           <Container
@@ -70,11 +72,6 @@ function Posts(props) {
                   setCategory={setCategory}
                 />
                 <br />
-                {loading && (
-                  <div className="text-muted text-center">
-                    <Spinner /> Fetching new data
-                  </div>
-                )}
                 <Row className="justify-content-center">
                   {cards && cards?.length > 0 ? (
                     cards?.map((book) => (
@@ -86,6 +83,11 @@ function Posts(props) {
                     <p className="text-muted"> No Posts yet</p>
                   )}
                 </Row>
+                {loading && (
+                  <div className="text-muted text-center">
+                    <Spinner /> Fetching new data
+                  </div>
+                )}
               </Col>
             </Row>
           </Container>

@@ -27,6 +27,7 @@ function AddSkill(props) {
   }, [dispatch]);
   const addSkill = () => {
     const body = {
+      title: data.title,
       description: data.desc,
       is_request: data.checked,
       skill: {
@@ -34,7 +35,6 @@ function AddSkill(props) {
         rating: data.rate,
       },
     };
-    console.log(body);
     dispatch(createSkillPost(body));
     setuserTags([...userTags, { ...body }]);
     setData({});
@@ -57,6 +57,15 @@ function AddSkill(props) {
             ))}
           </Select>
         </FormControl>
+        <TextField
+          label="Title"
+          variant="outlined"
+          className="mt-2"
+          value={data.title}
+          multiline
+          fullWidth
+          onChange={(e) => setData({ ...data, title: e.target.value })}
+        />
         <TextField
           label="Short Description"
           variant="outlined"

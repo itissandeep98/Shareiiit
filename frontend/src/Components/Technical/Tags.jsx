@@ -10,7 +10,6 @@ import {
 import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 import { Col, Container, Row } from "reactstrap";
 import SearchIcon from "@material-ui/icons/Search";
-import { TagList } from "../../Config/Tags";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchSkillList } from "../../Store/ActionCreators/skill";

@@ -3,10 +3,12 @@ import SummaryCard from "../Cards/SummaryCard";
 import ProfileCard from "../Cards/ProfileCard";
 import { Image } from "semantic-ui-react";
 import Faq from "./Faq";
+import Meta from "../Meta";
 
 function Home(props) {
   return (
     <Container fluid className="p-3 bg-light h-100">
+      <Meta head="Home | ShareIIITD" />
       <br />
       <Row>
         <Image

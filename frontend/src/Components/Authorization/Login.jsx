@@ -4,6 +4,7 @@ import { NavLink, withRouter } from "react-router-dom";
 import { Spinner } from "reactstrap";
 import { Button, Form, Input } from "semantic-ui-react";
 import { loginAction } from "../../Store/ActionCreators/auth";
+import Meta from "../Meta";
 
 function Login(props) {
   const dispatch = useDispatch();
@@ -24,6 +25,7 @@ function Login(props) {
   };
   return (
     <>
+      <Meta head="Login | ShareIIITD" />
       <h1 className=" display-5">Login</h1>
       <Form>
         <Form.Field required>
