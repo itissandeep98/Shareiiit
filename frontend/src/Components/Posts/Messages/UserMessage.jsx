@@ -1,17 +1,20 @@
 import { TextField } from "@material-ui/core";
 import React, { useState } from "react";
-import { Comment } from "semantic-ui-react";
+import { Comment, Placeholder } from "semantic-ui-react";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 import { createMessage } from "../../../Store/ActionCreators/message";
+import { Spinner } from "reactstrap";
 
 function UserMessage(props) {
   const { postid, convid } = props;
   const [mess, setMess] = useState("");
   const [messages, setMessages] = useState(props.messages);
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
   const onChange = (e) => {
     if (e.charCode === 13 && e.target.value !== "") {
+      setLoading(true);
       const data = {
         text: mess,
       };
@@ -21,11 +24,11 @@ function UserMessage(props) {
       } else {
         type.post = postid;
       }
-      //   console.log(type, data);
       setMess("");
-      dispatch(createMessage({ type, data })).then((res) =>
-        setMessages([res, ...messages])
-      );
+      dispatch(createMessage({ type, data })).then((res) => {
+        setMessages([res, ...messages]);
+        setLoading(false);
+      });
     } else {
       setMess(e.target.value);
     }
@@ -50,13 +53,19 @@ function UserMessage(props) {
       ))}
 
       <Comment.Action>
-        <TextField
-          fullWidth
-          label="Type Your Message Here"
-          value={mess}
-          onChange={onChange}
-          onKeyPress={onChange}
-        />
+        {loading ? (
+          <Placeholder fluid>
+            <Placeholder.Line />
+          </Placeholder>
+        ) : (
+          <TextField
+            fullWidth
+            label="Type Your Message Here"
+            value={mess}
+            onChange={onChange}
+            onKeyPress={onChange}
+          />
+        )}
       </Comment.Action>
     </>
   );

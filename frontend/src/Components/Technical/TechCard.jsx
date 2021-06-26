@@ -4,11 +4,11 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { CardActionArea, CardMedia } from "@material-ui/core";
 import moment from "moment";
-import ThumbUpIcon from "@material-ui/icons/ThumbUp";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import TelegramIcon from "@material-ui/icons/Telegram";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import "./style.scss";
 
 function TechCard(props) {
   const {
@@ -21,24 +21,26 @@ function TechCard(props) {
     skill,
     upvotes,
   } = props;
+  const history = useHistory();
+
   return (
-    <Card className=" border border-info d-flex justify-content-between h-100">
+    <Card className=" border border-info d-flex card_hover justify-content-between h-100">
       <CardActionArea>
         <div className="d-flex justify-content-between flex-column">
           <CardContent>
-            <NavLink to={`/tech/${id}`}>
+            <div onClick={() => history.push(`/tech/${id}`)}>
               <Typography variant="h4">{skill?.name}</Typography>
               <Typography variant="h5">{title}</Typography>
-            </NavLink>
+            </div>
             <Typography variant="overline" color="textSecondary">
               <NavLink to={`/${created_by}`}> {created_by}</NavLink>
             </Typography>
-            <NavLink to={`/tech/${id}`}>
+            <div onClick={() => history.push(`/tech/${id}`)}>
               <Typography variant="body2">{description}</Typography>
               <small className="text-muted text-center">
                 Posted {moment(created_at).fromNow()}
               </small>
-            </NavLink>
+            </div>
           </CardContent>
           <div className="d-flex flex-row">
             <IconButton>
@@ -46,9 +48,6 @@ function TechCard(props) {
             </IconButton>
             <IconButton>
               <FavoriteBorderIcon />
-            </IconButton>
-            <IconButton>
-              <TelegramIcon fontSize="large" />
             </IconButton>
           </div>
         </div>

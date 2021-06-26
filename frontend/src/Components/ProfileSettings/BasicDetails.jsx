@@ -1,4 +1,12 @@
-import { Button, InputAdornment, TextField } from "@material-ui/core";
+import {
+  Button,
+  FormControl,
+  InputAdornment,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@material-ui/core";
 import { useState } from "react";
 import { Col, Row } from "reactstrap";
 import { Icon, Image } from "semantic-ui-react";
@@ -118,14 +126,18 @@ function BasicDetails(props) {
             }}
           />
           <div className="mt-3">
-            <TextField
-              label="Role"
-              className="w-50"
-              variant="outlined"
-              fullWidth
-              required
-              defaultValue={details?.profile.role}
-            />
+            <FormControl variant="outlined" fullWidth className=" w-50">
+              <InputLabel>Role</InputLabel>
+              <Select
+                label="Tag"
+                value={details?.profile.role}
+                // onChange={(e) => setData({ ...data, label: e.target.value })}
+              >
+                <MenuItem value="Student">Student</MenuItem>
+                <MenuItem value="Faculty">Faculty</MenuItem>
+                <MenuItem value="Staff">Staff</MenuItem>
+              </Select>
+            </FormControl>
             <TextField
               type="number"
               label="Phone Number"

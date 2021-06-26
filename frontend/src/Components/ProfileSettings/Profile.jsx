@@ -1,6 +1,5 @@
-import { Button, TextField } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import { Col, Container, Row } from "reactstrap";
-import { Image } from "semantic-ui-react";
 import BookmarksIcon from "@material-ui/icons/Bookmarks";
 import GridOnIcon from "@material-ui/icons/GridOn";
 import { useEffect, useState } from "react";
@@ -9,7 +8,7 @@ import { fetchUser, updateUser } from "../../Store/ActionCreators/people";
 import { useHistory } from "react-router-dom";
 import BasicDetails from "./BasicDetails";
 import Password from "./Password";
-import Skills from "./Skills";
+import Skills from "./Skills/Skills";
 import Meta from "../Meta";
 
 function Profile(props) {

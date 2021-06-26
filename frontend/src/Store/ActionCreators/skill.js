@@ -89,3 +89,23 @@ export const fetchSkillList = () => {
       });
   };
 };
+
+export const deleteSkillPost = (id) => {
+  return async (dispatch) => {
+    dispatch({ type: ActionTypes.SKILL_POST_DELETE_REQUEST });
+    return await axios
+      .delete(`${apiUrl}/api/myskills/${id}/`, { headers: headers() })
+      .then((response) => {
+        dispatch({
+          type: ActionTypes.SKILL_POST_DELETE_SUCCESS,
+          data: response.data,
+        });
+      })
+      .catch((error) => {
+        dispatch({
+          type: ActionTypes.SKILL_POST_DELETE_FAILED,
+          errmess: "Error in connection with Server",
+        });
+      });
+  };
+};

@@ -13,11 +13,12 @@ import { useDispatch } from "react-redux";
 import {
   createSkillPost,
   fetchSkillList,
-} from "../../Store/ActionCreators/skill";
+} from "../../../Store/ActionCreators/skill";
 
-function AddSkill(props) {
-  const { modal, toggle, userTags, setuserTags } = props;
-  const [data, setData] = useState({});
+function EditSkill(props) {
+  const { modal, toggle, details } = props;
+  //   console.log(details);
+  const [data, setData] = useState({ ...details });
   const [skillList, setSkillList] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -25,20 +26,28 @@ function AddSkill(props) {
       setSkillList(res);
     });
   }, [dispatch]);
-  const addSkill = () => {
-    const body = {
-      title: data.title,
-      description: data.desc,
-      is_request: data.checked,
-      skill: {
-        name: data.label,
-        rating: data.rate,
-      },
-    };
-    dispatch(createSkillPost(body));
-    setuserTags([...userTags, { ...body }]);
-    setData({});
-    toggle();
+
+  const addSkill = (e) => {
+    console.log(data);
+    // const body = {
+    //   title: data.title,
+    //   description: data.desc,
+    //   skill: {
+    //     name: data.label,
+    //     rating: data.rate,
+    //   },
+    // };
+    // dispatch(createSkillPost(body));
+    // setData({});
+    // toggle();
+  };
+
+  const onChange = (e) => {
+    setData({ ...data, [e.target.name]: e.target.value });
+  };
+  const changeSkill = (name, value) => {
+    const skill = { ...data.skill, [name]: value };
+    setData({ ...data, skill });
   };
 
   return (
@@ -49,11 +58,13 @@ function AddSkill(props) {
           <InputLabel>Tag</InputLabel>
           <Select
             label="Tag"
-            value={data.label}
-            onChange={(e) => setData({ ...data, label: e.target.value })}
+            value={data.skill.name}
+            onChange={(e) => changeSkill("name", e.target.value)}
           >
-            {skillList.map((tag) => (
-              <MenuItem value={tag.name}>{tag.name}</MenuItem>
+            {skillList.map((tag, i) => (
+              <MenuItem key={i} value={tag.name}>
+                {tag.name}
+              </MenuItem>
             ))}
           </Select>
         </FormControl>
@@ -62,41 +73,41 @@ function AddSkill(props) {
           variant="outlined"
           className="mt-2"
           value={data.title}
+          name="title"
           multiline
           fullWidth
-          onChange={(e) => setData({ ...data, title: e.target.value })}
+          onChange={onChange}
         />
         <TextField
           label="Short Description"
           variant="outlined"
+          name="description"
           className="mt-2"
-          value={data.desc}
+          value={data.description}
           multiline
           fullWidth
-          onChange={(e) => setData({ ...data, desc: e.target.value })}
+          onChange={onChange}
         />
 
         <p className="mt-2 d-flex justify-content-around">
           <InputLabel>Rate Your Skill</InputLabel>
           <Rating
-            rating={data.rate}
+            rating={data.skill.rating}
             icon="star"
             maxRating={5}
             size="huge"
             clearable
-            onRate={(e, { rating, maxRating }) =>
-              setData({ ...data, rate: rating })
-            }
+            onRate={(e, { rating, maxRating }) => changeSkill("rating", rating)}
           />
         </p>
       </ModalBody>
-      <ModalFooter className="d-flex justify-content-between">
+      <ModalFooter>
         <Button variant="outlined" className="float-right " onClick={addSkill}>
-          Add Skill
+          Update
         </Button>
       </ModalFooter>
     </Modal>
   );
 }
 
-export default AddSkill;
+export default EditSkill;

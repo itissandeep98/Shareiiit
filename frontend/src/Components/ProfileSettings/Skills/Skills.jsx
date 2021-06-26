@@ -1,15 +1,14 @@
-import { Button, Typography } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { Col, Row } from "reactstrap";
-import { Image, Rating } from "semantic-ui-react";
+import { Image } from "semantic-ui-react";
 import AddSkill from "./AddSkill";
 import { useDispatch } from "react-redux";
-import { fetchUserSkills } from "../../Store/ActionCreators/skill";
-import Accordion from "@material-ui/core/Accordion";
-import AccordionDetails from "@material-ui/core/AccordionDetails";
-import AccordionSummary from "@material-ui/core/AccordionSummary";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import AccordionActions from "@material-ui/core/AccordionActions";
+import {
+  deleteSkillPost,
+  fetchUserSkills,
+} from "../../../Store/ActionCreators/skill";
+import SkillCard from "./SkillCard";
 
 function Skills() {
   const [userTags, setuserTags] = useState([]);
@@ -25,8 +24,9 @@ function Skills() {
       setuserTags(res);
     });
   }, [dispatch]);
-  const handleDelete = (i) => {
+  const handleDelete = (i, id) => {
     setuserTags([...userTags.slice(0, i), ...userTags.slice(i + 1)]);
+    dispatch(deleteSkillPost(id));
   };
 
   return (
@@ -54,34 +54,13 @@ function Skills() {
         <Row>
           <Col className="text-center mb-3">
             {userTags.map((tag, i) => (
-              <Accordion
+              <SkillCard
                 key={i}
-                expanded={expanded === i}
-                onChange={() => handleChange(i)}
-              >
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                  <Typography>{tag.skill.name}</Typography>
-                  <Rating
-                    className="ml-3"
-                    rating={tag.skill.rating}
-                    icon="star"
-                    maxRating={5}
-                    size="huge"
-                    disabled
-                  />
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography>{tag.description}</Typography>
-                </AccordionDetails>
-                <AccordionActions>
-                  <Button size="small" onClick={() => handleDelete(i)}>
-                    Delete
-                  </Button>
-                  <Button size="small" color="primary">
-                    Edit
-                  </Button>
-                </AccordionActions>
-              </Accordion>
+                details={tag}
+                handleChange={() => handleChange(i)}
+                expanded={expanded == i}
+                handleDelete={() => handleDelete(i, tag.id)}
+              />
             ))}
           </Col>
         </Row>

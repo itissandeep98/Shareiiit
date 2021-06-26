@@ -20,10 +20,10 @@ function PostCards(props) {
     created_at,
     is_request,
     title,
-    upvotes,
+    vote_count_log,
     vote_log,
   } = props;
-  const [num_upvotes, setNum_upvotes] = useState(upvotes);
+  const [num_upvotes, setNum_upvotes] = useState(vote_count_log.upvote_count);
   const [liked, setLiked] = useState(vote_log.upvoted_flag);
   const [saved, setSaved] = useState(vote_log.saved_flag);
   const [dismiss, setDismiss] = useState(vote_log.dismiss_flag);

@@ -1,16 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
 import { Image, Placeholder } from "semantic-ui-react";
+import { fetchPostDetails } from "../../Store/ActionCreators/post";
 
 function TechDetails(props) {
   const id = props.match.params.id;
   const [loading, setLoading] = useState(false);
-  const details = {
-    title: "dummy",
-    description: "dummy",
-    created_by: "sandeep",
-  };
+  const [details, setDetails] = useState({});
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchPostDetails(id)).then((res) => {
+      setDetails(res);
+      setLoading(false);
+    });
+  }, [dispatch]);
   return (
     <Container className="shadow p-3 mt-4">
       <Row>
