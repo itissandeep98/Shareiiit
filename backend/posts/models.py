@@ -16,18 +16,20 @@ class Category(models.Model):
         return self.name
 
 
-class SkillType(models.Model):
-    name = models.CharField(max_length=100, blank=False)
+# class SkillType(models.Model):
+#     name = models.CharField(max_length=100, blank=False)
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
 
 class SkillList(models.Model):
+    TYPE_CHOICES = [
+        ("TECH", "Technical"),
+    ]
+
     name = models.CharField(max_length=100, blank=False)
-    type = models.ForeignKey(
-        SkillType, related_name="type", on_delete=models.CASCADE
-    )
+    type = models.CharField(max_length=4, choices=TYPE_CHOICES, default="TECH")
 
     def __str__(self):
         return self.name
@@ -56,11 +58,11 @@ class Post(models.Model):
         return self.title
 
 
-class Choice(models.Model):
-    name = models.CharField(max_length=30, blank=False)
+# class Choice(models.Model):
+#     name = models.CharField(max_length=30, blank=False)
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
 
 class VoteCountLog(models.Model):
