@@ -17,4 +17,5 @@ urlpatterns = [
     path("categories/", views.CategoryListView.as_view()),
     path("skilllist/", views.SkillListView.as_view()),
     path("votelog/", views.VoteLogView.as_view()),
+    path("myactivity/", views.VotedPostsView.as_view())
 ]

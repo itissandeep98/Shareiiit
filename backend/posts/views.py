@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import generics, permissions, viewsets, filters
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.exceptions import APIException
 
 from django_filters.rest_framework import DjangoFilterBackend
 
@@ -55,6 +56,9 @@ class BookViewSet(viewsets.ReadOnlyModelViewSet):
         )
         author = self.request.query_params.get("author")
         is_request = self.request.query_params.get("is_request")
+        upvoted = self.request.query_params.get("upvoted")
+        saved = self.request.query_params.get("saved")
+        dismiss = self.request.query_params.get("dismiss")
 
         if title__icontains:
             kwargs["title__icontains"] = title__icontains
@@ -70,8 +74,20 @@ class BookViewSet(viewsets.ReadOnlyModelViewSet):
         if author:
             kwargs["book__author__icontains"] = author
 
-        if is_request:
+        if is_request is not None:
             kwargs["is_request"] = is_request
+
+        # if upvoted:
+        #     kwargs["vote_log__voted_by__id"] = self.request.user.id
+        #     kwargs["vote_log__upvoted_flag"] = upvoted
+
+        # if saved:
+        #     kwargs["vote_log__voted_by__id"] = self.request.user.id
+        #     kwargs["vote_log__saved_flag"] = saved
+
+        # if dismiss:
+        #     kwargs["vote_log__voted_by__id"] = self.request.user.id
+        #     kwargs["vote_log__dismiss_flag"] = dismiss
 
         queryset = Post.objects.filter(category__name="book", **kwargs)
 
@@ -97,6 +113,11 @@ class MyBooksViewSet(viewsets.ModelViewSet):
         queryset = Post.objects.filter(
             created_by__id=self.request.user.id, category__name="book"
         )
+
+        """
+        vote = from query params
+        VoteLog.objects.filter(voted_by=user, is_upvoted=true)
+        """
 
         return queryset
 
@@ -168,25 +189,50 @@ class MySkillsViewSet(viewsets.ModelViewSet):
         return queryset
 
 
-# class VotedPostsView(generics.ListAPIView):
-#     permission_classes = [permissions.IsAuthenticated]
-#     serializer_class = VotedPostSerializer
+class VotedPostsView(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+    serializer_classes = {
+        "book": BookPostSerializer,
+        "skill": SkillPostSerializer,
+    }
 
-#     def get_queryset(self):
-#         choice = self.request.query_params.get("choice")
-#         category = self.request.query_params.get("category")
+    def get_serializer_class(self):
+        category = self.request.query_params.get("category")
 
-#         queryset = Vote.objects.all()
+        if category is None:
+            raise APIException("Please specify post category.")
 
-#         kwargs = {"voted_by__id": self.request.user.id}
+        return self.serializer_classes.get(category)
 
-#         if choice:
-#             kwargs["choice__name"] = choice
-#         if category:
-#             kwargs["post__category__name"] = category
+    def get_queryset(self):
+        category = self.request.query_params.get("category")
 
-#         queryset = queryset.filter(**kwargs)
-#         return queryset
+        upvoted_flag = self.request.query_params.get("upvoted")
+        saved_flag = self.request.query_params.get("saved")
+        dismiss_flag = self.request.query_params.get("dismissed")
+
+        kwargs = {"voted_by__id": self.request.user.id}
+
+        if upvoted_flag is not None:
+            kwargs["upvoted_flag"] = upvoted_flag
+
+        if saved_flag is not None:
+            kwargs["saved_flag"] = saved_flag
+
+        if dismiss_flag is not None:
+            kwargs["dismiss_flag"] = dismiss_flag
+
+        vote_logs = VoteLog.objects.all()
+        vote_logs = vote_logs.filter(**kwargs)
+
+        posts = []
+
+        for vote_log in vote_logs:
+            posts.append(vote_log.post.pk)
+
+        queryset = Post.objects.filter(category__name=category, pk__in=posts)
+
+        return queryset
 
 
 class GroupViewSet(viewsets.ModelViewSet):
