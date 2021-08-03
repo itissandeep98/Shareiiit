@@ -2,13 +2,17 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import { CardActionArea, CardMedia } from "@material-ui/core";
+import { CardActionArea, CardMedia, Tooltip } from "@material-ui/core";
 import moment from "moment";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import "./style.scss";
+import { useState } from "react";
+import classNames from "classnames";
+import { addVote } from "../../Store/ActionCreators/post";
+import { useDispatch } from "react-redux";
 
 function TechCard(props) {
   const {
@@ -19,9 +23,34 @@ function TechCard(props) {
     created_at,
     is_request,
     skill,
-    upvotes,
+    vote_count_log,
+    vote_log,
   } = props;
+  const [num_upvotes, setNum_upvotes] = useState(vote_count_log.upvote_count);
+
+  const [endorse, setEndorse] = useState(vote_log.upvoted_flag);
+  const [save, setSave] = useState(vote_log.saved_flag);
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  const Vote = (option) => {
+    let data = {};
+    if (option == 1) {
+      if (endorse) {
+        setNum_upvotes(num_upvotes - 1);
+      } else {
+        setNum_upvotes(num_upvotes + 1);
+      }
+
+      data.upvoted_flag = !endorse;
+      setEndorse(!endorse);
+    } else if (option == 2) {
+      data.saved_flag = !save;
+      setSave(!save);
+    }
+
+    dispatch(addVote({ id, data }));
+  };
 
   return (
     <Card className=" border border-info d-flex card_hover justify-content-between h-100">
@@ -43,12 +72,23 @@ function TechCard(props) {
             </div>
           </CardContent>
           <div className="d-flex flex-row">
-            <IconButton>
-              <BookmarkBorderIcon />
-            </IconButton>
-            <IconButton>
-              <FavoriteBorderIcon />
-            </IconButton>
+            <Tooltip title="Endorse" placement="top">
+              <IconButton
+                onClick={() => Vote(1)}
+                className={classNames({ "text-danger": endorse })}
+              >
+                <FavoriteBorderIcon />
+                <small> {num_upvotes > 0 && num_upvotes}</small>
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Save" placement="top">
+              <IconButton
+                onClick={() => Vote(2)}
+                className={classNames({ "text-info": save })}
+              >
+                <BookmarkBorderIcon />
+              </IconButton>
+            </Tooltip>
           </div>
         </div>
       </CardActionArea>
