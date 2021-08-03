@@ -11,17 +11,16 @@ function Messages(props) {
   const [users, setUsers] = useState([]);
   useEffect(() => {
     dispatch(fetchMessages({ post: id })).then((res) => {
-      console.log(res, creator, recipient);
       if (creator != recipient && res.length === 0) {
         setUsers([{ user2: recipient, messages: [] }]);
       } else {
         setUsers(res);
       }
     });
-  }, [dispatch]);
+  }, [dispatch, creator]);
 
   if (users.length == 0) {
-    return <div />;
+    return <p className="text-center text-muted">No Messages Here !!</p>;
   }
 
   if (users.length == 1) {
