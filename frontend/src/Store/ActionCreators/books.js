@@ -121,3 +121,31 @@ export const fetchMyBooks = () => {
       });
   };
 };
+
+export const updateBookPost = ({ id, data }) => {
+  return async (dispatch) => {
+    dispatch({ type: ActionTypes.BOOK_UPDATE_REQUEST });
+    return await axios
+      .patch(`${apiUrl}/api/mybooks/${id}/`, data, { headers: headers() })
+      .then((response) => {
+        dispatch({
+          type: ActionTypes.BOOK_UPDATE_SUCCESS,
+          data: response.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error.response);
+        if (error?.response?.data?.detail) {
+          dispatch({
+            type: ActionTypes.BOOK_UPDATE_FAILED,
+            errmess: error.response.data.detail,
+          });
+        } else {
+          dispatch({
+            type: ActionTypes.BOOK_UPDATE_FAILED,
+            errmess: "Error in connection with Server",
+          });
+        }
+      });
+  };
+};

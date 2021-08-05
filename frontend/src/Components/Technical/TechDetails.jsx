@@ -9,6 +9,7 @@ import Messages from "../Posts/Messages/Messages";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import classNames from "classnames";
+import Meta from "../Meta";
 
 function TechDetails(props) {
   const id = props.match.params.id;
@@ -53,6 +54,7 @@ function TechDetails(props) {
 
   return (
     <Container className="shadow p-3 mt-4">
+      <Meta head={`${details.title} by ${details.created_by} | ShareIIITD`} />
       <Row>
         <Col>
           {loading ? (

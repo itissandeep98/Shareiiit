@@ -55,7 +55,7 @@ function MainView(props) {
   useEffect(() => {
     // const allCards = props.skill.skills ?? [];
     // const temp = allCards.filter((card) => searchTest(searchText, card));
-    dispatch(searchSkills({ name: searchText })).then((res) => {
+    dispatch(searchSkills({ search: searchText })).then((res) => {
       const temp = res;
       if (temp.length > 0) {
         setCards(temp);

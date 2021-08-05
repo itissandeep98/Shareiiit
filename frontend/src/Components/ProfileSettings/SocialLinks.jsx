@@ -23,10 +23,11 @@ function SocialLinks(props) {
           <form>
             <TextField
               type="url"
-              label="Telegram Url"
+              label="Telegram URL"
               fullWidth
               variant="outlined"
               name="telegram_url"
+              value={state.telegram_url}
               onChange={handleChange}
               InputProps={{
                 endAdornment: (
@@ -38,11 +39,12 @@ function SocialLinks(props) {
             />
             <TextField
               type="url"
-              label="LinkedIn Url"
+              label="LinkedIn URL"
               fullWidth
               variant="outlined"
               className="mt-2"
               name="linkedin_url"
+              value={state.linkedin_url}
               onChange={handleChange}
               InputProps={{
                 endAdornment: (

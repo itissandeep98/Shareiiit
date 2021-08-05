@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { fetchVotedPosts } from "../../../Store/ActionCreators/post";
 
 function MyActivity() {
-  const choices = ["save", "upvote", "dismiss"];
+  const choices = ["saved", "upvoted", "dismissed"];
   const categories = ["book", "group", "electronics", "other"];
   const [value, setValue] = useState(0);
   const [category, setCategory] = useState(0);

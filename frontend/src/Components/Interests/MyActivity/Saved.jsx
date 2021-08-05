@@ -31,7 +31,7 @@ function Saved(props) {
                     className="my-3"
                     key={Math.random()}
                   >
-                    <PostCard {...card.post} />
+                    <PostCard {...card} />
                   </Col>
                 ))}
               </>

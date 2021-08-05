@@ -7,13 +7,16 @@ import {
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
 import CheckIcon from "@material-ui/icons/Check";
 import { useState } from "react";
+import { updateBookPost } from "../../../Store/ActionCreators/books";
+import { useDispatch } from "react-redux";
 
 function EditPostModal(props) {
-  const { modal, setModal } = props;
+  const { modal, setModal, id } = props;
   const [title, setTitle] = useState(props.title);
   const [body, setBody] = useState(props.description);
   const [author, setAuthor] = useState(props.book.author);
   const [checked, setChecked] = useState(props.is_request);
+  const dispatch = useDispatch();
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = {
@@ -23,7 +26,7 @@ function EditPostModal(props) {
       is_request: checked,
     };
     setModal(!modal);
-    //  dispatch(createBookPost(data))
+    dispatch(updateBookPost({ id, data }));
   };
   return (
     <Modal isOpen={modal} toggle={() => setModal(!modal)} size="lg">
