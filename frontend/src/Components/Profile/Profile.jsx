@@ -1,25 +1,31 @@
 import { Col, Container, Row } from "reactstrap";
-import { connect, useDispatch } from "react-redux";
-import { Image } from "semantic-ui-react";
-import { Chip, IconButton, List, ListItem } from "@material-ui/core";
+import { useDispatch } from "react-redux";
+import { Icon, Image } from "semantic-ui-react";
+import { Chip, List, ListItem } from "@material-ui/core";
 import FaceIcon from "@material-ui/icons/Face";
-import MessageIcon from "@material-ui/icons/Message";
-import { fetchPeople } from "../../Store/ActionCreators/people";
+import {
+  fetchPeople,
+  fetchPeopleSkills,
+} from "../../Store/ActionCreators/people";
 import { useEffect, useState } from "react";
 import Meta from "../Meta";
+import { NavLink } from "react-router-dom";
 
 function Profile(props) {
   const { user } = props.match.params;
   const dispatch = useDispatch();
   const [details, setDetails] = useState(null);
+  const [skills, setSkills] = useState([]);
   useEffect(() => {
     dispatch(fetchPeople(user)).then((res) => {
       setDetails(res);
-      console.log(res);
+    });
+    dispatch(fetchPeopleSkills(user)).then((res) => {
+      setSkills(res);
     });
   }, [dispatch]);
 
-  const knowledge = ["React", "Django", "Firebase", "React Native"];
+  // const knowledge = ["React", "Django", "Firebase", "React Native"];
   if (details === undefined) {
     return <div />;
   }
@@ -43,28 +49,59 @@ function Profile(props) {
                   />
                 </div>
               </h2>
-              <IconButton className="float-right d-inline">
-                <MessageIcon fontSize="large" />
-              </IconButton>
+              <div className="float-right d-inline">
+                {details?.profile?.telegram_url && (
+                  <a
+                    href={details?.profile?.telegram_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Icon name="telegram" size="big" />
+                  </a>
+                )}
+                {details?.profile?.linkedin_url && (
+                  <a
+                    href={details?.profile?.linkedin_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Icon name="linkedin" size="big" />
+                  </a>
+                )}
+                {details?.profile?.phone_number && (
+                  <a
+                    href={`tel:${details?.profile?.phone_number}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Icon name="phone" size="big" />
+                  </a>
+                )}
+              </div>
               <hr />
               <List>
                 <ListItem className="text-capitalize">
                   {details?.first_name} {details?.last_name}
                 </ListItem>
+                <ListItem>{details?.profile?.bio}</ListItem>
               </List>
             </Col>
           </Row>
           <Row>
             <Col className="text-center">
               <h3>Knows About</h3>
-              {knowledge.map((term) => (
-                <Chip
-                  label={term}
-                  className="m-1 "
-                  icon={<FaceIcon />}
-                  key={Math.random()}
-                />
-              ))}
+              <div className="d-flex flex-row align-items-center justify-content-center">
+                {skills.map((term) => (
+                  <NavLink to={`/tech/${term.id}`} key={term.id}>
+                    <Chip
+                      label={term.skill.name}
+                      className="m-1 btn "
+                      icon={<FaceIcon />}
+                      key={Math.random()}
+                    />
+                  </NavLink>
+                ))}
+              </div>
             </Col>
           </Row>
         </Container>

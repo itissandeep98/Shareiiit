@@ -76,7 +76,7 @@ export const fetchVotedPosts = (data) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.VOTED_POST_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/api/voted`, { params: data, headers: headers() })
+      .get(`${apiUrl}/api/myactivity`, { params: data, headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.VOTED_POST_FETCH_SUCCESS,

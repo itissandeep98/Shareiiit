@@ -5,21 +5,33 @@ from django.contrib.auth import authenticate
 from posts.models import Post
 
 from django.contrib.auth import get_user_model
+
 from accounts.models import Profile
 
 User = get_user_model()
 
-# from posts.serializers import BookPostSerializer
 from rest_framework.authtoken.models import Token
 
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = "__all__"
+
+
 # User Serializer
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
+    profile = ProfileSerializer()
+
     class Meta:
         model = User
         fields = (
             "id",
             "username",
+            "first_name",
+            "last_name",
             "password",
+            "profile",
         )
 
         extra_kwargs = {"password": {"write_only": True}}
@@ -35,12 +47,6 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         user.save()
         Token.objects.create(user=user)
         return user
-
-
-class ProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Profile
-        fields = "__all__"
 
 
 class UserDetailsSerializer(serializers.ModelSerializer):

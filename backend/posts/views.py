@@ -132,16 +132,19 @@ class SkillViewSet(viewsets.ReadOnlyModelViewSet):
         filters.OrderingFilter,
     ]
 
-    search_fields = ["created_by__username", "title", "description"]
+    search_fields = [
+        "created_by__username",
+        "title",
+        "skill__name",
+        "description",
+    ]
 
     def get_queryset(self):
         kwargs = {}
 
         skill__name__icontains = self.request.query_params.get("name")
         description__icontains = self.request.query_params.get("body")
-        created_by__username__icontains = self.request.query_params.get(
-            "username"
-        )
+        created_by__username = self.request.query_params.get("username")
         is_request = self.request.query_params.get("is_request")
         rating = self.request.query_params.get("rating")
 
@@ -151,10 +154,8 @@ class SkillViewSet(viewsets.ReadOnlyModelViewSet):
         if description__icontains:
             kwargs["description__icontains"] = description__icontains
 
-        if created_by__username__icontains:
-            kwargs[
-                "created_by__username__icontains"
-            ] = created_by__username__icontains
+        if created_by__username:
+            kwargs["created_by__username"] = created_by__username
 
         if is_request:
             kwargs["is_request"] = is_request

@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Col, Container, Row } from "reactstrap";
 import { Icon, Image, Label, Placeholder } from "semantic-ui-react";
-import { addVote, fetchPostDetails } from "../../Store/ActionCreators/post";
+import { addVote } from "../../Store/ActionCreators/post";
 import Meta from "../Meta";
 import classNames from "classnames";
 import Messages from "./Messages/Messages";
 import { NavLink } from "react-router-dom";
+import { fetchBookDetails } from "../../Store/ActionCreators/books";
 
 function PostDetail(props) {
   const id = props.match.params.postId;
@@ -20,7 +21,7 @@ function PostDetail(props) {
   const [dismiss, setDismiss] = useState(null);
   const username = useSelector((state) => state.user?.details?.username);
   useEffect(() => {
-    dispatch(fetchPostDetails(id)).then((res) => {
+    dispatch(fetchBookDetails(id)).then((res) => {
       setDetails(res);
       setLoading(false);
       setNum_upvotes(res.vote_count_log.upvote_count);
@@ -33,7 +34,9 @@ function PostDetail(props) {
   const Vote = (option) => {
     let data = {};
     if (option == 1) {
-      if (!liked) {
+      if (liked) {
+        setNum_upvotes(num_upvotes - 1);
+      } else {
         setNum_upvotes(num_upvotes + 1);
       }
       data.upvoted_flag = !liked;
@@ -49,7 +52,7 @@ function PostDetail(props) {
     dispatch(addVote({ id, data }));
   };
   return (
-    <Container className="shadow p-3 mt-4">
+    <Container className="shadow p-3 my-4">
       {details && (
         <>
           <Meta head={`${details.title} | ShareIIITD`} />
@@ -119,25 +122,29 @@ function PostDetail(props) {
                   <h2 className="text-capitalize text-center">
                     {details.title}
                   </h2>
-                  <h4>By {details?.book?.author}</h4>
+                  <h4 className="text-capitalize">
+                    By {details?.book?.author}
+                  </h4>
                   <NavLink
                     to={`/${details.created_by}`}
                     className="float-right"
                   >
                     - {details.created_by}
                   </NavLink>
-                  <Tooltip
-                    title={
-                      details.is_price_negotiable
-                        ? "Price is negotiable"
-                        : "Fixed Price"
-                    }
-                  >
-                    <Label size="large">
-                      <Icon name="rupee" />
-                      {details.price}
-                    </Label>
-                  </Tooltip>
+                  {details.price > 0 && (
+                    <Tooltip
+                      title={
+                        details.is_price_negotiable
+                          ? "Price is negotiable"
+                          : "Fixed Price"
+                      }
+                    >
+                      <Label size="large">
+                        <Icon name="rupee" />
+                        {details.price}
+                      </Label>
+                    </Tooltip>
+                  )}
                   <Row className="mt-5">
                     <Col className="text-justify">{details.description}</Col>
                   </Row>

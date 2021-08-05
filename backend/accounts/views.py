@@ -52,6 +52,7 @@ class LogoutView(APIView):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    pagination_class = None
 
     def get_permissions(self):
         """
@@ -72,7 +73,7 @@ class UserViewSet(viewsets.ModelViewSet):
         if username is not None:
             return User.objects.filter(username=username)
         else:
-            return User.objects.all()
+            return None
 
 
 class UserProfileView(generics.RetrieveUpdateAPIView):
