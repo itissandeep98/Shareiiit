@@ -1,4 +1,3 @@
-from backend.posts.models import Skill
 from rest_framework import serializers
 
 # from django.contrib.auth.models import User
@@ -11,7 +10,6 @@ from accounts.models import Profile
 
 User = get_user_model()
 
-# from posts.serializers import BookPostSerializer
 from rest_framework.authtoken.models import Token
 
 
