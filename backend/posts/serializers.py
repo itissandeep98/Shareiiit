@@ -223,8 +223,6 @@ class SkillListSerializer(serializers.ModelSerializer):
     class Meta:
         model = SkillList
         fields = ("id", "name", "type")
-        read_only_fields = ("type",)
-        # read_only_fields = ("name",)
 
 
 class SkillSerializer(serializers.ModelSerializer):
@@ -235,7 +233,7 @@ class SkillSerializer(serializers.ModelSerializer):
         fields = ("name", "rating", "type")
 
     def get_type(self, obj):
-        return SkillList.objects.get(name=obj.name).type.name
+        return SkillList.objects.get(name=obj.name).type
 
 
 class SkillPostSerializer(PostSerializer):
