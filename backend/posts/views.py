@@ -132,7 +132,12 @@ class SkillViewSet(viewsets.ReadOnlyModelViewSet):
         filters.OrderingFilter,
     ]
 
-    search_fields = ["created_by__username", "title", "description"]
+    search_fields = [
+        "created_by__username",
+        "title",
+        "skill__name",
+        "description",
+    ]
 
     def get_queryset(self):
         kwargs = {}
