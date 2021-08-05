@@ -31,7 +31,9 @@ function PostCards(props) {
   const Vote = (option) => {
     let data = {};
     if (option == 1) {
-      if (!liked) {
+      if (liked) {
+        setNum_upvotes(num_upvotes - 1);
+      } else {
         setNum_upvotes(num_upvotes + 1);
       }
       data.upvoted_flag = !liked;

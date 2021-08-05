@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import {
   createSkillPost,
   fetchSkillList,
+  updateSkillPost,
 } from "../../../Store/ActionCreators/skill";
 
 function EditSkill(props) {
@@ -28,18 +29,15 @@ function EditSkill(props) {
   }, [dispatch]);
 
   const addSkill = (e) => {
-    console.log(data);
-    // const body = {
-    //   title: data.title,
-    //   description: data.desc,
-    //   skill: {
-    //     name: data.label,
-    //     rating: data.rate,
-    //   },
-    // };
-    // dispatch(createSkillPost(body));
-    // setData({});
-    // toggle();
+    const id = data.id;
+    const body = {
+      skill: data.skill,
+      title: data.title,
+      description: data.description,
+    };
+    dispatch(updateSkillPost({ id, body }));
+
+    toggle();
   };
 
   const onChange = (e) => {
@@ -58,7 +56,7 @@ function EditSkill(props) {
           <InputLabel>Tag</InputLabel>
           <Select
             label="Tag"
-            value={data.skill.name}
+            value={data?.skill?.name}
             onChange={(e) => changeSkill("name", e.target.value)}
           >
             {skillList.map((tag, i) => (
@@ -92,7 +90,7 @@ function EditSkill(props) {
         <p className="mt-2 d-flex justify-content-around">
           <InputLabel>Rate Your Skill</InputLabel>
           <Rating
-            rating={data.skill.rating}
+            rating={data?.skill?.rating}
             icon="star"
             maxRating={5}
             size="huge"

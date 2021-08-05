@@ -41,7 +41,7 @@ function Faq() {
         <Col>
           <Accordion fluid styled>
             {quesList.map((item, index) => (
-              <>
+              <div key={index}>
                 <Accordion.Title
                   active={active === index}
                   index={index}
@@ -50,10 +50,13 @@ function Faq() {
                   <Icon name="dropdown" />
                   {item.ques}
                 </Accordion.Title>
-                <Accordion.Content active={active === index}>
+                <Accordion.Content
+                  active={active === index}
+                  onClick={() => toggle(index)}
+                >
                   <p>{item.ans}</p>
                 </Accordion.Content>
-              </>
+              </div>
             ))}
           </Accordion>
         </Col>

@@ -15,6 +15,7 @@ function Books() {
       setLoading(false);
     });
   }, [dispatch]);
+
   return (
     <Container fluid>
       {loading && (
@@ -22,7 +23,7 @@ function Books() {
           <Spinner /> Fetching new data
         </div>
       )}
-      <Row className="justify-content-center">
+      <Row>
         {cards && cards.length > 0 ? (
           cards.map((card) => (
             <Col md={6} lg={4} className="my-2" key={Math.random()}>

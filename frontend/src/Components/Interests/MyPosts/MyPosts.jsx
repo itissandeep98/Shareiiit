@@ -45,7 +45,7 @@ function MyPosts(props) {
     <Container fluid className="p-3 bg-light h-100">
       <Meta head="My Posts | ShareIIITD" />
       <Container>
-        <Row className="shadow my-3 py-4 rounded_lg bg-white align-items-center">
+        <Row className="shadow my-3 py-4 rounded_lg bg-white ">
           <Col>
             <h1>View Your Posts</h1>
             <Tab menu={{ secondary: true, pointing: true }} panes={panes} />

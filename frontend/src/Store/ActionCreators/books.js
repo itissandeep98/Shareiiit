@@ -7,6 +7,28 @@ const headers = () => ({
   Authorization: "Token " + getAuthToken(),
 });
 
+export const fetchBookDetails = (id) => {
+  return async (dispatch) => {
+    dispatch({ type: ActionTypes.POST_DETAILS_FETCH_REQUEST });
+    return await axios
+      .get(`${apiUrl}/api/books/${id}`, { headers: headers() })
+      .then((response) => {
+        dispatch({
+          type: ActionTypes.POST_DETAILS_FETCH_SUCCESS,
+          data: response.data,
+        });
+        return response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch({
+          type: ActionTypes.POST_DETAILS_FETCH_FAILED,
+          errmess: "Error in connection with Server",
+        });
+      });
+  };
+};
+
 export const fetchBooks = () => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.BOOKS_FETCH_REQUEST });
@@ -96,6 +118,34 @@ export const fetchMyBooks = () => {
           type: ActionTypes.USER_BOOKS_FETCH_FAILED,
           errmess: "Error in connection with Server",
         });
+      });
+  };
+};
+
+export const updateBookPost = ({ id, data }) => {
+  return async (dispatch) => {
+    dispatch({ type: ActionTypes.BOOK_UPDATE_REQUEST });
+    return await axios
+      .patch(`${apiUrl}/api/mybooks/${id}/`, data, { headers: headers() })
+      .then((response) => {
+        dispatch({
+          type: ActionTypes.BOOK_UPDATE_SUCCESS,
+          data: response.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error.response);
+        if (error?.response?.data?.detail) {
+          dispatch({
+            type: ActionTypes.BOOK_UPDATE_FAILED,
+            errmess: error.response.data.detail,
+          });
+        } else {
+          dispatch({
+            type: ActionTypes.BOOK_UPDATE_FAILED,
+            errmess: "Error in connection with Server",
+          });
+        }
       });
   };
 };
