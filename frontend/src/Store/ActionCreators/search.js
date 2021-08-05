@@ -50,3 +50,25 @@ export const searchAdvanced = (data) => {
       });
   };
 };
+
+export const searchSkills = (data) => {
+  return async (dispatch) => {
+    dispatch({ type: ActionTypes.SKILL_SEARCH_REQUEST });
+    return await axios
+      .get(`${apiUrl}/api/skills/`, { params: data, headers: headers() })
+      .then((response) => {
+        dispatch({
+          type: ActionTypes.SKILL_SEARCH_SUCCESS,
+          data: response.data.results,
+        });
+        return response.data.results;
+      })
+      .catch((error) => {
+        console.log(error);
+        dispatch({
+          type: ActionTypes.SKILL_SEARCH_FAILED,
+          errmess: "Error in connection with Server",
+        });
+      });
+  };
+};

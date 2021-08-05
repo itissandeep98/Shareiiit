@@ -14,9 +14,7 @@ const ProfileSettings = lazy(() => import("../ProfileSettings/Profile"));
 const Profile = lazy(() => import("../Profile/Profile"));
 const PostDetail = lazy(() => import("../Posts/PostDetail"));
 const MyPosts = lazy(() => import("../Interests/MyPosts/MyPosts"));
-const Interactions = lazy(() =>
-  import("../Interests/Interactions/Interactions")
-);
+const Interactions = lazy(() => import("../Interests/MyActivity/MyActivity"));
 const Technical = lazy(() => import("../Technical/Technical"));
 
 // private => Route requires authentication
@@ -38,7 +36,7 @@ function Routing() {
       render: () => <MyPosts />,
     },
     {
-      path: "/profile/interactions",
+      path: "/profile/myactivity",
       private: true,
       layout: true,
       render: () => <Interactions />,

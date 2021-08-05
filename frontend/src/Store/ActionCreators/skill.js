@@ -110,11 +110,12 @@ export const deleteSkillPost = (id) => {
   };
 };
 
-export const updateSkillPost = ({ id, data }) => {
+export const updateSkillPost = ({ id, body }) => {
+  console.log(body);
   return async (dispatch) => {
     dispatch({ type: ActionTypes.SKILL_CREATE_REQUEST });
     return await axios
-      .patch(`${apiUrl}/api/myskills/${id}/`, data, { headers: headers() })
+      .patch(`${apiUrl}/api/myskills/${id}/`, body, { headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.SKILL_CREATE_SUCCESS,

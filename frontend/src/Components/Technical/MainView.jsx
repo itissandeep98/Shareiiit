@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { fetchSkillPosts } from "../../Store/ActionCreators/skill";
 import { useState } from "react";
 import { connect, useDispatch } from "react-redux";
+import { searchSkills } from "../../Store/ActionCreators/search";
 
 const searchTest = function (varToSearch, jsonData) {
   var ans = false;
@@ -47,18 +48,21 @@ function MainView(props) {
     } else if (tags.length > 0) {
       setCards([]);
     } else {
-      setCards(props.skill.skills ?? []);
+      setCards(allCards);
     }
   }, [tags]);
 
   useEffect(() => {
-    const allCards = props.skill.skills ?? [];
-    const temp = allCards.filter((card) => searchTest(searchText, card));
-    if (temp.length > 0) {
-      setCards(temp);
-    } else {
-      setCards(props.skill.skills ?? []);
-    }
+    // const allCards = props.skill.skills ?? [];
+    // const temp = allCards.filter((card) => searchTest(searchText, card));
+    dispatch(searchSkills({ name: searchText })).then((res) => {
+      const temp = res;
+      if (temp.length > 0) {
+        setCards(temp);
+      } else {
+        setCards([]);
+      }
+    });
   }, [searchText]);
 
   return (

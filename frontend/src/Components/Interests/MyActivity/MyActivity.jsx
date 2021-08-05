@@ -7,7 +7,7 @@ import { Col, Container, Row } from "reactstrap";
 import { useDispatch } from "react-redux";
 import { fetchVotedPosts } from "../../../Store/ActionCreators/post";
 
-function Interactions() {
+function MyActivity() {
   const choices = ["save", "upvote", "dismiss"];
   const categories = ["book", "group", "electronics", "other"];
   const [value, setValue] = useState(0);
@@ -98,4 +98,4 @@ function TabPanel(props) {
     </>
   );
 }
-export default Interactions;
+export default MyActivity;
