@@ -132,16 +132,19 @@ class SkillViewSet(viewsets.ReadOnlyModelViewSet):
         filters.OrderingFilter,
     ]
 
-    search_fields = ["created_by__username", "title", "description"]
+    search_fields = [
+        "created_by__username",
+        "title",
+        "skill__name",
+        "description",
+    ]
 
     def get_queryset(self):
         kwargs = {}
 
         skill__name__icontains = self.request.query_params.get("name")
         description__icontains = self.request.query_params.get("body")
-        created_by__username__icontains = self.request.query_params.get(
-            "username"
-        )
+        created_by__username = self.request.query_params.get("username")
         is_request = self.request.query_params.get("is_request")
         rating = self.request.query_params.get("rating")
 
@@ -151,10 +154,8 @@ class SkillViewSet(viewsets.ReadOnlyModelViewSet):
         if description__icontains:
             kwargs["description__icontains"] = description__icontains
 
-        if created_by__username__icontains:
-            kwargs[
-                "created_by__username__icontains"
-            ] = created_by__username__icontains
+        if created_by__username:
+            kwargs["created_by__username"] = created_by__username
 
         if is_request:
             kwargs["is_request"] = is_request
@@ -206,21 +207,18 @@ class VotedPostsView(generics.ListAPIView):
 
     def get_queryset(self):
         category = self.request.query_params.get("category")
-
-        upvoted_flag = self.request.query_params.get("upvoted")
-        saved_flag = self.request.query_params.get("saved")
-        dismiss_flag = self.request.query_params.get("dismissed")
+        choice = self.request.query_params.get("choice")
 
         kwargs = {"voted_by__id": self.request.user.id}
 
-        if upvoted_flag is not None:
-            kwargs["upvoted_flag"] = upvoted_flag
-
-        if saved_flag is not None:
-            kwargs["saved_flag"] = saved_flag
-
-        if dismiss_flag is not None:
-            kwargs["dismiss_flag"] = dismiss_flag
+        if choice == "upvoted":
+            kwargs["upvoted_flag"] = True
+        elif choice == "saved":
+            kwargs["saved_flag"] = True
+        elif choice == "dismissed":
+            kwargs["dismiss_flag"] = True
+        else:
+            raise APIException("Please specify a valid choice query paramater.")
 
         vote_logs = VoteLog.objects.all()
         vote_logs = vote_logs.filter(**kwargs)
