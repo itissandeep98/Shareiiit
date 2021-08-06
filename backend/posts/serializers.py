@@ -249,23 +249,27 @@ class SkillPostSerializer(PostSerializer):
         else:
             skill = {}
 
+        res = Skill.objects.filter(
+            name=skill.get("name"),
+            post__created_by__id=self.context.get("request").user.id,
+        )
+
+        if len(res) != 0:
+            raise serializers.ValidationError({"Skill": "Already exists"})
+
         validated_data["category"] = Category.objects.get(name="skill")
         post = Post(**validated_data)
-
-        # skill_item_name = skill.pop("skill_item").get("name")
-        # print("skill_item_name", skill_item_name)
 
         try:
             SkillList.objects.get(name=skill.get("name"))
         except SkillList.DoesNotExist:
             raise serializers.ValidationError(
-                {"Skill list": "Please enter a valid skill name."}
+                {"Skill": "Please enter a valid skill name."}
             )
 
-        skill_instance = Skill(post=post, **skill)
-
+        skill_post = Skill(post=post, **skill)
         post.save()
-        skill_instance.save()
+        skill_post.save()
 
         return post
 
