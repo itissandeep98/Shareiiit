@@ -255,7 +255,13 @@ class SkillPostSerializer(PostSerializer):
         )
 
         if len(res) != 0:
-            raise serializers.ValidationError({"Error": "Skill already exists"})
+            raise serializers.ValidationError(
+                {
+                    "Error": "Failed to add the skill because you already have a skill post for "
+                    + skill.get("name")
+                    + "."
+                }
+            )
 
         validated_data["category"] = Category.objects.get(name="skill")
         post = Post(**validated_data)
