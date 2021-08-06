@@ -4,6 +4,7 @@ import { Modal, ModalBody, ModalHeader } from "reactstrap";
 import { Icon } from "semantic-ui-react";
 import TelegramIcon from "@material-ui/icons/Telegram";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
+import { showAlert } from "../showAlert";
 
 function SocialLinks(props) {
   const [modal, setModal] = useState(false);
@@ -12,6 +13,9 @@ function SocialLinks(props) {
     setState({ ...state, [e.target.name]: e.target.value });
   };
   const toggle = () => setModal(!modal);
+  const handleUpdate = () => {
+    showAlert("Update Failed", "error");
+  };
 
   return (
     <div>
@@ -55,7 +59,11 @@ function SocialLinks(props) {
               }}
             />
 
-            <Button variant="outlined" className="mt-2 float-right">
+            <Button
+              variant="outlined"
+              className="mt-2 float-right"
+              onClick={handleUpdate}
+            >
               Update
             </Button>
           </form>

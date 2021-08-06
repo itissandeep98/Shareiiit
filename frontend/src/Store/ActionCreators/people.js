@@ -37,14 +37,14 @@ export const updateUser = (data) => {
           type: ActionTypes.USER_DETAILS_UPDATE_SUCCESS,
           data: response.data,
         });
-      })
-      .catch((error) => {
-        console.log(error.response);
-        dispatch({
-          type: ActionTypes.USER_DETAILS_UPDATE_FAILED,
-          errmess: error.response,
-        });
       });
+    // .catch((error) => {
+    //   console.log(error.response);
+    //   dispatch({
+    //     type: ActionTypes.USER_DETAILS_UPDATE_FAILED,
+    //     errmess: error.response,
+    //   });
+    // });
   };
 };
 

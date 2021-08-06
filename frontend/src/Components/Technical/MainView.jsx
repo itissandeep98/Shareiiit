@@ -57,7 +57,7 @@ function MainView(props) {
     // const temp = allCards.filter((card) => searchTest(searchText, card));
     dispatch(searchSkills({ search: searchText })).then((res) => {
       const temp = res;
-      if (temp.length > 0) {
+      if (temp?.length > 0) {
         setCards(temp);
       } else {
         setCards([]);
@@ -103,7 +103,7 @@ function MainView(props) {
         </Col>
       </Row>
       <Row className="mt-3">
-        {cards.length > 0 ? (
+        {cards?.length > 0 ? (
           cards?.map((card) => (
             <Col md={4} className="mt-4">
               <TechCard {...card} />

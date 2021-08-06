@@ -1,8 +1,12 @@
 import { Button, TextField } from "@material-ui/core";
 import { Col, Container, Row } from "reactstrap";
 import { Image } from "semantic-ui-react";
+import { showAlert } from "../showAlert";
 
 function Password() {
+  const handleUpdate = () => {
+    showAlert("Update Failed", "error");
+  };
   return (
     <Row className="shadow my-3 py-4 rounded_lg bg-white align-items-center">
       <Col xs={12} md={2} className="d-none d-md-block">
@@ -48,6 +52,7 @@ function Password() {
             required
           />
           <Button
+            onClick={handleUpdate}
             variant="outlined"
             className="mt-3 float-right rounded-pill bg-info text-white"
           >

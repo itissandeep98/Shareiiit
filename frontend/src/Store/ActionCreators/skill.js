@@ -17,13 +17,14 @@ export const createSkillPost = (data) => {
           type: ActionTypes.SKILL_CREATE_SUCCESS,
           data: response.data,
         });
-      })
-      .catch((error) => {
-        dispatch({
-          type: ActionTypes.SKILL_CREATE_FAILED,
-          errmess: error.response,
-        });
+        return response.data;
       });
+    // .catch((error) => {
+    //   dispatch({
+    //     type: ActionTypes.SKILL_CREATE_FAILED,
+    //     errmess: error.response,
+    //   });
+    // });
   };
 };
 
@@ -121,12 +122,12 @@ export const updateSkillPost = ({ id, body }) => {
           type: ActionTypes.SKILL_CREATE_SUCCESS,
           data: response.data,
         });
-      })
-      .catch((error) => {
-        dispatch({
-          type: ActionTypes.SKILL_CREATE_FAILED,
-          errmess: error.response,
-        });
       });
+    // .catch((error) => {
+    //   dispatch({
+    //     type: ActionTypes.SKILL_CREATE_FAILED,
+    //     errmess: error.response,
+    //   });
+    // });
   };
 };
