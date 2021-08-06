@@ -9,25 +9,25 @@ import { useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { searchSkills } from "../../Store/ActionCreators/search";
 
-const searchTest = function (varToSearch, jsonData) {
-  var ans = false;
-  for (var key in jsonData) {
-    if (ans) {
-      return true;
-    }
-    if (typeof jsonData[key] === "object") {
-      ans = ans || searchTest(varToSearch, jsonData[key]);
-    } else {
-      if (
-        typeof jsonData[key] === "string" &&
-        jsonData[key].toLowerCase().includes(varToSearch.toLowerCase())
-      ) {
-        return true;
-      }
-    }
-  }
-  return ans;
-};
+// const searchTest = function (varToSearch, jsonData) {
+//   var ans = false;
+//   for (var key in jsonData) {
+//     if (ans) {
+//       return true;
+//     }
+//     if (typeof jsonData[key] === "object") {
+//       ans = ans || searchTest(varToSearch, jsonData[key]);
+//     } else {
+//       if (
+//         typeof jsonData[key] === "string" &&
+//         jsonData[key].toLowerCase().includes(varToSearch.toLowerCase())
+//       ) {
+//         return true;
+//       }
+//     }
+//   }
+//   return ans;
+// };
 
 function MainView(props) {
   const { tags, modifyTags } = props;
@@ -55,14 +55,16 @@ function MainView(props) {
   useEffect(() => {
     // const allCards = props.skill.skills ?? [];
     // const temp = allCards.filter((card) => searchTest(searchText, card));
-    dispatch(searchSkills({ search: searchText })).then((res) => {
-      const temp = res;
-      if (temp?.length > 0) {
-        setCards(temp);
-      } else {
-        setCards([]);
-      }
-    });
+    if (searchText.length > 0) {
+      dispatch(searchSkills({ search: searchText })).then((res) => {
+        const temp = res;
+        if (temp?.length > 0) {
+          setCards(temp);
+        } else {
+          setCards([]);
+        }
+      });
+    }
   }, [searchText]);
 
   return (
