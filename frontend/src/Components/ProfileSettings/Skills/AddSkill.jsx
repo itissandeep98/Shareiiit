@@ -14,6 +14,7 @@ import {
   createSkillPost,
   fetchSkillList,
 } from "../../../Store/ActionCreators/skill";
+import { showAlert } from "../../showAlert";
 
 function AddSkill(props) {
   const { modal, toggle, userTags, setuserTags } = props;
@@ -35,10 +36,19 @@ function AddSkill(props) {
         rating: data.rate,
       },
     };
-    dispatch(createSkillPost(body));
-    setuserTags([...userTags, { ...body }]);
-    setData({});
-    toggle();
+    dispatch(createSkillPost(body))
+      .then((res) => {
+        setuserTags([{ ...res }, ...userTags]);
+        setData({});
+        toggle();
+      })
+      .catch((err) => {
+        if (err?.response?.data?.Error) {
+          showAlert(err.response.data.Error, "error");
+        } else {
+          showAlert("Something went wrong", "error");
+        }
+      });
   };
 
   return (
@@ -91,7 +101,12 @@ function AddSkill(props) {
         </p>
       </ModalBody>
       <ModalFooter className="d-flex justify-content-between">
-        <Button variant="outlined" className="float-right " onClick={addSkill}>
+        <Button
+          variant="outlined"
+          className="float-right "
+          onClick={addSkill}
+          disabled={!data.rate || !data.label || !data.title}
+        >
           Add Skill
         </Button>
       </ModalFooter>

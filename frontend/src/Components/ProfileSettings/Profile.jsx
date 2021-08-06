@@ -10,6 +10,7 @@ import BasicDetails from "./BasicDetails";
 import Password from "./Password";
 import Skills from "./Skills/Skills";
 import Meta from "../Meta";
+import { showAlert } from "../showAlert";
 
 function Profile(props) {
   const dispatch = useDispatch();
@@ -27,7 +28,9 @@ function Profile(props) {
 
   const updateDetails = () => {
     const { id, ...data } = details;
-    dispatch(updateUser(data));
+    dispatch(updateUser(data)).catch((err) => {
+      showAlert("Update failed", "error");
+    });
   };
   return (
     <Container fluid className="p-3 bg-light h-100">
