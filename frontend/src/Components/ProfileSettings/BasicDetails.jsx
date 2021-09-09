@@ -14,7 +14,8 @@ import ProfileUpload from "./ProfileUpload";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import PhoneIcon from "@material-ui/icons/Phone";
 import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
-import SocialLinks from "./SocialLinks";
+import LinkedInIcon from "@material-ui/icons/LinkedIn";
+import TelegramIcon from "@material-ui/icons/Telegram";
 
 function BasicDetails(props) {
   const { details, onChange, updateDetails } = props;
@@ -30,22 +31,16 @@ function BasicDetails(props) {
         setImage={setImage}
         image={image}
       />
-      <Col xs={12} md={2} className="d-none d-md-block text-center">
-        <div>
-          <Icon.Group size="huge">
-            <Image src={image} avatar />
-            <Icon
-              name="camera"
-              corner
-              onClick={() => setModal(!modal)}
-              className="btn p-0"
-            />
-          </Icon.Group>
-          <br />
-          <br />
-          <br />
-          <SocialLinks details={details.profile} />
-        </div>
+      <Col xs={12} md={3} lg={2} className="d-none d-md-block text-center">
+        <Icon.Group size="huge">
+          <Image src={image} avatar />
+          <Icon
+            name="camera"
+            corner
+            onClick={() => setModal(!modal)}
+            className="btn p-0"
+          />
+        </Icon.Group>
       </Col>
       <Col>
         <h2>
@@ -115,6 +110,8 @@ function BasicDetails(props) {
             className="mt-3"
             variant="outlined"
             fullWidth
+            multiline
+            rows={4}
             required
             defaultValue={details?.profile.bio}
             InputProps={{
@@ -150,6 +147,38 @@ function BasicDetails(props) {
                 endAdornment: (
                   <InputAdornment position="start">
                     <PhoneIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </div>
+          <div className="mt-3">
+            <TextField
+              label="LinkedIn"
+              className="w-50"
+              variant="outlined"
+              fullWidth
+              required
+              defaultValue={details?.linkedin_url}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="start">
+                    <LinkedInIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <TextField
+              label="Telegram"
+              className="w-50"
+              variant="outlined"
+              fullWidth
+              required
+              defaultValue={details?.telegram_url}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="start">
+                    <TelegramIcon />
                   </InputAdornment>
                 ),
               }}

@@ -28,3 +28,31 @@ export const fetchGroups = () => {
       });
   };
 };
+
+export const createGroupPost = (data) => {
+  return async (dispatch) => {
+    dispatch({ type: ActionTypes.POST_CREATE_REQUEST });
+    return await axios
+      .post(`${apiUrl}/api/groups/`, data, { headers: headers() })
+      .then((response) => {
+        dispatch({
+          type: ActionTypes.POST_CREATE_SUCCESS,
+          data: response.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error.response);
+        if (error?.response?.data?.detail) {
+          dispatch({
+            type: ActionTypes.POST_CREATE_FAILED,
+            errmess: error.response.data.detail,
+          });
+        } else {
+          dispatch({
+            type: ActionTypes.POST_CREATE_FAILED,
+            errmess: "Error in connection with Server",
+          });
+        }
+      });
+  };
+};

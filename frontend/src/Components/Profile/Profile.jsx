@@ -25,18 +25,13 @@ function Profile(props) {
     });
   }, [dispatch]);
 
-  // const knowledge = ["React", "Django", "Firebase", "React Native"];
-  if (details === undefined) {
-    return <div />;
-  }
-
   return (
     <Container fluid className="p-3 bg-light h-100">
       {details && (
         <Container className="shadow my-3 py-4 rounded_lg bg-white align-items-center">
           <Meta head={`${details.username} | ShareIIITD`} />
-          <Row>
-            <Col xs={12} md={2} className="d-none d-md-block">
+          <Row className=" align-items-center">
+            <Col xs={12} md={3} className="d-none d-md-block ">
               <Image src={process.env.PUBLIC_URL + "/assets/images/user.png"} />
             </Col>
             <Col>
@@ -85,27 +80,25 @@ function Profile(props) {
                 </ListItem>
                 <ListItem>{details?.profile?.bio}</ListItem>
               </List>
+              {skills && (
+                <div className="text-center ">
+                  <h3>Knows About</h3>
+                  <div className="d-flex flex-row align-items-center justify-content-center">
+                    {skills?.map((term) => (
+                      <NavLink to={`/tech/${term.id}`} key={term.id}>
+                        <Chip
+                          label={term.skill.name}
+                          className="m-1 btn "
+                          icon={<FaceIcon />}
+                          key={Math.random()}
+                        />
+                      </NavLink>
+                    ))}
+                  </div>
+                </div>
+              )}
             </Col>
           </Row>
-          {skills && (
-            <Row>
-              <Col className="text-center">
-                <h3>Knows About</h3>
-                <div className="d-flex flex-row align-items-center justify-content-center">
-                  {skills?.map((term) => (
-                    <NavLink to={`/tech/${term.id}`} key={term.id}>
-                      <Chip
-                        label={term.skill.name}
-                        className="m-1 btn "
-                        icon={<FaceIcon />}
-                        key={Math.random()}
-                      />
-                    </NavLink>
-                  ))}
-                </div>
-              </Col>
-            </Row>
-          )}
         </Container>
       )}
     </Container>

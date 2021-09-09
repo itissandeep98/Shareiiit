@@ -13,6 +13,7 @@ import Meta from "../Meta";
 function Posts(props) {
   const [cards, setCards] = useState([]);
   const [category, setCategory] = useState("Books");
+  const [sortby, setSortby] = useState("created_at");
   const [modal, setModal] = useState(false);
 
   const [loading, setLoading] = useState(false);
@@ -70,6 +71,8 @@ function Posts(props) {
                   setResult={setCards}
                   category={category}
                   setCategory={setCategory}
+                  sortby={sortby}
+                  setSortby={setSortby}
                 />
                 <br />
                 <Row className="justify-content-center">

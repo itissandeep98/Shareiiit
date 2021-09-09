@@ -54,12 +54,12 @@ export const fetchBooks = () => {
 
 export const createBookPost = (data) => {
   return async (dispatch) => {
-    dispatch({ type: ActionTypes.BOOK_CREATE_REQUEST });
+    dispatch({ type: ActionTypes.POST_CREATE_REQUEST });
     return await axios
       .post(`${apiUrl}/api/mybooks/`, data, { headers: headers() })
       .then((response) => {
         dispatch({
-          type: ActionTypes.BOOK_CREATE_SUCCESS,
+          type: ActionTypes.POST_CREATE_SUCCESS,
           data: response.data,
         });
       })
@@ -67,12 +67,12 @@ export const createBookPost = (data) => {
         console.log(error.response);
         if (error?.response?.data?.detail) {
           dispatch({
-            type: ActionTypes.BOOK_CREATE_FAILED,
+            type: ActionTypes.POST_CREATE_FAILED,
             errmess: error.response.data.detail,
           });
         } else {
           dispatch({
-            type: ActionTypes.BOOK_CREATE_FAILED,
+            type: ActionTypes.POST_CREATE_FAILED,
             errmess: "Error in connection with Server",
           });
         }
