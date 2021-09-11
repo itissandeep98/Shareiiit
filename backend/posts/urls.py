@@ -3,11 +3,11 @@ from posts import views
 from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
-router.register(r"books", views.BookViewSet, basename="books")
-router.register(r"mybooks", views.MyBooksViewSet, basename="mybooks")
+# router.register(r"books", views.BookViewSet, basename="books")
+# router.register(r"mybooks", views.MyBooksViewSet, basename="mybooks")
 router.register(r"skills", views.SkillViewSet, basename="skills")
 router.register(r"myskills", views.MySkillsViewSet, basename="myskills")
-router.register(r"groups", views.GroupViewSet, basename="groups")
+# router.register(r"groups", views.GroupViewSet, basename="groups")
 router.register(r"posts", views.PostViewSet, basename="posts")
 router.register(r"myposts", views.MyPostsViewSet, basename="myposts")
 # router.register(r"votes", views.VoteViewSet, basename="votes")

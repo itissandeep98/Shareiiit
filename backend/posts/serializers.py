@@ -87,6 +87,7 @@ class PostSerializer(serializers.ModelSerializer):
             "is_price_negotiable",
             "status",
             "category",
+            "is_expired",
             "image",
             "vote_count_log",
             "vote_log",

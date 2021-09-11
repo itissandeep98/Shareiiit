@@ -164,10 +164,24 @@ django_heroku.settings(locals())
 # PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 # STATIC_ROOT = os.path.join(PROJECT_DIR, "static")
 
+OSA_DOMAIN = "https://osa-iiitd.herokuapp.com"
 
-OSA_AUTHENTICATION_URL = "https://osa-iiitd.herokuapp.com/token-auth/"
-OSA_EDIT_PROFILE_URL = "https://osa-iiitd.herokuapp.com/core/edit_profile/"
-OSA_CURRENT_USER_URL = "https://osa-iiitd.herokuapp.com/core/current_user/"
+OSA_URLS = {
+    "TOKEN_AUTH": OSA_DOMAIN + "/token-auth/",
+    "CURRENT_USER": OSA_DOMAIN + "/core/current_user/",
+    "RESET_PASSOWRD": OSA_DOMAIN + "/core/reset_password/",
+    "VERIFY_EMAIL": OSA_DOMAIN + "/core/verify_email/",
+    "RESEND_EMAIL": OSA_DOMAIN + "/core/resend_email/",
+    "CHANGE_PASSWORD": OSA_DOMAIN + "/core/change_password/",
+    "EDIT_PROFILE": OSA_DOMAIN + "/core/edit_profile/",
+}
+
+# OSA_AUTHENTICATION_URL = "https://osa-iiitd.herokuapp.com/token-auth/"
+# OSA_CURRENT_USER_URL = "https://osa-iiitd.herokuapp.com/core/current_user/"
+# OSA_RESET_PASSWORD_URL = "https://osa-iiitd.herokuapp.com/core/reset_password/"
+# OSA_VERIFY_EMAIL_URL = "https://osa-iiitd.herokuapp.com/core/current_user/"
+# OSA_CURRENT_USER_URL = "https://osa-iiitd.herokuapp.com/core/current_user/"
+# OSA_EDIT_PROFILE_URL = "https://osa-iiitd.herokuapp.com/core/edit_profile/"
 
 AUTH_USER_MODEL = "accounts.User"
 
