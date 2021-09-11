@@ -53,6 +53,7 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     pagination_class = None
+    lookup_field = "username"
 
     def get_permissions(self):
         """
