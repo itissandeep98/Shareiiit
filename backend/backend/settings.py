@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "django_filters",
     "django_extensions",
+    "django_cleanup.apps.CleanupConfig",
 ]
 
 REST_FRAMEWORK = {
