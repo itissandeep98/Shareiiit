@@ -68,14 +68,11 @@ class VoteLogSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
-    # created_by = serializers.CharField(
-    #     source="created_by.username", read_only=True
-    # )
-
     created_by = serializers.SerializerMethodField()
     category = serializers.SlugRelatedField(read_only=True, slug_field="name")
     vote_count_log = VoteCountLogSerializer(read_only=True)
     vote_log = serializers.SerializerMethodField()
+    image = serializers.CharField(source="image.url", read_only=True)
 
     class Meta:
         model = Post
