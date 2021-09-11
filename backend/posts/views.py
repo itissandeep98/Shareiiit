@@ -70,8 +70,8 @@ class PostViewSet(viewsets.ReadOnlyModelViewSet):
         "book": BookPostSerializer,
         "group": GroupPostSerializer,
         "electronic": ElectronicPostSerializer,
-        "other": OtherPostSerializer
-        # "skill": SkillPostSerializer,
+        "other": OtherPostSerializer,
+        "skill": SkillPostSerializer,
     }
 
     filter_backends = [
@@ -141,8 +141,8 @@ class MyPostsViewSet(viewsets.ModelViewSet):
         "book": BookPostSerializer,
         "group": GroupPostSerializer,
         "electronic": ElectronicPostSerializer,
-        "other": OtherPostSerializer
-        # "skill": SkillPostSerializer,
+        "other": OtherPostSerializer,
+        "skill": SkillPostSerializer,
     }
 
     def get_serializer_class(self):
