@@ -87,23 +87,25 @@ function Profile(props) {
               </List>
             </Col>
           </Row>
-          <Row>
-            <Col className="text-center">
-              <h3>Knows About</h3>
-              <div className="d-flex flex-row align-items-center justify-content-center">
-                {skills.map((term) => (
-                  <NavLink to={`/tech/${term.id}`} key={term.id}>
-                    <Chip
-                      label={term.skill.name}
-                      className="m-1 btn "
-                      icon={<FaceIcon />}
-                      key={Math.random()}
-                    />
-                  </NavLink>
-                ))}
-              </div>
-            </Col>
-          </Row>
+          {skills && (
+            <Row>
+              <Col className="text-center">
+                <h3>Knows About</h3>
+                <div className="d-flex flex-row align-items-center justify-content-center">
+                  {skills?.map((term) => (
+                    <NavLink to={`/tech/${term.id}`} key={term.id}>
+                      <Chip
+                        label={term.skill.name}
+                        className="m-1 btn "
+                        icon={<FaceIcon />}
+                        key={Math.random()}
+                      />
+                    </NavLink>
+                  ))}
+                </div>
+              </Col>
+            </Row>
+          )}
         </Container>
       )}
     </Container>

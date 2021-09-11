@@ -11,14 +11,13 @@ import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import { Rating } from "semantic-ui-react";
 import { useDispatch } from "react-redux";
 import {
-  createSkillPost,
   fetchSkillList,
   updateSkillPost,
 } from "../../../Store/ActionCreators/skill";
+import { showAlert } from "../../showAlert";
 
 function EditSkill(props) {
   const { modal, toggle, details } = props;
-  //   console.log(details);
   const [data, setData] = useState({ ...details });
   const [skillList, setSkillList] = useState([]);
   const dispatch = useDispatch();
@@ -35,7 +34,9 @@ function EditSkill(props) {
       title: data.title,
       description: data.description,
     };
-    dispatch(updateSkillPost({ id, body }));
+    dispatch(updateSkillPost({ id, body })).catch((err) => {
+      showAlert("Update Failed", "error");
+    });
 
     toggle();
   };
