@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -73,7 +74,7 @@ MIDDLEWARE = [
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
     "https://gupta-anmol.github.io",
-    "https://shareiiitd.tk"
+    "https://shareiiitd.tk",
 ]
 
 ROOT_URLCONF = "backend.urls"
@@ -168,3 +169,6 @@ OSA_EDIT_PROFILE_URL = "https://osa-iiitd.herokuapp.com/core/edit_profile/"
 OSA_CURRENT_USER_URL = "https://osa-iiitd.herokuapp.com/core/current_user/"
 
 AUTH_USER_MODEL = "accounts.User"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"

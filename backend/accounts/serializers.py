@@ -16,7 +16,8 @@ from rest_framework.authtoken.models import Token
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = "__all__"
+        # fields = "__all__"
+        exclude = ("user",)
 
 
 # User Serializer
@@ -49,21 +50,19 @@ class UserSerializer(serializers.ModelSerializer):
         return user
 
 
-class UserDetailsSerializer(serializers.ModelSerializer):
-    profile = ProfileSerializer()
-
+class OSADetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("id", "first_name", "last_name", "username", "profile")
+        fields = ("id", "first_name", "last_name", "username")
         extra_kwargs = {"username": {"read_only": True}}
 
-    def update(self, instance, validated_data):
-        profile_data = validated_data.pop("profile", None)
+    # def update(self, instance, validated_data):
+    #     profile_data = validated_data.pop("profile", None)
 
-        if profile_data is not None:
-            profile_serializer = self.fields["profile"]
-            profile_serializer.update(instance.profile, profile_data)
+    #     if profile_data is not None:
+    #         profile_serializer = self.fields["profile"]
+    #         profile_serializer.update(instance.profile, profile_data)
 
-        return super(UserDetailsSerializer, self).update(
-            instance, validated_data
-        )
+    #     return super(UserDetailsSerializer, self).update(
+    #         instance, validated_data
+    #     )

@@ -23,6 +23,7 @@ mysqlclient = "*"
 django-filter = "*"
 requests = "*"
 django-extensions = "*"
+pillow = "*"
 
 [dev-packages]
 black = "*"

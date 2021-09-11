@@ -14,7 +14,7 @@ from django.contrib.auth import get_user_model
 
 import requests
 
-from .serializers import UserSerializer, UserDetailsSerializer
+from .serializers import UserSerializer, OSADetailsSerializer, ProfileSerializer
 from .permissions import IsUser
 from .models import Profile
 
@@ -67,18 +67,18 @@ class UserViewSet(viewsets.ModelViewSet):
 
         return [permission() for permission in permission_classes]
 
-    def get_queryset(self):
-        username = self.request.query_params.get("username")
+    # def get_queryset(self):
+    #     username = self.request.query_params.get("username")
 
-        if username is not None:
-            return User.objects.filter(username=username)
-        else:
-            return None
+    #     if username is not None:
+    #         return User.objects.filter(username=username)
+    #     else:
+    #         return None
 
 
-class UserProfileView(generics.RetrieveUpdateAPIView):
+class OSADetailsView(generics.RetrieveUpdateAPIView):
     queryset = User.objects.all()
-    serializer_class = UserDetailsSerializer
+    serializer_class = OSADetailsSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self):
@@ -120,6 +120,16 @@ class UserProfileView(generics.RetrieveUpdateAPIView):
 
         if status.is_success(response.status_code):
             serializer.save()
+
+
+class ProfileView(generics.RetrieveUpdateAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self):
+        obj = get_object_or_404(Profile, user=self.request.user)
+        return obj
 
 
 # class UserList(generics.ListAPIView):
