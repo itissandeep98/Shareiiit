@@ -16,12 +16,11 @@ import PhoneIcon from "@material-ui/icons/Phone";
 import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import TelegramIcon from "@material-ui/icons/Telegram";
-import { apiUrl } from "../../Store/Urls";
 
 function BasicDetails(props) {
   const { details, onChange, updateDetails } = props;
   const [modal, setModal] = useState(false);
-  const [image, setImage] = useState(apiUrl + details.photo);
+  const [image, setImage] = useState(details.photo);
   return (
     <Row className="shadow my-3 py-4 rounded_lg bg-white align-items-center">
       <ProfileUpload

@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
 import { Image } from "semantic-ui-react";
 import { updateUser } from "../../Store/ActionCreators/user";
-import { apiUrl } from "../../Store/Urls";
 import { showAlert } from "../showAlert";
 
 function ProfileUpload(props) {
@@ -20,7 +19,7 @@ function ProfileUpload(props) {
           let data = new FormData();
           data.append("photo", file);
           dispatch(updateUser(data)).then((res) => {
-            setImage(apiUrl + res.photo);
+            setImage(res.photo);
             showAlert("Image updated", "success");
           });
         }
