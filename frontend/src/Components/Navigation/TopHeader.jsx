@@ -13,7 +13,7 @@ import {
 import "./style.css";
 import { Image } from "semantic-ui-react";
 import { logoutAction } from "../../Store/ActionCreators/auth";
-import { fetchUser } from "../../Store/ActionCreators/people";
+import { fetchUser } from "../../Store/ActionCreators/user";
 
 function TopHeader() {
   const dispatch = useDispatch();

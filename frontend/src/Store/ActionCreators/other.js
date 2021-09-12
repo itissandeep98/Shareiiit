@@ -11,7 +11,7 @@ export const fetchOther = () => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.OTHER_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/other/`, { headers: headers() })
+      .get(`${apiUrl}/api/posts/?category=other`, { headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.OTHER_FETCH_SUCCESS,

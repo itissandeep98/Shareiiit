@@ -24,10 +24,10 @@ function PostDetail(props) {
     dispatch(fetchBookDetails(id)).then((res) => {
       setDetails(res);
       setLoading(false);
-      setNum_upvotes(res.vote_count_log.upvote_count);
-      setLiked(res.vote_log.upvoted_flag);
-      setSaved(res.vote_log.saved_flag);
-      setDismiss(res.vote_log.dismiss_flag);
+      setNum_upvotes(res?.vote_count_log?.upvote_count);
+      setLiked(res?.vote_log?.upvoted_flag);
+      setSaved(res?.vote_log?.saved_flag);
+      setDismiss(res?.vote_log?.dismiss_flag);
     });
   }, [dispatch]);
 

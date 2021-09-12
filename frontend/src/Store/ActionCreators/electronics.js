@@ -11,7 +11,7 @@ export const fetchElectronics = () => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.ELECTRONICS_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/electronics/`, { headers: headers() })
+      .get(`${apiUrl}/api/posts/?category=electronic`, { headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.ELECTRONICS_FETCH_SUCCESS,
