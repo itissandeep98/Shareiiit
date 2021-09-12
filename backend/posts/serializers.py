@@ -68,7 +68,9 @@ class VoteLogSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
-    created_by = serializers.SerializerMethodField()
+    created_by = serializers.CharField(
+        source="created_by.username", read_only=True
+    )
     category = serializers.SlugRelatedField(read_only=True, slug_field="name")
     vote_count_log = VoteCountLogSerializer(read_only=True)
     vote_log = serializers.SerializerMethodField()
@@ -92,11 +94,6 @@ class PostSerializer(serializers.ModelSerializer):
             "vote_count_log",
             "vote_log",
         )
-
-    def get_created_by(self, obj):
-        user = User.objects.get(pk=obj.created_by.pk)
-
-        return {"username": user.username, "id": user.id}
 
     def get_vote_log(self, obj):
         request = self.context.get("request")
