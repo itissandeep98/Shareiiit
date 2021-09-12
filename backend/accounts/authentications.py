@@ -24,7 +24,7 @@ class OSAAuthentication(authentication.BaseAuthentication):
         #     return None
 
         response = requests.post(
-            settings.OSA_AUTHENTICATION_URL,
+            settings.OSA_URLS["TOKEN_AUTH"],
             data={"username": username, "password": password},
         )
 
@@ -45,7 +45,6 @@ class OSAAuthentication(authentication.BaseAuthentication):
                 user = User.objects.get(username_osa=username_osa)
                 user.first_name = first_name
                 user.last_name = last_name
-                user.last_name = last_name
                 # user.email = username_retreived
                 user.username = username_retreived
                 user.osa_token = osa_token
@@ -53,7 +52,6 @@ class OSAAuthentication(authentication.BaseAuthentication):
             except User.DoesNotExist:
                 user = User()
                 user.first_name = first_name
-                user.last_name = last_name
                 user.last_name = last_name
                 # user.email = username_retreived
                 user.username = username_retreived

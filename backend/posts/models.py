@@ -46,10 +46,11 @@ class Post(models.Model):
     price = models.IntegerField(default=0)
     is_price_negotiable = models.BooleanField(default=False)
     status = models.CharField(max_length=100, default="active")
+    image = models.ImageField(upload_to="posts/", default="posts/default.jpg")
+    is_deleted = models.BooleanField(default=False)
+    is_expired = models.BooleanField(default=False)
 
-    category = models.ForeignKey(
-        Category, related_name="category", on_delete=models.CASCADE, null=True
-    )
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
 
     class Meta:
         ordering = ["-vote_count_log__upvote_count", "-created_at"]
