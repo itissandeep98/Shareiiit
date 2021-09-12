@@ -46,7 +46,23 @@ export const detailsReducer = (state = initState, action) => {
       return {
         ...state,
         errmess: action.errmess,
-        details: null,
+        isLoading: false,
+      };
+    case ActionTypes.OSA_USER_DETAILS_FETCH_REQUEST:
+      return { ...state, errmess: null, isLoading: true };
+
+    case ActionTypes.OSA_USER_DETAILS_FETCH_SUCCESS:
+      return {
+        ...state,
+        errmess: null,
+        osadetails: action.data,
+        isLoading: false,
+      };
+
+    case ActionTypes.OSA_USER_DETAILS_FETCH_FAILED:
+      return {
+        ...state,
+        errmess: action.errmess,
         isLoading: false,
       };
     case ActionTypes.USER_BOOKS_FETCH_REQUEST:
