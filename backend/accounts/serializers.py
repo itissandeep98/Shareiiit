@@ -14,8 +14,6 @@ from rest_framework.authtoken.models import Token
 
 
 class ProfileSerializer(serializers.ModelSerializer):
-    photo = serializers.CharField(source="photo.url", read_only=True)
-
     class Meta:
         model = Profile
         exclude = ("user",)
