@@ -2,7 +2,9 @@ import { useDropzone } from "react-dropzone";
 import { useDispatch } from "react-redux";
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
 import { Image } from "semantic-ui-react";
-import { uploadFiles } from "../../Store/ActionCreators/upload";
+import { updateUser } from "../../Store/ActionCreators/user";
+import { apiUrl } from "../../Store/Urls";
+import { showAlert } from "../showAlert";
 
 function ProfileUpload(props) {
   const { open, toggle, setImage, image } = props;
@@ -15,12 +17,11 @@ function ProfileUpload(props) {
       if (acceptedFile.length > 0) {
         const file = acceptedFile[0];
         if (file) {
-          const data = {
-            content: "Images",
-            file: file,
-          };
-          dispatch(uploadFiles(data)).then((res) => {
-            setImage(res);
+          let data = new FormData();
+          data.append("photo", file);
+          dispatch(updateUser(data)).then((res) => {
+            setImage(apiUrl + res.photo);
+            showAlert("Image updated", "success");
           });
         }
       }

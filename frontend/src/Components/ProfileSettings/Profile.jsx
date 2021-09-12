@@ -4,10 +4,9 @@ import BookmarksIcon from "@material-ui/icons/Bookmarks";
 import GridOnIcon from "@material-ui/icons/GridOn";
 import { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import { fetchUser, updateUser } from "../../Store/ActionCreators/people";
+import { fetchUser, updateUser } from "../../Store/ActionCreators/user";
 import { useHistory } from "react-router-dom";
 import BasicDetails from "./BasicDetails";
-import Password from "./Password";
 import Skills from "./Skills/Skills";
 import Meta from "../Meta";
 import { showAlert } from "../showAlert";
@@ -65,7 +64,6 @@ function Profile(props) {
           details={details}
         />
         <Skills />
-        <Password />
       </Container>
     </Container>
   );

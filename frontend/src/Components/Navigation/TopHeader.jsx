@@ -13,7 +13,7 @@ import {
 import "./style.css";
 import { Image } from "semantic-ui-react";
 import { logoutAction } from "../../Store/ActionCreators/auth";
-import { fetchUser } from "../../Store/ActionCreators/people";
+import { fetchUser } from "../../Store/ActionCreators/user";
 
 function TopHeader() {
   const dispatch = useDispatch();
@@ -42,7 +42,7 @@ function TopHeader() {
             src={process.env.PUBLIC_URL + "/assets/images/logo.png"}
             alt="resource sharing app"
             size="medium"
-            className="d-none d-md-block"
+            className="d-none d-lg-block"
           />
         </Row>
       </Container>

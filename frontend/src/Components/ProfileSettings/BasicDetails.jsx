@@ -14,14 +14,14 @@ import ProfileUpload from "./ProfileUpload";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import PhoneIcon from "@material-ui/icons/Phone";
 import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
-import SocialLinks from "./SocialLinks";
+import LinkedInIcon from "@material-ui/icons/LinkedIn";
+import TelegramIcon from "@material-ui/icons/Telegram";
+import { apiUrl } from "../../Store/Urls";
 
 function BasicDetails(props) {
   const { details, onChange, updateDetails } = props;
   const [modal, setModal] = useState(false);
-  const [image, setImage] = useState(
-    process.env.PUBLIC_URL + "/assets/images/user.png"
-  );
+  const [image, setImage] = useState(apiUrl + details.photo);
   return (
     <Row className="shadow my-3 py-4 rounded_lg bg-white align-items-center">
       <ProfileUpload
@@ -30,22 +30,16 @@ function BasicDetails(props) {
         setImage={setImage}
         image={image}
       />
-      <Col xs={12} md={2} className="d-none d-md-block text-center">
-        <div>
-          <Icon.Group size="huge">
-            <Image src={image} avatar />
-            <Icon
-              name="camera"
-              corner
-              onClick={() => setModal(!modal)}
-              className="btn p-0"
-            />
-          </Icon.Group>
-          <br />
-          <br />
-          <br />
-          <SocialLinks details={details.profile} />
-        </div>
+      <Col xs={12} md={3} lg={2} className="d-none d-md-block text-center">
+        <Icon.Group size="huge">
+          <Image src={image} avatar />
+          <Icon
+            name="camera"
+            corner
+            onClick={() => setModal(!modal)}
+            className="btn p-0"
+          />
+        </Icon.Group>
       </Col>
       <Col>
         <h2>
@@ -64,10 +58,8 @@ function BasicDetails(props) {
             className=""
             variant="outlined"
             fullWidth
-            required
             defaultValue={details?.username}
-            name="username"
-            onChange={onChange}
+            disabled
             InputProps={{
               endAdornment: (
                 <InputAdornment position="start">
@@ -81,10 +73,8 @@ function BasicDetails(props) {
               label="First Name"
               className=" w-50"
               variant="outlined"
-              required
+              disabled
               defaultValue={details?.first_name}
-              name="first_name"
-              onChange={onChange}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="start">
@@ -97,10 +87,8 @@ function BasicDetails(props) {
               label="Last Name"
               className="w-50"
               variant="outlined"
-              required
-              name="last_name"
+              disabled
               defaultValue={details?.last_name}
-              onChange={onChange}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="start">
@@ -115,8 +103,10 @@ function BasicDetails(props) {
             className="mt-3"
             variant="outlined"
             fullWidth
+            multiline
+            rows={4}
             required
-            defaultValue={details?.profile.bio}
+            defaultValue={details?.bio}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="start">
@@ -130,7 +120,7 @@ function BasicDetails(props) {
               <InputLabel>Role</InputLabel>
               <Select
                 label="Tag"
-                value={details?.profile.role}
+                value={details?.role}
                 // onChange={(e) => setData({ ...data, label: e.target.value })}
               >
                 <MenuItem value="Student">Student</MenuItem>
@@ -145,11 +135,43 @@ function BasicDetails(props) {
               variant="outlined"
               fullWidth
               required
-              defaultValue={details?.profile.phone_number}
+              defaultValue={details?.phone_number}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="start">
                     <PhoneIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </div>
+          <div className="mt-3">
+            <TextField
+              label="LinkedIn"
+              className="w-50"
+              variant="outlined"
+              fullWidth
+              required
+              defaultValue={details?.linkedin_url}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="start">
+                    <LinkedInIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
+            <TextField
+              label="Telegram"
+              className="w-50"
+              variant="outlined"
+              fullWidth
+              required
+              defaultValue={details?.telegram_url}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="start">
+                    <TelegramIcon />
                   </InputAdornment>
                 ),
               }}

@@ -14,7 +14,7 @@ from django.contrib.auth import get_user_model
 
 import requests
 
-from .serializers import UserSerializer, UserDetailsSerializer
+from .serializers import UserSerializer, OSADetailsSerializer, ProfileSerializer
 from .permissions import IsUser
 from .models import Profile
 
@@ -53,6 +53,7 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     pagination_class = None
+    lookup_field = "username"
 
     def get_permissions(self):
         """
@@ -67,59 +68,87 @@ class UserViewSet(viewsets.ModelViewSet):
 
         return [permission() for permission in permission_classes]
 
-    def get_queryset(self):
-        username = self.request.query_params.get("username")
+    # def get_queryset(self):
+    #     username = self.request.query_params.get("username")
 
-        if username is not None:
-            return User.objects.filter(username=username)
-        else:
-            return None
+    #     if username is not None:
+    #         return User.objects.filter(username=username)
+    #     else:
+    #         return None
 
 
-class UserProfileView(generics.RetrieveUpdateAPIView):
+class OSADetailsView(generics.RetrieveAPIView):
     queryset = User.objects.all()
-    serializer_class = UserDetailsSerializer
+    serializer_class = OSADetailsSerializer
     permission_classes = [permissions.IsAuthenticated]
 
     def get_object(self):
-        obj = get_object_or_404(User, username=self.request.user.username)
-        return obj
+        user = get_object_or_404(User, username=self.request.user.username)
+
+        # Get user data from OSA and update the local user object.
+
+        # res = requests.get(
+        #     settings.OSA_URLS["CURRENT_USER"],
+        #     headers={"Authorization": f"JWT {self.request.user.osa_token}"},
+        # ).json()
+
+        # user.first_name = res.first_name
+        # user.last_name = res.last_name
+        # user.username = res.username
+
+        # user.save()
+
+        # print(response.json())
+
+        return user
 
     def get_queryset(self):
         return User.objects.filter(username=self.request.user.username)
 
-    def perform_update(self, serializer):
-        username = self.request.data.get("username")
-        first_name = self.request.data.get("first_name")
-        last_name = self.request.data.get("last_name")
+    # def perform_update(self, serializer):
+    #     username = self.request.data.get("username")
+    #     first_name = self.request.data.get("first_name")
+    #     last_name = self.request.data.get("last_name")
 
-        data = {}
+    #     data = {}
 
-        if username is not None:
-            data["username"] = username
-        else:
-            data["username"] = self.request.user.username
+    #     if username is not None:
+    #         data["username"] = username
+    #     else:
+    #         data["username"] = self.request.user.username
 
-        if first_name is not None:
-            data["first_name"] = first_name
-        else:
-            data["first_name"] = self.request.user.first_name
+    #     if first_name is not None:
+    #         data["first_name"] = first_name
+    #     else:
+    #         data["first_name"] = self.request.user.first_name
 
-        if last_name is not None:
-            data["last_name"] = last_name
-        else:
-            data["last_name"] = self.request.user.last_name
+    #     if last_name is not None:
+    #         data["last_name"] = last_name
+    #     else:
+    #         data["last_name"] = self.request.user.last_name
 
-        response = requests.post(
-            settings.OSA_EDIT_PROFILE_URL,
-            headers={"Authorization": f"JWT {self.request.user.osa_token}"},
-            json=data,
-        )
+    #     # Update user data on OSA backend.
 
-        print(response.json())
+    #     response = requests.post(
+    #         settings.OSA_URLS["EDIT_PROFILE"],
+    #         headers={"Authorization": f"JWT {self.request.user.osa_token}"},
+    #         json=data,
+    #     )
 
-        if status.is_success(response.status_code):
-            serializer.save()
+    #     print(response.json())
+
+    #     if status.is_success(response.status_code):
+    #         serializer.save()
+
+
+class ProfileView(generics.RetrieveUpdateAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_object(self):
+        obj = get_object_or_404(Profile, user=self.request.user)
+        return obj
 
 
 # class UserList(generics.ListAPIView):

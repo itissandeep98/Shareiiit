@@ -12,7 +12,7 @@ import { Col, Container, Modal, ModalBody, ModalHeader, Row } from "reactstrap";
 import { searchAdvanced, searchBooks } from "../../Store/ActionCreators/search";
 
 function FilterBar(props) {
-  const { category, setCategory } = props;
+  const { category, setCategory, sortby, setSortby } = props;
   const [search, setSearch] = useState("");
   const categories = ["Books", "Groups", "Electronics", "Other"];
   const [modal, setModal] = useState(false);
@@ -37,6 +37,19 @@ function FilterBar(props) {
               {categories.map((tag) => (
                 <MenuItem value={tag}>{tag}</MenuItem>
               ))}
+            </Select>
+          </FormControl>
+        </Col>
+        <Col xs={2}>
+          <FormControl variant="outlined" fullWidth>
+            <InputLabel>Sort by</InputLabel>
+            <Select
+              label="Category"
+              value={sortby}
+              onChange={(e) => setSortby(e.target.value)}
+            >
+              <MenuItem value="created_at">Most Recent</MenuItem>
+              <MenuItem value="most_active">Most Upvoted</MenuItem>
             </Select>
           </FormControl>
         </Col>

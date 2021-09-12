@@ -13,7 +13,7 @@ import { useState } from "react";
 import classNames from "classnames";
 import { addVote } from "../../Store/ActionCreators/post";
 import { useDispatch } from "react-redux";
-
+import CloseIcon from "@material-ui/icons/Close";
 function TechCard(props) {
   const {
     id,
@@ -30,6 +30,8 @@ function TechCard(props) {
 
   const [endorse, setEndorse] = useState(vote_log.upvoted_flag);
   const [save, setSave] = useState(vote_log.saved_flag);
+  const [dismiss, setDismiss] = useState(vote_log.dismiss_flag);
+
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -47,6 +49,9 @@ function TechCard(props) {
     } else if (option == 2) {
       data.saved_flag = !save;
       setSave(!save);
+    } else if (option == 3) {
+      data.dismiss_flag = !dismiss;
+      setDismiss(!dismiss);
     }
 
     dispatch(addVote({ id, data }));
@@ -87,6 +92,14 @@ function TechCard(props) {
                 className={classNames({ "text-info": save })}
               >
                 <BookmarkBorderIcon />
+              </IconButton>
+            </Tooltip>
+            <Tooltip title="Dismiss" placement="top">
+              <IconButton
+                onClick={() => Vote(3)}
+                className={classNames({ "text-danger": dismiss })}
+              >
+                <CloseIcon />
               </IconButton>
             </Tooltip>
           </div>
