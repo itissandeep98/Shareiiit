@@ -74,7 +74,6 @@ class PostSerializer(serializers.ModelSerializer):
     category = serializers.SlugRelatedField(read_only=True, slug_field="name")
     vote_count_log = VoteCountLogSerializer(read_only=True)
     vote_log = serializers.SerializerMethodField()
-    image = serializers.CharField(source="image.url", read_only=True)
 
     class Meta:
         model = Post
