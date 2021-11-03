@@ -89,7 +89,7 @@ class PostSerializer(serializers.ModelSerializer):
             "status",
             "category",
             "is_expired",
-            "image",
+            "image_url",
             "vote_count_log",
             "vote_log",
         )
