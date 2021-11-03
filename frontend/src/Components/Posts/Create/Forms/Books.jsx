@@ -78,7 +78,6 @@ function Books(props) {
         className=" mt-3"
         fullWidth
         variant="outlined"
-        required
         name="price"
         value={state.price}
         onChange={onChange}

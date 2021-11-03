@@ -11,7 +11,7 @@ export const fetchBookDetails = (id) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.POST_DETAILS_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/api/books/${id}`, { headers: headers() })
+      .get(`${apiUrl}/api/posts/${id}/?category=book`, { headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.POST_DETAILS_FETCH_SUCCESS,
@@ -33,7 +33,7 @@ export const fetchBooks = () => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.BOOKS_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/api/books/`, { headers: headers() })
+      .get(`${apiUrl}/api/posts/?category=book`, { headers: headers() })
       .then((response) => {
         const data = response.data.results;
         dispatch({
@@ -54,12 +54,14 @@ export const fetchBooks = () => {
 
 export const createBookPost = (data) => {
   return async (dispatch) => {
-    dispatch({ type: ActionTypes.BOOK_CREATE_REQUEST });
+    dispatch({ type: ActionTypes.POST_CREATE_REQUEST });
     return await axios
-      .post(`${apiUrl}/api/mybooks/`, data, { headers: headers() })
+      .post(`${apiUrl}/api/myposts/?category=book`, data, {
+        headers: headers(),
+      })
       .then((response) => {
         dispatch({
-          type: ActionTypes.BOOK_CREATE_SUCCESS,
+          type: ActionTypes.POST_CREATE_SUCCESS,
           data: response.data,
         });
       })
@@ -67,12 +69,12 @@ export const createBookPost = (data) => {
         console.log(error.response);
         if (error?.response?.data?.detail) {
           dispatch({
-            type: ActionTypes.BOOK_CREATE_FAILED,
+            type: ActionTypes.POST_CREATE_FAILED,
             errmess: error.response.data.detail,
           });
         } else {
           dispatch({
-            type: ActionTypes.BOOK_CREATE_FAILED,
+            type: ActionTypes.POST_CREATE_FAILED,
             errmess: "Error in connection with Server",
           });
         }
@@ -84,7 +86,7 @@ export const deleteBookPost = (id) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.BOOK_DELETE_REQUEST });
     return await axios
-      .delete(`${apiUrl}/api/mybooks/${id}/`, { headers: headers() })
+      .delete(`${apiUrl}/api/myposts/${id}/`, { headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.BOOK_DELETE_SUCCESS,
@@ -104,7 +106,7 @@ export const fetchMyBooks = () => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.USER_BOOKS_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/api/mybooks/`, { headers: headers() })
+      .get(`${apiUrl}/api/myposts/?category=book`, { headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.USER_BOOKS_FETCH_SUCCESS,
@@ -126,7 +128,7 @@ export const updateBookPost = ({ id, data }) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.BOOK_UPDATE_REQUEST });
     return await axios
-      .patch(`${apiUrl}/api/mybooks/${id}/`, data, { headers: headers() })
+      .patch(`${apiUrl}/api/myposts/${id}/`, data, { headers: headers() })
       .then((response) => {
         dispatch({
           type: ActionTypes.BOOK_UPDATE_SUCCESS,
