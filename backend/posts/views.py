@@ -1,4 +1,4 @@
-from django.db.models import query, Count, Q
+from django.db.models import query, Count, Q, F
 from django.shortcuts import get_object_or_404
 
 
@@ -81,8 +81,7 @@ class PostViewSet(viewsets.ReadOnlyModelViewSet):
     ]
 
     search_fields = ["created_by__username", "title", "description"]
-    # ordering_fields = ["-created-at"]
-    ordering = ["-vote_count_log__upvote_count"]
+    ordering_fields = ["upvote_count", "created_at"]
 
     def get_serializer_class(self):
         category = self.request.query_params.get("category")
@@ -100,9 +99,11 @@ class PostViewSet(viewsets.ReadOnlyModelViewSet):
         if category is None:
             raise APIException("Please specify post category.")
 
-        dismissed_posts = VoteLog.objects.filter(
-            voted_by=self.request.user.id, dismiss_flag=True
-        ).values_list("post", flat=True)
+        # dismissed_posts = VoteLog.objects.filter(
+        #     voted_by=self.request.user.id, dismiss_flag=True
+        # ).values_list("post", flat=True)
+
+        # Search should exclude only deleted and expired posts, not dismissed posts.
 
         deleted_posts = Post.objects.filter(is_deleted=True).values_list(
             "id", flat=True
@@ -114,14 +115,11 @@ class PostViewSet(viewsets.ReadOnlyModelViewSet):
 
         queryset = (
             Category.objects.get(name=category)
-            .post_set.exclude(
-                id__in=[dismissed_posts, deleted_posts, expired_posts]
-            )
+            .post_set.exclude(id__in=[deleted_posts, expired_posts])
             .filter(**get_search_kwargs(self.request))
             .all()
+            .annotate(upvote_count=F("vote_count_log__upvote_count"))
         )
-
-        # print(queryset[0].vote_count_log.upvote_count)
 
         return queryset
 
@@ -332,8 +330,12 @@ class MySkillsViewSet(viewsets.ModelViewSet):
 
 class VotedPostsView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
+
     serializer_classes = {
         "book": BookPostSerializer,
+        "group": GroupPostSerializer,
+        "electronic": ElectronicPostSerializer,
+        "other": OtherPostSerializer,
         "skill": SkillPostSerializer,
     }
 
