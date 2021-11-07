@@ -99,23 +99,28 @@ class PostViewSet(viewsets.ReadOnlyModelViewSet):
         if category is None:
             raise APIException("Please specify post category.")
 
-        # dismissed_posts = VoteLog.objects.filter(
-        #     voted_by=self.request.user.id, dismiss_flag=True
-        # ).values_list("post", flat=True)
+        dismissed_posts = [
+            o.post.id
+            for o in VoteLog.objects.filter(
+                voted_by=self.request.user.id, dismiss_flag=True
+            )
+        ]
 
         # Search should exclude only deleted and expired posts, not dismissed posts.
 
-        deleted_posts = Post.objects.filter(is_deleted=True).values_list(
-            "id", flat=True
+        deleted_posts = list(
+            Post.objects.filter(is_deleted=True).values_list("id", flat=True)
         )
 
-        expired_posts = Post.objects.filter(is_expired=True).values_list(
-            "id", flat=True
+        expired_posts = list(
+            Post.objects.filter(is_expired=True).values_list("id", flat=True)
         )
 
         queryset = (
             Category.objects.get(name=category)
-            .post_set.exclude(id__in=[deleted_posts, expired_posts])
+            .post_set.exclude(
+                id__in=deleted_posts + expired_posts + dismissed_posts
+            )
             .filter(**get_search_kwargs(self.request))
             .all()
             .annotate(upvote_count=F("vote_count_log__upvote_count"))
