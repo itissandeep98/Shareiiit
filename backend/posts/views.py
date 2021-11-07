@@ -95,16 +95,20 @@ class PostViewSet(viewsets.ReadOnlyModelViewSet):
 
     def get_queryset(self):
         category = self.request.query_params.get("category")
+        show_dismissed = self.request.query_params.get("show_dismissed", False)
 
         if category is None:
             raise APIException("Please specify post category.")
 
-        dismissed_posts = [
-            o.post.id
-            for o in VoteLog.objects.filter(
-                voted_by=self.request.user.id, dismiss_flag=True
-            )
-        ]
+        if show_dismissed:
+            dismissed_posts = []
+        else:
+            dismissed_posts = [
+                o.post.id
+                for o in VoteLog.objects.filter(
+                    voted_by=self.request.user.id, dismiss_flag=True
+                )
+            ]
 
         # Search should exclude only deleted and expired posts, not dismissed posts.
 
