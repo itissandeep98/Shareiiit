@@ -12,7 +12,7 @@ import Meta from "../Meta";
 function Posts(props) {
   const [cards, setCards] = useState([]);
   const [category, setCategory] = useState("book");
-  const [sortby, setSortby] = useState("created_at");
+  const [ordering, setOrdering] = useState("created_at");
   const [modal, setModal] = useState(false);
 
   const [loading, setLoading] = useState(false);
@@ -20,7 +20,7 @@ function Posts(props) {
   useEffect(() => {
     setLoading(true);
     if (category) {
-      dispatch(fetchPosts({ category })).then((res) => {
+      dispatch(fetchPosts({ category, ordering })).then((res) => {
         setCards(res);
         setLoading(false);
       });
@@ -28,7 +28,7 @@ function Posts(props) {
       setCards([]);
       setLoading(false);
     }
-  }, [dispatch, category]);
+  }, [category, ordering]);
 
   return (
     <Container fluid className="p-3 bg-light h-100">
@@ -65,8 +65,8 @@ function Posts(props) {
                   setResult={setCards}
                   category={category}
                   setCategory={setCategory}
-                  sortby={sortby}
-                  setSortby={setSortby}
+                  ordering={ordering}
+                  setOrdering={setOrdering}
                 />
                 <br />
                 <Row className="justify-content-center">

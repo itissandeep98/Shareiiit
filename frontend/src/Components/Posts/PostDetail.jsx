@@ -8,7 +8,7 @@ import Meta from "../Meta";
 import classNames from "classnames";
 import Messages from "./Messages/Messages";
 import { NavLink } from "react-router-dom";
-import { fetchPostCategoryDetails } from "../../Store/ActionCreators/post";
+import { fetchPostDetails } from "../../Store/ActionCreators/post";
 
 function PostDetail(props) {
   const id = props.match.params.postId;
@@ -21,7 +21,7 @@ function PostDetail(props) {
   const [dismiss, setDismiss] = useState(null);
   const username = useSelector((state) => state.user?.details?.username);
   useEffect(() => {
-    dispatch(fetchPostCategoryDetails({ id, category: "book" })).then((res) => {
+    dispatch(fetchPostDetails({ id, category: "book" })).then((res) => {
       setDetails(res);
       setLoading(false);
       setNum_upvotes(res?.upvote_count);

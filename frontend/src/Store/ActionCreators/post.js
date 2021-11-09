@@ -7,35 +7,16 @@ const headers = () => ({
   Authorization: "Token " + getAuthToken(),
 });
 
-export const fetchPostDetails = (id) => {
+export const fetchPostDetails = ({ id, category }) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.POST_DETAILS_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/api/posts/${id}`, { headers: headers() })
-      .then((response) => {
-        dispatch({
-          type: ActionTypes.POST_DETAILS_FETCH_SUCCESS,
-          data: response.data,
-        });
-        return response.data;
-      })
-      .catch((error) => {
-        console.log(error);
-        dispatch({
-          type: ActionTypes.POST_DETAILS_FETCH_FAILED,
-          errmess: "Error in connection with Server",
-        });
-      });
-  };
-};
-
-export const fetchPostCategoryDetails = ({ id, category }) => {
-  return async (dispatch) => {
-    dispatch({ type: ActionTypes.POST_DETAILS_FETCH_REQUEST });
-    return await axios
-      .get(`${apiUrl}/api/posts/${id}/?category=${category}`, {
-        headers: headers(),
-      })
+      .get(
+        `${apiUrl}/api/posts/${id}/?category=${category}&show_dismissed=True`,
+        {
+          headers: headers(),
+        }
+      )
       .then((response) => {
         dispatch({
           type: ActionTypes.POST_DETAILS_FETCH_SUCCESS,
@@ -54,11 +35,13 @@ export const fetchPostCategoryDetails = ({ id, category }) => {
   };
 };
 
-export const fetchPosts = ({ category }) => {
+export const fetchPosts = ({ category, ordering }) => {
   return async (dispatch) => {
     dispatch({ type: ActionTypes.POST_FETCH_REQUEST });
     return await axios
-      .get(`${apiUrl}/api/posts/?category=${category}`, { headers: headers() })
+      .get(`${apiUrl}/api/posts/?category=${category}&ordering=${ordering}`, {
+        headers: headers(),
+      })
       .then((response) => {
         const data = response.data.results;
         dispatch({

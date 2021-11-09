@@ -23,7 +23,7 @@ function TechDetails(props) {
   const [save, setSave] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchPostDetails(id)).then((res) => {
+    dispatch(fetchPostDetails({ id, category: "skill" })).then((res) => {
       setDetails(res);
       setNum_upvotes(res.upvote_count);
       setEndorse(res.vote_log.upvoted_flag);
