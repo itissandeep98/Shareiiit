@@ -4,26 +4,31 @@ import { withRouter } from "react-router";
 import { useDispatch } from "react-redux";
 import { Tooltip } from "@material-ui/core";
 import moment from "moment";
-import { deleteBookPost } from "../../../Store/ActionCreators/books";
+import { deletePost } from "../../../Store/ActionCreators/post";
 import { useState } from "react";
 import EditPostModal from "./EditPostModal";
 import DeleteModal from "./DeleteModal";
 
 function MyPostCard(props) {
-  let { id, description, created_at, title } = props;
+  let { id, description, created_at, title, image_url } = props.details;
 
   const [modal, setModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const dispatch = useDispatch();
 
   const handleDelete = () => {
-    dispatch(deleteBookPost(id));
+    dispatch(deletePost(id));
   };
 
   return (
     <Container className="bg-white pt-3 rounded_lg border-info border mt-3 h-100 d-flex justify-content-between flex-column card_hover">
       <Row className=" h-100">
-        <EditPostModal modal={modal} setModal={setModal} {...props} />
+        <EditPostModal
+          id={id}
+          modal={modal}
+          setModal={setModal}
+          details={props.details}
+        />
         <DeleteModal
           modal={deleteModal}
           toggle={() => setDeleteModal(!deleteModal)}
@@ -34,7 +39,10 @@ function MyPostCard(props) {
           <Row>
             <Col>
               <Image
-                src={process.env.PUBLIC_URL + "/assets/images/book.png"}
+                src={
+                  image_url ??
+                  process.env.PUBLIC_URL + "/assets/images/book.png"
+                }
                 size="small"
               />
             </Col>

@@ -2,8 +2,7 @@ import { Button } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { Col, Container, Row, Spinner } from "reactstrap";
-import { fetchBooks } from "../../Store/ActionCreators/books";
-import { fetchGroups } from "../../Store/ActionCreators/groups";
+import { fetchPosts } from "../../Store/ActionCreators/post";
 import PostCards from "../Posts/PostCard";
 import FilterBar from "./FilterBar";
 import AddIcon from "@material-ui/icons/Add";
@@ -12,7 +11,7 @@ import Meta from "../Meta";
 
 function Posts(props) {
   const [cards, setCards] = useState([]);
-  const [category, setCategory] = useState("Books");
+  const [category, setCategory] = useState("book");
   const [sortby, setSortby] = useState("created_at");
   const [modal, setModal] = useState(false);
 
@@ -20,13 +19,8 @@ function Posts(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     setLoading(true);
-    if (category === "Books") {
-      dispatch(fetchBooks()).then((res) => {
-        setCards(res);
-        setLoading(false);
-      });
-    } else if (category === "Groups") {
-      dispatch(fetchGroups()).then((res) => {
+    if (category) {
+      dispatch(fetchPosts({ category })).then((res) => {
         setCards(res);
         setLoading(false);
       });

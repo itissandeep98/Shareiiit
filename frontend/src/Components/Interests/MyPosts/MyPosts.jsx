@@ -1,10 +1,7 @@
 import { Col, Container, Row } from "reactstrap";
 import { Tab } from "semantic-ui-react";
 import Meta from "../../Meta";
-import Books from "./Data/Books";
-import Electronics from "./Data/Electronics";
-import Groups from "./Data/Groups";
-import Other from "./Data/Other";
+import PostList from "./PostList";
 
 function MyPosts(props) {
   const panes = [
@@ -12,7 +9,7 @@ function MyPosts(props) {
       menuItem: "Books",
       render: () => (
         <Tab.Pane attached={false} className="p-0 border-0">
-          <Books />
+          <PostList category="book" />
         </Tab.Pane>
       ),
     },
@@ -20,7 +17,7 @@ function MyPosts(props) {
       menuItem: "Electronic Items",
       render: () => (
         <Tab.Pane attached={false} className="p-0 border-0">
-          <Electronics />
+          <PostList category="electronic" />
         </Tab.Pane>
       ),
     },
@@ -28,7 +25,7 @@ function MyPosts(props) {
       menuItem: "Group",
       render: () => (
         <Tab.Pane attached={false} className="p-0 border-0">
-          <Groups />
+          <PostList category="group" />
         </Tab.Pane>
       ),
     },
@@ -36,7 +33,7 @@ function MyPosts(props) {
       menuItem: "Other Items",
       render: () => (
         <Tab.Pane attached={false} className="p-0 border-0">
-          <Other />
+          <PostList category="other" />
         </Tab.Pane>
       ),
     },

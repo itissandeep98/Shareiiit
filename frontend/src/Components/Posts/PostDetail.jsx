@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Col, Container, Row } from "reactstrap";
 import { Icon, Image, Label, Placeholder } from "semantic-ui-react";
-import { addVote } from "../../Store/ActionCreators/post";
+import { addVote } from "../../Store/ActionCreators/vote";
 import Meta from "../Meta";
 import classNames from "classnames";
 import Messages from "./Messages/Messages";
 import { NavLink } from "react-router-dom";
-import { fetchBookDetails } from "../../Store/ActionCreators/books";
+import { fetchPostCategoryDetails } from "../../Store/ActionCreators/post";
 
 function PostDetail(props) {
   const id = props.match.params.postId;
@@ -21,10 +21,10 @@ function PostDetail(props) {
   const [dismiss, setDismiss] = useState(null);
   const username = useSelector((state) => state.user?.details?.username);
   useEffect(() => {
-    dispatch(fetchBookDetails(id)).then((res) => {
+    dispatch(fetchPostCategoryDetails({ id, category: "book" })).then((res) => {
       setDetails(res);
       setLoading(false);
-      setNum_upvotes(res?.vote_count_log?.upvote_count);
+      setNum_upvotes(res?.upvote_count);
       setLiked(res?.vote_log?.upvoted_flag);
       setSaved(res?.vote_log?.saved_flag);
       setDismiss(res?.vote_log?.dismiss_flag);
@@ -65,7 +65,10 @@ function PostDetail(props) {
               ) : (
                 <div className="text-center p-2  d-flex flex-column">
                   <Image
-                    src={process.env.PUBLIC_URL + "/assets/images/book.png"}
+                    src={
+                      details.image_url ??
+                      process.env.PUBLIC_URL + "/assets/images/book.png"
+                    }
                     fluid
                   />
                   <Row>

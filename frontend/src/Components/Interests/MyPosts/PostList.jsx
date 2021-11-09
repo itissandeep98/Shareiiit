@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Col, Container, Row, Spinner } from "reactstrap";
-import { fetchMyBooks } from "../../../../Store/ActionCreators/books";
-import MyPostCard from "../MyPostCard";
+import { fetchMyPosts } from "../../../Store/ActionCreators/post";
+import MyPostCard from "./MyPostCard";
 
-function Books() {
+function PostList({ category }) {
   const dispatch = useDispatch();
-  const books = useSelector((state) => state.user?.books);
-  const [cards, setCards] = useState(books ?? []);
+  const posts = useSelector((state) => state.user?.[category]);
+  const [cards, setCards] = useState(posts ?? []);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
-    dispatch(fetchMyBooks()).then((res) => {
+    setLoading(true);
+    dispatch(fetchMyPosts({ category })).then((res) => {
       setCards(res);
       setLoading(false);
     });
-  }, [dispatch]);
+  }, [dispatch, category]);
 
   return (
     <Container fluid>
@@ -25,9 +26,9 @@ function Books() {
       )}
       <Row>
         {cards && cards.length > 0 ? (
-          cards.map((card) => (
-            <Col md={6} lg={4} className="my-2" key={Math.random()}>
-              <MyPostCard {...card} />
+          cards.map((card, index) => (
+            <Col md={6} lg={4} className="my-2" key={index}>
+              <MyPostCard details={card} />
             </Col>
           ))
         ) : (
@@ -38,4 +39,4 @@ function Books() {
   );
 }
 
-export default Books;
+export default PostList;

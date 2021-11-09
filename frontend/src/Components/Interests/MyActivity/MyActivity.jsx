@@ -5,7 +5,7 @@ import Upvoted from "./Upvoted";
 import Dismissed from "./Dismissed";
 import { Col, Container, Row } from "reactstrap";
 import { useDispatch } from "react-redux";
-import { fetchVotedPosts } from "../../../Store/ActionCreators/post";
+import { fetchVotedPosts } from "../../../Store/ActionCreators/vote";
 
 function MyActivity() {
   const choices = ["saved", "upvoted", "dismissed"];

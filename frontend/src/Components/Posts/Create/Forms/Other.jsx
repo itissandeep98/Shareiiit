@@ -7,10 +7,7 @@ import {
 import CheckIcon from "@material-ui/icons/Check";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  createOtherPost,
-  fetchOther,
-} from "../../../../Store/ActionCreators/other";
+import { createPost, fetchPosts } from "../../../../Store/ActionCreators/post";
 import ImageUploader from "./ImageUploader";
 
 function Other(props) {
@@ -29,8 +26,8 @@ function Other(props) {
       price: state.price,
     };
     props.toggle();
-    dispatch(createOtherPost(data)).then(() => {
-      dispatch(fetchOther());
+    dispatch(createPost({ data, category: "other" })).then(() => {
+      dispatch(fetchPosts({ category: "other" }));
     });
   };
   const onChange = (e) => {

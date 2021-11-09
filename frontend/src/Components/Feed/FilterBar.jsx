@@ -14,7 +14,12 @@ import { searchAdvanced, searchBooks } from "../../Store/ActionCreators/search";
 function FilterBar(props) {
   const { category, setCategory, sortby, setSortby } = props;
   const [search, setSearch] = useState("");
-  const categories = ["Books", "Groups", "Electronics", "Other"];
+  const categories = [
+    { label: "Books", value: "book" },
+    { label: "Groups", value: "group" },
+    { label: "Electronics", value: "electronic" },
+    { label: "Other", value: "other" },
+  ];
   const [modal, setModal] = useState(false);
   const dispatch = useDispatch();
   const onChange = (value) => {
@@ -35,7 +40,7 @@ function FilterBar(props) {
               onChange={(e) => setCategory(e.target.value)}
             >
               {categories.map((tag) => (
-                <MenuItem value={tag}>{tag}</MenuItem>
+                <MenuItem value={tag.value}>{tag.label}</MenuItem>
               ))}
             </Select>
           </FormControl>
