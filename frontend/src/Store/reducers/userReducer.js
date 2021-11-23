@@ -65,10 +65,10 @@ export const detailsReducer = (state = initState, action) => {
         errmess: action.errmess,
         isLoading: false,
       };
-    case ActionTypes.USER_BOOKS_FETCH_REQUEST:
+    case ActionTypes.USER_POST_FETCH_REQUEST:
       return { ...state, errmess: null, isLoading: true };
 
-    case ActionTypes.USER_BOOKS_FETCH_SUCCESS:
+    case ActionTypes.USER_POST_FETCH_SUCCESS:
       return {
         ...state,
         errmess: null,
@@ -76,7 +76,7 @@ export const detailsReducer = (state = initState, action) => {
         isLoading: false,
       };
 
-    case ActionTypes.USER_BOOKS_FETCH_FAILED:
+    case ActionTypes.USER_POST_FETCH_FAILED:
       return {
         ...state,
         errmess: action.errmess,

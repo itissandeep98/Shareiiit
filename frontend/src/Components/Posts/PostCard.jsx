@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { useState } from "react";
 import { withRouter } from "react-router";
 import { useDispatch } from "react-redux";
-import { addVote } from "../../Store/ActionCreators/post";
+import { addVote } from "../../Store/ActionCreators/vote";
 import { NavLink } from "react-router-dom";
 import { Tooltip } from "@material-ui/core";
 import moment from "moment";
@@ -16,14 +16,15 @@ function PostCards(props) {
     description,
     book,
     category,
+    image_url,
     created_by,
     created_at,
     is_request,
     title,
-    vote_count_log,
+    upvote_count,
     vote_log,
   } = props;
-  const [num_upvotes, setNum_upvotes] = useState(vote_count_log.upvote_count);
+  const [num_upvotes, setNum_upvotes] = useState(upvote_count);
   const [liked, setLiked] = useState(vote_log.upvoted_flag);
   const [saved, setSaved] = useState(vote_log.saved_flag);
   const [dismiss, setDismiss] = useState(vote_log.dismiss_flag);
@@ -55,7 +56,10 @@ function PostCards(props) {
           <Row>
             <Col>
               <Image
-                src={process.env.PUBLIC_URL + "/assets/images/book.png"}
+                src={
+                  image_url ??
+                  process.env.PUBLIC_URL + "/assets/images/book.png"
+                }
                 size="small"
               />
             </Col>

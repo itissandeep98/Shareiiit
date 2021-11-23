@@ -4,12 +4,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
 import { Image, Placeholder } from "semantic-ui-react";
-import { addVote, fetchPostDetails } from "../../Store/ActionCreators/post";
+import { addVote } from "../../Store/ActionCreators/vote";
 import Messages from "../Posts/Messages/Messages";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import classNames from "classnames";
 import Meta from "../Meta";
+import { fetchPostDetails } from "../../Store/ActionCreators/post";
 
 function TechDetails(props) {
   const id = props.match.params.id;
@@ -22,9 +23,9 @@ function TechDetails(props) {
   const [save, setSave] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchPostDetails(id)).then((res) => {
+    dispatch(fetchPostDetails({ id, category: "skill" })).then((res) => {
       setDetails(res);
-      setNum_upvotes(res.vote_count_log.upvote_count);
+      setNum_upvotes(res.upvote_count);
       setEndorse(res.vote_log.upvoted_flag);
       setSave(res.vote_log.saved_flag);
       setLoading(false);
