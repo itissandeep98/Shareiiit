@@ -11,7 +11,7 @@ import { useHistory } from "react-router-dom";
 import "./style.scss";
 import { useState } from "react";
 import classNames from "classnames";
-import { addVote } from "../../Store/ActionCreators/post";
+import { addVote } from "../../Store/ActionCreators/vote";
 import { useDispatch } from "react-redux";
 import CloseIcon from "@material-ui/icons/Close";
 function TechCard(props) {
@@ -23,10 +23,10 @@ function TechCard(props) {
     created_at,
     is_request,
     skill,
-    vote_count_log,
+    upvote_count,
     vote_log,
   } = props;
-  const [num_upvotes, setNum_upvotes] = useState(vote_count_log.upvote_count);
+  const [num_upvotes, setNum_upvotes] = useState(upvote_count);
 
   const [endorse, setEndorse] = useState(vote_log.upvoted_flag);
   const [save, setSave] = useState(vote_log.saved_flag);

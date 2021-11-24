@@ -2,35 +2,22 @@ import { Button } from "@material-ui/core";
 import { Col, Container, Row } from "reactstrap";
 import BookmarksIcon from "@material-ui/icons/Bookmarks";
 import GridOnIcon from "@material-ui/icons/GridOn";
-import { useEffect, useState } from "react";
-import { connect, useDispatch } from "react-redux";
-import { fetchUser, updateUser } from "../../Store/ActionCreators/user";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { fetchUser, fetchUserOSA } from "../../Store/ActionCreators/user";
 import { useHistory } from "react-router-dom";
 import BasicDetails from "./BasicDetails";
 import Skills from "./Skills/Skills";
 import Meta from "../Meta";
-import { showAlert } from "../showAlert";
 
 function Profile(props) {
   const dispatch = useDispatch();
   useEffect(() => {
+    dispatch(fetchUserOSA());
     dispatch(fetchUser());
   }, [dispatch]);
   const history = useHistory();
 
-  const [details, setDetails] = useState(props.user?.details);
-
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    setDetails({ ...details, [name]: value });
-  };
-
-  const updateDetails = () => {
-    const { id, ...data } = details;
-    dispatch(updateUser(data)).catch((err) => {
-      showAlert("Update failed", "error");
-    });
-  };
   return (
     <Container fluid className="p-3 bg-light h-100">
       <Meta head="Profile | ShareIIITD" />
@@ -58,19 +45,11 @@ function Profile(props) {
           </Col>
         </Row>
 
-        <BasicDetails
-          updateDetails={updateDetails}
-          onChange={onChange}
-          details={details}
-        />
+        <BasicDetails />
         <Skills />
       </Container>
     </Container>
   );
 }
 
-const mapStateToProps = (state) => ({
-  user: state.user,
-});
-
-export default connect(mapStateToProps)(Profile);
+export default Profile;

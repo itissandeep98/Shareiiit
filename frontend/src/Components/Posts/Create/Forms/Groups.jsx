@@ -2,10 +2,7 @@ import { Button, TextField } from "@material-ui/core";
 import CheckIcon from "@material-ui/icons/Check";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  createGroupPost,
-  fetchGroups,
-} from "../../../../Store/ActionCreators/groups";
+import { createPost, fetchPosts } from "../../../../Store/ActionCreators/post";
 
 function Groups(props) {
   const dispatch = useDispatch();
@@ -19,8 +16,8 @@ function Groups(props) {
       size: state.size,
     };
     props.toggle();
-    dispatch(createGroupPost(data)).then(() => {
-      dispatch(fetchGroups());
+    dispatch(createPost({ data, category: "group" })).then(() => {
+      dispatch(fetchPosts({ category: "group" }));
     });
   };
   const onChange = (e) => {

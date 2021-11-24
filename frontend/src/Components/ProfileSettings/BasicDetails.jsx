@@ -9,94 +9,41 @@ import {
 } from "@material-ui/core";
 import { useState } from "react";
 import { Col, Row } from "reactstrap";
-import { Icon, Image } from "semantic-ui-react";
 import ProfileUpload from "./ProfileUpload";
-import AccountCircle from "@material-ui/icons/AccountCircle";
 import PhoneIcon from "@material-ui/icons/Phone";
 import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import TelegramIcon from "@material-ui/icons/Telegram";
+import { connect, useDispatch } from "react-redux";
+import { updateUser } from "../../Store/ActionCreators/user";
 
 function BasicDetails(props) {
-  const { details, onChange, updateDetails } = props;
-  const [modal, setModal] = useState(false);
-  const [image, setImage] = useState(details.photo);
+  const dispatch = useDispatch();
+  const [details, setDetails] = useState(props.user?.details);
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setDetails({ ...details, [name]: value });
+  };
+  const updateDetails = () => {
+    const { photo, ...data } = details;
+    dispatch(updateUser(data));
+  };
+  const osadetails = props.user?.osadetails;
   return (
     <Row className="shadow my-3 py-4 rounded_lg bg-white align-items-center">
-      <ProfileUpload
-        open={modal}
-        toggle={() => setModal(!modal)}
-        setImage={setImage}
-        image={image}
-      />
       <Col xs={12} md={3} lg={2} className="d-none d-md-block text-center">
-        <Icon.Group size="huge">
-          <Image src={image} avatar />
-          <Icon
-            name="camera"
-            corner
-            onClick={() => setModal(!modal)}
-            className="btn p-0"
-          />
-        </Icon.Group>
+        <ProfileUpload photo={details.photo} osadetails={osadetails} />
       </Col>
       <Col>
         <h2>
           Edit Basic Details
           <div className="d-inline ml-2 d-md-none">
-            <Icon.Group>
-              <Image src={image} avatar />
-              <Icon name="camera" corner />
-            </Icon.Group>
+            <ProfileUpload photo={details.photo} osadetails={osadetails} />
           </div>
         </h2>
         <hr />
         <form>
-          <TextField
-            label="Username"
-            className=""
-            variant="outlined"
-            fullWidth
-            defaultValue={details?.username}
-            disabled
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="start">
-                  <AccountCircle />
-                </InputAdornment>
-              ),
-            }}
-          />
-          <div className="mt-3">
-            <TextField
-              label="First Name"
-              className=" w-50"
-              variant="outlined"
-              disabled
-              defaultValue={details?.first_name}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="start">
-                    <AccountCircle />
-                  </InputAdornment>
-                ),
-              }}
-            />
-            <TextField
-              label="Last Name"
-              className="w-50"
-              variant="outlined"
-              disabled
-              defaultValue={details?.last_name}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="start">
-                    <AccountCircle />
-                  </InputAdornment>
-                ),
-              }}
-            />
-          </div>
           <TextField
             label="Bio"
             className="mt-3"
@@ -105,6 +52,8 @@ function BasicDetails(props) {
             multiline
             rows={4}
             required
+            onChange={onChange}
+            name="bio"
             defaultValue={details?.bio}
             InputProps={{
               endAdornment: (
@@ -120,7 +69,9 @@ function BasicDetails(props) {
               <Select
                 label="Tag"
                 value={details?.role}
-                // onChange={(e) => setData({ ...data, label: e.target.value })}
+                onChange={(e) =>
+                  setDetails({ ...details, role: e.target.value })
+                }
               >
                 <MenuItem value="Student">Student</MenuItem>
                 <MenuItem value="Faculty">Faculty</MenuItem>
@@ -134,6 +85,8 @@ function BasicDetails(props) {
               variant="outlined"
               fullWidth
               required
+              onChange={onChange}
+              name="phone_number"
               defaultValue={details?.phone_number}
               InputProps={{
                 endAdornment: (
@@ -151,6 +104,8 @@ function BasicDetails(props) {
               variant="outlined"
               fullWidth
               required
+              onChange={onChange}
+              name="linkedin_url"
               defaultValue={details?.linkedin_url}
               InputProps={{
                 endAdornment: (
@@ -166,6 +121,8 @@ function BasicDetails(props) {
               variant="outlined"
               fullWidth
               required
+              onChange={onChange}
+              name="telegram_url"
               defaultValue={details?.telegram_url}
               InputProps={{
                 endAdornment: (
@@ -190,4 +147,8 @@ function BasicDetails(props) {
   );
 }
 
-export default BasicDetails;
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
+
+export default connect(mapStateToProps)(BasicDetails);

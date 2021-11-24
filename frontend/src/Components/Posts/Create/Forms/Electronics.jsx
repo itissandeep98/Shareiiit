@@ -7,10 +7,7 @@ import {
 import CheckIcon from "@material-ui/icons/Check";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  createElectronicPost,
-  fetchElectronics,
-} from "../../../../Store/ActionCreators/electronics";
+import { createPost, fetchPosts } from "../../../../Store/ActionCreators/post";
 import ImageUploader from "./ImageUploader";
 
 function Electronics(props) {
@@ -29,8 +26,8 @@ function Electronics(props) {
       price: state.price,
     };
     props.toggle();
-    dispatch(createElectronicPost(data)).then(() => {
-      dispatch(fetchElectronics());
+    dispatch(createPost({ data, category: "electronic" })).then(() => {
+      dispatch(fetchPosts({ category: "electronic" }));
     });
   };
   const onChange = (e) => {

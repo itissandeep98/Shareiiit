@@ -12,9 +12,21 @@ import { Col, Container, Modal, ModalBody, ModalHeader, Row } from "reactstrap";
 import { searchAdvanced, searchBooks } from "../../Store/ActionCreators/search";
 
 function FilterBar(props) {
-  const { category, setCategory, sortby, setSortby } = props;
+  const { category, setCategory, ordering, setOrdering } = props;
   const [search, setSearch] = useState("");
-  const categories = ["Books", "Groups", "Electronics", "Other"];
+  const categories = [
+    { label: "Books", value: "book" },
+    { label: "Groups", value: "group" },
+    { label: "Electronics", value: "electronic" },
+    { label: "Other", value: "other" },
+  ];
+  const sort_by = [
+    { label: "Most Recent", value: "created_at" },
+    { label: "Most Recent First", value: "-created_at" },
+    { label: "Most Upvoted", value: "upvote_count" },
+    { label: "Most Upvoted First", value: "-upvote_count" },
+  ];
+
   const [modal, setModal] = useState(false);
   const dispatch = useDispatch();
   const onChange = (value) => {
@@ -35,7 +47,7 @@ function FilterBar(props) {
               onChange={(e) => setCategory(e.target.value)}
             >
               {categories.map((tag) => (
-                <MenuItem value={tag}>{tag}</MenuItem>
+                <MenuItem value={tag.value}>{tag.label}</MenuItem>
               ))}
             </Select>
           </FormControl>
@@ -45,11 +57,12 @@ function FilterBar(props) {
             <InputLabel>Sort by</InputLabel>
             <Select
               label="Category"
-              value={sortby}
-              onChange={(e) => setSortby(e.target.value)}
+              value={ordering}
+              onChange={(e) => setOrdering(e.target.value)}
             >
-              <MenuItem value="created_at">Most Recent</MenuItem>
-              <MenuItem value="most_active">Most Upvoted</MenuItem>
+              {sort_by.map((tag) => (
+                <MenuItem value={tag.value}>{tag.label}</MenuItem>
+              ))}
             </Select>
           </FormControl>
         </Col>

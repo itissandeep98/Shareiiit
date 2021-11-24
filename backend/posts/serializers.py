@@ -72,8 +72,8 @@ class PostSerializer(serializers.ModelSerializer):
         source="created_by.username", read_only=True
     )
     category = serializers.SlugRelatedField(read_only=True, slug_field="name")
-    vote_count_log = VoteCountLogSerializer(read_only=True)
     vote_log = serializers.SerializerMethodField()
+    upvote_count = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Post
@@ -89,8 +89,9 @@ class PostSerializer(serializers.ModelSerializer):
             "status",
             "category",
             "is_expired",
-            "image",
-            "vote_count_log",
+            "is_deleted",
+            "image_url",
+            "upvote_count",
             "vote_log",
         )
 
