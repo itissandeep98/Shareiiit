@@ -47,7 +47,9 @@ class Post(models.Model):
     is_price_negotiable = models.BooleanField(default=False)
     status = models.CharField(max_length=100, default="active")
     # image = models.ImageField(upload_to="posts/", default="posts/default.jpg")
-    image_url = models.TextField(blank=True, null=True)
+    image_url = models.TextField(
+        blank=True, null=True
+    )  # multiple images can be added by separating the urls with commas
     is_deleted = models.BooleanField(default=False)
     is_expired = models.BooleanField(default=False)
 

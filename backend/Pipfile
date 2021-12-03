@@ -25,6 +25,7 @@ requests = "*"
 django-extensions = "*"
 pillow = "*"
 django-cleanup = "*"
+apscheduler = "*"
 
 [dev-packages]
 black = "*"
