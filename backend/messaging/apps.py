@@ -2,4 +2,7 @@ from django.apps import AppConfig
 
 
 class MessagingConfig(AppConfig):
-    name = 'messaging'
+    name = "messaging"
+
+    def ready(self):
+        import messaging.signals

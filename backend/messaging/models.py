@@ -36,3 +36,11 @@ class Message(models.Model):
 
     # def __str__(self):
     #     return f"{sender__username} to {recipient__username}: {text}"
+
+
+class Notification(models.Model):
+    message = models.OneToOneField(Message, on_delete=models.CASCADE)
+    read = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ["-message__timestamp"]
