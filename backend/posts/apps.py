@@ -6,3 +6,7 @@ class PostsConfig(AppConfig):
 
     def ready(self):
         import posts.signals
+
+        from posts.expiry import updater
+
+        # updater.start()
