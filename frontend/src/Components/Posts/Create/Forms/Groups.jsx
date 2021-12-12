@@ -13,11 +13,12 @@ function Groups(props) {
 		const data = {
 			title: state.title,
 			description: state.description,
-			size: state.size,
+			members_needed: state.size,
 		};
-		props.toggle();
+		console.log(data);
 		dispatch(createPost({ data, category: "group" })).then(() => {
 			dispatch(fetchPosts({ category: "group" }));
+			props.toggle();
 		});
 	};
 	const onChange = (e) => {
@@ -36,7 +37,8 @@ function Groups(props) {
 				onChange={onChange}
 			/>
 			<TextField
-				label="Team Size"
+				label="Members Needed"
+				type="number"
 				className=" mt-3"
 				fullWidth
 				variant="outlined"

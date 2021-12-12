@@ -104,22 +104,26 @@ function PostCards(props) {
 							</p>
 						</Tooltip>
 						<Tooltip title="Save" placement="top">
-							<Icon
-								name="bookmark outline"
-								className={classNames({ "text-info": saved })}
-								onClick={() => Vote(2)}
-								style={{ cursor: "pointer" }}
-								size="large"
-							/>
+							<p>
+								<Icon
+									name="bookmark outline"
+									className={classNames({ "text-info": saved })}
+									onClick={() => Vote(2)}
+									style={{ cursor: "pointer" }}
+									size="large"
+								/>
+							</p>
 						</Tooltip>
 						<Tooltip title="Dismiss" placement="top">
-							<Icon
-								name="times"
-								className={classNames({ "text-danger": dismiss })}
-								onClick={() => Vote(3)}
-								style={{ cursor: "pointer" }}
-								size="large"
-							/>
+							<p>
+								<Icon
+									name="times"
+									className={classNames({ "text-danger": dismiss })}
+									onClick={() => Vote(3)}
+									style={{ cursor: "pointer" }}
+									size="large"
+								/>
+							</p>
 						</Tooltip>
 					</div>
 				</Col>

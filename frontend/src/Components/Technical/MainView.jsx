@@ -68,7 +68,7 @@ function MainView(props) {
 	}, [searchText]);
 
 	return (
-		<Container className="bg-white p-3 rounded_lg">
+		<Container className="bg-white p-3 rounded_lg shadow">
 			<Row>
 				<Col>
 					<TextField

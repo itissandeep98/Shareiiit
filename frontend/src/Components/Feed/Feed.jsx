@@ -1,4 +1,4 @@
-import Button from "@mui/material/Button";
+import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { Col, Container, Row, Spinner } from "reactstrap";

@@ -25,7 +25,7 @@ function Tags(props) {
 		});
 	}, [dispatch]);
 	return (
-		<Container className="bg-white p-2 rounded_lg">
+		<Container className="bg-white p-2 rounded_lg shadow">
 			<Row>
 				<Col>
 					<Typography variant="h3">Skills</Typography>
