@@ -14,6 +14,7 @@ import "./style.css";
 import { Image } from "semantic-ui-react";
 import { logoutAction } from "../../Store/ActionCreators/auth";
 import { fetchUser } from "../../Store/ActionCreators/user";
+import Notification from "../Notification";
 
 function TopHeader() {
   const dispatch = useDispatch();
@@ -73,6 +74,11 @@ function TopHeader() {
               </NavItem>
             </Nav>
             <Nav className="ml-auto" navbar>
+              <NavItem>
+                <NavLink className="nav-link p-3" to="#" onClick={logout}>
+                  <Notification />
+                </NavLink>
+              </NavItem>
               <NavItem>
                 <NavLink className="nav-link p-3" to="#" onClick={logout}>
                   Logout
