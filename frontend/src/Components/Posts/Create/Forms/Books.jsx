@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { createPost, fetchPosts } from "../../../../Store/ActionCreators/post";
 import { Button, Checkbox, FormControlLabel, TextField } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
-import ImageUploader from "./ImageUploader";
+import MultiUpload from "../../../../Utils/MultiUpload";
 
 function Books(props) {
 	const dispatch = useDispatch();
@@ -75,9 +75,10 @@ function Books(props) {
 				value={state.price}
 				onChange={onChange}
 			/>
-			<ImageUploader
-				image={state.image_url}
-				setImage={(val) => setState({ ...state, image_url: val })}
+
+			<MultiUpload
+				content={state.image_url}
+				changeState={(val) => setState({ ...state, image_url: val })}
 			/>
 			<FormControlLabel
 				control={
