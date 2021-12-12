@@ -14,7 +14,7 @@ import {
 	fetchSkillList,
 	updateSkillPost,
 } from "../../../Store/ActionCreators/skill";
-import { showAlert } from "../../showAlert";
+import { showAlert } from "../../../Utils/showAlert";
 
 function EditSkill(props) {
 	const { modal, toggle, details } = props;

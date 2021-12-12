@@ -4,7 +4,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import { useState } from "react";
 import { updatePost } from "../../../Store/ActionCreators/post";
 import { useDispatch } from "react-redux";
-import ImageUploader from "../../Posts/Create/Forms/ImageUploader";
+import ImageUploader from "../../../Utils/ImageUploader";
 
 function EditPostModal(props) {
 	const { modal, setModal, id } = props;
@@ -47,7 +47,7 @@ function EditPostModal(props) {
 						variant="outlined"
 						required
 						name="author"
-						value={state.book.author}
+						value={state?.book?.author}
 						onChange={(e) =>
 							setState({ ...state, book: { author: e.target.value } })
 						}

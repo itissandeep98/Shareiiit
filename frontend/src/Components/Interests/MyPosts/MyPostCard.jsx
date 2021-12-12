@@ -68,27 +68,33 @@ function MyPostCard(props) {
 					<hr />
 					<div className="d-flex justify-content-around mb-3 w-100">
 						<Tooltip title="Delete" placement="top">
-							<Icon
-								name="trash"
-								size="large"
-								className="btn p-0"
-								onClick={() => setDeleteModal(true)}
-							/>
+							<p>
+								<Icon
+									name="trash"
+									size="large"
+									className="btn p-0"
+									onClick={() => setDeleteModal(true)}
+								/>
+							</p>
 						</Tooltip>
 						<Tooltip title="Edit" placement="top">
-							<Icon
-								name="pencil"
-								size="large"
-								className="btn p-0"
-								onClick={() => setModal(true)}
-							/>
+							<p>
+								<Icon
+									name="pencil"
+									size="large"
+									className="btn p-0"
+									onClick={() => setModal(true)}
+								/>
+							</p>
 						</Tooltip>
 						<Tooltip title="Complete" placement="top">
-							<Icon
-								name="check circle outline"
-								size="large"
-								className="btn p-0"
-							/>
+							<p>
+								<Icon
+									name="check circle outline"
+									size="large"
+									className="btn p-0"
+								/>
+							</p>
 						</Tooltip>
 					</div>
 				</Col>

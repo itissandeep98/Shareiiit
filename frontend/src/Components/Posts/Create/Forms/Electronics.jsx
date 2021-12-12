@@ -3,7 +3,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createPost, fetchPosts } from "../../../../Store/ActionCreators/post";
-import ImageUploader from "./ImageUploader";
+import ImageUploader from "../../../../Utils/ImageUploader";
 
 function Electronics(props) {
 	const dispatch = useDispatch();
