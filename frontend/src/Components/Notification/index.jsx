@@ -1,11 +1,11 @@
 import { useEffect } from "react";
 import { connect, useDispatch } from "react-redux";
-import { Button, Dropdown, Feed, Icon } from "semantic-ui-react";
+import { Dropdown, Feed, Icon } from "semantic-ui-react";
 import {
 	fetchNotification,
 	updateNotification,
 } from "../../Store/ActionCreators/notification";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
 import classNames from "classnames";
 import IconButton from "@mui/material/IconButton";
@@ -17,9 +17,8 @@ function Notification(props) {
 		dispatch(fetchNotification());
 	}, []);
 
-	const unread = notification.filter((noti) => !noti.read);
-	const read = notification.filter((noti) => noti.read);
-	console.log(read);
+	const unread = notification?.filter((noti) => !noti.read);
+	const read = notification?.filter((noti) => noti.read);
 
 	return (
 		<Dropdown
@@ -28,7 +27,7 @@ function Notification(props) {
 			icon={
 				<Icon.Group size="large">
 					<Icon name="bell" />
-					{unread.length > 0 && (
+					{unread?.length > 0 && (
 						<Icon corner="top left" name="circle" color="red" />
 					)}
 				</Icon.Group>
@@ -41,12 +40,17 @@ function Notification(props) {
 						<Col>
 							<h3>Notifications</h3>
 							<hr />
-							<h4>Unread</h4>
-							{unread.map((item) => (
-								<SingleNotification {...item} />
-							))}
-							<hr />
-							{read.map((item) => (
+							{unread?.length > 0 && (
+								<>
+									<h4>Unread</h4>
+									{unread?.map((item) => (
+										<SingleNotification {...item} />
+									))}
+									<hr />
+								</>
+							)}
+
+							{read?.map((item) => (
 								<SingleNotification {...item} />
 							))}
 						</Col>
@@ -59,23 +63,24 @@ function Notification(props) {
 
 const SingleNotification = ({ id, post, read, text, timestamp }) => {
 	const dispatch = useDispatch();
-	const history = useHistory();
 
 	const markRead = (e) => {
 		e.preventDefault();
-		console.log(id);
-		dispatch(updateNotification(id)).then(() => {
-			history.push(`/post/${post.id}`);
-		});
+		dispatch(updateNotification(id));
 	};
 	return (
 		<Feed.Event>
 			<Feed.Content>
 				<Feed.Extra className={classNames({ "bg-light": !read }, "p-1")}>
-					{text}
-					<IconButton size="small" onClick={markRead}>
+					<NavLink to={`/posts/${id}`}>
 						<Icon name="external" />
-					</IconButton>
+					</NavLink>
+					{text}
+					{!read && (
+						<IconButton size="small" onClick={markRead}>
+							<Icon name="check" />
+						</IconButton>
+					)}
 				</Feed.Extra>
 			</Feed.Content>
 		</Feed.Event>

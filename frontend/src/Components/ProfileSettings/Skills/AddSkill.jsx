@@ -14,7 +14,7 @@ import {
 	createSkillPost,
 	fetchSkillList,
 } from "../../../Store/ActionCreators/skill";
-import { showAlert } from "../../showAlert";
+import { showAlert } from "../../../Utils/showAlert";
 
 function AddSkill(props) {
 	const { modal, toggle, userTags, setuserTags } = props;
