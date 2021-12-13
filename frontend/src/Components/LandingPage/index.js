@@ -2,12 +2,9 @@ import React, { useRef, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import ScrollReveal from "./utils/ScrollReveal";
 import Header from "./components/layout/Header";
-import Footer from "./components/layout/Footer";
 import Hero from "./components/sections/Hero";
 import FeaturesTiles from "./components/sections/FeaturesTiles";
 import FeaturesSplit from "./components/sections/FeaturesSplit";
-import Testimonial from "./components/sections/Testimonial";
-import Cta from "./components/sections/Cta";
 import "./assets/scss/style.scss";
 
 const Index = () => {
@@ -35,10 +32,7 @@ const Index = () => {
 							imageFill
 							className="illustration-section-02"
 						/>
-						<Testimonial topDivider />
-						<Cta split />
 					</main>
-					<Footer />
 				</div>
 			)}
 		/>

@@ -66,9 +66,9 @@ const FeaturesSplit = ({
 								data-reveal-container=".split-item"
 							>
 								<div className="text-xxs text-color-primary fw-600 tt-u mb-8">
-									Lightning fast workflow
+									OSA supported Login System
 								</div>
-								<h3 className="mt-0 mb-12">Data-driven insights</h3>
+								<h3 className="mt-0 mb-12">Login Page</h3>
 								<p className="m-0">
 									Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
 									do eiusmod tempor incididunt ut labore et dolore magna aliqua
@@ -98,9 +98,9 @@ const FeaturesSplit = ({
 								data-reveal-container=".split-item"
 							>
 								<div className="text-xxs text-color-primary fw-600 tt-u mb-8">
-									Lightning fast workflow
+									Creat Post Interface
 								</div>
-								<h3 className="mt-0 mb-12">Data-driven insights</h3>
+								<h3 className="mt-0 mb-12">Post Creation</h3>
 								<p className="m-0">
 									Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
 									do eiusmod tempor incididunt ut labore et dolore magna aliqua
@@ -130,9 +130,9 @@ const FeaturesSplit = ({
 								data-reveal-container=".split-item"
 							>
 								<div className="text-xxs text-color-primary fw-600 tt-u mb-8">
-									Lightning fast workflow
+									Ability to filter
 								</div>
-								<h3 className="mt-0 mb-12">Data-driven insights</h3>
+								<h3 className="mt-0 mb-12">Post Filtering</h3>
 								<p className="m-0">
 									Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
 									do eiusmod tempor incididunt ut labore et dolore magna aliqua

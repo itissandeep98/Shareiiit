@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
-import Logo from "./partials/Logo";
+import Logo from "./Logo";
 
 const propTypes = {
 	navPosition: PropTypes.string,
@@ -110,13 +110,7 @@ const Header = ({
 											"list-reset text-xs",
 											navPosition && `header-nav-${navPosition}`
 										)}
-									>
-										<li>
-											<Link to="#0" onClick={closeMenu}>
-												Documentation
-											</Link>
-										</li>
-									</ul>
+									></ul>
 									{!hideSignin && (
 										<ul className="list-reset header-nav-right">
 											<li>
