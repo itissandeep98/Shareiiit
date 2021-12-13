@@ -58,7 +58,7 @@ function Tags(props) {
 							),
 						}}
 					/>
-					<List component="nav" aria-label="main mailbox folders">
+					<List className="d-none d-md-block">
 						{skillList.map((tag) => (
 							<ListItem
 								button

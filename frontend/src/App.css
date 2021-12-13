@@ -1,44 +1,47 @@
 html,
 body {
-  height: 100%;
-  min-height: 100vh;
+	height: 100%;
+	min-height: 100vh;
 }
-
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;500;800&display=swap");
 .App {
-  min-height: 100vh;
-  font-family: "Times New Roman", Times, serif;
+	min-height: 100vh;
+	font-family: "Poppins", Times, serif;
 }
 
+.poppins {
+	font-family: "Poppins", Times, serif;
+}
 .rounded_lg {
-  border-radius: 20px;
+	border-radius: 20px;
 }
 
 .ui.segment {
-  box-shadow: none !important;
+	box-shadow: none !important;
 }
 
 .bg-gradient {
-  background: #47a06e;
-  background: -moz-linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-  background: -webkit-linear-gradient(
-    -45deg,
-    #ee7752,
-    #e73c7e,
-    #23a6d5,
-    #23d5ab
-  );
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-  background-size: 400% 400%;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#47a06e", endColorstr="#3b7cb4", GradientType=1);
-  -webkit-animation: gradient 15s ease infinite;
-  -moz-animation: gradient 15s ease infinite;
-  animation: gradient 15s ease infinite;
+	background: #47a06e;
+	background: -moz-linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background: -webkit-linear-gradient(
+		-45deg,
+		#ee7752,
+		#e73c7e,
+		#23a6d5,
+		#23d5ab
+	);
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#47a06e", endColorstr="#3b7cb4", GradientType=1);
+	-webkit-animation: gradient 15s ease infinite;
+	-moz-animation: gradient 15s ease infinite;
+	animation: gradient 15s ease infinite;
 }
 
 .zoom_on_hover {
-  transition: transform 0.3s;
+	transition: transform 0.3s;
 }
 
 .zoom_on_hover:hover {
-  transform: scale(1.03);
+	transform: scale(1.03);
 }
