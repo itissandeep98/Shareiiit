@@ -422,7 +422,7 @@ class SkillListView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = SkillListSerializer
     filter_backends = [filters.SearchFilter]
-    search_fields = ["name"]
+    search_fields = ["label"]
 
     def get_queryset(self):
         popular = self.request.query_params.get("popular", False)
