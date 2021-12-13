@@ -174,7 +174,10 @@ class OtherPostSerializer(PostSerializer):
 class SkillListSerializer(serializers.ModelSerializer):
     class Meta:
         model = SkillList
-        fields = ("id", "name", "type")
+        fields = (
+            "id",
+            "name",
+        )
 
 
 class SkillSerializer(serializers.ModelSerializer):
@@ -219,7 +222,9 @@ class SkillPostSerializer(PostSerializer):
         post = Post(**validated_data)
 
         try:
-            SkillList.objects.get(name=skill.get("name"))
+            skill_list_obj = SkillList.objects.get(name=skill.get("name"))
+            skill_list_obj.frequency += 1
+            skill_list_obj.save()
         except SkillList.DoesNotExist:
             raise serializers.ValidationError(
                 {"Error": "Please enter a valid skill name."}

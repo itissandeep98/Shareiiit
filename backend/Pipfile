@@ -25,6 +25,8 @@ django-extensions = "*"
 pillow = "*"
 django-cleanup = "*"
 apscheduler = "*"
+pandas = "*"
+langid = "*"
 
 [dev-packages]
 black = "*"

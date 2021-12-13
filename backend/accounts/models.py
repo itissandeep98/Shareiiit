@@ -10,7 +10,8 @@ from django.utils import timezone
 
 class User(AbstractUser):
     username_osa = models.CharField(max_length=150, unique=True)
-    osa_token = models.CharField(max_length=300, unique=True)
+    osa_token = models.CharField(max_length=255, unique=True)
+    # TODO Can osa_token field be removed if it is not being used anywhere?
 
 
 class Profile(models.Model):
