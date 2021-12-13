@@ -24,7 +24,7 @@ class Category(models.Model):
 
 
 class SkillList(models.Model):
-    name = models.CharField(max_length=100, blank=False, unique=True)
+    label = models.CharField(max_length=100, blank=False, unique=True)
     # type = models.CharField(max_length=4, choices=TYPE_CHOICES, default="TECH")
     frequency = models.PositiveIntegerField(default=0)
 
@@ -101,7 +101,7 @@ class Book(models.Model):
 
 class Skill(models.Model):
     post = models.OneToOneField(Post, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100, blank=False, null=False)
+    label = models.CharField(max_length=100, blank=False, null=False)
     rating = models.IntegerField()
 
 
