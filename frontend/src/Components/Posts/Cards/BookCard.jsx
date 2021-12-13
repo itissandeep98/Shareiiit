@@ -1,5 +1,7 @@
 import { Col, Container, Row } from "reactstrap";
-import { Image } from "semantic-ui-react";
+import { Icon, Image } from "semantic-ui-react";
+import { Tooltip } from "@mui/material";
+
 import { useState } from "react";
 import { withRouter } from "react-router";
 import { useDispatch } from "react-redux";
@@ -74,6 +76,15 @@ function PostCards(props) {
 								- <NavLink to={`/${created_by}`}>{created_by}</NavLink>
 							</small>
 						</Col>
+						{is_request && (
+							<Col xs={1}>
+								<Tooltip title="This is a Request Post" placement="top">
+									<p>
+										<Icon name="circle" color="red" size="small" />
+									</p>
+								</Tooltip>
+							</Col>
+						)}
 					</Row>
 					<Row
 						className="mt-1 btn p-0"
