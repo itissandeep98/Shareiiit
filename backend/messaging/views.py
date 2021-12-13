@@ -1,10 +1,14 @@
 from django.shortcuts import render
 from django.db.models import Q
 
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, mixins, viewsets
 
-from .serializers import MessageSerializer, ConversationSerializer
-from .models import Conversation, Message
+from .serializers import (
+    MessageSerializer,
+    ConversationSerializer,
+    NotificationSerializer,
+)
+from .models import Conversation, Message, Notification
 
 # Create your views here.
 
@@ -72,3 +76,14 @@ class MessageView(generics.CreateAPIView):
     #     return queryset
 
     #     return queryset
+
+
+class NotificationView(
+    mixins.ListModelMixin,
+    mixins.UpdateModelMixin,
+    viewsets.GenericViewSet,
+):
+    serializer_class = NotificationSerializer
+
+    def get_queryset(self):
+        return Notification.objects.filter(message__receiver=self.request.user)

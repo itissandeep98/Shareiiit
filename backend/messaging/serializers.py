@@ -3,7 +3,7 @@ from django.contrib.auth import get_user, get_user_model
 
 from rest_framework import serializers
 
-from .models import Message, Conversation
+from .models import Message, Conversation, Notification
 from posts.models import Post
 
 User = get_user_model()
@@ -83,3 +83,28 @@ class ConversationSerializer(serializers.ModelSerializer):
     #     post = Post.objects.create(**validated_data)
     #     book_instance = Book.objects.create(post=post, **book_data)
     #     return post
+
+
+class NotificationSerializer(serializers.ModelSerializer):
+    text = serializers.SerializerMethodField()
+    post = serializers.SerializerMethodField()
+    timestamp = serializers.DateTimeField(source="message.timestamp")
+
+    class Meta:
+        model = Notification
+        fields = (
+            "id",
+            "read",
+            "post",
+            "timestamp",
+            "text",
+        )
+
+    def get_text(self, obj):
+        return f"You have a new message from {obj.message.sender.username}."
+
+    def get_post(self, obj):
+        return {
+            "id": obj.message.conversation.post.id,
+            "category": obj.message.conversation.post.category.name,
+        }
