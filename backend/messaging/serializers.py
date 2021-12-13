@@ -21,14 +21,11 @@ class MessageSerializer(serializers.ModelSerializer):
         read_only_fields = ("receiver", "sender", "timestamp")
 
     def create(self, validated_data):
-        print(validated_data)
-        print("Context", self.context)
         conversation_id = validated_data.pop("conversation_id")
         post_id = validated_data.pop("post_id")
 
         if conversation_id is None:
             # if conv id is none, sender is the user2
-            print("hereee")
             user2 = validated_data["sender"]
             post = Post.objects.get(id=post_id)
             conversation = Conversation(user2=user2, post=post)
@@ -36,33 +33,10 @@ class MessageSerializer(serializers.ModelSerializer):
         else:
             conversation = Conversation.objects.get(pk=conversation_id)
 
-        print("here1")
-        if self.context.get("request").user is conversation.user2:
+        if self.context.get("request").user.id == conversation.user2.id:
             validated_data["receiver"] = conversation.post.created_by
         else:
             validated_data["receiver"] = conversation.user2
-
-        print("receiver", validated_data["receiver"].username)
-
-        # post = self.context["post"]
-
-        # validated_data["receiver"] = User.objects.get(
-        #     **validated_data.get("receiver")
-        # )
-
-        # try:
-        #     conversation = Conversation.objects.get(
-        #         Q(user2=validated_data["sender"])
-        #         | Q(user2=validated_data["receiver"]),
-        #         post__id=post,
-        #     )
-        # except Conversation.DoesNotExist as e:
-        #     print("here")
-        #     conversation = Conversation(
-        #         user2=validated_data["sender"],
-        #         post=Post.objects.get(id=post),
-        #     )
-        #     conversation.save()
 
         validated_data["conversation"] = conversation
 
@@ -101,7 +75,7 @@ class NotificationSerializer(serializers.ModelSerializer):
         )
 
     def get_text(self, obj):
-        return f"You have a new message from {obj.message.sender.username}."
+        return f"You have a new message ({obj.message.text[:10]}...) from {obj.message.sender.username}."
 
     def get_post(self, obj):
         return {
