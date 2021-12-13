@@ -38,7 +38,7 @@ function FilterBar(props) {
 	return (
 		<Container fluid className=" p-3 bg-light">
 			<Row>
-				<Col xs={2}>
+				<Col md={2} className="mb-2">
 					<FormControl variant="outlined" fullWidth>
 						<InputLabel>Category</InputLabel>
 						<Select
@@ -52,7 +52,7 @@ function FilterBar(props) {
 						</Select>
 					</FormControl>
 				</Col>
-				<Col xs={2}>
+				<Col md={2} className="mb-2">
 					<FormControl variant="outlined" fullWidth>
 						<InputLabel>Sort by</InputLabel>
 						<Select

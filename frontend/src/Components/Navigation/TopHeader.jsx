@@ -52,11 +52,6 @@ function TopHeader() {
 					<NavbarToggler onClick={toggleNav} />
 					<Collapse isOpen={isNavOpen} navbar className="p-0">
 						<Nav navbar>
-							{/* <NavItem>
-                <NavLink className="nav-link p-3 cust_link" to="/home">
-                  Home
-                </NavLink>
-              </NavItem> */}
 							<NavItem>
 								<NavLink className="nav-link p-3 cust_link" to="/feed">
 									Feed
@@ -75,9 +70,9 @@ function TopHeader() {
 						</Nav>
 						<Nav className="ml-auto" navbar>
 							<NavItem>
-								<NavLink className="nav-link p-3" to="#" onClick={logout}>
+								<a className="nav-link p-3">
 									<Notification />
-								</NavLink>
+								</a>
 							</NavItem>
 							<NavItem>
 								<NavLink className="nav-link p-3" to="#" onClick={logout}>

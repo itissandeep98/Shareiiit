@@ -26,7 +26,7 @@ function Profile(props) {
 					<Col className="d-flex justify-content-end">
 						<Button
 							variant="outlined"
-							className="mr-2 rounded-pill "
+							className="mr-2 rounded-pill"
 							startIcon={<GridOnIcon />}
 							size="large"
 							onClick={() => history.push("/profile/myposts")}

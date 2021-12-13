@@ -34,7 +34,7 @@ function AddSkill(props) {
 			description: data.desc,
 			is_request: data.checked,
 			skill: {
-				name: data.label,
+				label: data.label,
 				rating: data.rate,
 			},
 		};
@@ -67,6 +67,7 @@ function AddSkill(props) {
 				<Autocomplete
 					disablePortal
 					options={skillList}
+					onChange={(e, value) => setData({ ...data, label: value })}
 					renderInput={(params) => (
 						<TextField
 							fullWidth

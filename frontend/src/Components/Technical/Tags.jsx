@@ -29,9 +29,15 @@ function Tags(props) {
 	}, [dispatch]);
 
 	useEffect(() => {
-		dispatch(searchSkillList(query)).then((res) => {
-			setSkillList(res);
-		});
+		if (query.length > 0) {
+			dispatch(searchSkillList(query)).then((res) => {
+				setSkillList(res);
+			});
+		} else {
+			dispatch(fetchSkillList()).then((res) => {
+				setSkillList(res);
+			});
+		}
 	}, [query]);
 
 	return (
@@ -52,7 +58,7 @@ function Tags(props) {
 							),
 						}}
 					/>
-					<List component="nav" aria-label="main mailbox folders">
+					<List className="d-none d-md-block">
 						{skillList.map((tag) => (
 							<ListItem
 								button
