@@ -67,7 +67,7 @@ function AddSkill(props) {
 				<Autocomplete
 					disablePortal
 					options={skillList}
-					onChange={(e, value) => setData({ ...data, label: value })}
+					onChange={(e, value) => setData({ ...data, label: value.label })}
 					renderInput={(params) => (
 						<TextField
 							fullWidth
@@ -77,18 +77,7 @@ function AddSkill(props) {
 						/>
 					)}
 				/>
-				{/* <FormControl variant="outlined" fullWidth className="mt-2">
-					<InputLabel>Tag</InputLabel>
-					<Select
-						label="Tag"
-						value={data.label}
-						onChange={(e) => setData({ ...data, label: e.target.value })}
-					>
-						{skillList.map((tag) => (
-							<MenuItem value={tag.name}>{tag.name}</MenuItem>
-						))}
-					</Select>
-				</FormControl> */}
+
 				<TextField
 					label="Title"
 					variant="outlined"
@@ -122,10 +111,10 @@ function AddSkill(props) {
 					/>
 				</p>
 			</ModalBody>
-			<ModalFooter className="d-flex justify-content-between">
+			<ModalFooter className="d-flex justify-content-end">
 				<Button
 					variant="outlined"
-					className="float-right "
+					className=" text-iiitd"
 					onClick={addSkill}
 					disabled={!data.rate || !data.label || !data.title}
 				>

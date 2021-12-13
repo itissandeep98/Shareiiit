@@ -5,10 +5,12 @@ import { Col, Container, Row } from "reactstrap";
 import { Icon, Image, Label, Placeholder } from "semantic-ui-react";
 import { addVote } from "../../Store/ActionCreators/vote";
 import Meta from "../Meta";
+import moment from "moment";
 import classNames from "classnames";
 import Messages from "./Messages/Messages";
 import { NavLink } from "react-router-dom";
 import { fetchPostDetails } from "../../Store/ActionCreators/post";
+import Reaction from "./Cards/Reaction";
 
 function PostDetail(props) {
 	const id = props.match.params.postId;
@@ -57,7 +59,7 @@ function PostDetail(props) {
 				<>
 					<Meta head={`${details.title} | ShareIIITD`} />
 					<Row>
-						<Col>
+						<Col className="d-flex align-items-center">
 							{loading ? (
 								<Placeholder style={{ height: 150, width: 150 }}>
 									<Placeholder.Image />
@@ -71,51 +73,17 @@ function PostDetail(props) {
 										}
 										fluid
 									/>
-									<Row>
-										<Col>
-											<hr />
-											<div className="d-flex justify-content-around mb-1 w-100">
-												<Tooltip title="Upvote" placement="top">
-													<p>
-														<Icon
-															name="arrow up circle"
-															className={classNames({ "text-success": liked })}
-															onClick={() => Vote(1)}
-															style={{ cursor: "pointer" }}
-															size="large"
-														/>
-														<small> {num_upvotes > 0 && num_upvotes}</small>
-													</p>
-												</Tooltip>
-												<Tooltip title="Save" placement="top">
-													<p>
-														<Icon
-															name="bookmark outline"
-															className={classNames({ "text-info": saved })}
-															onClick={() => Vote(2)}
-															style={{ cursor: "pointer" }}
-															size="large"
-														/>
-													</p>
-												</Tooltip>
-												<Tooltip title="Dismiss" placement="top">
-													<p>
-														<Icon
-															name="times"
-															className={classNames({ "text-danger": dismiss })}
-															onClick={() => Vote(3)}
-															style={{ cursor: "pointer" }}
-															size="large"
-														/>
-													</p>
-												</Tooltip>
-											</div>
-										</Col>
-									</Row>
+									<Reaction
+										num_upvotes={num_upvotes}
+										liked={liked}
+										saved={saved}
+										dismiss={dismiss}
+										Vote={Vote}
+									/>
 								</div>
 							)}
 						</Col>
-						<Col xs={9}>
+						<Col xs={8}>
 							{loading ? (
 								<Placeholder fluid>
 									<Placeholder.Line />
@@ -125,20 +93,21 @@ function PostDetail(props) {
 									<Placeholder.Line />
 								</Placeholder>
 							) : (
-								<>
-									<h2 className="text-capitalize text-center">
-										{details.title}
-									</h2>
-									<h4 className="text-capitalize">
-										By {details?.book?.author}
-									</h4>
-									<NavLink
-										to={`/${details.created_by}`}
-										className="float-right"
-									>
-										- {details.created_by}
-									</NavLink>
-									{details.price > 0 && (
+								<Row>
+									<Col>
+										<h1 className="text-capitalize">{details.title}</h1>
+										<p className="text-capitalize text-muted">
+											By {details?.book?.author}
+										</p>
+										<br />
+										<p className="text-justify">{details.description}</p>
+										<br />
+									</Col>
+								</Row>
+							)}
+							<Row>
+								{details.price > 0 && (
+									<Col className="align-items-center d-flex" md={3}>
 										<Tooltip
 											title={
 												details.is_price_negotiable
@@ -147,20 +116,32 @@ function PostDetail(props) {
 											}
 										>
 											<p>
-												<Label size="large">
-													<Icon name="rupee" />
+												<Label size="large" color="teal">
+													Available for <Icon name="rupee" className="ml-1" />
 													{details.price}
 												</Label>
 											</p>
 										</Tooltip>
-									)}
-									<Row className="mt-5">
-										<Col className="text-justify">{details.description}</Col>
-									</Row>
-								</>
-							)}
+									</Col>
+								)}
+								<Col className="text-muted">
+									<small>
+										<Icon name="user" />
+										Posted by{" "}
+										<NavLink to={`/${details.created_by}`}>
+											{details.created_by}
+										</NavLink>
+									</small>
+									<br />
+									<small>
+										<Icon name="time" />
+										{moment(details.created_at).fromNow()}
+									</small>
+								</Col>
+							</Row>
 						</Col>
 					</Row>
+
 					<Row className="mt-5">
 						<Col>
 							<hr />

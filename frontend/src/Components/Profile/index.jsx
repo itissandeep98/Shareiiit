@@ -80,7 +80,7 @@ function Profile(props) {
 								</ListItem>
 								<ListItem>{details?.profile?.bio}</ListItem>
 							</List>
-							{skills && (
+							{skills.length > 0 && (
 								<div className="text-center ">
 									<h3>Knows About</h3>
 									<div className="d-flex flex-row align-items-center justify-content-center">

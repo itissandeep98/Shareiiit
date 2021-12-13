@@ -9,6 +9,7 @@ import { NavLink } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
 import classNames from "classnames";
 import IconButton from "@mui/material/IconButton";
+import moment from "moment";
 
 function Notification(props) {
 	const { notification } = props;
@@ -51,10 +52,10 @@ function Notification(props) {
 											{unread?.map((item) => (
 												<SingleNotification {...item} />
 											))}
-											<hr />
 										</>
 									)}
-
+									<h4>Read</h4>
+									<hr />
 									{read?.map((item) => (
 										<SingleNotification {...item} />
 									))}
@@ -79,18 +80,18 @@ const SingleNotification = ({ id, post, read, text, timestamp }) => {
 	};
 	return (
 		<Feed.Event>
-			<Feed.Content>
-				<Feed.Extra className={classNames({ "bg-light": !read }, "p-1")}>
-					<NavLink to={`/posts/${post.id}`}>
-						<Icon name="external" />
-					</NavLink>
-					{text}
-					{!read && (
-						<IconButton size="small" onClick={markRead}>
-							<Icon name="check" />
-						</IconButton>
-					)}
-				</Feed.Extra>
+			<Feed.Label>
+				{!read && (
+					<IconButton size="small" onClick={markRead}>
+						<Icon name="check" />
+					</IconButton>
+				)}
+			</Feed.Label>
+			<Feed.Content className="text-break">
+				<Feed.Summary>
+					<NavLink to={`/posts/${post.id}`}>{text}</NavLink>
+					<Feed.Date>{moment(timestamp).fromNow()}</Feed.Date>
+				</Feed.Summary>
 			</Feed.Content>
 		</Feed.Event>
 	);

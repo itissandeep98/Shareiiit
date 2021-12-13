@@ -3,11 +3,14 @@ import { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { Col, Container, Row, Spinner } from "reactstrap";
 import { fetchPosts } from "../../Store/ActionCreators/post";
-import PostCards from "../Posts/PostCard";
 import FilterBar from "./FilterBar";
 import AddIcon from "@mui/icons-material/Add";
 import Create from "../Posts/Create/Create";
 import Meta from "../Meta";
+import BookCard from "../Posts/Cards/BookCard";
+import GroupCard from "../Posts/Cards/GroupCard";
+import ElectronicsCard from "../Posts/Cards/ElectronicsCard";
+import OtherCard from "../Posts/Cards/OtherCard";
 
 function Posts(props) {
 	const [cards, setCards] = useState([]);
@@ -47,7 +50,7 @@ function Posts(props) {
 									trigger={
 										<Button
 											variant="outlined"
-											className="mt-3"
+											className="mt-3 text-iiitd"
 											startIcon={<AddIcon />}
 											size="large"
 											onClick={() => setModal(!modal)}
@@ -71,9 +74,14 @@ function Posts(props) {
 								<br />
 								<Row>
 									{cards && cards?.length > 0 ? (
-										cards?.map((book) => (
-											<Col xs={12} md={6} lg={4} className="my-3" key={book.id}>
-												<PostCards {...book} />
+										cards?.map((card) => (
+											<Col xs={12} md={6} lg={4} className="my-3" key={card.id}>
+												{category === "book" && <BookCard {...card} />}
+												{category === "group" && <GroupCard {...card} />}
+												{category === "electronics" && (
+													<ElectronicsCard {...card} />
+												)}
+												{category === "other" && <OtherCard {...card} />}
 											</Col>
 										))
 									) : (

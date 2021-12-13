@@ -45,3 +45,14 @@ body {
 .zoom_on_hover:hover {
 	transform: scale(1.03);
 }
+
+.text-iiitd {
+	color: #3fada8 !important;
+}
+
+a {
+	color: #3fada8 !important;
+}
+a:hover {
+	color: #197a76 !important;
+}

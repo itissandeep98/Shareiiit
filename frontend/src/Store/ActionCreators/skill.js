@@ -8,10 +8,13 @@ const headers = () => ({
 });
 
 export const createSkillPost = (data) => {
+	console.log(data);
 	return async (dispatch) => {
 		dispatch({ type: ActionTypes.SKILL_CREATE_REQUEST });
 		return await axios
-			.post(`${apiUrl}/api/myskills/`, data, { headers: headers() })
+			.post(`${apiUrl}/api/myposts/?category=skill/`, data, {
+				headers: headers(),
+			})
 			.then((response) => {
 				dispatch({
 					type: ActionTypes.SKILL_CREATE_SUCCESS,
@@ -53,7 +56,7 @@ export const fetchUserSkills = () => {
 	return async (dispatch) => {
 		dispatch({ type: ActionTypes.USER_SKILLS_FETCH_REQUEST });
 		return await axios
-			.get(`${apiUrl}/api/myskills/`, { headers: headers() })
+			.get(`${apiUrl}/api/myposts/?category=skill`, { headers: headers() })
 			.then((response) => {
 				dispatch({
 					type: ActionTypes.USER_SKILLS_FETCH_SUCCESS,
