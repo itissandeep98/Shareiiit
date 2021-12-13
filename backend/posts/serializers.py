@@ -181,14 +181,14 @@ class SkillListSerializer(serializers.ModelSerializer):
 
 
 class SkillSerializer(serializers.ModelSerializer):
-    type = serializers.SerializerMethodField()
+    # type = serializers.SerializerMethodField()
 
     class Meta:
         model = Skill
-        fields = ("name", "rating", "type")
+        fields = ("name", "rating")
 
-    def get_type(self, obj):
-        return SkillList.objects.get(name=obj.name).type
+    # def get_type(self, obj):
+    # return SkillList.objects.get(name=obj.name).type
 
 
 class SkillPostSerializer(PostSerializer):
