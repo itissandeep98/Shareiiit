@@ -6,6 +6,7 @@ import ImageUploader from "../../Utils/ImageUploader";
 import { showAlert } from "../../Utils/showAlert";
 import { useDispatch } from "react-redux";
 import { updateUser } from "../../Store/ActionCreators/user";
+import ImagePopup from "../../Utils/ImagePopup";
 
 function ProfileUpload(props) {
 	const { photo, osadetails } = props;
@@ -14,13 +15,14 @@ function ProfileUpload(props) {
 	);
 	const dispatch = useDispatch();
 	const [modal, setModal] = useState(false);
+	const [popup, setPopup] = useState(false);
 	const toggle = () => {
 		setModal(!modal);
 	};
 	const updateImage = (val) => {
 		setImage(val);
 		const data = {
-			photo: val,
+			image_url: val,
 		};
 		dispatch(updateUser(data)).then(() => {
 			showAlert("Image updated", "success");
@@ -29,6 +31,7 @@ function ProfileUpload(props) {
 
 	return (
 		<>
+			<ImagePopup image={image} open={popup} onClose={() => setPopup(!popup)} />
 			<Modal isOpen={modal} toggle={toggle}>
 				<ModalHeader toggle={toggle}>Profile Upload</ModalHeader>
 				<ModalBody>
@@ -37,7 +40,7 @@ function ProfileUpload(props) {
 			</Modal>
 			<div className="d-flex flex-column justify-content-between  ">
 				<Icon.Group size="huge">
-					<Image src={image} avatar />
+					<Image src={image} avatar onClick={() => setPopup(!popup)} />
 					<Icon name="camera" corner onClick={toggle} className="btn p-0" />
 				</Icon.Group>
 				<NavLink to={`/${osadetails?.username}`} className=" mt-4">

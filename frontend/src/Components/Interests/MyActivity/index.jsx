@@ -9,7 +9,7 @@ import { fetchVotedPosts } from "../../../Store/ActionCreators/vote";
 
 function MyActivity() {
 	const choices = ["saved", "upvoted", "dismissed"];
-	const categories = ["book", "group", "electronics", "other", "skills"];
+	const categories = ["book", "group", "electronics", "other", "skill"];
 	const [value, setValue] = useState(0);
 	const [category, setCategory] = useState(0);
 	const [cards, setCards] = useState([]);

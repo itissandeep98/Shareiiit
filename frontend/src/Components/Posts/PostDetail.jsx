@@ -6,14 +6,15 @@ import { Icon, Image, Label, Placeholder } from "semantic-ui-react";
 import { addVote } from "../../Store/ActionCreators/vote";
 import Meta from "../Meta";
 import moment from "moment";
-import classNames from "classnames";
 import Messages from "./Messages/Messages";
 import { NavLink } from "react-router-dom";
 import { fetchPostDetails } from "../../Store/ActionCreators/post";
 import Reaction from "./Cards/Reaction";
+import ImagePopup from "../../Utils/ImagePopup";
 
 function PostDetail(props) {
 	const id = props.match.params.postId;
+	const [modal, setModal] = useState(false);
 	const dispatch = useDispatch();
 	const [details, setDetails] = useState({});
 	const [loading, setLoading] = useState(true);
@@ -54,110 +55,118 @@ function PostDetail(props) {
 		dispatch(addVote({ id, data }));
 	};
 	return (
-		<Container className="shadow p-3 my-4">
-			{details && (
-				<>
-					<Meta head={`${details.title} | ShareIIITD`} />
-					<Row>
-						<Col className="d-flex align-items-center">
-							{loading ? (
-								<Placeholder style={{ height: 150, width: 150 }}>
-									<Placeholder.Image />
-								</Placeholder>
-							) : (
-								<div className="text-center p-2  d-flex flex-column">
-									<Image
-										src={
-											details.image_url ??
-											process.env.PUBLIC_URL + "/assets/images/book.png"
-										}
-										fluid
-									/>
-									<Reaction
-										num_upvotes={num_upvotes}
-										liked={liked}
-										saved={saved}
-										dismiss={dismiss}
-										Vote={Vote}
-									/>
-								</div>
-							)}
-						</Col>
-						<Col xs={8}>
-							{loading ? (
-								<Placeholder fluid>
-									<Placeholder.Line />
-									<Placeholder.Line />
-									<Placeholder.Line />
-									<Placeholder.Line />
-									<Placeholder.Line />
-								</Placeholder>
-							) : (
+		<>
+			<ImagePopup
+				image={details.image_url}
+				open={modal}
+				onClose={() => setModal(!modal)}
+			/>
+			<Container className="shadow p-3 my-4">
+				{details && (
+					<>
+						<Meta head={`${details.title} | ShareIIITD`} />
+						<Row>
+							<Col className="d-flex align-items-center">
+								{loading ? (
+									<Placeholder style={{ height: 150, width: 150 }}>
+										<Placeholder.Image />
+									</Placeholder>
+								) : (
+									<div className="text-center p-2  d-flex flex-column">
+										<Image
+											onClick={() => setModal(!modal)}
+											src={
+												details.image_url ??
+												process.env.PUBLIC_URL + "/assets/images/book.png"
+											}
+											fluid
+										/>
+										<Reaction
+											num_upvotes={num_upvotes}
+											liked={liked}
+											saved={saved}
+											dismiss={dismiss}
+											Vote={Vote}
+										/>
+									</div>
+								)}
+							</Col>
+							<Col xs={8}>
+								{loading ? (
+									<Placeholder fluid>
+										<Placeholder.Line />
+										<Placeholder.Line />
+										<Placeholder.Line />
+										<Placeholder.Line />
+										<Placeholder.Line />
+									</Placeholder>
+								) : (
+									<Row>
+										<Col>
+											<h1 className="text-capitalize">{details.title}</h1>
+											<p className="text-capitalize text-muted">
+												By {details?.book?.author}
+											</p>
+											<br />
+											<p className="text-justify">{details.description}</p>
+											<br />
+										</Col>
+									</Row>
+								)}
 								<Row>
-									<Col>
-										<h1 className="text-capitalize">{details.title}</h1>
-										<p className="text-capitalize text-muted">
-											By {details?.book?.author}
-										</p>
+									{details.price > 0 && (
+										<Col className="align-items-center d-flex" md={3}>
+											<Tooltip
+												title={
+													details.is_price_negotiable
+														? "Price is negotiable"
+														: "Fixed Price"
+												}
+											>
+												<p>
+													<Label size="large" color="teal">
+														Available for <Icon name="rupee" className="ml-1" />
+														{details.price}
+													</Label>
+												</p>
+											</Tooltip>
+										</Col>
+									)}
+									<Col className="text-muted">
+										<small>
+											<Icon name="user" />
+											Posted by{" "}
+											<NavLink to={`/${details.created_by}`}>
+												{details.created_by}
+											</NavLink>
+										</small>
 										<br />
-										<p className="text-justify">{details.description}</p>
-										<br />
+										<small>
+											<Icon name="time" />
+											{moment(details.created_at).fromNow()}
+										</small>
 									</Col>
 								</Row>
-							)}
-							<Row>
-								{details.price > 0 && (
-									<Col className="align-items-center d-flex" md={3}>
-										<Tooltip
-											title={
-												details.is_price_negotiable
-													? "Price is negotiable"
-													: "Fixed Price"
-											}
-										>
-											<p>
-												<Label size="large" color="teal">
-													Available for <Icon name="rupee" className="ml-1" />
-													{details.price}
-												</Label>
-											</p>
-										</Tooltip>
-									</Col>
-								)}
-								<Col className="text-muted">
-									<small>
-										<Icon name="user" />
-										Posted by{" "}
-										<NavLink to={`/${details.created_by}`}>
-											{details.created_by}
-										</NavLink>
-									</small>
-									<br />
-									<small>
-										<Icon name="time" />
-										{moment(details.created_at).fromNow()}
-									</small>
-								</Col>
-							</Row>
-						</Col>
-					</Row>
+							</Col>
+						</Row>
 
-					<Row className="mt-5">
-						<Col>
-							<hr />
-							<h2>
-								<Icon name="chat" /> Messages
-							</h2>
-							<Messages
-								id={id}
-								recipient={username}
-								creator={details.created_by}
-							/>
-						</Col>
-					</Row>
-				</>
-			)}
-		</Container>
+						<Row className="mt-5">
+							<Col>
+								<hr />
+								<h2>
+									<Icon name="chat" /> Messages
+								</h2>
+								<Messages
+									id={id}
+									recipient={username}
+									creator={details.created_by}
+								/>
+							</Col>
+						</Row>
+					</>
+				)}
+			</Container>
+		</>
 	);
 }
 
