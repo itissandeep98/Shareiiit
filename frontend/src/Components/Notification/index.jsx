@@ -37,7 +37,7 @@ function Notification(props) {
 				<Container className="text-dark py-2">
 					<Row>
 						<Col>
-							{notification.length === 0 ? (
+							{notification?.length === 0 ? (
 								<small className="text-muted">
 									There is no new notification for you
 								</small>
@@ -73,13 +73,15 @@ const SingleNotification = ({ id, post, read, text, timestamp }) => {
 
 	const markRead = (e) => {
 		e.preventDefault();
-		dispatch(updateNotification(id));
+		dispatch(updateNotification(id)).then(() => {
+			dispatch(fetchNotification());
+		});
 	};
 	return (
 		<Feed.Event>
 			<Feed.Content>
 				<Feed.Extra className={classNames({ "bg-light": !read }, "p-1")}>
-					<NavLink to={`/posts/${id}`}>
+					<NavLink to={`/posts/${post.id}`}>
 						<Icon name="external" />
 					</NavLink>
 					{text}
