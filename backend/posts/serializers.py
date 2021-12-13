@@ -174,10 +174,7 @@ class OtherPostSerializer(PostSerializer):
 class SkillListSerializer(serializers.ModelSerializer):
     class Meta:
         model = SkillList
-        fields = (
-            "id",
-            "name",
-        )
+        fields = "__all__"
 
 
 class SkillSerializer(serializers.ModelSerializer):
@@ -185,7 +182,7 @@ class SkillSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Skill
-        fields = ("name", "rating")
+        fields = ("label", "rating")
 
     # def get_type(self, obj):
     # return SkillList.objects.get(name=obj.name).type
@@ -205,7 +202,7 @@ class SkillPostSerializer(PostSerializer):
             skill = {}
 
         res = Skill.objects.filter(
-            name=skill.get("name"),
+            label=skill.get("label"),
             post__created_by__id=self.context.get("request").user.id,
         )
 
@@ -213,7 +210,7 @@ class SkillPostSerializer(PostSerializer):
             raise serializers.ValidationError(
                 {
                     "Error": "Failed to add the skill because you already have a skill post for "
-                    + skill.get("name")
+                    + skill.get("label")
                     + "."
                 }
             )
@@ -222,12 +219,12 @@ class SkillPostSerializer(PostSerializer):
         post = Post(**validated_data)
 
         try:
-            skill_list_obj = SkillList.objects.get(name=skill.get("name"))
+            skill_list_obj = SkillList.objects.get(label=skill.get("label"))
             skill_list_obj.frequency += 1
             skill_list_obj.save()
         except SkillList.DoesNotExist:
             raise serializers.ValidationError(
-                {"Error": "Please enter a valid skill name."}
+                {"Error": "Please enter a valid skill label."}
             )
 
         skill_post = Skill(post=post, **skill)
