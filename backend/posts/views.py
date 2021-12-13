@@ -11,7 +11,7 @@ from rest_framework.decorators import action
 
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .models import Post, Category, SkillList, VoteLog
+from .models import Post, Category, Skill, SkillList, VoteLog
 from .permissions import IsOwnerOrReadOnly
 from .serializers import (
     ElectronicPostSerializer,
@@ -420,8 +420,17 @@ class CategoryListView(generics.ListAPIView):
 
 class SkillListView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
-    queryset = SkillList.objects.all()
     serializer_class = SkillListSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["name"]
+
+    def get_queryset(self):
+        popular = self.request.query_params.get("popular", False)
+
+        if popular:
+            return SkillList.objects.all()[:10]
+
+        return SkillList.objects.all()
 
 
 class VoteLogView(generics.RetrieveUpdateAPIView):

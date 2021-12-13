@@ -24,15 +24,15 @@ class Category(models.Model):
 
 
 class SkillList(models.Model):
-    TYPE_CHOICES = [
-        ("TECH", "Technical"),
-    ]
-
-    name = models.CharField(max_length=100, blank=False)
-    type = models.CharField(max_length=4, choices=TYPE_CHOICES, default="TECH")
+    name = models.CharField(max_length=100, blank=False, unique=True)
+    # type = models.CharField(max_length=4, choices=TYPE_CHOICES, default="TECH")
+    frequency = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        ordering = ["-frequency"]
 
 
 class Post(models.Model):

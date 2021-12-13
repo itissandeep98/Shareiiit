@@ -2,7 +2,7 @@ from django.core import management
 
 # from django.contrib.auth import get_user_model
 
-from posts.models import Category, SkillType, SkillList
+from posts.models import SkillList
 
 import os
 import shutil
@@ -11,16 +11,18 @@ import shutil
 
 
 def run(*args):
+    add_skills()
+
     # remove("./db.sqlite3")
     # remove("./accounts/migrations/")
     # remove("./posts/migrations/")
     # remove("./messaging/migrations/")
 
-    management.call_command("makemigrations", interactive=False)
-    management.call_command("makemigrations", "accounts", interactive=False)
-    management.call_command("makemigrations", "posts", interactive=False)
-    management.call_command("makemigrations", "messaging", interactive=False)
-    management.call_command("migrate", interactive=False)
+    # management.call_command("makemigrations", interactive=False)
+    # management.call_command("makemigrations", "accounts", interactive=False)
+    # management.call_command("makemigrations", "posts", interactive=False)
+    # management.call_command("makemigrations", "messaging", interactive=False)
+    # management.call_command("migrate", interactive=False)
 
     # user = User(
     #     username="admin",
@@ -33,19 +35,8 @@ def run(*args):
     # user.set_password("admin")
     # user.save()
 
-    for category in ["book", "group", "item", "skill", "other"]:
-        Category.objects.create(name=category)
-
-    for type in ["Technical", "Communication"]:
-        SkillType.objects.create(name=type)
-
-    for skill in ["Python", "R", "Java", "JavaScript", "C++", "HTML", "CSS"]:
-        SkillList.objects.create(
-            name=skill, type=SkillType.objects.get(name="Technical")
-        )
-
-    if "runserver" in args:
-        management.call_command("runserver")
+    # for category in ["book", "group", "item", "skill", "other"]:
+    #     Category.objects.create(name=category)
 
 
 def remove(path):
@@ -56,3 +47,30 @@ def remove(path):
         shutil.rmtree(path)  # remove dir and all contains
     else:
         print(("file {} is not a file or dir.".format(path)))
+
+
+def add_skills():
+    from django.db import IntegrityError
+    import csv
+
+    with open("skills.csv") as f:
+        reader = csv.reader(f)
+        count = 0
+
+        for row in reader:
+            count += 1
+            skill = row[0]
+
+            if count < 30600:
+                continue
+
+            # if langid.classify(skill)[0] == "en":
+            try:
+                SkillList.objects.create(name=skill)
+            except IntegrityError as e:
+                pass
+
+            x = count % 100
+
+            if x == 0:
+                print(skill, count)
