@@ -1,4 +1,5 @@
 import {
+	Autocomplete,
 	Button,
 	FormControl,
 	InputLabel,
@@ -13,6 +14,7 @@ import { useDispatch } from "react-redux";
 import {
 	createSkillPost,
 	fetchSkillList,
+	searchSkillList,
 } from "../../../Store/ActionCreators/skill";
 import { showAlert } from "../../../Utils/showAlert";
 
@@ -51,11 +53,30 @@ function AddSkill(props) {
 			});
 	};
 
+	const searchSkills = (e) => {
+		const { value } = e.target;
+		dispatch(searchSkillList(value)).then((res) => {
+			setSkillList(res);
+		});
+	};
+
 	return (
 		<Modal isOpen={modal} toggle={toggle}>
 			<ModalHeader toggle={toggle}>Add Skill</ModalHeader>
 			<ModalBody>
-				<FormControl variant="outlined" fullWidth className="mt-2">
+				<Autocomplete
+					disablePortal
+					options={skillList}
+					renderInput={(params) => (
+						<TextField
+							fullWidth
+							{...params}
+							onChange={searchSkills}
+							label="Tag"
+						/>
+					)}
+				/>
+				{/* <FormControl variant="outlined" fullWidth className="mt-2">
 					<InputLabel>Tag</InputLabel>
 					<Select
 						label="Tag"
@@ -66,7 +87,7 @@ function AddSkill(props) {
 							<MenuItem value={tag.name}>{tag.name}</MenuItem>
 						))}
 					</Select>
-				</FormControl>
+				</FormControl> */}
 				<TextField
 					label="Title"
 					variant="outlined"

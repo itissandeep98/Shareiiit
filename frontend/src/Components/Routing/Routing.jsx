@@ -7,15 +7,15 @@ import TopHeader from "../Navigation/TopHeader";
 import TechDetails from "../Technical/TechDetails";
 import Meta from "../Meta";
 
-const Home = lazy(() => import("../Home/Home"));
-const Feed = lazy(() => import("../Feed/Feed"));
-const AuthComp = lazy(() => import("../Authorization/AuthComp"));
-const ProfileSettings = lazy(() => import("../ProfileSettings/Profile"));
-const Profile = lazy(() => import("../Profile/Profile"));
+// const Home = lazy(() => import("../Home"));
+const Feed = lazy(() => import("../Feed"));
+const AuthComp = lazy(() => import("../Authorization"));
+const ProfileSettings = lazy(() => import("../ProfileSettings"));
+const Profile = lazy(() => import("../Profile"));
 const PostDetail = lazy(() => import("../Posts/PostDetail"));
-const MyPosts = lazy(() => import("../Interests/MyPosts/MyPosts"));
-const Interactions = lazy(() => import("../Interests/MyActivity/MyActivity"));
-const Technical = lazy(() => import("../Technical/Technical"));
+const MyPosts = lazy(() => import("../Interests/MyPosts"));
+const Interactions = lazy(() => import("../Interests/MyActivity"));
+const Technical = lazy(() => import("../Technical"));
 const LandingPage = lazy(() => import("../LandingPage"));
 
 // private => Route requires authentication
@@ -24,12 +24,12 @@ const LandingPage = lazy(() => import("../LandingPage"));
 
 function Routing() {
 	const routes = [
-		{
-			path: "/home",
-			private: true,
-			layout: true,
-			render: () => <Home />,
-		},
+		// {
+		// 	path: "/home",
+		// 	private: true,
+		// 	layout: true,
+		// 	render: () => <Home />,
+		// },
 		{
 			path: "/profile/myposts",
 			private: true,

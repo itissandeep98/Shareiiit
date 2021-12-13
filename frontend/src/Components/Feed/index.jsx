@@ -69,7 +69,7 @@ function Posts(props) {
 									setOrdering={setOrdering}
 								/>
 								<br />
-								<Row className="justify-content-center">
+								<Row>
 									{cards && cards?.length > 0 ? (
 										cards?.map((book) => (
 											<Col xs={12} md={6} lg={4} className="my-3" key={book.id}>

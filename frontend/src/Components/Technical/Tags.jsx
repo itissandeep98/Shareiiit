@@ -12,7 +12,10 @@ import { Col, Container, Row } from "reactstrap";
 import SearchIcon from "@mui/icons-material/Search";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { fetchSkillList } from "../../Store/ActionCreators/skill";
+import {
+	fetchSkillList,
+	searchSkillList,
+} from "../../Store/ActionCreators/skill";
 
 function Tags(props) {
 	const { tags, modifyTags } = props;
@@ -24,6 +27,13 @@ function Tags(props) {
 			setSkillList(res);
 		});
 	}, [dispatch]);
+
+	useEffect(() => {
+		dispatch(searchSkillList(query)).then((res) => {
+			setSkillList(res);
+		});
+	}, [query]);
+
 	return (
 		<Container className="bg-white p-2 rounded_lg shadow">
 			<Row>
@@ -43,21 +53,19 @@ function Tags(props) {
 						}}
 					/>
 					<List component="nav" aria-label="main mailbox folders">
-						{skillList
-							.filter((tag) => tag.name.toLowerCase().includes(query))
-							.map((tag) => (
-								<ListItem
-									button
-									selected={tags?.includes(tag.name)}
-									key={Math.random()}
-									onClick={() => modifyTags(tag.name)}
-								>
-									<ListItemIcon>
-										<LocalOfferIcon />
-									</ListItemIcon>
-									<ListItemText primary={tag.name} />
-								</ListItem>
-							))}
+						{skillList.map((tag) => (
+							<ListItem
+								button
+								selected={tags?.includes(tag.label)}
+								key={Math.random()}
+								onClick={() => modifyTags(tag.label)}
+							>
+								<ListItemIcon>
+									<LocalOfferIcon />
+								</ListItemIcon>
+								<ListItemText primary={tag.label} />
+							</ListItem>
+						))}
 					</List>
 				</Col>
 			</Row>
