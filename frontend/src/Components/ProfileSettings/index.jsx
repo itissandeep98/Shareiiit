@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 import { fetchUser, fetchUserOSA } from "../../Store/ActionCreators/user";
 import { useHistory } from "react-router-dom";
 import BasicDetails from "./BasicDetails";
-import Skills from "./Skills/Skills";
+import Skills from "./Skills";
 import Meta from "../Meta";
 
 function Profile(props) {
@@ -26,7 +26,7 @@ function Profile(props) {
 					<Col className="d-flex justify-content-end">
 						<Button
 							variant="outlined"
-							className="mr-2 rounded-pill"
+							className="mr-2 rounded-pill text-iiitd"
 							startIcon={<GridOnIcon />}
 							size="large"
 							onClick={() => history.push("/profile/myposts")}
@@ -35,7 +35,7 @@ function Profile(props) {
 						</Button>
 						<Button
 							variant="outlined"
-							className="float-right rounded-pill "
+							className="float-right rounded-pill text-iiitd"
 							startIcon={<BookmarksIcon />}
 							size="large"
 							onClick={() => history.push("/profile/myactivity")}

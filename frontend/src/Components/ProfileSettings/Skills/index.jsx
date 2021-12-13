@@ -48,7 +48,11 @@ function Skills() {
 					modal={modal}
 					toggle={() => setModal(!modal)}
 				/>
-				<Button variant="outlined" onClick={() => setModal(true)}>
+				<Button
+					variant="outlined"
+					className="text-iiitd"
+					onClick={() => setModal(true)}
+				>
 					Add New Skill Post
 				</Button>
 				<Row>

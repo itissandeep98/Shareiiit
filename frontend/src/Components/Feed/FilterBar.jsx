@@ -38,6 +38,16 @@ function FilterBar(props) {
 	return (
 		<Container fluid className=" p-3 bg-light">
 			<Row>
+				<Col>
+					<TextField
+						label="Search"
+						variant="outlined"
+						value={search}
+						multiline
+						fullWidth
+						onChange={(e) => onChange(e.target.value)}
+					/>
+				</Col>
 				<Col md={2} className="mb-2">
 					<FormControl variant="outlined" fullWidth>
 						<InputLabel>Category</InputLabel>
@@ -65,16 +75,6 @@ function FilterBar(props) {
 							))}
 						</Select>
 					</FormControl>
-				</Col>
-				<Col>
-					<TextField
-						label="Search"
-						variant="outlined"
-						value={search}
-						multiline
-						fullWidth
-						onChange={(e) => onChange(e.target.value)}
-					/>
 				</Col>
 			</Row>
 			<Row>
