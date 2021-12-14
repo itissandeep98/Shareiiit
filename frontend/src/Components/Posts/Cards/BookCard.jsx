@@ -85,15 +85,6 @@ function PostCards(props) {
 									- <NavLink to={`/${created_by}`}>{created_by}</NavLink>
 								</small>
 							</Col>
-							{is_request && (
-								<Col xs={1}>
-									<Tooltip title="This is a Request Post" placement="top">
-										<p>
-											<Icon name="circle" color="red" size="small" />
-										</p>
-									</Tooltip>
-								</Col>
-							)}
 						</Row>
 						<Row
 							className="mt-1 btn p-0"
@@ -103,9 +94,18 @@ function PostCards(props) {
 						</Row>
 					</Col>
 				</Row>
-				<small className="text-muted text-center">
-					Posted {moment(created_at).fromNow()}
-				</small>
+				<Row className="d-flex justify-content-around">
+					<small className="text-muted text-center">
+						Posted {moment(created_at).fromNow()}
+					</small>
+					{is_request && (
+						<Tooltip title="This is a Request Post" placement="top">
+							<p>
+								<Icon name="handshake" color="red" />
+							</p>
+						</Tooltip>
+					)}
+				</Row>
 				<Reaction
 					num_upvotes={num_upvotes}
 					liked={liked}

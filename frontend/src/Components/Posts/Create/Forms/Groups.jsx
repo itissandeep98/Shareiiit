@@ -13,7 +13,7 @@ function Groups(props) {
 		const data = {
 			title: state.title,
 			description: state.description,
-			members_needed: parseInt(state.size),
+			group: { members_needed: parseInt(state.size) },
 		};
 		console.log(data);
 		dispatch(createPost({ data, category: "group" })).then(() => {
@@ -21,6 +21,7 @@ function Groups(props) {
 			props.toggle();
 		});
 	};
+
 	const onChange = (e) => {
 		setState({ ...state, [e.target.name]: e.target.value });
 	};
