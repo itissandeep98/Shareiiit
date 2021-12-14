@@ -58,7 +58,10 @@ const FeaturesSplit = ({
 		<section {...props} className={outerClasses}>
 			<div className="container">
 				<div className={innerClasses}>
-					<SectionHeader data={sectionHeader} className="center-content" />
+					<SectionHeader
+						data={sectionHeader}
+						className="center-content"
+					/>
 					<div className={splitClasses}>
 						<div className="split-item">
 							<div
@@ -66,14 +69,12 @@ const FeaturesSplit = ({
 								data-reveal-container=".split-item"
 							>
 								<div className="text-xxs text-color-primary fw-600 tt-u mb-8">
-									OSA supported Login System
+									OSA Integrated Login System
 								</div>
 								<h3 className="mt-0 mb-12">Login Page</h3>
 								<p className="m-0">
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-									do eiusmod tempor incididunt ut labore et dolore magna aliqua
-									— Ut enim ad minim veniam, quis nostrud exercitation ullamco
-									laboris nisi ut aliquip ex ea commodo consequat.
+									Register on the OSA app and login with the
+									same credentials.
 								</p>
 							</div>
 							<div
@@ -98,14 +99,13 @@ const FeaturesSplit = ({
 								data-reveal-container=".split-item"
 							>
 								<div className="text-xxs text-color-primary fw-600 tt-u mb-8">
-									Creat Post Interface
+									Create Post Interface
 								</div>
 								<h3 className="mt-0 mb-12">Post Creation</h3>
 								<p className="m-0">
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-									do eiusmod tempor incididunt ut labore et dolore magna aliqua
-									— Ut enim ad minim veniam, quis nostrud exercitation ullamco
-									laboris nisi ut aliquip ex ea commodo consequat.
+									Create a post about book, groups,
+									electronics and other items. Attach photos
+									and be specific with more details.
 								</p>
 							</div>
 							<div
@@ -130,14 +130,14 @@ const FeaturesSplit = ({
 								data-reveal-container=".split-item"
 							>
 								<div className="text-xxs text-color-primary fw-600 tt-u mb-8">
-									Ability to filter
+									Customize your profile
 								</div>
-								<h3 className="mt-0 mb-12">Post Filtering</h3>
+								<h3 className="mt-0 mb-12">User Profile</h3>
 								<p className="m-0">
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-									do eiusmod tempor incididunt ut labore et dolore magna aliqua
-									— Ut enim ad minim veniam, quis nostrud exercitation ullamco
-									laboris nisi ut aliquip ex ea commodo consequat.
+									Set your bio, profile picture and role at
+									IIITD. Add your phone number or Telegram ID
+									to make it easier for others to connect. Add
+									your LinkedIn profile and skills.
 								</p>
 							</div>
 							<div

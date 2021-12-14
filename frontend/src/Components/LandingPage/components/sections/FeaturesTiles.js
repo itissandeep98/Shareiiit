@@ -43,7 +43,7 @@ const FeaturesTiles = ({
 	);
 
 	const sectionHeader = {
-		title: "Build up the whole picture",
+		title: "The more we share, the more we have",
 		paragraph:
 			"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum — semper quis lectus nulla at volutpat diam ut venenatis.",
 	};
@@ -52,7 +52,10 @@ const FeaturesTiles = ({
 		<section {...props} className={outerClasses}>
 			<div className="container">
 				<div className={innerClasses}>
-					<SectionHeader data={sectionHeader} className="center-content" />
+					<SectionHeader
+						data={sectionHeader}
+						className="center-content"
+					/>
 					<div className={tilesClasses}>
 						<div className="tiles-item reveal-from-bottom">
 							<div className="tiles-item-inner">
@@ -67,11 +70,10 @@ const FeaturesTiles = ({
 									</div>
 								</div>
 								<div className="features-tiles-item-content">
-									<h4 className="mt-0 mb-8">Create A Book Post</h4>
+									<h4 className="mt-0 mb-8">Books</h4>
 									<p className="m-0 text-sm">
-										Duis aute irure dolor in reprehenderit in voluptate velit
-										esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-										occaecat cupidatat.
+										Connect with people who have the books
+										you need and need the books you have.
 									</p>
 								</div>
 							</div>
@@ -93,11 +95,11 @@ const FeaturesTiles = ({
 									</div>
 								</div>
 								<div className="features-tiles-item-content">
-									<h4 className="mt-0 mb-8">Create Group Post</h4>
+									<h4 className="mt-0 mb-8">Groups</h4>
 									<p className="m-0 text-sm">
-										Duis aute irure dolor in reprehenderit in voluptate velit
-										esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-										occaecat cupidatat.
+										Whether a game of football, PUBG or a
+										course project--someone is always
+										interested. Join and form groups here.
 									</p>
 								</div>
 							</div>
@@ -119,11 +121,12 @@ const FeaturesTiles = ({
 									</div>
 								</div>
 								<div className="features-tiles-item-content">
-									<h4 className="mt-0 mb-8">Create Electronics Post</h4>
+									<h4 className="mt-0 mb-8">Electronics</h4>
 									<p className="m-0 text-sm">
-										Duis aute irure dolor in reprehenderit in voluptate velit
-										esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-										occaecat cupidatat.
+										Ask for the charger you forgot at home
+										or borrow an extension cord. ShareIIITD
+										finally provides an easy way of sharing
+										electronics in college.
 									</p>
 								</div>
 							</div>
@@ -142,10 +145,13 @@ const FeaturesTiles = ({
 									</div>
 								</div>
 								<div className="features-tiles-item-content">
-									<h4 className="mt-0 mb-8">Create Other Post</h4>
+									<h4 className="mt-0 mb-8">
+										Create Other Post
+									</h4>
 									<p className="m-0 text-sm">
-										Duis aute irure dolor in reprehenderit in voluptate velit
-										esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+										Duis aute irure dolor in reprehenderit
+										in voluptate velit esse cillum dolore eu
+										fugiat nulla pariatur. Excepteur sint
 										occaecat cupidatat.
 									</p>
 								</div>
@@ -168,11 +174,12 @@ const FeaturesTiles = ({
 									</div>
 								</div>
 								<div className="features-tiles-item-content">
-									<h4 className="mt-0 mb-8">Create Skill Post</h4>
+									<h4 className="mt-0 mb-8">Skills</h4>
 									<p className="m-0 text-sm">
-										Duis aute irure dolor in reprehenderit in voluptate velit
-										esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-										occaecat cupidatat.
+										Use your skills to collaborate on
+										projects, seek help with learning new
+										technologies or mentor those starting
+										out.
 									</p>
 								</div>
 							</div>
@@ -196,8 +203,9 @@ const FeaturesTiles = ({
 								<div className="features-tiles-item-content">
 									<h4 className="mt-0 mb-8">And Much More</h4>
 									<p className="m-0 text-sm">
-										Duis aute irure dolor in reprehenderit in voluptate velit
-										esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+										Duis aute irure dolor in reprehenderit
+										in voluptate velit esse cillum dolore eu
+										fugiat nulla pariatur. Excepteur sint
 										occaecat cupidatat.
 									</p>
 								</div>
