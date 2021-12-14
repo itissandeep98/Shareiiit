@@ -6,6 +6,7 @@ import Loading from "../Loading";
 import TopHeader from "../Navigation/TopHeader";
 import TechDetails from "../Technical/TechDetails";
 import Meta from "../Meta";
+import GroupDetails from "../Posts/GroupDetails";
 
 // const Home = lazy(() => import("../Home"));
 const Feed = lazy(() => import("../Feed"));
@@ -67,13 +68,14 @@ function Routing() {
 			layout: false,
 			render: () => <AuthComp />,
 		},
-		// {
-		//   path: "/register",
-		//   private: false,
-		//   restricted: true,
-		//   layout: false,
-		//   render: () => <AuthComp right="register" />,
-		// },
+		{
+			path: "/posts/group/:postId",
+			private: true,
+			layout: true,
+			render: (props) => (
+				<GroupDetails key={props.match.params.postId} {...props} />
+			),
+		},
 		{
 			path: "/posts/:postId",
 			private: true,
@@ -82,6 +84,7 @@ function Routing() {
 				<PostDetail key={props.match.params.postId} {...props} />
 			),
 		},
+
 		{
 			path: "/tech/:id",
 			private: true,
