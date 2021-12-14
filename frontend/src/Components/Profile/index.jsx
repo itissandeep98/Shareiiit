@@ -95,7 +95,7 @@ function Profile(props) {
 										{skills?.map((term) => (
 											<NavLink to={`/tech/${term.id}`} key={term.id}>
 												<Chip
-													label={term.skill.name}
+													label={term.skill.label}
 													className="m-1 btn "
 													icon={<FaceIcon />}
 													key={Math.random()}

@@ -19,7 +19,6 @@ import {
 
 function Tags(props) {
 	const { tags, modifyTags } = props;
-	const [query, setQuery] = useState("");
 	const dispatch = useDispatch();
 	const [skillList, setSkillList] = useState([]);
 	useEffect(() => {
@@ -28,17 +27,20 @@ function Tags(props) {
 		});
 	}, [dispatch]);
 
-	useEffect(() => {
-		if (query.length > 0) {
-			dispatch(searchSkillList(query)).then((res) => {
-				setSkillList(res);
-			});
-		} else {
-			dispatch(fetchSkillList()).then((res) => {
-				setSkillList(res);
-			});
+	const OnChange = (e) => {
+		if (e.charCode === 13) {
+			const query = e.target.value;
+			if (query.length > 0) {
+				dispatch(searchSkillList(query)).then((res) => {
+					setSkillList(res);
+				});
+			} else {
+				dispatch(fetchSkillList()).then((res) => {
+					setSkillList(res);
+				});
+			}
 		}
-	}, [query]);
+	};
 
 	return (
 		<Container className="bg-white p-2 rounded_lg shadow">
@@ -47,8 +49,8 @@ function Tags(props) {
 					<Typography variant="h3">Skills</Typography>
 					<TextField
 						label="Filter Tags"
-						value={query}
-						onChange={(e) => setQuery(e.target.value.toLowerCase())}
+						// onChange={OnChange}
+						onKeyPress={OnChange}
 						fullWidth
 						InputProps={{
 							endAdornment: (

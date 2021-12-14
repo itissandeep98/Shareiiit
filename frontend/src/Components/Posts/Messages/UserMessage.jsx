@@ -33,6 +33,8 @@ function UserMessage(props) {
 			setMess(e.target.value);
 		}
 	};
+	messages.reverse();
+
 	return (
 		<>
 			{messages.map((message) => (
