@@ -65,7 +65,7 @@ function AddSkill(props) {
 			<ModalHeader toggle={toggle}>Add Skill</ModalHeader>
 			<ModalBody>
 				<Autocomplete
-					disablePortal
+					freeSolo
 					options={skillList}
 					onChange={(e, value) => setData({ ...data, label: value.label })}
 					renderInput={(params) => (
