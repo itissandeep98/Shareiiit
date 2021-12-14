@@ -9,22 +9,22 @@ import { skillReducer } from "./skillReducer";
 import { notificationReducer } from "./notificationReducer";
 
 const persistConfig = {
-  key: "root",
-  storage: localForage,
-  transforms: [
-    encryptTransform({
-      secretKey: "fas56amasfba54ssdmnasdaf64asda6a8s6a54sd98",
-    }),
-  ],
+	key: "root",
+	storage: localForage,
+	transforms: [
+		encryptTransform({
+			secretKey: "fas56amasfb4ssdmnasdaf64asda6a8s6a54sd98",
+		}),
+	],
 };
 
 const rootReducer = combineReducers({
-  auth: authReducer,
-  posts: postReducer,
-  skill: skillReducer,
-  user: detailsReducer,
-  people: peopleReducer,
-  notification: notificationReducer,
+	auth: authReducer,
+	posts: postReducer,
+	skill: skillReducer,
+	user: detailsReducer,
+	people: peopleReducer,
+	notification: notificationReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

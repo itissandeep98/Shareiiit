@@ -32,14 +32,22 @@ function Profile(props) {
 					<Meta head={`${details.username} | ShareIIITD`} />
 					<Row className=" align-items-center">
 						<Col xs={12} md={3} className="d-none d-md-block ">
-							<Image src={process.env.PUBLIC_URL + "/assets/images/user.png"} />
+							<Image
+								src={
+									details.profile?.image_url ||
+									process.env.PUBLIC_URL + "/assets/images/user.png"
+								}
+							/>
 						</Col>
 						<Col>
 							<h2 className="d-inline">
 								{details?.username}
 								<div className="d-inline ml-2 d-md-none">
 									<Image
-										src={process.env.PUBLIC_URL + "/assets/images/user.png"}
+										src={
+											details.profile?.image_url ||
+											process.env.PUBLIC_URL + "/assets/images/user.png"
+										}
 										avatar
 									/>
 								</div>

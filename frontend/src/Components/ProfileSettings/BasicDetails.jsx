@@ -33,13 +33,13 @@ function BasicDetails(props) {
 	return (
 		<Row className="shadow my-3 py-4 rounded_lg bg-white align-items-center">
 			<Col xs={12} md={3} lg={2} className="d-none d-md-block text-center">
-				<ProfileUpload photo={details.photo} osadetails={osadetails} />
+				<ProfileUpload photo={details.image_url} osadetails={osadetails} />
 			</Col>
 			<Col>
 				<h2>
 					Edit Basic Details
 					<div className="d-inline ml-2 d-md-none">
-						<ProfileUpload photo={details.photo} osadetails={osadetails} />
+						<ProfileUpload photo={details.image_url} osadetails={osadetails} />
 					</div>
 				</h2>
 				<hr />

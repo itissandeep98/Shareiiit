@@ -13,7 +13,7 @@ function Groups(props) {
 		const data = {
 			title: state.title,
 			description: state.description,
-			members_needed: state.size,
+			members_needed: parseInt(state.size),
 		};
 		console.log(data);
 		dispatch(createPost({ data, category: "group" })).then(() => {
@@ -28,7 +28,7 @@ function Groups(props) {
 	return (
 		<form>
 			<TextField
-				label=" Team Name"
+				label="Title"
 				fullWidth
 				variant="outlined"
 				required

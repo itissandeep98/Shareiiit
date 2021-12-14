@@ -3,13 +3,14 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
-import { Image, Placeholder } from "semantic-ui-react";
+import { Image, Placeholder, Icon as IconSUI } from "semantic-ui-react";
 import { addVote } from "../../Store/ActionCreators/vote";
 import Messages from "../Posts/Messages/Messages";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import classNames from "classnames";
 import Meta from "../Meta";
+import moment from "moment";
 import { fetchPostDetails } from "../../Store/ActionCreators/post";
 
 function TechDetails(props) {
@@ -90,7 +91,7 @@ function TechDetails(props) {
 						</div>
 					)}
 				</Col>
-				<Col xs={9}>
+				<Col xs={8}>
 					{loading ? (
 						<Placeholder fluid>
 							<Placeholder.Line />
@@ -100,20 +101,34 @@ function TechDetails(props) {
 							<Placeholder.Line />
 						</Placeholder>
 					) : (
-						<>
-							<h2 className="text-capitalize text-center">{details.title}</h2>
-							<p className="text-muted float-right">
-								<NavLink to={`/${details.created_by}`}>
-									- {details.created_by}
-								</NavLink>
-							</p>
-							<Row className="mt-5">
-								<Col className="text-justify">{details.description}</Col>
-							</Row>
-						</>
+						<Row>
+							<Col>
+								<h1 className="text-capitalize">{details.title}</h1>
+								<br />
+								<p className="text-justify">{details.description}</p>
+								<br />
+							</Col>
+						</Row>
 					)}
+					<Row>
+						<Col className="text-muted">
+							<small>
+								<IconSUI name="user" />
+								Posted by{" "}
+								<NavLink to={`/${details.created_by}`}>
+									{details.created_by}
+								</NavLink>
+							</small>
+							<br />
+							<small>
+								<IconSUI name="time" />
+								{moment(details.created_at).fromNow()}
+							</small>
+						</Col>
+					</Row>
 				</Col>
 			</Row>
+
 			<Row className="mt-5">
 				<Col>
 					<hr />
