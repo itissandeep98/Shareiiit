@@ -11,7 +11,7 @@ export const searchBooks = (data) => {
 	return async (dispatch) => {
 		dispatch({ type: ActionTypes.BOOK_SEARCH_REQUEST });
 		return await axios
-			.get(`${apiUrl}/api/myposts/?category=book&`, {
+			.get(`${apiUrl}/api/posts/?category=book`, {
 				params: data,
 				headers: headers(),
 			})
@@ -36,7 +36,7 @@ export const searchAdvanced = (data) => {
 	return async (dispatch) => {
 		dispatch({ type: ActionTypes.SEARCH_REQUEST });
 		return await axios
-			.get(`${apiUrl}/api/myposts/?category=book&`, {
+			.get(`${apiUrl}/api/posts/?category=book`, {
 				params: data,
 				headers: headers(),
 			})
