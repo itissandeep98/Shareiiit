@@ -106,7 +106,7 @@ function AddSkill(props) {
 					variant="outlined"
 					className=" text-iiitd"
 					onClick={addSkill}
-					disabled={!data.rate || !data.label}
+					// disabled={!data.rate || !data.label}
 				>
 					Add Skill
 				</Button>
