@@ -42,11 +42,11 @@ const FeaturesTiles = ({
 		pushLeft && "push-left"
 	);
 
-	const sectionHeader = {
-		title: "The more we share, the more we have",
-		paragraph:
-			"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum — semper quis lectus nulla at volutpat diam ut venenatis.",
-	};
+	// const sectionHeader = {
+	// 	title: "The more we share, the more we have",
+	// 	paragraph:
+	// 		"Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum — semper quis lectus nulla at volutpat diam ut venenatis.",
+	// };
 
 	return (
 		<section {...props} className={outerClasses}>
@@ -62,7 +62,7 @@ const FeaturesTiles = ({
 								<div className="features-tiles-item-header">
 									<div className="features-tiles-item-image mb-16">
 										<Image
-											src="assets/landing/feature-tile-icon-01.svg"
+											src="assets/landing/feature-tile-icon-02.svg"
 											alt="Features tile icon 01"
 											width={64}
 											height={64}
@@ -87,7 +87,7 @@ const FeaturesTiles = ({
 								<div className="features-tiles-item-header">
 									<div className="features-tiles-item-image mb-16">
 										<Image
-											src="assets/landing/feature-tile-icon-02.svg"
+											src="assets/landing/feature-tile-icon-03.svg"
 											alt="Features tile icon 02"
 											width={64}
 											height={64}
@@ -113,7 +113,7 @@ const FeaturesTiles = ({
 								<div className="features-tiles-item-header">
 									<div className="features-tiles-item-image mb-16">
 										<Image
-											src="assets/landing/feature-tile-icon-03.svg"
+											src="assets/landing/feature-tile-icon-04.svg"
 											alt="Features tile icon 03"
 											width={64}
 											height={64}
@@ -132,7 +132,7 @@ const FeaturesTiles = ({
 							</div>
 						</div>
 
-						<div className="tiles-item reveal-from-bottom">
+						{/* <div className="tiles-item reveal-from-bottom">
 							<div className="tiles-item-inner">
 								<div className="features-tiles-item-header">
 									<div className="features-tiles-item-image mb-16">
@@ -156,7 +156,7 @@ const FeaturesTiles = ({
 									</p>
 								</div>
 							</div>
-						</div>
+						</div> */}
 
 						<div
 							className="tiles-item reveal-from-bottom"
@@ -166,7 +166,7 @@ const FeaturesTiles = ({
 								<div className="features-tiles-item-header">
 									<div className="features-tiles-item-image mb-16">
 										<Image
-											src="assets/landing/feature-tile-icon-05.svg"
+											src="assets/landing/feature-tile-icon-06.svg"
 											alt="Features tile icon 05"
 											width={64}
 											height={64}
@@ -193,7 +193,7 @@ const FeaturesTiles = ({
 								<div className="features-tiles-item-header">
 									<div className="features-tiles-item-image mb-16">
 										<Image
-											src="assets/landing/feature-tile-icon-06.svg"
+											src="assets/landing/feature-tile-icon-05.svg"
 											alt="Features tile icon 06"
 											width={64}
 											height={64}
@@ -203,10 +203,10 @@ const FeaturesTiles = ({
 								<div className="features-tiles-item-content">
 									<h4 className="mt-0 mb-8">And Much More</h4>
 									<p className="m-0 text-sm">
-										Duis aute irure dolor in reprehenderit
-										in voluptate velit esse cillum dolore eu
-										fugiat nulla pariatur. Excepteur sint
-										occaecat cupidatat.
+										Create a post about other resources that
+										existing categories don't cover. Study
+										notes or a badminton racquet–asketh and
+										thee shalt receiveth!
 									</p>
 								</div>
 							</div>

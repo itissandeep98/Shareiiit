@@ -45,15 +45,17 @@ const Hero = ({
 							data-reveal-delay="200"
 						>
 							Resource Sharing Platform
-							<span className="text-color-primary"> for IIITD Students</span>
+							<span className="text-color-primary">
+								{" "}
+								for IIITD
+							</span>
 						</h1>
 						<div className="container-xs">
 							<p
 								className="m-0 mb-32 reveal-from-bottom"
 								data-reveal-delay="400"
 							>
-								Our landing page template works on all devices, so you only have
-								to set it up once, and get beautiful results forever.
+								The more we share, the more we have
 							</p>
 						</div>
 					</div>
