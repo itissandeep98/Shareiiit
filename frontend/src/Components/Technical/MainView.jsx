@@ -9,26 +9,6 @@ import { useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { searchSkills } from "../../Store/ActionCreators/search";
 
-// const searchTest = function (varToSearch, jsonData) {
-//   var ans = false;
-//   for (var key in jsonData) {
-//     if (ans) {
-//       return true;
-//     }
-//     if (typeof jsonData[key] === "object") {
-//       ans = ans || searchTest(varToSearch, jsonData[key]);
-//     } else {
-//       if (
-//         typeof jsonData[key] === "string" &&
-//         jsonData[key].toLowerCase().includes(varToSearch.toLowerCase())
-//       ) {
-//         return true;
-//       }
-//     }
-//   }
-//   return ans;
-// };
-
 function MainView(props) {
 	const { tags, modifyTags } = props;
 	const [cards, setCards] = useState(props.skill.skills ?? []);
@@ -42,7 +22,7 @@ function MainView(props) {
 
 	useEffect(() => {
 		const allCards = props.skill.skills ?? [];
-		const temp = allCards.filter((card) => tags.includes(card.skill.name));
+		const temp = allCards.filter((card) => tags.includes(card.skill.label));
 		if (temp.length > 0) {
 			setCards(temp);
 		} else if (tags.length > 0) {
@@ -53,8 +33,6 @@ function MainView(props) {
 	}, [tags]);
 
 	useEffect(() => {
-		// const allCards = props.skill.skills ?? [];
-		// const temp = allCards.filter((card) => searchTest(searchText, card));
 		if (searchText.length > 0) {
 			dispatch(searchSkills({ search: searchText })).then((res) => {
 				const temp = res;

@@ -63,8 +63,7 @@ function TechCard(props) {
 				<div className="d-flex justify-content-between flex-column">
 					<CardContent>
 						<div onClick={() => history.push(`/tech/${id}`)}>
-							<Typography variant="h4">{skill?.name}</Typography>
-							<Typography variant="h5">{title}</Typography>
+							<Typography variant="h4">{skill?.label}</Typography>
 						</div>
 						<Typography variant="overline" color="textSecondary">
 							<NavLink to={`/${created_by}`}> {created_by}</NavLink>

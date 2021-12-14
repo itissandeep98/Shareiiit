@@ -35,7 +35,7 @@ export const fetchSkillPosts = () => {
 	return async (dispatch) => {
 		dispatch({ type: ActionTypes.SKILL_POSTS_FETCH_REQUEST });
 		return await axios
-			.get(`${apiUrl}/api/skills/`, { headers: headers() })
+			.get(`${apiUrl}/api/posts/?category=skill`, { headers: headers() })
 			.then((response) => {
 				dispatch({
 					type: ActionTypes.SKILL_POSTS_FETCH_SUCCESS,
