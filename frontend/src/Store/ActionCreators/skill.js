@@ -12,7 +12,7 @@ export const createSkillPost = (data) => {
 	return async (dispatch) => {
 		dispatch({ type: ActionTypes.SKILL_CREATE_REQUEST });
 		return await axios
-			.post(`${apiUrl}/api/myposts/?category=skill/`, data, {
+			.post(`${apiUrl}/api/myposts/?category=skill`, data, {
 				headers: headers(),
 			})
 			.then((response) => {

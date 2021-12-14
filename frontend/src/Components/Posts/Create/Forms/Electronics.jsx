@@ -39,7 +39,18 @@ function Electronics(props) {
 				name="title"
 				onChange={onChange}
 			/>
-
+			<TextField
+				label="Description"
+				className=" mt-3"
+				fullWidth
+				variant="outlined"
+				required
+				multiline
+				rows={4}
+				name="description"
+				value={state.description}
+				onChange={onChange}
+			/>
 			<TextField
 				type="number"
 				label="Price"

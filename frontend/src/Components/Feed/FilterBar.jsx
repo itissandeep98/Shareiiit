@@ -9,7 +9,7 @@ import {
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Col, Container, Modal, ModalBody, ModalHeader, Row } from "reactstrap";
-import { searchAdvanced, searchBooks } from "../../Store/ActionCreators/search";
+import { searchAdvanced, searchPosts } from "../../Store/ActionCreators/search";
 
 function FilterBar(props) {
 	const { category, setCategory, ordering, setOrdering } = props;
@@ -31,7 +31,8 @@ function FilterBar(props) {
 	const dispatch = useDispatch();
 	const onChange = (value) => {
 		setSearch(value);
-		dispatch(searchBooks({ search: value })).then((res) => {
+		const data = { search: value };
+		dispatch(searchPosts({ data, category })).then((res) => {
 			props.setResult(res);
 		});
 	};
