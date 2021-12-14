@@ -98,7 +98,7 @@ export const searchSkillList = (term) => {
 	return async (dispatch) => {
 		dispatch({ type: ActionTypes.SKILL_LIST_SEARCH_REQUEST });
 		return await axios
-			.get(`${apiUrl}/api/skilllist/?search=${term}/`, { headers: headers() })
+			.get(`${apiUrl}/api/skilllist/?search=${term}`, { headers: headers() })
 			.then((response) => {
 				dispatch({
 					type: ActionTypes.SKILL_LIST_SEARCH_SUCCESS,
