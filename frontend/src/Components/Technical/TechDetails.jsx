@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Col, Container, Row } from "reactstrap";
-import { Image, Placeholder, Icon as IconSUI } from "semantic-ui-react";
+import { Image, Placeholder, Icon as IconSUI, Rating } from "semantic-ui-react";
 import { addVote } from "../../Store/ActionCreators/vote";
 import Messages from "../Posts/Messages/Messages";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -56,7 +56,9 @@ function TechDetails(props) {
 
 	return (
 		<Container className="shadow p-3 mt-4">
-			<Meta head={`${details.title} by ${details.created_by} | ShareIIITD`} />
+			<Meta
+				head={`${details.skill?.label} by ${details.created_by} | ShareIIITD`}
+			/>
 			<Row>
 				<Col>
 					{loading ? (
@@ -103,8 +105,15 @@ function TechDetails(props) {
 					) : (
 						<Row>
 							<Col>
-								<h1 className="text-capitalize">{details.title}</h1>
+								<h1 className="text-capitalize">{details.skill?.label}</h1>
 								<br />
+								<Rating
+									rating={details.skill?.rating}
+									icon="star"
+									maxRating={5}
+									size="huge"
+									clearable
+								/>
 								<p className="text-justify">{details.description}</p>
 								<br />
 							</Col>
