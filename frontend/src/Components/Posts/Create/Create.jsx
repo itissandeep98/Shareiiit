@@ -28,7 +28,7 @@ function Create(props) {
 			menuItem: "Electronic Item",
 			render: () => (
 				<Tab.Pane attached={false} className="p-0 border-0">
-					<Electronics />
+					<Electronics toggle={() => setModal(!modal)} />
 				</Tab.Pane>
 			),
 		},
@@ -36,7 +36,7 @@ function Create(props) {
 			menuItem: "Other Item",
 			render: () => (
 				<Tab.Pane attached={false} className="p-0 border-0">
-					<Other />
+					<Other toggle={() => setModal(!modal)} />
 				</Tab.Pane>
 			),
 		},

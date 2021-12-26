@@ -24,7 +24,7 @@ function SkillCard(props) {
 			/>
 			<Accordion expanded={expanded} onChange={handleChange}>
 				<AccordionSummary expandIcon={<ExpandMoreIcon />}>
-					<Typography>{details.skill.name}</Typography>
+					<Typography>{details.skill.label}</Typography>
 					<Rating
 						className="ml-3"
 						rating={details.skill.rating}
