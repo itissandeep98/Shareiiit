@@ -52,7 +52,7 @@ function FilterBar(props) {
 	return (
 		<Container fluid className=" p-3 bg-light">
 			<Row>
-				<Col>
+				<Col className="mt-2">
 					<TextField
 						label="Search"
 						variant="outlined"
@@ -62,7 +62,7 @@ function FilterBar(props) {
 						onChange={(e) => onChange(e.target.value)}
 					/>
 				</Col>
-				<Col md={2}>
+				<Col md={2} className="mt-2">
 					<FormControl variant="outlined" fullWidth>
 						<InputLabel>Request posts</InputLabel>
 						<Select
@@ -76,7 +76,7 @@ function FilterBar(props) {
 						</Select>
 					</FormControl>
 				</Col>
-				<Col md={2} className="mb-2">
+				<Col md={2} className="mt-2">
 					<FormControl variant="outlined" fullWidth>
 						<InputLabel>Category</InputLabel>
 						<Select
@@ -90,7 +90,7 @@ function FilterBar(props) {
 						</Select>
 					</FormControl>
 				</Col>
-				<Col md={2} className="mb-2">
+				<Col md={2} className="mt-2">
 					<FormControl variant="outlined" fullWidth>
 						<InputLabel>Sort by</InputLabel>
 						<Select

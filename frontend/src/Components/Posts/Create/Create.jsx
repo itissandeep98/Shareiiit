@@ -49,7 +49,11 @@ function Create(props) {
 					Create New Post
 				</ModalHeader>
 				<ModalBody>
-					<Tab menu={{ secondary: true, pointing: true }} panes={panes} />
+					<Tab
+						menu={{ secondary: true, pointing: true }}
+						panes={panes}
+						className="top_menu"
+					/>
 				</ModalBody>
 			</Modal>
 		</>
