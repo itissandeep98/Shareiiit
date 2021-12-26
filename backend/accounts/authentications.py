@@ -30,7 +30,7 @@ class OSAAuthentication(authentication.BaseAuthentication):
 
         if status.is_success(response.status_code):
             print(response.json())
-            osa_token = response.json()["token"]
+            # osa_token = response.json()["token"]
             userData = response.json()["user"]
 
             # if not userData["is_verified"]:
@@ -47,7 +47,7 @@ class OSAAuthentication(authentication.BaseAuthentication):
                 user.last_name = last_name
                 # user.email = username_retreived
                 user.username = username_retreived
-                user.osa_token = osa_token
+                # user.osa_token = osa_token
                 user.save()
             except User.DoesNotExist:
                 user = User()
@@ -56,12 +56,12 @@ class OSAAuthentication(authentication.BaseAuthentication):
                 # user.email = username_retreived
                 user.username = username_retreived
                 user.username_osa = username_osa
-                user.osa_token = osa_token
+                # user.osa_token = osa_token
                 user.is_staff = True
                 user.is_superuser = True
                 user.save()
 
-            print(user.osa_token)
+            # print(user.osa_token)
             return (user, None)
 
         # if user is None:
