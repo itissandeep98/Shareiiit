@@ -35,16 +35,12 @@ export const fetchPostDetails = ({ id, category }) => {
 	};
 };
 
-export const fetchPosts = ({ category, ordering, request }) => {
+export const fetchPosts = (data) => {
 	return async (dispatch) => {
 		dispatch({ type: ActionTypes.POST_FETCH_REQUEST });
 		return await axios
 			.get(`${apiUrl}/api/posts/`, {
-				params: {
-					category: category,
-					ordering: ordering,
-					isrequest: request,
-				},
+				params: data,
 				headers: headers(),
 			})
 			.then((response) => {
@@ -52,7 +48,7 @@ export const fetchPosts = ({ category, ordering, request }) => {
 				dispatch({
 					type: ActionTypes.POST_FETCH_SUCCESS,
 					data: data,
-					category,
+					category: data.category,
 				});
 				return data;
 			})

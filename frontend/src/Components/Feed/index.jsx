@@ -16,23 +16,25 @@ function Posts(props) {
 	const [cards, setCards] = useState([]);
 	const [category, setCategory] = useState("book");
 	const [ordering, setOrdering] = useState("created_at");
-	const [request, setRequest] = useState(0);
+	const [is_request, setRequest] = useState(0);
 	const [modal, setModal] = useState(false);
 
 	const [loading, setLoading] = useState(false);
 	const dispatch = useDispatch();
 	useEffect(() => {
 		setLoading(true);
-		if (category) {
-			dispatch(fetchPosts({ category, ordering, request })).then((res) => {
+		if (is_request === 0) {
+			dispatch(fetchPosts({ category, ordering })).then((res) => {
 				setCards(res);
 				setLoading(false);
 			});
 		} else {
-			setCards([]);
-			setLoading(false);
+			dispatch(fetchPosts({ category, ordering, is_request })).then((res) => {
+				setCards(res);
+				setLoading(false);
+			});
 		}
-	}, [category, ordering, request]);
+	}, [category, ordering, is_request]);
 
 	return (
 		<Container fluid className="p-3 bg-light h-100">
@@ -71,7 +73,7 @@ function Posts(props) {
 									setCategory={setCategory}
 									ordering={ordering}
 									setOrdering={setOrdering}
-									request={request}
+									request={is_request}
 									setRequest={setRequest}
 								/>
 								<br />

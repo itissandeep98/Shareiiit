@@ -71,8 +71,8 @@ function FilterBar(props) {
 							onChange={(e) => setRequest(e.target.value)}
 						>
 							<MenuItem value={0}>All</MenuItem>
-							<MenuItem value={true}>Requested</MenuItem>
-							<MenuItem value={false}>Normal</MenuItem>
+							<MenuItem value={"True"}>Requested</MenuItem>
+							<MenuItem value={"False"}>Giving Away</MenuItem>
 						</Select>
 					</FormControl>
 				</Col>
