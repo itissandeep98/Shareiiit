@@ -11,13 +11,16 @@ User = get_user_model()
 
 class MessageSerializer(serializers.ModelSerializer):
     sender = serializers.CharField(source="sender.username", read_only=True)
+    sender_photo = serializers.CharField(
+        source="sender.profile.image_url", read_only=True
+    )
     receiver = serializers.CharField(source="receiver.username", read_only=True)
     conversation = serializers.PrimaryKeyRelatedField
     # post = serializers.IntegerField()``
 
     class Meta:
         model = Message
-        fields = ("timestamp", "sender", "receiver", "text")
+        fields = ("timestamp", "sender", "sender_photo", "receiver", "text")
         read_only_fields = ("receiver", "sender", "timestamp")
 
     def create(self, validated_data):
