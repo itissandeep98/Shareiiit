@@ -57,7 +57,7 @@ function OtherCard(props) {
 							<Image
 								src={
 									image_url ??
-									process.env.PUBLIC_URL + "/assets/images/book.png"
+									process.env.PUBLIC_URL + "/assets/images/other.svg"
 								}
 								size="small"
 							/>

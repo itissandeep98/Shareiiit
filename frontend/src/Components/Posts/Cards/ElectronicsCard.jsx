@@ -57,7 +57,7 @@ function ElectronicsCards(props) {
 							<Image
 								src={
 									image_url ??
-									process.env.PUBLIC_URL + "/assets/images/book.png"
+									process.env.PUBLIC_URL + "/assets/images/electronic.svg"
 								}
 								size="small"
 							/>

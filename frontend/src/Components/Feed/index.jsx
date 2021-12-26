@@ -16,6 +16,7 @@ function Posts(props) {
 	const [cards, setCards] = useState([]);
 	const [category, setCategory] = useState("book");
 	const [ordering, setOrdering] = useState("created_at");
+	const [request, setRequest] = useState(null);
 	const [modal, setModal] = useState(false);
 
 	const [loading, setLoading] = useState(false);
@@ -70,6 +71,8 @@ function Posts(props) {
 									setCategory={setCategory}
 									ordering={ordering}
 									setOrdering={setOrdering}
+									request={request}
+									setRequest={setRequest}
 								/>
 								<br />
 								<Row>

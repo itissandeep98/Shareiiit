@@ -5,6 +5,9 @@ import {
 	MenuItem,
 	TextField,
 	Button,
+	RadioGroup,
+	Radio,
+	FormControlLabel,
 } from "@mui/material";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -12,7 +15,8 @@ import { Col, Container, Modal, ModalBody, ModalHeader, Row } from "reactstrap";
 import { searchAdvanced, searchPosts } from "../../Store/ActionCreators/search";
 
 function FilterBar(props) {
-	const { category, setCategory, ordering, setOrdering } = props;
+	const { category, setCategory, ordering, setOrdering, request, setRequest } =
+		props;
 	const [search, setSearch] = useState("");
 	const categories = [
 		{ label: "Books", value: "book" },
@@ -48,6 +52,20 @@ function FilterBar(props) {
 						fullWidth
 						onChange={(e) => onChange(e.target.value)}
 					/>
+				</Col>
+				<Col md={2}>
+					<FormControl variant="outlined" fullWidth>
+						<InputLabel>Request posts</InputLabel>
+						<Select
+							label="Request posts"
+							value={request}
+							onChange={(e) => setRequest(e.target.value)}
+						>
+							<MenuItem value="all">All</MenuItem>
+							<MenuItem value="request">Requested</MenuItem>
+							<MenuItem value="normal">Normal</MenuItem>
+						</Select>
+					</FormControl>
 				</Col>
 				<Col md={2} className="mb-2">
 					<FormControl variant="outlined" fullWidth>
