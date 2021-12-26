@@ -32,7 +32,7 @@ class Message(models.Model):
     is_seen = models.BooleanField(default=False)
 
     class Meta:
-        ordering = ["-timestamp", "pk"]
+        ordering = ["timestamp", "pk"]
 
     # def __str__(self):
     #     return f"{sender__username} to {recipient__username}: {text}"
