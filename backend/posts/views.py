@@ -33,7 +33,7 @@ from .serializers import (
 #         return request.GET.getlist("search_fields", [])
 
 
-def get_search_kwargs(request):
+def get_search_kwargs(request, category):
     kwargs = {}
 
     title__icontains = request.query_params.get("title")
@@ -41,6 +41,7 @@ def get_search_kwargs(request):
     created_by__username__icontains = request.query_params.get("username")
     author = request.query_params.get("author")
     is_request = request.query_params.get("is_request")
+    members_needed = request.query_params.get("members_needed")
 
     if title__icontains:
         kwargs["title__icontains"] = title__icontains
@@ -53,11 +54,17 @@ def get_search_kwargs(request):
             "created_by__username__icontains"
         ] = created_by__username__icontains
 
-    if author:
-        kwargs["book__author__icontains"] = author
+    if category in ("book", "electronic", "other"):
+        if is_request is not None:
+            kwargs["is_request"] = is_request
 
-    if is_request is not None:
-        kwargs["is_request"] = is_request
+    if category == "book":
+        if author is not None:
+            kwargs["book__author__icontains"] = author
+
+    if category == "group":
+        if members_needed is not None:
+            kwargs["group__members_needed"] = members_needed
 
     return kwargs
 
@@ -125,7 +132,7 @@ class PostViewSet(viewsets.ReadOnlyModelViewSet):
             .post_set.exclude(
                 id__in=deleted_posts + expired_posts + dismissed_posts
             )
-            .filter(**get_search_kwargs(self.request))
+            .filter(**get_search_kwargs(self.request, category))
             .all()
             .annotate(upvote_count=F("vote_count_log__upvote_count"))
         )
