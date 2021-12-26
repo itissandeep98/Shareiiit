@@ -8,10 +8,19 @@ import {
 	RadioGroup,
 	Radio,
 	FormControlLabel,
+	Checkbox,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Col, Container, Modal, ModalBody, ModalHeader, Row } from "reactstrap";
+import {
+	Col,
+	Container,
+	Modal,
+	ModalBody,
+	ModalHeader,
+	Row,
+	Spinner,
+} from "reactstrap";
 import { searchAdvanced, searchPosts } from "../../Store/ActionCreators/search";
 
 function FilterBar(props) {
@@ -61,9 +70,9 @@ function FilterBar(props) {
 							value={request}
 							onChange={(e) => setRequest(e.target.value)}
 						>
-							<MenuItem value="all">All</MenuItem>
-							<MenuItem value="request">Requested</MenuItem>
-							<MenuItem value="normal">Normal</MenuItem>
+							<MenuItem value={0}>All</MenuItem>
+							<MenuItem value={true}>Requested</MenuItem>
+							<MenuItem value={false}>Normal</MenuItem>
 						</Select>
 					</FormControl>
 				</Col>
@@ -108,6 +117,7 @@ function FilterBar(props) {
 						open={modal}
 						toggle={() => setModal(!modal)}
 						setResult={props.setResult}
+						category={category}
 					/>
 				</Col>
 			</Row>
@@ -116,18 +126,32 @@ function FilterBar(props) {
 }
 
 function AdvancedSearch(props) {
-	const { open, toggle, setResult } = props;
+	const { open, toggle, setResult, category } = props;
 	const dispatch = useDispatch();
+	const [loading, setLoading] = useState(false);
 	const [data, setData] = useState({
 		title: "",
 		description: "",
 		username: "",
 	});
+	useEffect(() => {
+		setData({
+			title: "",
+			description: "",
+			username: "",
+		});
+	}, [category]);
+
 	const handleChange = (e) => {
 		setData({ ...data, [e.target.name]: e.target.value });
 	};
 	const handleSearch = () => {
-		dispatch(searchAdvanced(data)).then((res) => setResult(res));
+		setLoading(true);
+		dispatch(searchAdvanced({ ...data, category })).then((res) => {
+			setResult(res);
+			toggle();
+			setLoading(false);
+		});
 	};
 	return (
 		<Modal isOpen={open} toggle={toggle}>
@@ -157,12 +181,58 @@ function AdvancedSearch(props) {
 						name="username"
 						onChange={handleChange}
 					/>
+					{category === "book" && (
+						<TextField
+							label="Author"
+							className=" mt-3"
+							fullWidth
+							variant="outlined"
+							name="author"
+							value={data.author}
+							onChange={handleChange}
+						/>
+					)}
+					{category !== "group" ? (
+						<TextField
+							type="number"
+							label="Price"
+							fullWidth
+							variant="outlined"
+							className="mt-2"
+							name="price"
+							onChange={handleChange}
+						/>
+					) : (
+						<TextField
+							label="Members Needed"
+							type="number"
+							className=" mt-3"
+							fullWidth
+							variant="outlined"
+							name="members_needed"
+							value={data.members_needed}
+							onChange={handleChange}
+						/>
+					)}
+					<FormControlLabel
+						control={
+							<Checkbox
+								checked={data.is_request}
+								onChange={(e) =>
+									setData({ ...data, is_request: !data.is_request })
+								}
+								color="primary"
+							/>
+						}
+						label="Request Posts"
+					/>
 					<Button
 						variant="outlined"
 						className="mt-2 float-right"
 						onClick={handleSearch}
+						disabled={loading}
 					>
-						Search
+						{loading ? <Spinner /> : "Search"}
 					</Button>
 				</form>
 			</ModalBody>

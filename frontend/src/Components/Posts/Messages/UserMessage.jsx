@@ -40,7 +40,10 @@ function UserMessage(props) {
 			{messages.map((message) => (
 				<Comment key={Math.random()}>
 					<Comment.Avatar
-						src={process.env.PUBLIC_URL + "/assets/images/user.png"}
+						src={
+							message.sender_photo ??
+							process.env.PUBLIC_URL + "/assets/images/user.png"
+						}
 					/>
 					<Comment.Content>
 						<Comment.Author as="a" href={`/${message.sender}`}>
