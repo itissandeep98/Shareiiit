@@ -23,10 +23,24 @@ class OSAAuthentication(authentication.BaseAuthentication):
         # if username == None or password == None:
         #     return None
 
-        response = requests.post(
-            settings.OSA_URLS["TOKEN_AUTH"],
-            data={"username": username, "password": password},
-        )
+        try:
+            # if VPN is connected this should be executed
+
+            response = requests.post(
+                settings.OSA_URLS["TOKEN_AUTH"],
+                data={"username": username, "password": password},
+            )
+
+        except Exception as e:
+            # if VPN is not connected this should be executed
+            # TODO: Remove this second auth. It is temporary.
+
+            print(e)
+
+            response = requests.post(
+                settings.OSA_URLS["TOKEN_AUTH2"],
+                data={"username": username, "password": password},
+            )
 
         if status.is_success(response.status_code):
             print(response.json())
