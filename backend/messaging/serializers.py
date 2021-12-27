@@ -78,7 +78,7 @@ class NotificationSerializer(serializers.ModelSerializer):
         )
 
     def get_text(self, obj):
-        return f"You have a new message ({obj.message.text[:10]}...) from {obj.message.sender.username}."
+        return f"You have a new message from {obj.message.sender.username} - ({obj.message.text[:10]}...)"
 
     def get_post(self, obj):
         return {
