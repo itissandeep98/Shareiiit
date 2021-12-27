@@ -13,7 +13,7 @@ function Groups(props) {
 		const data = {
 			title: state.title,
 			description: state.description,
-			group: { members_needed: parseInt(state.size) },
+			group: { members_needed: parseInt(state.members_needed) },
 		};
 		console.log(data);
 		dispatch(createPost({ data, category: "group" })).then(() => {
@@ -44,8 +44,8 @@ function Groups(props) {
 				fullWidth
 				variant="outlined"
 				required
-				name="size"
-				value={state.size}
+				name="members_needed"
+				value={state.members_needed}
 				onChange={onChange}
 			/>
 			<TextField

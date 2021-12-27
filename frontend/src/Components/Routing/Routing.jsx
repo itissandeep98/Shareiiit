@@ -10,6 +10,7 @@ import GroupDetails from "../Posts/GroupDetails";
 
 // const Home = lazy(() => import("../Home"));
 const Feed = lazy(() => import("../Feed"));
+const Notification = lazy(() => import("../Notification"));
 const AuthComp = lazy(() => import("../Authorization"));
 const ProfileSettings = lazy(() => import("../ProfileSettings"));
 const Profile = lazy(() => import("../Profile"));
@@ -54,6 +55,12 @@ function Routing() {
 			private: true,
 			layout: true,
 			render: () => <Feed />,
+		},
+		{
+			path: "/notification",
+			private: true,
+			layout: true,
+			render: () => <Notification page />,
 		},
 		{
 			path: "/technical",

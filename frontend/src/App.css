@@ -56,3 +56,11 @@ a {
 a:hover {
 	color: #197a76 !important;
 }
+
+.top_menu > .ui.menu {
+	overflow: auto;
+}
+
+.top_menu > .ui.menu::-webkit-scrollbar {
+	display: none;
+}

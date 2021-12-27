@@ -18,7 +18,7 @@ import Notification from "../Notification";
 
 function TopHeader() {
 	const dispatch = useDispatch();
-	const [isNavOpen, setIsNavOpen] = useState(true);
+	const [isNavOpen, setIsNavOpen] = useState(false);
 	useEffect(() => {
 		dispatch(fetchUser());
 	}, [dispatch]);
@@ -70,9 +70,7 @@ function TopHeader() {
 						</Nav>
 						<Nav className="ml-auto" navbar>
 							<NavItem>
-								<a className="nav-link p-3">
-									<Notification />
-								</a>
+								<Notification />
 							</NavItem>
 							<NavItem>
 								<NavLink className="nav-link p-3" to="#" onClick={logout}>

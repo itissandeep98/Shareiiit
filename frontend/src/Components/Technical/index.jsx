@@ -21,7 +21,7 @@ function Technical() {
 		<Container fluid className="p-3 bg-light h-100">
 			<Meta head="Skills | ShareIIITD" />
 			<Row>
-				<Col md={2}>
+				<Col md={2} className="mb-2">
 					<Tags tags={selectedTags} modifyTags={modifyTags} />
 				</Col>
 				<Col>

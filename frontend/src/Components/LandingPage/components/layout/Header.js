@@ -116,10 +116,11 @@ const Header = ({
 											<li>
 												<Link
 													to="/login"
-													className="button button-primary button-wide-mobile button-sm"
+													className="button  button-wide-mobile button-sm shadow align-items-center"
 													onClick={closeMenu}
 												>
 													Sign In
+													<span className="fa fa-arrow-right ml-2" />
 												</Link>
 											</li>
 										</ul>

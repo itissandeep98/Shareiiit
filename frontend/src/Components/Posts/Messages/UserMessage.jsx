@@ -9,7 +9,7 @@ import { Spinner } from "reactstrap";
 function UserMessage(props) {
 	const { postid, convid } = props;
 	const [mess, setMess] = useState("");
-	const [messages, setMessages] = useState(props.messages);
+	const [messages, setMessages] = useState(props.messages.reverse());
 	const dispatch = useDispatch();
 	const [loading, setLoading] = useState(false);
 	const onChange = (e) => {
@@ -26,21 +26,23 @@ function UserMessage(props) {
 			}
 			setMess("");
 			dispatch(createMessage({ type, data })).then((res) => {
-				setMessages([res, ...messages]);
+				setMessages([...messages, res]);
 				setLoading(false);
 			});
 		} else {
 			setMess(e.target.value);
 		}
 	};
-	messages.reverse();
 
 	return (
 		<>
 			{messages.map((message) => (
 				<Comment key={Math.random()}>
 					<Comment.Avatar
-						src={process.env.PUBLIC_URL + "/assets/images/user.png"}
+						src={
+							message.sender_photo ??
+							process.env.PUBLIC_URL + "/assets/images/user.png"
+						}
 					/>
 					<Comment.Content>
 						<Comment.Author as="a" href={`/${message.sender}`}>

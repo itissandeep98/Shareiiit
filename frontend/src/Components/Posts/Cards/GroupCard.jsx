@@ -55,7 +55,7 @@ function GroupCard(props) {
 							<Image
 								src={
 									image_url ??
-									process.env.PUBLIC_URL + "/assets/images/book.png"
+									process.env.PUBLIC_URL + "/assets/images/group.svg"
 								}
 								size="small"
 							/>

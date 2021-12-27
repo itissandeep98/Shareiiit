@@ -44,7 +44,7 @@ function MyActivity() {
 				</Tabs>
 			</Paper>
 			<Row className="mt-3">
-				<Col xs={2}>
+				<Col md={2}>
 					<Paper>
 						<Tabs
 							value={category}

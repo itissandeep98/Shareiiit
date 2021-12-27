@@ -61,7 +61,7 @@ export const searchAdvanced = (data) => {
 	return async (dispatch) => {
 		dispatch({ type: ActionTypes.SEARCH_REQUEST });
 		return await axios
-			.get(`${apiUrl}/api/posts/?category=book`, {
+			.get(`${apiUrl}/api/posts/`, {
 				params: data,
 				headers: headers(),
 			})
