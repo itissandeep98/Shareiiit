@@ -68,9 +68,10 @@ class VoteLogSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
-    created_by = serializers.CharField(
-        source="created_by.username", read_only=True
-    )
+    # created_by = serializers.CharField(
+    #     source="created_by.username", read_only=True
+    # )
+    created_by = serializers.SerializerMethodField()
     category = serializers.SlugRelatedField(read_only=True, slug_field="name")
     vote_log = serializers.SerializerMethodField()
     upvote_count = serializers.IntegerField(read_only=True)
@@ -94,6 +95,20 @@ class PostSerializer(serializers.ModelSerializer):
             "upvote_count",
             "vote_log",
         )
+
+    def get_created_by(self, obj):
+        name = ""
+
+        if len(obj.created_by.first_name) > 0:
+            name += obj.created_by.first_name
+
+        if len(obj.created_by.last_name) > 0:
+            if len(name) > 0:
+                name += " "
+
+            name += obj.created_by.last_name
+
+        return {"username": obj.created_by.username, "name": name}
 
     def get_vote_log(self, obj):
         request = self.context.get("request")
