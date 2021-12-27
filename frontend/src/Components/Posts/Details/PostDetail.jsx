@@ -125,7 +125,7 @@ function PostDetail(props) {
 											>
 												<p>
 													<Label size="large" color="teal">
-														Available for <Icon name="rupee" className="ml-1" />
+														Price <Icon name="rupee" className="ml-1" />
 														{details.price}
 													</Label>
 												</p>
