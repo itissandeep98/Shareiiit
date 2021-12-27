@@ -23,6 +23,7 @@ function Posts(props) {
 	const dispatch = useDispatch();
 	useEffect(() => {
 		setLoading(true);
+		setCards([]);
 		if (is_request === 0) {
 			dispatch(fetchPosts({ category, ordering })).then((res) => {
 				setCards(res);
@@ -83,7 +84,7 @@ function Posts(props) {
 											<Col xs={12} md={6} lg={4} className="my-3" key={card.id}>
 												{category === "book" && <BookCard {...card} />}
 												{category === "group" && <GroupCard {...card} />}
-												{category === "electronics" && (
+												{category === "electronic" && (
 													<ElectronicsCard {...card} />
 												)}
 												{category === "other" && <OtherCard {...card} />}

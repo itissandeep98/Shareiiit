@@ -33,7 +33,6 @@ function GroupDetails(props) {
 			setDismiss(res?.vote_log?.dismiss_flag);
 		});
 	}, [dispatch]);
-	console.log(details);
 
 	const Vote = (option) => {
 		let data = {};
