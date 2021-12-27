@@ -57,7 +57,7 @@ function TechDetails(props) {
 	return (
 		<Container className="shadow p-3 mt-4">
 			<Meta
-				head={`${details.skill?.label} by ${details.created_by.username} | ShareIIITD`}
+				head={`${details.skill?.label} by ${details.created_by?.username} | ShareIIITD`}
 			/>
 			<Row>
 				<Col>
