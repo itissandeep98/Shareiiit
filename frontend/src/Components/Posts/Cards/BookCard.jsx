@@ -55,7 +55,7 @@ function PostCards(props) {
 	return (
 		<>
 			<ImagePopup
-				image={image_url}
+				image={image_url ?? process.env.PUBLIC_URL + "/assets/images/book.png"}
 				open={modal}
 				onClose={() => setModal(!modal)}
 			/>

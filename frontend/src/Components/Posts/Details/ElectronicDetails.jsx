@@ -57,7 +57,10 @@ function ElectronicDetails(props) {
 	return (
 		<>
 			<ImagePopup
-				image={details.image_url}
+				image={
+					details.image_url ??
+					process.env.PUBLIC_URL + "/assets/images/electronic.svg"
+				}
 				open={modal}
 				onClose={() => setModal(!modal)}
 			/>

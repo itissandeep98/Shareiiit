@@ -57,7 +57,7 @@ function Skills() {
 				</Button>
 				<Row>
 					<Col className="text-center mb-3">
-						{userTags.map((tag, i) => (
+						{userTags?.map((tag, i) => (
 							<SkillCard
 								key={i}
 								details={tag}
