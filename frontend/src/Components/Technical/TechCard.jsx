@@ -66,7 +66,9 @@ function TechCard(props) {
 							<Typography variant="h5">{skill?.label}</Typography>
 						</div>
 						<Typography variant="overline" color="textSecondary">
-							<NavLink to={`/${created_by}`}> {created_by}</NavLink>
+							<NavLink to={`/${created_by.username}`}>
+								{created_by.name ? created_by.name : created_by.username}
+							</NavLink>
 						</Typography>
 						<div onClick={() => history.push(`/tech/${id}`)}>
 							<Typography variant="body2">{description}</Typography>

@@ -32,18 +32,20 @@ function MainView(props) {
 		}
 	}, [tags]);
 
-	useEffect(() => {
-		if (searchText.length > 0) {
-			dispatch(searchSkills({ search: searchText })).then((res) => {
-				const temp = res;
-				if (temp?.length > 0) {
-					setCards(temp);
-				} else {
-					setCards([]);
-				}
-			});
+	const OnChange = (e) => {
+		if (e.charCode === 13) {
+			if (searchText.length > 0) {
+				dispatch(searchSkills({ search: searchText })).then((res) => {
+					const temp = res;
+					if (temp?.length > 0) {
+						setCards(temp);
+					} else {
+						setCards([]);
+					}
+				});
+			}
 		}
-	}, [searchText]);
+	};
 
 	return (
 		<Container className="bg-white p-3 rounded_lg shadow">
@@ -54,6 +56,7 @@ function MainView(props) {
 						fullWidth
 						value={searchText}
 						onChange={(e) => setSearchText(e.target.value)}
+						onKeyPress={OnChange}
 						InputProps={{
 							endAdornment: (
 								<InputAdornment position="end">

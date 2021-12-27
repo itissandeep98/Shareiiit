@@ -71,7 +71,10 @@ function ElectronicsCards(props) {
 								{title}
 							</h3>
 							<small className="text-muted float-right">
-								- <NavLink to={`/${created_by}`}>{created_by}</NavLink>
+								-{" "}
+								<NavLink to={`/${created_by.username}`}>
+									{created_by.name ? created_by.name : created_by.username}
+								</NavLink>
 							</small>
 						</Col>
 					</Row>

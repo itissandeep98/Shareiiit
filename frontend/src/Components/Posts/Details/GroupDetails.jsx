@@ -129,8 +129,10 @@ function GroupDetails(props) {
 										<small>
 											<Icon name="user" />
 											Posted by{" "}
-											<NavLink to={`/${details.created_by}`}>
-												{details.created_by}
+											<NavLink to={`/${details.created_by?.username}`}>
+												{details.created_by?.name
+													? details.created_by?.name
+													: details.created_by?.username}
 											</NavLink>
 										</small>
 										<br />
