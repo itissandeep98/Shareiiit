@@ -8,7 +8,6 @@ const headers = () => ({
 });
 
 export const createSkillPost = (data) => {
-	console.log(data);
 	return async (dispatch) => {
 		dispatch({ type: ActionTypes.SKILL_CREATE_REQUEST });
 		return await axios
@@ -136,7 +135,6 @@ export const deleteSkillPost = (id) => {
 };
 
 export const updateSkillPost = ({ id, body }) => {
-	console.log(body);
 	return async (dispatch) => {
 		dispatch({ type: ActionTypes.SKILL_CREATE_REQUEST });
 		return await axios

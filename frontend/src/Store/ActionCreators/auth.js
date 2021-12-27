@@ -21,7 +21,6 @@ export const loginAction = (data) => {
 			})
 			.catch((error) => {
 				showAlert("Invalid Username or Password", "error");
-				console.log(error.response);
 				if (error?.response?.data?.error) {
 					dispatch({
 						type: ActionTypes.LOGIN_FAILED,
@@ -66,7 +65,6 @@ export const registerAction = (data) => {
 				});
 			})
 			.catch((error) => {
-				console.log(error.response);
 				if (error?.response?.data?.error) {
 					dispatch({
 						type: ActionTypes.REGISTER_FAILED,

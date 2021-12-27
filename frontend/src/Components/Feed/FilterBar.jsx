@@ -84,8 +84,10 @@ function FilterBar(props) {
 							value={category}
 							onChange={(e) => setCategory(e.target.value)}
 						>
-							{categories.map((tag) => (
-								<MenuItem value={tag.value}>{tag.label}</MenuItem>
+							{categories.map((tag, i) => (
+								<MenuItem value={tag.value} key={i}>
+									{tag.label}
+								</MenuItem>
 							))}
 						</Select>
 					</FormControl>
@@ -98,8 +100,10 @@ function FilterBar(props) {
 							value={ordering}
 							onChange={(e) => setOrdering(e.target.value)}
 						>
-							{sort_by.map((tag) => (
-								<MenuItem value={tag.value}>{tag.label}</MenuItem>
+							{sort_by.map((tag, i) => (
+								<MenuItem value={tag.value} key={i}>
+									{tag.label}
+								</MenuItem>
 							))}
 						</Select>
 					</FormControl>

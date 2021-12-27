@@ -3,16 +3,16 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Col, Container, Row } from "reactstrap";
 import { Icon, Image, Label, Placeholder } from "semantic-ui-react";
-import { addVote } from "../../Store/ActionCreators/vote";
-import Meta from "../Meta";
+import { addVote } from "../../../Store/ActionCreators/vote";
+import Meta from "../../Meta";
 import moment from "moment";
-import Messages from "./Messages/Messages";
+import Messages from "../Messages/Messages";
 import { NavLink } from "react-router-dom";
-import { fetchPostDetails } from "../../Store/ActionCreators/post";
-import Reaction from "./Cards/Reaction";
-import ImagePopup from "../../Utils/ImagePopup";
+import { fetchPostDetails } from "../../../Store/ActionCreators/post";
+import Reaction from "../Cards/Reaction";
+import ImagePopup from "../../../Utils/ImagePopup";
 
-function GroupDetails(props) {
+function ElectronicDetails(props) {
 	const id = props.match.params.postId;
 	const [modal, setModal] = useState(false);
 	const dispatch = useDispatch();
@@ -24,7 +24,7 @@ function GroupDetails(props) {
 	const [dismiss, setDismiss] = useState(null);
 	const username = useSelector((state) => state.user?.details?.username);
 	useEffect(() => {
-		dispatch(fetchPostDetails({ id, category: "group" })).then((res) => {
+		dispatch(fetchPostDetails({ id, category: "electronic" })).then((res) => {
 			setDetails(res);
 			setLoading(false);
 			setNum_upvotes(res?.upvote_count);
@@ -33,7 +33,6 @@ function GroupDetails(props) {
 			setDismiss(res?.vote_log?.dismiss_flag);
 		});
 	}, [dispatch]);
-	console.log(details);
 
 	const Vote = (option) => {
 		let data = {};
@@ -78,7 +77,7 @@ function GroupDetails(props) {
 											onClick={() => setModal(!modal)}
 											src={
 												details.image_url ??
-												process.env.PUBLIC_URL + "/assets/images/book.png"
+												process.env.PUBLIC_URL + "/assets/images/electronic.svg"
 											}
 											fluid
 										/>
@@ -105,9 +104,7 @@ function GroupDetails(props) {
 									<Row>
 										<Col>
 											<h1 className="text-capitalize">{details.title}</h1>
-											<p className="text-capitalize text-muted">
-												By {details?.book?.author}
-											</p>
+
 											<br />
 											<p className="text-justify">{details.description}</p>
 											<br />
@@ -115,17 +112,6 @@ function GroupDetails(props) {
 									</Row>
 								)}
 								<Row>
-									{details.group?.members_needed > 0 && (
-										<Col className="align-items-center d-flex" md={4}>
-											<Tooltip title="Fixed Price">
-												<p>
-													<Label size="large" color="teal">
-														{details.group.members_needed} Members needed
-													</Label>
-												</p>
-											</Tooltip>
-										</Col>
-									)}
 									<Col className="text-muted">
 										<small>
 											<Icon name="user" />
@@ -164,4 +150,4 @@ function GroupDetails(props) {
 	);
 }
 
-export default GroupDetails;
+export default ElectronicDetails;

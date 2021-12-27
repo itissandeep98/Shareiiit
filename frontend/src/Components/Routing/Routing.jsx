@@ -4,9 +4,7 @@ import PublicRoute from "./PublicRoute";
 import PrivateRoute from "./PrivateRoute";
 import Loading from "../Loading";
 import TopHeader from "../Navigation/TopHeader";
-import TechDetails from "../Technical/TechDetails";
 import Meta from "../Meta";
-import GroupDetails from "../Posts/GroupDetails";
 
 // const Home = lazy(() => import("../Home"));
 const Feed = lazy(() => import("../Feed"));
@@ -14,11 +12,17 @@ const Notification = lazy(() => import("../Notification"));
 const AuthComp = lazy(() => import("../Authorization"));
 const ProfileSettings = lazy(() => import("../ProfileSettings"));
 const Profile = lazy(() => import("../Profile"));
-const PostDetail = lazy(() => import("../Posts/PostDetail"));
+const PostDetail = lazy(() => import("../Posts/Details/PostDetail"));
 const MyPosts = lazy(() => import("../Interests/MyPosts"));
 const Interactions = lazy(() => import("../Interests/MyActivity"));
 const Technical = lazy(() => import("../Technical"));
 const LandingPage = lazy(() => import("../LandingPage"));
+const GroupDetails = lazy(() => import("../Posts/Details/GroupDetails"));
+const ElectronicDetails = lazy(() =>
+	import("../Posts/Details/ElectronicDetails")
+);
+const OtherDetails = lazy(() => import("../Posts/Details/OtherDetail"));
+const TechDetails = lazy(() => import("../Technical/TechDetails"));
 
 // private => Route requires authentication
 // layout => header should be visible or not
@@ -81,6 +85,30 @@ function Routing() {
 			layout: true,
 			render: (props) => (
 				<GroupDetails key={props.match.params.postId} {...props} />
+			),
+		},
+		{
+			path: "/posts/electronic/:postId",
+			private: true,
+			layout: true,
+			render: (props) => (
+				<ElectronicDetails key={props.match.params.postId} {...props} />
+			),
+		},
+		{
+			path: "/posts/other/:postId",
+			private: true,
+			layout: true,
+			render: (props) => (
+				<OtherDetails key={props.match.params.postId} {...props} />
+			),
+		},
+		{
+			path: "/posts/book/:postId",
+			private: true,
+			layout: true,
+			render: (props) => (
+				<PostDetail key={props.match.params.postId} {...props} />
 			),
 		},
 		{

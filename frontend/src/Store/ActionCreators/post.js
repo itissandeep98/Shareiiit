@@ -26,7 +26,6 @@ export const fetchPostDetails = ({ id, category }) => {
 				return response.data;
 			})
 			.catch((error) => {
-				console.log(error);
 				dispatch({
 					type: ActionTypes.POST_DETAILS_FETCH_FAILED,
 					errmess: "Error in connection with Server",
@@ -44,16 +43,15 @@ export const fetchPosts = (data) => {
 				headers: headers(),
 			})
 			.then((response) => {
-				const data = response.data.results;
+				const results = response.data.results;
 				dispatch({
 					type: ActionTypes.POST_FETCH_SUCCESS,
-					data: data,
+					data: results,
 					category: data.category,
 				});
-				return data;
+				return results;
 			})
 			.catch((error) => {
-				console.log(error);
 				dispatch({
 					type: ActionTypes.POST_FETCH_FAILED,
 					errmess: "Error in connection with Server",
@@ -77,7 +75,6 @@ export const createPost = ({ data, category }) => {
 				});
 			})
 			.catch((error) => {
-				console.log(error.response);
 				if (error?.response?.data?.detail) {
 					dispatch({
 						type: ActionTypes.POST_CREATE_FAILED,
@@ -109,7 +106,6 @@ export const fetchMyPosts = ({ category }) => {
 				return response.data.results;
 			})
 			.catch((error) => {
-				console.log(error);
 				dispatch({
 					type: ActionTypes.USER_POST_FETCH_FAILED,
 					errmess: "Error in connection with Server",
@@ -152,7 +148,6 @@ export const updatePost = ({ id, data }) => {
 				});
 			})
 			.catch((error) => {
-				console.log(error.response);
 				if (error?.response?.data?.detail) {
 					dispatch({
 						type: ActionTypes.POST_UPDATE_FAILED,

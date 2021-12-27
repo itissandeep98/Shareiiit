@@ -21,7 +21,6 @@ export const fetchMessages = (data) => {
 				return data;
 			})
 			.catch((error) => {
-				console.log(error);
 				dispatch({
 					type: ActionTypes.MESSAGE_FETCH_FAILED,
 					errmess: "Error in connection with Server",
@@ -46,7 +45,6 @@ export const createMessage = ({ type, data }) => {
 				return response.data;
 			})
 			.catch((error) => {
-				console.log(error.response);
 				dispatch({
 					type: ActionTypes.MESSAGE_CREATE_FAILED,
 					errmess: "Error in connection with Server",

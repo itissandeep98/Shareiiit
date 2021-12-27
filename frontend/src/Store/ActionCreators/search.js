@@ -23,7 +23,6 @@ export const searchBooks = (data) => {
 				return response.data.results;
 			})
 			.catch((error) => {
-				console.log(error);
 				dispatch({
 					type: ActionTypes.BOOK_SEARCH_FAILED,
 					errmess: "Error in connection with Server",
@@ -48,7 +47,6 @@ export const searchPosts = ({ data, category }) => {
 				return response.data.results;
 			})
 			.catch((error) => {
-				console.log(error);
 				dispatch({
 					type: ActionTypes.BOOK_SEARCH_FAILED,
 					errmess: "Error in connection with Server",
@@ -73,7 +71,6 @@ export const searchAdvanced = (data) => {
 				return response.data.results;
 			})
 			.catch((error) => {
-				console.log(error);
 				dispatch({
 					type: ActionTypes.SEARCH_FAILED,
 					errmess: "Error in connection with Server",
@@ -98,7 +95,6 @@ export const searchSkills = (data) => {
 				return response.data.results;
 			})
 			.catch((error) => {
-				console.log(error);
 				dispatch({
 					type: ActionTypes.SKILL_SEARCH_FAILED,
 					errmess: "Error in connection with Server",

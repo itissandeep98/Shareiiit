@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { Feed, Icon } from "semantic-ui-react";
+import { Icon } from "semantic-ui-react";
 import {
 	fetchNotification,
 	updateNotification,
@@ -25,16 +25,25 @@ export default function Content({ notification, unread, read }) {
 							{unread?.length > 0 && (
 								<>
 									<h4>Unread</h4>
-									{unread?.map((item) => (
-										<SingleNotification {...item} />
-									))}
+									<hr />
+									<ul>
+										{unread?.map((item) => (
+											<SingleNotification {...item} />
+										))}
+									</ul>
 								</>
 							)}
-							<h4>Read</h4>
-							<hr />
-							{read?.map((item) => (
-								<SingleNotification {...item} />
-							))}
+							{read?.length > 0 && (
+								<>
+									<h4>Read</h4>
+									<hr />
+									<ul>
+										{read?.map((item) => (
+											<SingleNotification {...item} />
+										))}
+									</ul>
+								</>
+							)}
 						</>
 					)}
 				</Col>
@@ -53,20 +62,21 @@ const SingleNotification = ({ id, post, read, text, timestamp }) => {
 		});
 	};
 	return (
-		<Feed.Event>
-			<Feed.Label>
-				{!read && (
-					<IconButton size="small" onClick={markRead}>
-						<Icon name="check" />
-					</IconButton>
-				)}
-			</Feed.Label>
-			<Feed.Content className="text-break">
-				<Feed.Summary>
+		<li>
+			<Row>
+				<Col className="text-break text-wrap">
 					<NavLink to={`/posts/${post.id}`}>{text}</NavLink>
-					<Feed.Date>{moment(timestamp).fromNow()}</Feed.Date>
-				</Feed.Summary>
-			</Feed.Content>
-		</Feed.Event>
+					<br />
+					<small>{moment(timestamp).fromNow()}</small>
+				</Col>
+				{!read && (
+					<Col xs={2} className="">
+						<IconButton size="small" onClick={markRead}>
+							<Icon name="check" />
+						</IconButton>
+					</Col>
+				)}
+			</Row>
+		</li>
 	);
 };

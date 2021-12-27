@@ -64,7 +64,6 @@ export const updateUser = (data) => {
 				return response.data;
 			})
 			.catch((error) => {
-				console.log(error.response);
 				showAlert("Update failed", "error");
 				dispatch({
 					type: ActionTypes.USER_DETAILS_UPDATE_FAILED,

@@ -15,7 +15,6 @@ function Groups(props) {
 			description: state.description,
 			group: { members_needed: parseInt(state.members_needed) },
 		};
-		console.log(data);
 		dispatch(createPost({ data, category: "group" })).then(() => {
 			dispatch(fetchPosts({ category: "group" }));
 			props.toggle();
