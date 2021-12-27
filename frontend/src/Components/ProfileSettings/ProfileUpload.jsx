@@ -44,7 +44,15 @@ function ProfileUpload(props) {
 					<Icon name="camera" corner onClick={toggle} className="btn p-0" />
 				</Icon.Group>
 				<NavLink to={`/${osadetails?.username}`} className=" mt-4">
-					<h3>{osadetails?.username}</h3>
+					<h5>
+						{osadetails?.first_name ? (
+							<>
+								{osadetails?.first_name} {osadetails?.last_name}
+							</>
+						) : (
+							osadetails?.username
+						)}
+					</h5>
 				</NavLink>
 			</div>
 		</>

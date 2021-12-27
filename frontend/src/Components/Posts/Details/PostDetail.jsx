@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Col, Container, Row } from "reactstrap";
 import { Icon, Image, Label, Placeholder } from "semantic-ui-react";
-import { addVote } from "../../Store/ActionCreators/vote";
-import Meta from "../Meta";
+import { addVote } from "../../../Store/ActionCreators/vote";
+import Meta from "../../Meta";
 import moment from "moment";
-import Messages from "./Messages/Messages";
+import Messages from "../Messages/Messages";
 import { NavLink } from "react-router-dom";
-import { fetchPostDetails } from "../../Store/ActionCreators/post";
-import Reaction from "./Cards/Reaction";
-import ImagePopup from "../../Utils/ImagePopup";
+import { fetchPostDetails } from "../../../Store/ActionCreators/post";
+import Reaction from "../Cards/Reaction";
+import ImagePopup from "../../../Utils/ImagePopup";
 
 function PostDetail(props) {
 	const id = props.match.params.postId;

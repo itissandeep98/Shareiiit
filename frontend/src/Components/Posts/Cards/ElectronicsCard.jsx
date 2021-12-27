@@ -65,7 +65,7 @@ function ElectronicsCards(props) {
 						<Col xs={9}>
 							<h3
 								className="text-capitalize"
-								onClick={() => props.history.push(`/posts/${id}`)}
+								onClick={() => props.history.push(`/posts/electronic/${id}`)}
 								style={{ cursor: "pointer" }}
 							>
 								{title}
@@ -77,7 +77,7 @@ function ElectronicsCards(props) {
 					</Row>
 					<Row
 						className="mt-1 btn p-0"
-						onClick={() => props.history.push(`/posts/${id}`)}
+						onClick={() => props.history.push(`/posts/electronic/${id}`)}
 					>
 						<Col className="text-justify">{description}</Col>
 					</Row>
