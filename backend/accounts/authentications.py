@@ -17,35 +17,48 @@ import requests
 
 class OSAAuthentication(authentication.BaseAuthentication):
     def authenticate(self, request):
-        username = request.data.get("username")
-        password = request.data.get("password")
+        osa_token = request.headers.get("osa-token")
 
-        # if username == None or password == None:
-        #     return None
+        if osa_token is not None:
+            # auto authenticate if token was found in cookies and sent in the request header
 
-        try:
-            # if VPN is connected this should be executed
-
-            response = requests.post(
-                settings.OSA_URLS["TOKEN_AUTH"],
-                data={"username": username, "password": password},
+            response = requests.get(
+                settings.OSA_URLS["CURRENT_USER"],
+                headers={"Authorization": "JWT " + osa_token},
             )
 
-        except Exception as e:
-            # if VPN is not connected this should be executed
-            # TODO: Remove this second auth. It is temporary.
+            userData = response.json()
+        else:
+            username = request.data.get("username")
+            password = request.data.get("password")
 
-            print(e)
+            # if username == None or password == None:
+            #     return None
 
-            response = requests.post(
-                settings.OSA_URLS["TOKEN_AUTH2"],
-                data={"username": username, "password": password},
-            )
+            try:
+                # if VPN is connected this should be executed
+
+                response = requests.post(
+                    settings.OSA_URLS["TOKEN_AUTH"],
+                    data={"username": username, "password": password},
+                )
+
+            except Exception as e:
+                # if VPN is not connected this should be executed
+                # TODO: Remove this second auth. It is temporary.
+
+                print(e)
+
+                response = requests.post(
+                    settings.OSA_URLS["TOKEN_AUTH2"],
+                    data={"username": username, "password": password},
+                )
+
+            userData = response.json()["user"]
 
         if status.is_success(response.status_code):
             print(response.json())
             # osa_token = response.json()["token"]
-            userData = response.json()["user"]
 
             # if not userData["is_verified"]:
             #     return None
@@ -71,8 +84,8 @@ class OSAAuthentication(authentication.BaseAuthentication):
                 user.username = username_retreived
                 user.username_osa = username_osa
                 # user.osa_token = osa_token
-                user.is_staff = True
-                user.is_superuser = True
+                # user.is_staff = True
+                # user.is_superuser = True
                 user.save()
 
             # print(user.osa_token)
