@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "p%p6+%oqzwg(ozz2&_pc159p69gu744*a8t88p(tgn!sdwz76e"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -76,6 +76,7 @@ CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
     "https://gupta-anmol.github.io",
     "https://shareiiitd.tk",
+    'http://192.168.1.240',
 ]
 
 ROOT_URLCONF = "backend.urls"
@@ -156,6 +157,7 @@ USE_TZ = True
 
 
 STATIC_URL = "/static/"
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 import django_heroku
 

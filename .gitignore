@@ -8,7 +8,6 @@ node_modules
 coverage
 
 # production
-build
 
 # misc
 .DS_Store
@@ -23,3 +22,5 @@ yarn-error.log*
 
 backend/skills.csv
 backend/db.sqlite3
+__pycache__/
+backend/staticfiles/*
