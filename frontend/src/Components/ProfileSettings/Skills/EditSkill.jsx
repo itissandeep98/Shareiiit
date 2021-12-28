@@ -60,7 +60,7 @@ function EditSkill(props) {
 						value={data?.skill?.name}
 						onChange={(e) => changeSkill("name", e.target.value)}
 					>
-						{skillList.map((tag, i) => (
+						{skillList?.map((tag, i) => (
 							<MenuItem key={i} value={tag.name}>
 								{tag.name}
 							</MenuItem>

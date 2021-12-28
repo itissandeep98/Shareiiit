@@ -70,6 +70,17 @@ function TopHeader() {
 						</Nav>
 						<Nav className="ml-auto" navbar>
 							<NavItem>
+								<a
+									className="nav-link p-3 "
+									href="https://forms.gle/Fh641DgMdrveindm9"
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<p className="d-md-none">Feedback</p>
+									<span className="fa fa-comment fa-lg d-none d-md-inline-block" />
+								</a>
+							</NavItem>
+							<NavItem>
 								<Notification />
 							</NavItem>
 							<NavItem>
