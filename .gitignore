@@ -22,3 +22,5 @@ yarn-error.log*
 
 backend/skills.csv
 backend/db.sqlite3
+__pycache__/
+backend/staticfiles/*
