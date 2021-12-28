@@ -11,7 +11,7 @@ export const fetchPeople = (user) => {
 	return async (dispatch) => {
 		dispatch({ type: ActionTypes.PEOPLE_DETAILS_FETCH_FAILED });
 		return await axios
-			.get(`${apiUrl}/api/users/${user}`, {
+			.get(`${apiUrl}/api/users/${user}/`, {
 				headers: headers(),
 			})
 			.then((response) => {
