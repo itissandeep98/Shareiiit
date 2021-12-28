@@ -23,14 +23,8 @@ function Saved(props) {
               </Col>
             ) : (
               <>
-                {cards?.map((card) => (
-                  <Col
-                    xs={12}
-                    md={6}
-                    lg={4}
-                    className="my-3"
-                    key={Math.random()}
-                  >
+                {cards?.map((card, index) => (
+                  <Col xs={12} md={6} lg={4} className="my-3" key={index}>
                     <PostCard {...card} />
                   </Col>
                 ))}

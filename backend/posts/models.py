@@ -24,15 +24,15 @@ class Category(models.Model):
 
 
 class SkillList(models.Model):
-    TYPE_CHOICES = [
-        ("TECH", "Technical"),
-    ]
-
-    name = models.CharField(max_length=100, blank=False)
-    type = models.CharField(max_length=4, choices=TYPE_CHOICES, default="TECH")
+    label = models.CharField(max_length=100, blank=False, unique=True)
+    # type = models.CharField(max_length=4, choices=TYPE_CHOICES, default="TECH")
+    frequency = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        ordering = ["-frequency"]
 
 
 class Post(models.Model):
@@ -46,10 +46,14 @@ class Post(models.Model):
     price = models.IntegerField(default=0)
     is_price_negotiable = models.BooleanField(default=False)
     status = models.CharField(max_length=100, default="active")
+    # image = models.ImageField(upload_to="posts/", default="posts/default.jpg")
+    image_url = models.TextField(
+        blank=True, null=True
+    )  # multiple images can be added by separating the urls with commas
+    is_deleted = models.BooleanField(default=False)
+    is_expired = models.BooleanField(default=False)
 
-    category = models.ForeignKey(
-        Category, related_name="category", on_delete=models.CASCADE, null=True
-    )
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
 
     class Meta:
         ordering = ["-vote_count_log__upvote_count", "-created_at"]
@@ -97,7 +101,7 @@ class Book(models.Model):
 
 class Skill(models.Model):
     post = models.OneToOneField(Post, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100, blank=False, null=False)
+    label = models.CharField(max_length=100, blank=False, null=False)
     rating = models.IntegerField()
 
 

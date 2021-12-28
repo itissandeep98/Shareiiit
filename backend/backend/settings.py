@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "django_filters",
     "django_extensions",
+    "django_cleanup.apps.CleanupConfig",
 ]
 
 REST_FRAMEWORK = {
@@ -73,7 +75,7 @@ MIDDLEWARE = [
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
     "https://gupta-anmol.github.io",
-    "https://shareiiitd.tk"
+    "https://shareiiitd.tk",
 ]
 
 ROOT_URLCONF = "backend.urls"
@@ -101,18 +103,18 @@ WSGI_APPLICATION = "backend.wsgi.application"
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    # "default": {
-    #     "ENGINE": "django.db.backends.mysql",
-    #     "NAME": "AgTOq8SfO8",
-    #     "USER": "AgTOq8SfO8",
-    #     "PASSWORD": "reoSn1zi5R",
-    #     "HOST": "remotemysql.com",
-    #     "PORT": "3306",
-    # }
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "gS0Pqz0IyZ",
+        "USER": "gS0Pqz0IyZ",
+        "PASSWORD": "pDOmB3ACT7",
+        "HOST": "remotemysql.com",
+        "PORT": "3306",
     }
+    # "default": {
+    #     "ENGINE": "django.db.backends.sqlite3",
+    #     "NAME": BASE_DIR / "db.sqlite3",
+    # }
 }
 
 
@@ -162,9 +164,27 @@ django_heroku.settings(locals())
 # PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 # STATIC_ROOT = os.path.join(PROJECT_DIR, "static")
 
+OSA_DOMAIN = "http://auth.osa.iiitd.edu.in"
 
-OSA_AUTHENTICATION_URL = "https://osa-iiitd.herokuapp.com/token-auth/"
-OSA_EDIT_PROFILE_URL = "https://osa-iiitd.herokuapp.com/core/edit_profile/"
-OSA_CURRENT_USER_URL = "https://osa-iiitd.herokuapp.com/core/current_user/"
+OSA_URLS = {
+    "TOKEN_AUTH": OSA_DOMAIN + "/token-auth/",
+    "TOKEN_AUTH2": "https://osa-iiitd.herokuapp.com" + "/token-auth/",
+    "CURRENT_USER": OSA_DOMAIN + "/core/current_user/",
+    "RESET_PASSOWRD": OSA_DOMAIN + "/core/reset_password/",
+    "VERIFY_EMAIL": OSA_DOMAIN + "/core/verify_email/",
+    "RESEND_EMAIL": OSA_DOMAIN + "/core/resend_email/",
+    "CHANGE_PASSWORD": OSA_DOMAIN + "/core/change_password/",
+    "EDIT_PROFILE": OSA_DOMAIN + "/core/edit_profile/",
+}
+
+# OSA_AUTHENTICATION_URL = "https://osa-iiitd.herokuapp.com/token-auth/"
+# OSA_CURRENT_USER_URL = "https://osa-iiitd.herokuapp.com/core/current_user/"
+# OSA_RESET_PASSWORD_URL = "https://osa-iiitd.herokuapp.com/core/reset_password/"
+# OSA_VERIFY_EMAIL_URL = "https://osa-iiitd.herokuapp.com/core/current_user/"
+# OSA_CURRENT_USER_URL = "https://osa-iiitd.herokuapp.com/core/current_user/"
+# OSA_EDIT_PROFILE_URL = "https://osa-iiitd.herokuapp.com/core/edit_profile/"
 
 AUTH_USER_MODEL = "accounts.User"
+
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_URL = "/media/"

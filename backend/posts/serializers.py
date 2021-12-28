@@ -32,65 +32,6 @@ class GroupSerializer(serializers.ModelSerializer):
         fields = ("members_needed",)
 
 
-# class VotedPostSerializer(serializers.ModelSerializer):
-#     voted_by = serializers.CharField(source="voted_by.username", read_only=True)
-#     # post = serializers.SerializerMethodField()
-
-#     class Meta:
-#         model = Vote
-#         fields = ("id", "voted_by", "choice", "post")
-
-#     def to_representation(self, obj):
-#         rep = super().to_representation(obj)
-
-#         print("Context request:", self.context["request"])
-
-#         args = {obj.post}
-#         kwargs = {"context": {"request": self.context["request"]}}
-
-#         serializer = None
-#         category = self.context.get("request").query_params.get("category")
-
-#         if category == "book":
-#             serializer = BookPostSerializer(*args, **kwargs)
-
-#         rep["post"] = serializer.data
-
-#         return rep
-
-
-# class VoteSerializer(serializers.ModelSerializer):
-#     voted_by = serializers.CharField(source="voted_by.username", read_only=True)
-#     # post = serializers.SerializerMethodField()
-
-#     class Meta:
-#         model = Vote
-#         fields = ("id", "voted_by", "post", "choice")
-
-#     def validate(self, data):
-#         """
-#         Data.get("user") cannot be used here because validate is called before voted_by parameter is added to the data. But it is necessary to call it because the entire validated_data is used in the create method of the VoteSerializer.
-#         """
-
-#         voted_by = self.context["request"].user
-#         post = data.get("post", None)
-#         choice = data.get("choice", None)
-
-#         try:
-#             obj = self.Meta.model.objects.get(
-#                 voted_by=voted_by, post=post, choice=choice
-#             )
-#         except self.Meta.model.DoesNotExist:
-#             return data
-
-#         if self.instance and obj.id == self.instance.id:
-#             return data
-#         else:
-#             raise serializers.ValidationError(
-#                 f"User has already voted {choice} on this post."
-#             )
-
-
 class VoteCountLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = VoteCountLog
@@ -127,13 +68,13 @@ class VoteLogSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
-    created_by = serializers.CharField(
-        source="created_by.username", read_only=True
-    )
-
+    # created_by = serializers.CharField(
+    #     source="created_by.username", read_only=True
+    # )
+    created_by = serializers.SerializerMethodField()
     category = serializers.SlugRelatedField(read_only=True, slug_field="name")
-    vote_count_log = VoteCountLogSerializer(read_only=True)
     vote_log = serializers.SerializerMethodField()
+    upvote_count = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = Post
@@ -148,9 +89,26 @@ class PostSerializer(serializers.ModelSerializer):
             "is_price_negotiable",
             "status",
             "category",
+            "is_expired",
+            "is_deleted",
+            "image_url",
+            "upvote_count",
             "vote_log",
-            "vote_count_log",
         )
+
+    def get_created_by(self, obj):
+        name = ""
+
+        if len(obj.created_by.first_name) > 0:
+            name += obj.created_by.first_name
+
+        if len(obj.created_by.last_name) > 0:
+            if len(name) > 0:
+                name += " "
+
+            name += obj.created_by.last_name
+
+        return {"username": obj.created_by.username, "name": name}
 
     def get_vote_log(self, obj):
         request = self.context.get("request")
@@ -201,7 +159,7 @@ class GroupPostSerializer(PostSerializer):
         else:
             group_data = {}
 
-        validated_data["category"] = Category.objects.get(pk=3)
+        validated_data["category"] = Category.objects.get(name="group")
         post = Post.objects.create(**validated_data)
         group = Group.objects.create(post=post, **group_data)
         return post
@@ -212,28 +170,37 @@ class GroupPostSerializer(PostSerializer):
             group_instance = Group.objects.get(post__id=instance.id)
             GroupSerializer().update(group_instance, group_data)
 
-        # group_instance.author = book_data.get("author", group_instance.author)
-        # group_instance.save()
-
         instance = super().update(instance, validated_data)
         return instance
+
+
+class ElectronicPostSerializer(PostSerializer):
+    class Meta:
+        model = PostSerializer.Meta.model
+        fields = PostSerializer.Meta.fields
+
+
+class OtherPostSerializer(PostSerializer):
+    class Meta:
+        model = PostSerializer.Meta.model
+        fields = PostSerializer.Meta.fields
 
 
 class SkillListSerializer(serializers.ModelSerializer):
     class Meta:
         model = SkillList
-        fields = ("id", "name", "type")
+        fields = "__all__"
 
 
 class SkillSerializer(serializers.ModelSerializer):
-    type = serializers.SerializerMethodField()
+    # type = serializers.SerializerMethodField()
 
     class Meta:
         model = Skill
-        fields = ("name", "rating", "type")
+        fields = ("label", "rating")
 
-    def get_type(self, obj):
-        return SkillList.objects.get(name=obj.name).type
+    # def get_type(self, obj):
+    # return SkillList.objects.get(name=obj.name).type
 
 
 class SkillPostSerializer(PostSerializer):
@@ -249,23 +216,35 @@ class SkillPostSerializer(PostSerializer):
         else:
             skill = {}
 
+        res = Skill.objects.filter(
+            label=skill.get("label"),
+            post__created_by__id=self.context.get("request").user.id,
+        )
+
+        if len(res) != 0:
+            raise serializers.ValidationError(
+                {
+                    "Error": "Failed to add the skill because you already have a skill post for "
+                    + skill.get("label")
+                    + "."
+                }
+            )
+
         validated_data["category"] = Category.objects.get(name="skill")
         post = Post(**validated_data)
 
-        # skill_item_name = skill.pop("skill_item").get("name")
-        # print("skill_item_name", skill_item_name)
-
         try:
-            SkillList.objects.get(name=skill.get("name"))
+            skill_list_obj = SkillList.objects.get(label=skill.get("label"))
+            skill_list_obj.frequency += 1
+            skill_list_obj.save()
         except SkillList.DoesNotExist:
             raise serializers.ValidationError(
-                {"Skill list": "Please enter a valid skill name."}
+                {"Error": "Please enter a valid skill label."}
             )
 
-        skill_instance = Skill(post=post, **skill)
-
+        skill_post = Skill(post=post, **skill)
         post.save()
-        skill_instance.save()
+        skill_post.save()
 
         return post
 

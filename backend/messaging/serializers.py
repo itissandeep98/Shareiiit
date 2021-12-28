@@ -3,7 +3,7 @@ from django.contrib.auth import get_user, get_user_model
 
 from rest_framework import serializers
 
-from .models import Message, Conversation
+from .models import Message, Conversation, Notification
 from posts.models import Post
 
 User = get_user_model()
@@ -11,24 +11,24 @@ User = get_user_model()
 
 class MessageSerializer(serializers.ModelSerializer):
     sender = serializers.CharField(source="sender.username", read_only=True)
+    sender_photo = serializers.CharField(
+        source="sender.profile.image_url", read_only=True
+    )
     receiver = serializers.CharField(source="receiver.username", read_only=True)
     conversation = serializers.PrimaryKeyRelatedField
     # post = serializers.IntegerField()``
 
     class Meta:
         model = Message
-        fields = ("timestamp", "sender", "receiver", "text")
+        fields = ("timestamp", "sender", "sender_photo", "receiver", "text")
         read_only_fields = ("receiver", "sender", "timestamp")
 
     def create(self, validated_data):
-        print(validated_data)
-        print("Context", self.context)
         conversation_id = validated_data.pop("conversation_id")
         post_id = validated_data.pop("post_id")
 
         if conversation_id is None:
             # if conv id is none, sender is the user2
-            print("hereee")
             user2 = validated_data["sender"]
             post = Post.objects.get(id=post_id)
             conversation = Conversation(user2=user2, post=post)
@@ -36,33 +36,10 @@ class MessageSerializer(serializers.ModelSerializer):
         else:
             conversation = Conversation.objects.get(pk=conversation_id)
 
-        print("here1")
-        if self.context.get("request").user is conversation.user2:
+        if self.context.get("request").user.id == conversation.user2.id:
             validated_data["receiver"] = conversation.post.created_by
         else:
             validated_data["receiver"] = conversation.user2
-
-        print("receiver", validated_data["receiver"].username)
-
-        # post = self.context["post"]
-
-        # validated_data["receiver"] = User.objects.get(
-        #     **validated_data.get("receiver")
-        # )
-
-        # try:
-        #     conversation = Conversation.objects.get(
-        #         Q(user2=validated_data["sender"])
-        #         | Q(user2=validated_data["receiver"]),
-        #         post__id=post,
-        #     )
-        # except Conversation.DoesNotExist as e:
-        #     print("here")
-        #     conversation = Conversation(
-        #         user2=validated_data["sender"],
-        #         post=Post.objects.get(id=post),
-        #     )
-        #     conversation.save()
 
         validated_data["conversation"] = conversation
 
@@ -83,3 +60,28 @@ class ConversationSerializer(serializers.ModelSerializer):
     #     post = Post.objects.create(**validated_data)
     #     book_instance = Book.objects.create(post=post, **book_data)
     #     return post
+
+
+class NotificationSerializer(serializers.ModelSerializer):
+    text = serializers.SerializerMethodField()
+    post = serializers.SerializerMethodField()
+    timestamp = serializers.DateTimeField(source="message.timestamp")
+
+    class Meta:
+        model = Notification
+        fields = (
+            "id",
+            "read",
+            "post",
+            "timestamp",
+            "text",
+        )
+
+    def get_text(self, obj):
+        return f"You have a new message from {obj.message.sender.username} - ({obj.message.text[:10]}...)"
+
+    def get_post(self, obj):
+        return {
+            "id": obj.message.conversation.post.id,
+            "category": obj.message.conversation.post.category.name,
+        }
