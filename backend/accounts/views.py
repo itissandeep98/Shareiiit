@@ -54,6 +54,7 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     pagination_class = None
     lookup_field = "username"
+    lookup_value_regex = "[\w@.]+"
 
     def get_permissions(self):
         """
