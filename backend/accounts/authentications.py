@@ -9,6 +9,8 @@ from rest_framework import status
 
 from django.contrib.auth import get_user_model
 
+from requests.exceptions import ConnectionError
+
 User = get_user_model()
 
 
@@ -17,44 +19,47 @@ import requests
 
 class OSAAuthentication(authentication.BaseAuthentication):
     def authenticate(self, request):
+        username = request.data.get("username")
+        password = request.data.get("password")
         osa_token = request.headers.get("osa-token")
+        userData = None
 
-        if osa_token is not None:
-            # auto authenticate if token was found in cookies and sent in the request header
+        try:
+            # if VPN is connected this should be executed
 
-            response = requests.get(
-                settings.OSA_URLS["CURRENT_USER"],
-                headers={"Authorization": "JWT " + osa_token},
-            )
+            if osa_token is not None:
+                # auto authenticate if token was found in cookies and sent in the request header
 
-            userData = response.json()
-        else:
-            username = request.data.get("username")
-            password = request.data.get("password")
+                response = requests.get(
+                    settings.OSA_URLS["CURRENT_USER"],
+                    headers={"Authorization": "JWT " + osa_token},
+                )
 
-            # if username == None or password == None:
-            #     return None
+                print(response.status_code)
 
-            try:
-                # if VPN is connected this should be executed
+                if not status.is_success(response.status_code):
+                    raise exceptions.AuthenticationFailed(
+                        _("Invalid osa token")
+                    )
 
+                userData = response.json()
+
+            else:
                 response = requests.post(
                     settings.OSA_URLS["TOKEN_AUTH"],
                     data={"username": username, "password": password},
                 )
 
-            except Exception as e:
-                # if VPN is not connected this should be executed
-                # TODO: Remove this second auth. It is temporary.
+        except ConnectionError as e:
+            # if VPN is not connected this should be executed
+            # TODO: Remove this second auth. It is temporary.
 
-                print(e)
+            # print("exception", type(e))
 
-                response = requests.post(
-                    settings.OSA_URLS["TOKEN_AUTH2"],
-                    data={"username": username, "password": password},
-                )
-
-            userData = response.json()["user"]
+            response = requests.post(
+                settings.OSA_URLS["TOKEN_AUTH2"],
+                data={"username": username, "password": password},
+            )
 
         if status.is_success(response.status_code):
             print(response.json())
@@ -62,6 +67,9 @@ class OSAAuthentication(authentication.BaseAuthentication):
 
             # if not userData["is_verified"]:
             #     return None
+
+            if userData is None:
+                userData = response.json()["user"]
 
             username_osa = userData["username_osa"]
             username_retreived = userData["username"]
@@ -88,8 +96,7 @@ class OSAAuthentication(authentication.BaseAuthentication):
                 # user.is_superuser = True
                 user.save()
 
-            # print(user.osa_token)
             return (user, None)
 
         # if user is None:
-        raise exceptions.AuthenticationFailed(_("Invalid username/password."))
+        raise exceptions.AuthenticationFailed(_("Invalid username or password"))
