@@ -36,6 +36,33 @@ export const loginAction = (data) => {
 	};
 };
 
+export const loginCookieAction = (token) => {
+	return async (dispatch) => {
+		dispatch({ type: ActionTypes.LOGIN_REQUEST });
+		return await axios
+			.post(`${apiUrl}/api/login/`, {}, { headers: { "osa-token": token } })
+			.then((response) => {
+				dispatch({
+					type: ActionTypes.LOGIN_SUCCESS,
+					key: response.data.token,
+				});
+			})
+			.catch((error) => {
+				if (error?.response?.data?.error) {
+					dispatch({
+						type: ActionTypes.LOGIN_FAILED,
+						errmess: error?.response?.data?.error,
+					});
+				} else {
+					dispatch({
+						type: ActionTypes.LOGIN_FAILED,
+						errmess: "Error in connection with Server",
+					});
+				}
+			});
+	};
+};
+
 export const logoutAction = () => {
 	return async (dispatch) => {
 		dispatch({ type: ActionTypes.LOGOUT_REQUEST });
