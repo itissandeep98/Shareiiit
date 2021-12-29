@@ -76,3 +76,24 @@ def add_skills():
 
             if x == 0:
                 print(skill, count)
+
+
+def set_popular_skills():
+    popular_skills = [
+        "Python",
+        "Machine Learning",
+        "React.js",
+        "Android Development",
+        "Natural Language Processing",
+        "Gardening",
+        "Football",
+        "Computer Vision",
+        "Singing",
+        "Data Mining",
+        "Public Speaking",
+    ]
+
+    for sk in popular_skills:
+        obj = SkillList.objects.get(label=sk)
+        obj.frequency += 1
+        obj.save()
