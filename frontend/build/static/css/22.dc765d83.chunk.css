@@ -1,0 +1,2 @@
+.text-grad{background:linear-gradient(-45deg,#ee7752,#e73c7e,#23a6d5,#23d5ab);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-size:400% 400%;-webkit-animation:gradient 20s ease infinite;animation:gradient 20s ease infinite;font-size:4.5em}@-webkit-keyframes gradient{0%{background-position:0 50%}50%{background-position:100% 50%}to{background-position:0 50%}}@keyframes gradient{0%{background-position:0 50%}50%{background-position:100% 50%}to{background-position:0 50%}}
+/*# sourceMappingURL=22.dc765d83.chunk.css.map */

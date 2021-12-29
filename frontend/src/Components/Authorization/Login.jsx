@@ -1,10 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink, withRouter } from "react-router-dom";
 import { Spinner } from "reactstrap";
 import { Button, Form, Input } from "semantic-ui-react";
-import { loginAction } from "../../Store/ActionCreators/auth";
+import {
+	loginAction,
+	loginCookieAction,
+} from "../../Store/ActionCreators/auth";
+import Cookies from "js-cookie";
 import Meta from "../Meta";
+import { showAlert } from "../../Utils/showAlert";
 
 function Login(props) {
 	const dispatch = useDispatch();
@@ -23,6 +28,18 @@ function Login(props) {
 			props.history.push("/feed");
 		});
 	};
+	useEffect(() => {
+		setLoading(true);
+		if (Cookies.get("osa_token")) {
+			showAlert("OSA login found, logging you in...", "success");
+			dispatch(loginCookieAction(Cookies.get("osa_token"))).then((res) => {
+				setLoading(false);
+				props.history.push("/feed");
+			});
+		}
+		// setLoading(false);
+	}, []);
+
 	return (
 		<>
 			<Meta head="Login | ShareIIITD" />
