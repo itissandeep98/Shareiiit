@@ -63,13 +63,31 @@ function MyActivity() {
 					</Paper>
 				</Col>
 				<Col>
-					<TabPanel value={value} cards={cards} loading={loading} index={0}>
+					<TabPanel
+						value={value}
+						cards={cards}
+						category={category}
+						loading={loading}
+						index={0}
+					>
 						<Saved />
 					</TabPanel>
-					<TabPanel value={value} cards={cards} loading={loading} index={1}>
+					<TabPanel
+						value={value}
+						cards={cards}
+						category={category}
+						loading={loading}
+						index={1}
+					>
 						<Upvoted />
 					</TabPanel>
-					<TabPanel value={value} cards={cards} loading={loading} index={2}>
+					<TabPanel
+						value={value}
+						cards={cards}
+						category={category}
+						loading={loading}
+						index={2}
+					>
 						<Dismissed />
 					</TabPanel>
 				</Col>

@@ -12,7 +12,7 @@ import "../style.scss";
 import Reaction from "./Reaction";
 import ImagePopup from "../../../Utils/ImagePopup";
 
-function PostCards(props) {
+function BookCard(props) {
 	let {
 		id,
 		description,
@@ -121,4 +121,4 @@ function PostCards(props) {
 	);
 }
 
-export default withRouter(PostCards);
+export default withRouter(BookCard);

@@ -189,7 +189,14 @@ function Layout(params) {
 			</div>
 			{layout && (
 				<footer className="text-center bg-dark p-3 text-white">
-					Copyright © 2021 IIITD | All rights reserved
+					Copyright © 2021 IIITD | All rights reserved | Built by{" "}
+					<a href="https://github.com/itissandeep98" target="_blank">
+						Sandeep
+					</a>{" "}
+					and{" "}
+					<a href="https://github.com/gupta-anmol" target="_blank">
+						Anmol
+					</a>
 				</footer>
 			)}
 		</>
