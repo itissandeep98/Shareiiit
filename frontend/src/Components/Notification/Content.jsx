@@ -52,7 +52,7 @@ export default function Content({ notification, unread, read }) {
 	);
 }
 
-const SingleNotification = ({ id, post, read, text, timestamp }) => {
+const SingleNotification = ({ id, post, category, read, text, timestamp }) => {
 	const dispatch = useDispatch();
 
 	const markRead = (e) => {
@@ -65,7 +65,7 @@ const SingleNotification = ({ id, post, read, text, timestamp }) => {
 		<li>
 			<Row>
 				<Col className="text-break text-wrap">
-					<NavLink to={`/posts/${post.id}`}>{text}</NavLink>
+					<NavLink to={`/posts/${category}/${post.id}`}>{text}</NavLink>
 					<br />
 					<small>{moment(timestamp).fromNow()}</small>
 				</Col>

@@ -106,7 +106,7 @@ function Profile(props) {
 										<h3>Knows About</h3>
 										<div className="d-flex flex-row align-items-center justify-content-center">
 											{skills?.map((term) => (
-												<NavLink to={`/tech/${term.id}`} key={term.id}>
+												<NavLink to={`/skill/${term.id}`} key={term.id}>
 													<Chip
 														label={term.skill.label}
 														className="m-1 btn "

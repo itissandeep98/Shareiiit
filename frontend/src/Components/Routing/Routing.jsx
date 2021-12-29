@@ -121,7 +121,7 @@ function Routing() {
 		},
 
 		{
-			path: "/tech/:id",
+			path: "/skill/:id",
 			private: true,
 			layout: true,
 			render: (props) => <TechDetails key={props.match.params.id} {...props} />,

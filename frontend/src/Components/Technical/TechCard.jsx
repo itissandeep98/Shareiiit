@@ -62,7 +62,7 @@ function TechCard(props) {
 			<CardActionArea>
 				<div className="d-flex justify-content-between flex-column">
 					<CardContent>
-						<div onClick={() => history.push(`/tech/${id}`)}>
+						<div onClick={() => history.push(`/skill/${id}`)}>
 							<Typography variant="h5">{skill?.label}</Typography>
 						</div>
 						<Typography variant="overline" color="textSecondary">
@@ -70,7 +70,7 @@ function TechCard(props) {
 								{created_by.name ? created_by.name : created_by.username}
 							</NavLink>
 						</Typography>
-						<div onClick={() => history.push(`/tech/${id}`)}>
+						<div onClick={() => history.push(`/skill/${id}`)}>
 							<Typography variant="body2">{description}</Typography>
 							<small className="text-muted text-center">
 								Posted {moment(created_at).fromNow()}
