@@ -61,8 +61,8 @@ def add_skills():
             count += 1
             skill = row[0]
 
-            if count < 30600:
-                continue
+            # if count < 30600:
+            #     continue
 
             # if langid.classify(skill)[0] == "en":
             try:
