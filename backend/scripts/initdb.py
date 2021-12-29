@@ -1,7 +1,7 @@
 from django.core import management
 
 # from django.contrib.auth import get_user_model
-
+from django.db import OperationalError
 from posts.models import SkillList
 
 import os
@@ -66,7 +66,9 @@ def add_skills():
 
             # if langid.classify(skill)[0] == "en":
             try:
-                SkillList.objects.create(name=skill)
+                SkillList.objects.create(label=skill)
+            except OperationalError as e:
+                print(e)
             except IntegrityError as e:
                 pass
 

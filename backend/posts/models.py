@@ -29,7 +29,7 @@ class SkillList(models.Model):
     frequency = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return self.name
+        return self.label
 
     class Meta:
         ordering = ["-frequency"]
