@@ -65,7 +65,7 @@ const SingleNotification = ({ id, post, category, read, text, timestamp }) => {
 		<li>
 			<Row>
 				<Col className="text-break text-wrap">
-					<NavLink to={`/posts/${category}/${post.id}`}>{text}</NavLink>
+					<NavLink to={`/posts/${post.category}/${post.id}`}>{text}</NavLink>
 					<br />
 					<small>{moment(timestamp).fromNow()}</small>
 				</Col>
