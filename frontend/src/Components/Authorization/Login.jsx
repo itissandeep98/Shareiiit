@@ -9,6 +9,7 @@ import {
 } from "../../Store/ActionCreators/auth";
 import Cookies from "js-cookie";
 import Meta from "../Meta";
+import { showAlert } from "../../Utils/showAlert";
 
 function Login(props) {
 	const dispatch = useDispatch();
@@ -30,12 +31,13 @@ function Login(props) {
 	useEffect(() => {
 		setLoading(true);
 		if (Cookies.get("osa_token")) {
+			showAlert("OSA login found, logging you in...", "success");
 			dispatch(loginCookieAction(Cookies.get("osa_token"))).then((res) => {
 				setLoading(false);
 				props.history.push("/feed");
 			});
 		}
-		setLoading(false);
+		// setLoading(false);
 	}, []);
 
 	return (
