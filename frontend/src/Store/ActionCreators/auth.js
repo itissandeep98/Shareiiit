@@ -48,6 +48,7 @@ export const loginCookieAction = (token) => {
 				});
 			})
 			.catch((error) => {
+				showAlert("Unable to login using OSA", "error");
 				if (error?.response?.data?.error) {
 					dispatch({
 						type: ActionTypes.LOGIN_FAILED,

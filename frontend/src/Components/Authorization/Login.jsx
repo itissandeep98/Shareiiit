@@ -29,15 +29,14 @@ function Login(props) {
 		});
 	};
 	useEffect(() => {
-		setLoading(true);
 		if (Cookies.get("osa_token")) {
+			setLoading(true);
 			showAlert("OSA login found, logging you in...", "success");
 			dispatch(loginCookieAction(Cookies.get("osa_token"))).then((res) => {
 				setLoading(false);
 				props.history.push("/feed");
 			});
 		}
-		// setLoading(false);
 	}, []);
 
 	return (

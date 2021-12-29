@@ -107,9 +107,6 @@ function GroupDetails(props) {
 									<Row>
 										<Col>
 											<h1 className="text-capitalize">{details.title}</h1>
-											<p className="text-capitalize text-muted">
-												By {details?.book?.author}
-											</p>
 											<br />
 											<p className="text-justify">{details.description}</p>
 											<br />
