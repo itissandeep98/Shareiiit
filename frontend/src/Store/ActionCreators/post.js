@@ -114,11 +114,13 @@ export const fetchMyPosts = ({ category }) => {
 	};
 };
 
-export const deletePost = (id) => {
+export const deletePost = ({ id, category }) => {
 	return async (dispatch) => {
 		dispatch({ type: ActionTypes.POST_DELETE_REQUEST });
 		return await axios
-			.delete(`${apiUrl}/api/myposts/${id}/`, { headers: headers() })
+			.delete(`${apiUrl}/api/myposts/${id}/?category=${category}`, {
+				headers: headers(),
+			})
 			.then((response) => {
 				dispatch({
 					type: ActionTypes.POST_DELETE_SUCCESS,
@@ -134,11 +136,11 @@ export const deletePost = (id) => {
 	};
 };
 
-export const updatePost = ({ id, data }) => {
+export const updatePost = ({ id, data, category }) => {
 	return async (dispatch) => {
 		dispatch({ type: ActionTypes.POST_UPDATE_REQUEST });
 		return await axios
-			.patch(`${apiUrl}/api/myposts/${id}/?category=book`, data, {
+			.patch(`${apiUrl}/api/myposts/${id}/?category=${category}`, data, {
 				headers: headers(),
 			})
 			.then((response) => {

@@ -5,23 +5,19 @@ import { useState } from "react";
 import { updatePost } from "../../../Store/ActionCreators/post";
 import { useDispatch } from "react-redux";
 import ImageUploader from "../../../Utils/ImageUploader";
+import MultiUpload from "../../../Utils/MultiUpload";
 
 function EditPostModal(props) {
 	const { modal, setModal, id } = props;
+	const { category } = props.details;
 	const [state, setState] = useState(props.details);
 
 	const dispatch = useDispatch();
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const data = {
-			title: state.title,
-			description: state.description,
-			book: { author: state.author },
-			is_request: state.is_request,
-			image_url: state.image_url,
-		};
+		console.log(state);
 		setModal(!modal);
-		dispatch(updatePost({ id, data }));
+		dispatch(updatePost({ id, state, category }));
 	};
 	const onChange = (e) => {
 		setState({ ...state, [e.target.name]: e.target.value });
@@ -40,18 +36,20 @@ function EditPostModal(props) {
 						name="title"
 						onChange={onChange}
 					/>
-					<TextField
-						label="Author"
-						className=" mt-3"
-						fullWidth
-						variant="outlined"
-						required
-						name="author"
-						value={state?.book?.author}
-						onChange={(e) =>
-							setState({ ...state, book: { author: e.target.value } })
-						}
-					/>
+					{category === "book" && (
+						<TextField
+							label="Author"
+							className=" mt-3"
+							fullWidth
+							variant="outlined"
+							required
+							name="author"
+							value={state?.book?.author}
+							onChange={(e) =>
+								setState({ ...state, book: { author: e.target.value } })
+							}
+						/>
+					)}
 					<TextField
 						label="Description"
 						className=" mt-3"
@@ -64,19 +62,38 @@ function EditPostModal(props) {
 						value={state.description}
 						onChange={onChange}
 					/>
-					<TextField
-						type="number"
-						label="Price"
-						className=" mt-3"
-						fullWidth
-						variant="outlined"
-						name="price"
-						value={state.price}
-						onChange={onChange}
-					/>
-					<ImageUploader
-						image={state.image_url}
-						setImage={(val) => setState({ ...state, image_url: val })}
+					{category !== "group" ? (
+						<TextField
+							type="number"
+							label="Price"
+							className=" mt-3"
+							fullWidth
+							variant="outlined"
+							name="price"
+							value={state.price}
+							onChange={onChange}
+						/>
+					) : (
+						<TextField
+							label="Members Needed"
+							type="number"
+							className=" mt-3"
+							fullWidth
+							variant="outlined"
+							name="members_needed"
+							value={state.group?.members_needed}
+							onChange={(e) =>
+								setState({
+									...state,
+									group: { members_needed: parseInt(e.target.value) },
+								})
+							}
+						/>
+					)}
+
+					<MultiUpload
+						content={state.image_url}
+						changeState={(val) => setState({ ...state, image_url: val })}
 					/>
 					<FormControlLabel
 						control={
