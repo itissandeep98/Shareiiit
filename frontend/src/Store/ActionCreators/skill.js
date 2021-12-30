@@ -138,18 +138,20 @@ export const updateSkillPost = ({ id, body }) => {
 	return async (dispatch) => {
 		dispatch({ type: ActionTypes.SKILL_CREATE_REQUEST });
 		return await axios
-			.patch(`${apiUrl}/api/myskills/${id}/`, body, { headers: headers() })
+			.patch(`${apiUrl}/api/myposts/${id}/?category=skill`, body, {
+				headers: headers(),
+			})
 			.then((response) => {
 				dispatch({
 					type: ActionTypes.SKILL_CREATE_SUCCESS,
 					data: response.data,
 				});
+			})
+			.catch((error) => {
+				dispatch({
+					type: ActionTypes.SKILL_CREATE_FAILED,
+					errmess: error.response,
+				});
 			});
-		// .catch((error) => {
-		//   dispatch({
-		//     type: ActionTypes.SKILL_CREATE_FAILED,
-		//     errmess: error.response,
-		//   });
-		// });
 	};
 };

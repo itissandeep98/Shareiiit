@@ -1,11 +1,4 @@
-import {
-	Button,
-	FormControl,
-	InputLabel,
-	MenuItem,
-	Select,
-	TextField,
-} from "@mui/material";
+import { Button, InputLabel, TextField, Autocomplete } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import { Rating } from "semantic-ui-react";
@@ -13,6 +6,7 @@ import { useDispatch } from "react-redux";
 import {
 	fetchSkillList,
 	updateSkillPost,
+	searchSkillList,
 } from "../../../Store/ActionCreators/skill";
 import { showAlert } from "../../../Utils/showAlert";
 
@@ -31,7 +25,6 @@ function EditSkill(props) {
 		const id = data.id;
 		const body = {
 			skill: data.skill,
-			title: data.title,
 			description: data.description,
 		};
 		dispatch(updateSkillPost({ id, body })).catch((err) => {
@@ -48,35 +41,32 @@ function EditSkill(props) {
 		const skill = { ...data.skill, [name]: value };
 		setData({ ...data, skill });
 	};
+	const searchSkills = (e) => {
+		const { value } = e.target;
+		dispatch(searchSkillList(value)).then((res) => {
+			setSkillList(res);
+		});
+	};
 
 	return (
 		<Modal isOpen={modal} toggle={toggle}>
 			<ModalHeader toggle={toggle}>Add Skill</ModalHeader>
 			<ModalBody>
-				<FormControl variant="outlined" fullWidth className="mt-2">
-					<InputLabel>Tag</InputLabel>
-					<Select
-						label="Tag"
-						value={data?.skill?.name}
-						onChange={(e) => changeSkill("name", e.target.value)}
-					>
-						{skillList?.map((tag, i) => (
-							<MenuItem key={i} value={tag.name}>
-								{tag.name}
-							</MenuItem>
-						))}
-					</Select>
-				</FormControl>
-				<TextField
-					label="Title"
-					variant="outlined"
-					className="mt-2"
-					value={data.title}
-					name="title"
-					multiline
-					fullWidth
-					onChange={onChange}
+				<Autocomplete
+					freeSolo
+					value={data?.skill?.label}
+					options={skillList}
+					onChange={(e, value) => changeSkill("label", value?.label)}
+					renderInput={(params) => (
+						<TextField
+							fullWidth
+							{...params}
+							onChange={searchSkills}
+							label="Tag"
+						/>
+					)}
 				/>
+
 				<TextField
 					label="Short Description"
 					variant="outlined"

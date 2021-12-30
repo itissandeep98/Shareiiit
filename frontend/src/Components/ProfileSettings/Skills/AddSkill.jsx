@@ -1,12 +1,4 @@
-import {
-	Autocomplete,
-	Button,
-	FormControl,
-	InputLabel,
-	MenuItem,
-	Select,
-	TextField,
-} from "@mui/material";
+import { Autocomplete, Button, InputLabel, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import { Rating } from "semantic-ui-react";
