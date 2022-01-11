@@ -1,6 +1,7 @@
 git pull
 sudo cp -r frontend/build/* /var/www/share.osa.iiitd.edu.in/
 source backend/venv/bin/activate
+pip install -r requirements.txt
 python backend/manage.py makemigrations
 python backend/manage.py migrate
 python backend/manage.py collectstatic --noinput
