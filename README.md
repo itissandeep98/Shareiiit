@@ -16,7 +16,7 @@
 
 ### Frontend :
 
-Change URL in [Url.js](frontend\src\Store\Urls.js) according to your Backend site and run the following commands
+Change URL in [Url.js](frontend/src/Store/Urls.js) according to your Backend site and run the following commands
 
 ```
 cd frontend
@@ -26,7 +26,7 @@ npm run start
 
 ### Backend :
 
-- Update the database details in [settings.py](backend\backend\settings.py#L106) and OSA Domain in [settings.py](backend\backend\settings.py#L177)
+- Update the database details in [settings.py](backend/backendsettings.py#L106) and OSA Domain in [settings.py](backend/backend/settings.py#L177)
 - Get inside the backend directory
 
 ```
