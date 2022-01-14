@@ -27,6 +27,7 @@ django-cleanup = "*"
 apscheduler = "*"
 pandas = "*"
 langid = "*"
+python-dotenv = "*"
 
 [dev-packages]
 black = "*"
