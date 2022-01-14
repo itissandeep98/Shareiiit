@@ -46,7 +46,7 @@ class Post(models.Model):
     price = models.IntegerField(default=0)
     is_price_negotiable = models.BooleanField(default=False)
     status = models.CharField(max_length=100, default="active")
-    # image = models.ImageField(upload_to="posts/", default="posts/default.jpg")
+    image = models.ImageField(upload_to="posts/", default="posts/default.jpg")
     image_url = models.TextField(
         blank=True, null=True
     )  # multiple images can be added by separating the urls with commas
@@ -103,6 +103,9 @@ class Skill(models.Model):
     post = models.OneToOneField(Post, on_delete=models.CASCADE)
     label = models.CharField(max_length=100, blank=False, null=False)
     rating = models.IntegerField()
+
+    def __str__(self):
+        return f"{self.label} - {self.post.created_by.username}"
 
 
 class Group(models.Model):

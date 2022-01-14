@@ -91,10 +91,21 @@ class PostSerializer(serializers.ModelSerializer):
             "category",
             "is_expired",
             "is_deleted",
+            "image",
             "image_url",
             "upvote_count",
             "vote_log",
         )
+
+    def validate_image(self, image):
+        # 12MB
+        MAX_FILE_SIZE = 12000000
+
+        if image.size > MAX_FILE_SIZE:
+            print(image.size)
+            raise serializers.ValidationError("File size too big!")
+
+        return image
 
     def get_created_by(self, obj):
         name = ""
