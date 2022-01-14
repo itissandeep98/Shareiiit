@@ -23,7 +23,5 @@ class Profile(models.Model):
     bio = models.CharField(max_length=1024, blank=True, null=True)
     linkedin_url = models.URLField(max_length=127, blank=True, null=True)
     telegram_url = models.URLField(max_length=127, blank=True, null=True)
-    picture = models.ImageField(
-        upload_to="accounts/", default="accounts/default.png"
-    )
+    image = models.ImageField(upload_to="accounts/", null=True)
     image_url = models.TextField(blank=True, null=True)

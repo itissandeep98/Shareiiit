@@ -11,8 +11,8 @@ User = get_user_model()
 
 class MessageSerializer(serializers.ModelSerializer):
     sender = serializers.CharField(source="sender.username", read_only=True)
-    sender_photo = serializers.CharField(
-        source="sender.profile.image_url", read_only=True
+    sender_photo = serializers.ImageField(
+        source="sender.profile.image", read_only=True
     )
     receiver = serializers.CharField(source="receiver.username", read_only=True)
     conversation = serializers.PrimaryKeyRelatedField
@@ -49,17 +49,11 @@ class MessageSerializer(serializers.ModelSerializer):
 
 class ConversationSerializer(serializers.ModelSerializer):
     messages = MessageSerializer(source="message_set", many=True)
-    user2 = serializers.SerializerMethodField()
+    user2 = serializers.CharField(source="user2.username")
 
     class Meta:
         model = Conversation
         fields = ("id", "user2", "messages")
-
-    def get_user2(self, obj):
-        return {
-            "username": obj.user2.username,
-            "picture": obj.user2.profile.picture.url,
-        }
 
     # def create(self, validated_data):
     #     validated_data["category"] = Category.objects.get(pk=1)

@@ -104,6 +104,9 @@ class Skill(models.Model):
     label = models.CharField(max_length=100, blank=False, null=False)
     rating = models.IntegerField()
 
+    def __str__(self):
+        return f"{self.label} - {self.post.created_by.username}"
+
 
 class Group(models.Model):
     post = models.OneToOneField(Post, on_delete=models.CASCADE)
