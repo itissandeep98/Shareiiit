@@ -58,7 +58,7 @@ function ElectronicDetails(props) {
 		<>
 			<ImagePopup
 				image={
-					details.image_url ??
+					details.image ??
 					process.env.PUBLIC_URL + "/assets/images/electronic.svg"
 				}
 				open={modal}
@@ -79,7 +79,7 @@ function ElectronicDetails(props) {
 										<Image
 											onClick={() => setModal(!modal)}
 											src={
-												details.image_url ??
+												details.image ??
 												process.env.PUBLIC_URL + "/assets/images/electronic.svg"
 											}
 											fluid

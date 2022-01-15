@@ -17,7 +17,7 @@ function PostCards(props) {
 		description,
 		book,
 		category,
-		image_url,
+		image,
 		created_by,
 		created_at,
 		is_request,
@@ -53,11 +53,7 @@ function PostCards(props) {
 	};
 	return (
 		<>
-			<ImagePopup
-				image={image_url}
-				open={modal}
-				onClose={() => setModal(!modal)}
-			/>
+			<ImagePopup image={image} open={modal} onClose={() => setModal(!modal)} />
 			<Container className="bg-white pt-3 rounded_lg border-info border mt-3 h-100 d-flex justify-content-between flex-column card_hover">
 				<Row className=" h-100">
 					<Col>
@@ -66,8 +62,7 @@ function PostCards(props) {
 								<Image
 									onClick={() => setModal(!modal)}
 									src={
-										image_url ??
-										process.env.PUBLIC_URL + "/assets/images/book.png"
+										image ?? process.env.PUBLIC_URL + "/assets/images/book.png"
 									}
 									size="small"
 								/>

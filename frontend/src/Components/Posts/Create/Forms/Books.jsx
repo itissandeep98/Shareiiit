@@ -4,6 +4,7 @@ import { createPost, fetchPosts } from "../../../../Store/ActionCreators/post";
 import { Button, Checkbox, FormControlLabel, TextField } from "@mui/material";
 import CheckIcon from "@mui/icons-material/Check";
 import MultiUpload from "../../../../Utils/MultiUpload";
+import ImageUploader from "../../../../Utils/ImageUploader";
 
 function Books(props) {
 	const dispatch = useDispatch();
@@ -14,15 +15,17 @@ function Books(props) {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const data = {
+		const temp = {
 			title: state.title,
 			description: state.description,
-			book: { author: state.author },
 			is_request: state.is_request,
 			is_price_negotiable: state.is_price_negotiable,
-			price: state.price,
-			image_url: state.image_url,
 		};
+		let data = new FormData();
+		data.append("image", state.image);
+		data.append("price", state.price);
+		data.append("book.author", state.author);
+		Object.keys(temp).map((key) => data.append(key, temp[key]));
 		props.toggle();
 		dispatch(createPost({ data, category: "book" })).then(() => {
 			dispatch(fetchPosts({ category: "book" }));
@@ -75,11 +78,11 @@ function Books(props) {
 				value={state.price}
 				onChange={onChange}
 			/>
-
-			<MultiUpload
-				content={state.image_url}
-				changeState={(val) => setState({ ...state, image_url: val })}
+			<ImageUploader
+				image={state.image}
+				setImage={(val) => setState({ ...state, image: val })}
 			/>
+
 			<FormControlLabel
 				control={
 					<Checkbox

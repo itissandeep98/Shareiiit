@@ -5,7 +5,6 @@ import { useState } from "react";
 import { updatePost } from "../../../Store/ActionCreators/post";
 import { useDispatch } from "react-redux";
 import ImageUploader from "../../../Utils/ImageUploader";
-import MultiUpload from "../../../Utils/MultiUpload";
 
 function EditPostModal(props) {
 	const { modal, setModal, id } = props;
@@ -15,9 +14,19 @@ function EditPostModal(props) {
 	const dispatch = useDispatch();
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(state);
+		const temp = {
+			title: state.title,
+			description: state.description,
+			is_request: state.is_request,
+			is_price_negotiable: state.is_price_negotiable,
+		};
+		let data = new FormData();
+		data.append("image", state.image);
+		data.append("price", state.price);
+		data.append("book.author", state.author);
+		Object.keys(temp).map((key) => data.append(key, temp[key]));
 		setModal(!modal);
-		dispatch(updatePost({ id, state, category }));
+		dispatch(updatePost({ id, data, category }));
 	};
 	const onChange = (e) => {
 		setState({ ...state, [e.target.name]: e.target.value });
@@ -91,9 +100,9 @@ function EditPostModal(props) {
 						/>
 					)}
 
-					<MultiUpload
-						content={state.image_url}
-						changeState={(val) => setState({ ...state, image_url: val })}
+					<ImageUploader
+						image={state.image}
+						setImage={(val) => setState({ ...state, image: val })}
 					/>
 					<FormControlLabel
 						control={

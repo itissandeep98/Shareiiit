@@ -18,7 +18,7 @@ function BookCard(props) {
 		description,
 		book,
 		category,
-		image_url,
+		image,
 		created_by,
 		created_at,
 		is_request,
@@ -55,7 +55,7 @@ function BookCard(props) {
 	return (
 		<>
 			<ImagePopup
-				image={image_url ?? process.env.PUBLIC_URL + "/assets/images/book.png"}
+				image={image ?? process.env.PUBLIC_URL + "/assets/images/book.png"}
 				open={modal}
 				onClose={() => setModal(!modal)}
 			/>
@@ -67,8 +67,7 @@ function BookCard(props) {
 								<Image
 									onClick={() => setModal(!modal)}
 									src={
-										image_url ??
-										process.env.PUBLIC_URL + "/assets/images/book.png"
+										image ?? process.env.PUBLIC_URL + "/assets/images/book.png"
 									}
 									size="small"
 								/>

@@ -83,7 +83,7 @@ export const createPost = ({ data, category }) => {
 				} else {
 					dispatch({
 						type: ActionTypes.POST_CREATE_FAILED,
-						errmess: "Error in connection with Server",
+						errmess: error.response,
 					});
 				}
 			});

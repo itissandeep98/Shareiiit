@@ -16,7 +16,7 @@ function ElectronicsCards(props) {
 		description,
 		book,
 		category,
-		image_url,
+		image,
 		created_by,
 		created_at,
 		is_request,
@@ -54,7 +54,7 @@ function ElectronicsCards(props) {
 		<>
 			<ImagePopup
 				image={
-					image_url ?? process.env.PUBLIC_URL + "/assets/images/electronic.svg"
+					image ?? process.env.PUBLIC_URL + "/assets/images/electronic.svg"
 				}
 				open={modal}
 				onClose={() => setModal(!modal)}
@@ -67,7 +67,7 @@ function ElectronicsCards(props) {
 								<Image
 									onClick={() => setModal(!modal)}
 									src={
-										image_url ??
+										image ??
 										process.env.PUBLIC_URL + "/assets/images/electronic.svg"
 									}
 									size="small"

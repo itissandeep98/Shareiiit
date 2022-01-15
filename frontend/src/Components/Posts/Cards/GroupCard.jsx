@@ -14,7 +14,7 @@ function GroupCard(props) {
 	let {
 		id,
 		description,
-		image_url,
+		image,
 		created_by,
 		created_at,
 		is_request,
@@ -51,7 +51,7 @@ function GroupCard(props) {
 	return (
 		<>
 			<ImagePopup
-				image={image_url ?? process.env.PUBLIC_URL + "/assets/images/group.svg"}
+				image={image ?? process.env.PUBLIC_URL + "/assets/images/group.svg"}
 				open={modal}
 				onClose={() => setModal(!modal)}
 			/>
@@ -63,8 +63,7 @@ function GroupCard(props) {
 								<Image
 									onClick={() => setModal(!modal)}
 									src={
-										image_url ??
-										process.env.PUBLIC_URL + "/assets/images/group.svg"
+										image ?? process.env.PUBLIC_URL + "/assets/images/group.svg"
 									}
 									size="small"
 								/>

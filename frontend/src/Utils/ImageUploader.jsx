@@ -1,11 +1,12 @@
 import { useDropzone } from "react-dropzone";
-import { useDispatch } from "react-redux";
 import { Image } from "semantic-ui-react";
-import { uploadFiles } from "../Store/ActionCreators/upload";
 
 function ImageUploader(props) {
-	const { image, setImage } = props;
-	const dispatch = useDispatch();
+	const { setImage } = props;
+	let image = props.image;
+	if (typeof image === "object") {
+		image = URL.createObjectURL(image);
+	}
 	const { getRootProps, getInputProps } = useDropzone({
 		accept: "image/*",
 		maxFiles: 1,
@@ -14,17 +15,12 @@ function ImageUploader(props) {
 			if (acceptedFile.length > 0) {
 				const file = acceptedFile[0];
 				if (file) {
-					const data = {
-						content: "Images",
-						file: file,
-					};
-					dispatch(uploadFiles(data)).then((res) => {
-						setImage(res);
-					});
+					setImage(file);
 				}
 			}
 		},
 	});
+
 	return (
 		<div className="mt-2">
 			<div

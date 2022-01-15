@@ -31,7 +31,7 @@ function Profile(props) {
 		<>
 			<ImagePopup
 				image={
-					details?.profile?.image_url ??
+					details?.profile?.image ??
 					process.env.PUBLIC_URL + "/assets/images/user.png"
 				}
 				open={modal}
@@ -46,7 +46,7 @@ function Profile(props) {
 								<Image
 									onClick={() => setModal(!modal)}
 									src={
-										details.profile?.image_url ??
+										details.profile?.image ??
 										process.env.PUBLIC_URL + "/assets/images/user.png"
 									}
 								/>
@@ -58,7 +58,7 @@ function Profile(props) {
 										<Image
 											onClick={() => setModal(!modal)}
 											src={
-												details.profile?.image_url ??
+												details.profile?.image ??
 												process.env.PUBLIC_URL + "/assets/images/user.png"
 											}
 											avatar

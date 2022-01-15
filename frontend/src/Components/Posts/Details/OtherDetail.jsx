@@ -58,8 +58,7 @@ function OtherDetails(props) {
 		<>
 			<ImagePopup
 				image={
-					details.image_url ??
-					process.env.PUBLIC_URL + "/assets/images/other.svg"
+					details.image ?? process.env.PUBLIC_URL + "/assets/images/other.svg"
 				}
 				open={modal}
 				onClose={() => setModal(!modal)}
@@ -79,7 +78,7 @@ function OtherDetails(props) {
 										<Image
 											onClick={() => setModal(!modal)}
 											src={
-												details.image_url ??
+												details.image ??
 												process.env.PUBLIC_URL + "/assets/images/other.svg"
 											}
 											fluid

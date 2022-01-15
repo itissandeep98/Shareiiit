@@ -10,8 +10,7 @@ import EditPostModal from "./EditPostModal";
 import DeleteModal from "./DeleteModal";
 
 function MyPostCard(props) {
-	let { id, description, created_at, title, image_url, category } =
-		props.details;
+	let { id, description, created_at, title, image, category } = props.details;
 
 	const [modal, setModal] = useState(false);
 	const [deleteModal, setDeleteModal] = useState(false);
@@ -44,7 +43,7 @@ function MyPostCard(props) {
 							<Col>
 								<Image
 									src={
-										image_url ??
+										image ??
 										process.env.PUBLIC_URL +
 											"/assets/images/" +
 											(category === "book" ? "book.png" : `${category}.svg`)

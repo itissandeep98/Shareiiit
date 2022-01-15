@@ -16,7 +16,7 @@ function OtherCard(props) {
 		description,
 		book,
 		category,
-		image_url,
+		image,
 		created_by,
 		created_at,
 		is_request,
@@ -53,7 +53,7 @@ function OtherCard(props) {
 	return (
 		<>
 			<ImagePopup
-				image={image_url ?? process.env.PUBLIC_URL + "/assets/images/other.svg"}
+				image={image ?? process.env.PUBLIC_URL + "/assets/images/other.svg"}
 				open={modal}
 				onClose={() => setModal(!modal)}
 			/>
@@ -65,8 +65,7 @@ function OtherCard(props) {
 								<Image
 									onClick={() => setModal(!modal)}
 									src={
-										image_url ??
-										process.env.PUBLIC_URL + "/assets/images/other.svg"
+										image ?? process.env.PUBLIC_URL + "/assets/images/other.svg"
 									}
 									size="small"
 								/>

@@ -20,10 +20,10 @@ function ProfileUpload(props) {
 		setModal(!modal);
 	};
 	const updateImage = (val) => {
-		setImage(val);
-		const data = {
-			image_url: val,
-		};
+		setImage(URL.createObjectURL(val));
+
+		let data = new FormData();
+		data.append("image", val);
 		dispatch(updateUser(data)).then(() => {
 			showAlert("Image updated", "success");
 		});

@@ -13,13 +13,16 @@ function Electronics(props) {
 	});
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const data = {
+		const temp = {
 			title: state.title,
 			description: state.description,
 			is_request: state.checked,
 			is_price_negotiable: state.is_price_negotiable,
-			price: state.price,
 		};
+		let data = new FormData();
+		data.append("image", state.image);
+		data.append("price", state.price);
+		Object.keys(temp).map((key) => data.append(key, temp[key]));
 		props.toggle();
 		dispatch(createPost({ data, category: "electronic" })).then(() => {
 			dispatch(fetchPosts({ category: "electronic" }));

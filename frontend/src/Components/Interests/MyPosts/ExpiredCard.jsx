@@ -9,7 +9,7 @@ import { useState } from "react";
 import DeleteModal from "./DeleteModal";
 
 function ExpiredCard(props) {
-	let { id, description, created_at, title, image_url } = props.details;
+	let { id, description, created_at, title, image } = props.details;
 
 	const [deleteModal, setDeleteModal] = useState(false);
 	const dispatch = useDispatch();
@@ -32,8 +32,7 @@ function ExpiredCard(props) {
 						<Col>
 							<Image
 								src={
-									image_url ??
-									process.env.PUBLIC_URL + "/assets/images/book.png"
+									image ?? process.env.PUBLIC_URL + "/assets/images/book.png"
 								}
 								size="small"
 							/>

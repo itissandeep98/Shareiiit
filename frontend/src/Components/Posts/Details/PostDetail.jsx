@@ -57,7 +57,7 @@ function PostDetail(props) {
 	return (
 		<>
 			<ImagePopup
-				image={details.image_url}
+				image={details.image}
 				open={modal}
 				onClose={() => setModal(!modal)}
 			/>
@@ -76,7 +76,7 @@ function PostDetail(props) {
 										<Image
 											onClick={() => setModal(!modal)}
 											src={
-												details.image_url ??
+												details.image ??
 												process.env.PUBLIC_URL + "/assets/images/book.png"
 											}
 											fluid
