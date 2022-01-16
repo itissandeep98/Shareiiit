@@ -26,7 +26,7 @@ function BasicDetails(props) {
 		setDetails({ ...details, [name]: value });
 	};
 	const updateDetails = () => {
-		const { photo, ...data } = details;
+		const { image, ...data } = details;
 		dispatch(updateUser(data));
 	};
 	const osadetails = props.user?.osadetails;
