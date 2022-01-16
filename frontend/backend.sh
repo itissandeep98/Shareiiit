@@ -1,3 +1,4 @@
 cd ../backend
-pipenv install
-pipenv run python manage.py runserver
+source venv/bin/activate
+pip install -r requirements.txt
+python manage.py runserver
