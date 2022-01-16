@@ -4,8 +4,10 @@ import { Image } from "semantic-ui-react";
 function ImageUploader(props) {
 	const { setImage } = props;
 	let image = props.image;
-	if (typeof image === "object") {
+	try {
 		image = URL.createObjectURL(image);
+	} catch {
+		console.log(typeof image);
 	}
 	const { getRootProps, getInputProps } = useDropzone({
 		accept: "image/*",
