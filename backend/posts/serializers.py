@@ -210,6 +210,18 @@ class SkillSerializer(serializers.ModelSerializer):
         model = Skill
         fields = ("label", "rating")
 
+    def validate_label(self, value):
+        try:
+            skill_list_obj = SkillList.objects.get(label=value)
+            skill_list_obj.frequency += 1
+            skill_list_obj.save()
+        except SkillList.DoesNotExist:
+            raise serializers.ValidationError(
+                {"Error": "Please enter a valid skill label."}
+            )
+
+        return value
+
     # def get_type(self, obj):
     # return SkillList.objects.get(name=obj.name).type
 
@@ -244,20 +256,29 @@ class SkillPostSerializer(PostSerializer):
         validated_data["category"] = Category.objects.get(name="skill")
         post = Post(**validated_data)
 
-        try:
-            skill_list_obj = SkillList.objects.get(label=skill.get("label"))
-            skill_list_obj.frequency += 1
-            skill_list_obj.save()
-        except SkillList.DoesNotExist:
-            raise serializers.ValidationError(
-                {"Error": "Please enter a valid skill label."}
-            )
+        # try:
+        #     skill_list_obj = SkillList.objects.get(label=skill.get("label"))
+        #     skill_list_obj.frequency += 1
+        #     skill_list_obj.save()
+        # except SkillList.DoesNotExist:
+        #     raise serializers.ValidationError(
+        #         {"Error": "Please enter a valid skill label."}
+        #     )
 
         skill_post = Skill(post=post, **skill)
         post.save()
         skill_post.save()
 
         return post
+
+    def update(self, instance, validated_data):
+        if "skill" in validated_data:
+            skill_data = validated_data.pop("skill")
+            skill_instance = Skill.objects.get(post__id=instance.id)
+            SkillSerializer().update(skill_instance, skill_data)
+
+        instance = super().update(instance, validated_data)
+        return instance
 
 
 class CategorySerializer(serializers.ModelSerializer):
