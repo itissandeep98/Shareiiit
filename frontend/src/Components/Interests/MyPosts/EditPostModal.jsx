@@ -14,19 +14,23 @@ function EditPostModal(props) {
 	const dispatch = useDispatch();
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const temp = {
+		let data = {
 			title: state.title,
 			description: state.description,
 			is_request: state.is_request,
 			is_price_negotiable: state.is_price_negotiable,
+			book: state.book,
+			price: state.price,
+			group: state.group,
 		};
-		let data = new FormData();
-		data.append("image", state.image);
-		data.append("price", state.price);
-		data.append("book.author", state.author);
-		Object.keys(temp).map((key) => data.append(key, temp[key]));
-		setModal(!modal);
 		dispatch(updatePost({ id, data, category }));
+
+		if (typeof state.image === "object") {
+			data = new FormData();
+			data.append("image", state.image);
+			dispatch(updatePost({ id, data, category }));
+		}
+		setModal(!modal);
 	};
 	const onChange = (e) => {
 		setState({ ...state, [e.target.name]: e.target.value });
