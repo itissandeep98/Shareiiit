@@ -25,15 +25,11 @@ from .serializers import (
     SkillPostSerializer,
 )
 
-# Create your views here.
-
-
-# class DynamicSearchFilter(filters.SearchFilter):
-#     def get_search_fields(self, view, request):
-#         return request.GET.getlist("search_fields", [])
-
 
 def get_search_kwargs(request, category):
+    """
+    Function to extract possible search paramaters based on category.
+    """
     kwargs = {}
 
     title__icontains = request.query_params.get("title")
@@ -66,10 +62,24 @@ def get_search_kwargs(request, category):
         if members_needed is not None:
             kwargs["group__members_needed"] = members_needed
 
+    if category == "skill":
+        rating = request.query_params.get("rating")
+        label = request.query_params.get("label")
+
+        if rating is not None:
+            kwargs["skill__rating"] = rating
+
+        if label is not None:
+            kwargs["skill__label__icontains"] = label
+
     return kwargs
 
 
 class PostViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    Viewset to handle requests to /posts/
+    """
+
     permission_classes = (permissions.AllowAny,)
     # serializer_class = PostSerializer
 
@@ -117,7 +127,7 @@ class PostViewSet(viewsets.ReadOnlyModelViewSet):
                 )
             ]
 
-        # Search should exclude only deleted and expired posts, not dismissed posts.
+        # Search should exclude only deleted and expired posts, and dismissed posts based on show_dismissed flag.
 
         deleted_posts = list(
             Post.objects.filter(is_deleted=True).values_list("id", flat=True)
@@ -141,6 +151,10 @@ class PostViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class MyPostsViewSet(viewsets.ModelViewSet):
+    """
+    Viewset to handle requests to /myposts/
+    """
+
     permission_classes = [permissions.IsAuthenticated]
 
     filter_backends = [
@@ -176,9 +190,6 @@ class MyPostsViewSet(viewsets.ModelViewSet):
             category=Category.objects.get(name=category),
         )
 
-    # def perform_update(self, serializer):
-    # category = self.request.data.get("category",self.request.query_params.get("category"))
-
     def get_queryset(self):
         category = self.request.query_params.get("category")
 
@@ -197,86 +208,14 @@ class MyPostsViewSet(viewsets.ModelViewSet):
         post = self.get_object()
         post.is_deleted = True
         post.save()
-        return Response({"status": "post deleted"})
-
-
-# class BookViewSet(viewsets.ReadOnlyModelViewSet):
-#     serializer_class = BookPostSerializer
-#     permission_classes = [permissions.IsAuthenticated]
-
-#     filter_backends = [
-#         DjangoFilterBackend,
-#         filters.SearchFilter,
-#         filters.OrderingFilter,
-#     ]
-
-#     search_fields = ["created_by__username", "title", "description"]
-
-#     def get_queryset(self):
-#         kwargs = {}
-
-#         title__icontains = self.request.query_params.get("title")
-#         description__icontains = self.request.query_params.get("description")
-#         created_by__username__icontains = self.request.query_params.get(
-#             "username"
-#         )
-#         author = self.request.query_params.get("author")
-#         is_request = self.request.query_params.get("is_request")
-#         upvoted = self.request.query_params.get("upvoted")
-#         saved = self.request.query_params.get("saved")
-#         dismiss = self.request.query_params.get("dismiss")
-
-#         if title__icontains:
-#             kwargs["title__icontains"] = title__icontains
-
-#         if description__icontains:
-#             kwargs["description__icontains"] = description__icontains
-
-#         if created_by__username__icontains:
-#             kwargs[
-#                 "created_by__username__icontains"
-#             ] = created_by__username__icontains
-
-#         if author:
-#             kwargs["book__author__icontains"] = author
-
-#         if is_request is not None:
-#             kwargs["is_request"] = is_request
-
-#         queryset = Post.objects.filter(category__name="book", **kwargs)
-
-#         return queryset
-
-
-# class MyBooksViewSet(viewsets.ModelViewSet):
-#     serializer_class = BookPostSerializer
-#     permission_classes = [permissions.IsAuthenticated]
-
-#     filter_backends = [
-#         DjangoFilterBackend,
-#         filters.OrderingFilter,
-#     ]
-
-#     ordering = ["-created_at"]
-
-#     def perform_create(self, serializer):
-#         print(self.request)
-#         serializer.save(created_by=self.request.user)
-
-#     def get_queryset(self):
-#         queryset = Post.objects.filter(
-#             created_by__id=self.request.user.id, category__name="book"
-#         )
-
-#         """
-#         vote = from query params
-#         VoteLog.objects.filter(voted_by=user, is_upvoted=true)
-#         """
-
-#         return queryset
+        return Response({"status": "post deleted successfully"})
 
 
 class SkillViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    This viewset is now redundant since requests for skills are being directed to /posts/
+    """
+
     serializer_class = SkillPostSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -323,6 +262,10 @@ class SkillViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class MySkillsViewSet(viewsets.ModelViewSet):
+    """
+    This viewset is now redundant since requests for myskills are being directed to /myposts/
+    """
+
     serializer_class = SkillPostSerializer
     permission_classes = [permissions.IsAuthenticated]
 
@@ -345,6 +288,10 @@ class MySkillsViewSet(viewsets.ModelViewSet):
 
 
 class VotedPostsView(generics.ListAPIView):
+    """
+    View to get the posts a user has interacted with, i.e. "My Acticity" page.
+    """
+
     permission_classes = [permissions.IsAuthenticated]
 
     serializer_classes = {
@@ -391,34 +338,6 @@ class VotedPostsView(generics.ListAPIView):
         return queryset
 
 
-# class GroupViewSet(viewsets.ModelViewSet):
-#     # queryset = Post.objects.all()
-#     serializer_class = GroupPostSerializer
-
-#     def perform_create(self, serializer):
-#         # print(self.request)
-#         serializer.save(created_by=self.request.user)
-
-#     def get_queryset(self):
-#         return Post.objects.filter(category__name="group")
-
-
-# class VoteViewSet(viewsets.ModelViewSet):
-#     serializer_class = VoteSerializer
-#     queryset = Vote.objects.all()
-
-#     def perform_create(self, serializer):
-#         # try:
-#         serializer.save(voted_by=self.request.user)
-#         # except:
-#         # raise serializers.ValidationError("voted_by with post already exists")
-
-
-# class VoteUpdateView(generics.UpdateAPIView):
-#     serializer_class = VoteSerializer
-#     queryset = Vote.objects.all()
-
-
 class CategoryListView(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
     queryset = Category.objects.all()
@@ -426,6 +345,10 @@ class CategoryListView(generics.ListAPIView):
 
 
 class SkillListView(generics.ListAPIView):
+    """
+    Viewset to get the list of all possible skills a user can choose from while creating a skill category post.
+    """
+
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = SkillListSerializer
     filter_backends = [filters.SearchFilter]
@@ -441,6 +364,10 @@ class SkillListView(generics.ListAPIView):
 
 
 class VoteLogView(generics.RetrieveUpdateAPIView):
+    """
+    View to get and update the vote log of the user on a specific post.
+    """
+
     serializer_class = VoteLogSerializer
     permission_classes = [permissions.IsAuthenticated]
 

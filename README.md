@@ -6,11 +6,11 @@
 
 ## Prerequisite
 
-- Node - ^14.x
-- NPM - ^8.1.x
-- Python - ^3.6
-- Pipenv - ^11.9.0
-- Virtualenv - ^20.0.17
+-   Node - ^14.x
+-   NPM - ^8.1.x
+-   Python - ^3.6
+-   Pipenv - ^11.9.0
+-   Virtualenv - ^20.0.17
 
 ## Local Development
 
@@ -26,14 +26,14 @@ npm run start
 
 ### Backend :
 
-- Update the database details in [settings.py](backend/backend/settings.py#L106) and OSA Domain in [settings.py](backend/backend/settings.py#L177)
-- Get inside the backend directory
+-   Update the database details in [settings.py](backend/backend/settings.py#L106) and OSA Domain in [settings.py](backend/backend/settings.py#L177)
+-   Get inside the backend directory
 
 ```
 cd backend
 ```
 
-- Activate the virtual environment using either pipenv or virtualenv
+-   Activate the virtual environment using either pipenv or virtualenv
 
 ```
 pipenv shell
@@ -48,25 +48,39 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-- Create migrations and start the server
+-   Create migrations
 
 ```
 python manage.py makemigrations
 python manage.py migrate
+```
+
+-   If db needs to populated with categories and/or skills, run
+
+```
+python manage.py runscript init-db --script-args add-categories
+python manage.py runscript init-db --script-args add-skills
+```
+
+-   Check .env file. For dev mode, set DJANGO_DEV as 'true' and 'false' for prod mode.
+
+-   Start the server
+
+```
 python manage.py runserver
 ```
 
 ## NGINX deployment on server
 
-- Build the frontend code using `npm run build` on your local computer and push the `build` folder to the repo
-- `git pull` on the entire code on ssh server
-- Copy frontend build folder to /var/www/
+-   Build the frontend code using `npm run build` on your local computer and push the `build` folder to the repo
+-   `git pull` on the entire code on ssh server
+-   Copy frontend build folder to /var/www/
 
 ```
 sudo cp -r frontend/build/* /var/www/share.osa.iiitd.edu.in/
 ```
 
-- Install packages and update migrations of backend
+-   Install packages and update migrations of backend
 
 ```
 source backend/venv/bin/activate
@@ -76,13 +90,13 @@ python backend/manage.py migrate
 python backend/manage.py collectstatic --noinput
 ```
 
-- Copy static folders of admin panel to /var/www/
+-   Copy static folders of admin panel to /var/www/
 
 ```
 sudo cp -r backend/staticfiles/* /var/www/share.osa.iiitd.edu.in/static/
 ```
 
-- Restart Socket and Nginx
+-   Restart Socket and Nginx
 
 ```
 sudo systemctl restart share-iiitd.socket

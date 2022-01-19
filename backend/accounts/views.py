@@ -5,14 +5,10 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
 
-from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
 
-# from django.contrib.auth.models import User
-
-import requests
 
 from .serializers import UserSerializer, OSADetailsSerializer, ProfileSerializer
 from .permissions import IsUser
@@ -23,10 +19,13 @@ User = get_user_model()
 
 
 class LoginView(APIView):
+    """
+    View to login using OSA credentials. User is authenticated using OSA backend and a token is generated for the user from our backend for all future requests.
+    """
+
     def post(self, request):
         authenticate(request)
         user = request.user
-
         # We do not need to check if user is not None because authenticate() raises exception if invalid credentials.
 
         Token.objects.get_or_create(user=user)
@@ -34,6 +33,10 @@ class LoginView(APIView):
 
 
 class LogoutView(APIView):
+    """
+    Delete the user's token with our backend.
+    """
+
     def post(self, request):
         print(request.user)
 
@@ -69,16 +72,12 @@ class UserViewSet(viewsets.ModelViewSet):
 
         return [permission() for permission in permission_classes]
 
-    # def get_queryset(self):
-    #     username = self.request.query_params.get("username")
-
-    #     if username is not None:
-    #         return User.objects.filter(username=username)
-    #     else:
-    #         return None
-
 
 class OSADetailsView(generics.RetrieveAPIView):
+    """
+    View to get details that are retrieved from the OSA backend at the time of login.
+    """
+
     queryset = User.objects.all()
     serializer_class = OSADetailsSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -86,60 +85,10 @@ class OSADetailsView(generics.RetrieveAPIView):
     def get_object(self):
         user = get_object_or_404(User, username=self.request.user.username)
 
-        # Get user data from OSA and update the local user object.
-
-        # res = requests.get(
-        #     settings.OSA_URLS["CURRENT_USER"],
-        #     headers={"Authorization": f"JWT {self.request.user.osa_token}"},
-        # ).json()
-
-        # user.first_name = res.first_name
-        # user.last_name = res.last_name
-        # user.username = res.username
-
-        # user.save()
-
-        # print(response.json())
-
         return user
 
     def get_queryset(self):
         return User.objects.filter(username=self.request.user.username)
-
-    # def perform_update(self, serializer):
-    #     username = self.request.data.get("username")
-    #     first_name = self.request.data.get("first_name")
-    #     last_name = self.request.data.get("last_name")
-
-    #     data = {}
-
-    #     if username is not None:
-    #         data["username"] = username
-    #     else:
-    #         data["username"] = self.request.user.username
-
-    #     if first_name is not None:
-    #         data["first_name"] = first_name
-    #     else:
-    #         data["first_name"] = self.request.user.first_name
-
-    #     if last_name is not None:
-    #         data["last_name"] = last_name
-    #     else:
-    #         data["last_name"] = self.request.user.last_name
-
-    #     # Update user data on OSA backend.
-
-    #     response = requests.post(
-    #         settings.OSA_URLS["EDIT_PROFILE"],
-    #         headers={"Authorization": f"JWT {self.request.user.osa_token}"},
-    #         json=data,
-    #     )
-
-    #     print(response.json())
-
-    #     if status.is_success(response.status_code):
-    #         serializer.save()
 
 
 class ProfileView(generics.RetrieveUpdateAPIView):
@@ -150,15 +99,3 @@ class ProfileView(generics.RetrieveUpdateAPIView):
     def get_object(self):
         obj = get_object_or_404(Profile, user=self.request.user)
         return obj
-
-
-# class UserList(generics.ListAPIView):
-#     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer
-
-
-# class UserDetail(generics.RetrieveAPIView):
-#     queryset = User.objects.all()
-#     serializer_class = UserSerializer

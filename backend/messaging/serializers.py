@@ -16,7 +16,6 @@ class MessageSerializer(serializers.ModelSerializer):
     )
     receiver = serializers.CharField(source="receiver.username", read_only=True)
     conversation = serializers.PrimaryKeyRelatedField
-    # post = serializers.IntegerField()``
 
     class Meta:
         model = Message
@@ -28,7 +27,7 @@ class MessageSerializer(serializers.ModelSerializer):
         post_id = validated_data.pop("post_id")
 
         if conversation_id is None:
-            # if conv id is none, sender is the user2
+            # if conv id is none, i.e. new conversation is being initiated by sender, so sender becomes user2
             user2 = validated_data["sender"]
             post = Post.objects.get(id=post_id)
             conversation = Conversation(user2=user2, post=post)
@@ -54,12 +53,6 @@ class ConversationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Conversation
         fields = ("id", "user2", "messages")
-
-    # def create(self, validated_data):
-    #     validated_data["category"] = Category.objects.get(pk=1)
-    #     post = Post.objects.create(**validated_data)
-    #     book_instance = Book.objects.create(post=post, **book_data)
-    #     return post
 
 
 class NotificationSerializer(serializers.ModelSerializer):

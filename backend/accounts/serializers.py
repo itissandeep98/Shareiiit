@@ -19,7 +19,6 @@ class ProfileSerializer(serializers.ModelSerializer):
         exclude = ("user",)
 
 
-# User Serializer
 class UserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer()
 
@@ -37,7 +36,6 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {"password": {"write_only": True}}
 
     def create(self, validated_data):
-        # print(validated_data)
         user = User(
             username=validated_data["username"],
             first_name=validated_data["first_name"],
@@ -54,14 +52,3 @@ class OSADetailsSerializer(serializers.ModelSerializer):
         model = User
         fields = ("id", "first_name", "last_name", "username")
         extra_kwargs = {"username": {"read_only": True}}
-
-    # def update(self, instance, validated_data):
-    #     profile_data = validated_data.pop("profile", None)
-
-    #     if profile_data is not None:
-    #         profile_serializer = self.fields["profile"]
-    #         profile_serializer.update(instance.profile, profile_data)
-
-    #     return super(UserDetailsSerializer, self).update(
-    #         instance, validated_data
-    #     )

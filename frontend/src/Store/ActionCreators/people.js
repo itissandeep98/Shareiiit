@@ -35,8 +35,8 @@ export const fetchPeopleSkills = (user) => {
 	return async (dispatch) => {
 		dispatch({ type: ActionTypes.PEOPLE_SKILLS_FETCH_REQUEST });
 		return await axios
-			.get(`${apiUrl}/api/skills`, {
-				params: { username: user },
+			.get(`${apiUrl}/api/posts`, {
+				params: { category: "skill", username: user },
 				headers: headers(),
 			})
 			.then((response) => {

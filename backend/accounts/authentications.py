@@ -24,9 +24,7 @@ class OSAAuthentication(authentication.BaseAuthentication):
         osa_token = request.headers.get("osa-token")
         userData = None
 
-        try:
-            # if VPN is connected this should be executed
-
+        if not settings.DEBUG:
             if osa_token is not None:
                 # auto authenticate if token was found in cookies and sent in the request header
 
@@ -50,23 +48,14 @@ class OSAAuthentication(authentication.BaseAuthentication):
                     data={"username": username, "password": password},
                 )
 
-        except ConnectionError as e:
-            # if VPN is not connected this should be executed
-            # TODO: Remove this second auth. It is temporary.
-
-            # print("exception", type(e))
-
+        else:
             response = requests.post(
-                settings.OSA_URLS["TOKEN_AUTH2"],
+                settings.OSA_URLS["TOKEN_AUTH_DEBUG"],
                 data={"username": username, "password": password},
             )
 
         if status.is_success(response.status_code):
             print(response.json())
-            # osa_token = response.json()["token"]
-
-            # if not userData["is_verified"]:
-            #     return None
 
             if userData is None:
                 userData = response.json()["user"]
@@ -80,23 +69,17 @@ class OSAAuthentication(authentication.BaseAuthentication):
                 user = User.objects.get(username_osa=username_osa)
                 user.first_name = first_name
                 user.last_name = last_name
-                # user.email = username_retreived
                 user.username = username_retreived
-                # user.osa_token = osa_token
                 user.save()
             except User.DoesNotExist:
                 user = User()
                 user.first_name = first_name
                 user.last_name = last_name
-                # user.email = username_retreived
                 user.username = username_retreived
                 user.username_osa = username_osa
-                # user.osa_token = osa_token
-                # user.is_staff = True
-                # user.is_superuser = True
                 user.save()
 
             return (user, None)
 
-        # if user is None:
+        # if user is None then
         raise exceptions.AuthenticationFailed(_("Invalid username or password"))

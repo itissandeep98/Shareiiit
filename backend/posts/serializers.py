@@ -14,8 +14,6 @@ from .models import (
     VoteLog,
 )
 
-# from django.contrib.auth.models import User
-
 
 User = get_user_model()
 
@@ -39,15 +37,12 @@ class VoteCountLogSerializer(serializers.ModelSerializer):
 
 
 class VoteLogSerializer(serializers.ModelSerializer):
-    # document_id = serializers.IntegerField()
-
     class Meta:
         model = VoteLog
         fields = ("upvoted_flag", "saved_flag", "dismiss_flag")
         read_only_fields = ("timestamp",)
 
     def update(self, instance, validated_data):
-        # override the update method to update doc count log
         count_log = VoteCountLog.objects.get_or_create(post=instance.post)[0]
 
         if (
@@ -68,9 +63,10 @@ class VoteLogSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
-    # created_by = serializers.CharField(
-    #     source="created_by.username", read_only=True
-    # )
+    """
+    This is a serializer class for all categories of posts which is inherited by other serializer classes below.
+    """
+
     created_by = serializers.SerializerMethodField()
     category = serializers.SlugRelatedField(read_only=True, slug_field="name")
     vote_log = serializers.SerializerMethodField()
@@ -204,8 +200,6 @@ class SkillListSerializer(serializers.ModelSerializer):
 
 
 class SkillSerializer(serializers.ModelSerializer):
-    # type = serializers.SerializerMethodField()
-
     class Meta:
         model = Skill
         fields = ("label", "rating")
@@ -221,9 +215,6 @@ class SkillSerializer(serializers.ModelSerializer):
             )
 
         return value
-
-    # def get_type(self, obj):
-    # return SkillList.objects.get(name=obj.name).type
 
 
 class SkillPostSerializer(PostSerializer):
@@ -255,15 +246,6 @@ class SkillPostSerializer(PostSerializer):
 
         validated_data["category"] = Category.objects.get(name="skill")
         post = Post(**validated_data)
-
-        # try:
-        #     skill_list_obj = SkillList.objects.get(label=skill.get("label"))
-        #     skill_list_obj.frequency += 1
-        #     skill_list_obj.save()
-        # except SkillList.DoesNotExist:
-        #     raise serializers.ValidationError(
-        #         {"Error": "Please enter a valid skill label."}
-        #     )
 
         skill_post = Skill(post=post, **skill)
         post.save()

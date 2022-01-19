@@ -1,16 +1,25 @@
+"""
+Use this script to populate a new db, if ever needed.
+"""
+
+
 def run(*args):
     if "add-skills" in args:
         add_skills()
 
     if "add-categories" in args:
-        from posts.models import Category
+        add_categories()
 
-        for category in ["book", "group", "item", "skill", "other"]:
-            Category.objects.create(name=category)
+
+def add_categories():
+    from posts.models import Category
+
+    for category in ["book", "group", "item", "skill", "other"]:
+        Category.objects.create(name=category)
 
 
 def add_skills():
-    from django.db import IntegrityError
+    from django.db import IntegrityError, OperationalError
     import csv
     from posts.models import SkillList
 
@@ -25,7 +34,6 @@ def add_skills():
             # if count < 30600:
             #     continue
 
-            # if langid.classify(skill)[0] == "en":
             try:
                 SkillList.objects.create(label=skill)
             except OperationalError as e:
@@ -33,13 +41,17 @@ def add_skills():
             except IntegrityError as e:
                 pass
 
-            x = count % 100
+            # x = count % 100
 
             # if x == 0:
             #     print(skill, count)
 
 
 def set_popular_skills():
+    """
+    Function to initialize some random skills as the popular skills in a new db by increasing their frequency
+    """
+
     popular_skills = [
         "Python",
         "Machine Learning",

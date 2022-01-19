@@ -6,21 +6,12 @@ from django.db.models.fields import IntegerField
 
 User = get_user_model()
 
-# Create your models here.
-
 
 class Category(models.Model):
     name = models.CharField(max_length=30, blank=False)
 
     def __str__(self):
         return self.name
-
-
-# class SkillType(models.Model):
-#     name = models.CharField(max_length=100, blank=False)
-
-#     def __str__(self):
-#         return self.name
 
 
 class SkillList(models.Model):
@@ -49,7 +40,7 @@ class Post(models.Model):
     image = models.ImageField(upload_to="posts/", null=True)
     image_url = models.TextField(
         blank=True, null=True
-    )  # multiple images can be added by separating the urls with commas
+    )  # image_url became redundant after image field was added
     is_deleted = models.BooleanField(default=False)
     is_expired = models.BooleanField(default=False)
 
@@ -60,13 +51,6 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
-
-
-# class Choice(models.Model):
-#     name = models.CharField(max_length=30, blank=False)
-
-#     def __str__(self):
-#         return self.name
 
 
 class VoteCountLog(models.Model):

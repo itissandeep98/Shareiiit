@@ -34,11 +34,12 @@ class Message(models.Model):
     class Meta:
         ordering = ["timestamp", "pk"]
 
-    # def __str__(self):
-    #     return f"{sender__username} to {recipient__username}: {text}"
-
 
 class Notification(models.Model):
+    """
+    A new notification is created for the receiver of a new message using a signal.
+    """
+
     message = models.OneToOneField(Message, on_delete=models.CASCADE)
     read = models.BooleanField(default=False)
 
