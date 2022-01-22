@@ -75,6 +75,28 @@ def get_search_kwargs(request, category):
     return kwargs
 
 
+class CustomSearchFilter(filters.SearchFilter):
+    def get_search_fields(self, view, request):
+        search_fields = [
+            "created_by__username",
+            "created_by__first_name",
+            "created_by__last_name",
+            "title",
+            "description",
+        ]
+
+        category = request.query_params.get("category")
+
+        if category == "book":
+            search_fields += ["book__author"]
+        elif category == "group":
+            search_fields += ["group__members_needed"]
+        elif category == "skill":
+            search_fields += ["skill__label", "skill__rating"]
+
+        return search_fields
+
+
 class PostViewSet(viewsets.ReadOnlyModelViewSet):
     """
     Viewset to handle requests to /posts/
@@ -93,11 +115,12 @@ class PostViewSet(viewsets.ReadOnlyModelViewSet):
 
     filter_backends = [
         DjangoFilterBackend,
-        filters.SearchFilter,
+        # filters.SearchFilter,
+        CustomSearchFilter,
         filters.OrderingFilter,
     ]
 
-    search_fields = ["created_by__username", "title", "description"]
+    # search_fields = ["created_by__username", "title", "description"]
     ordering_fields = ["upvote_count", "created_at"]
 
     def get_serializer_class(self):
