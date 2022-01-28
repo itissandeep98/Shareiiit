@@ -56,7 +56,7 @@ REST_FRAMEWORK = {
         "accounts.authentications.OSAAuthentication",
         # "rest_framework.authentication.SessionAuthentication",
     ),
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "DEFAULT_PAGINATION_CLASS": "common.util.pagination.CustomPagination",
     "PAGE_SIZE": 12,
 }
 
