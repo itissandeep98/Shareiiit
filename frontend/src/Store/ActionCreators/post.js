@@ -43,17 +43,47 @@ export const fetchPosts = (data) => {
 				headers: headers(),
 			})
 			.then((response) => {
-				const results = response.data.results;
+				const { results, next } = response.data;
+				console.log(response.data);
 				dispatch({
 					type: ActionTypes.POST_FETCH_SUCCESS,
 					data: results,
 					category: data.category,
+					next,
 				});
-				return results;
+				return { results, next };
 			})
 			.catch((error) => {
 				dispatch({
 					type: ActionTypes.POST_FETCH_FAILED,
+					errmess: "Error in connection with Server",
+				});
+			});
+	};
+};
+
+export const fetchNextPosts = (data) => {
+	return async (dispatch) => {
+		dispatch({ type: ActionTypes.POST_NEXT_FETCH_REQUEST });
+		return await axios
+			.get(`${apiUrl}/api/posts/`, {
+				params: data,
+				headers: headers(),
+			})
+			.then((response) => {
+				const { results, next } = response.data;
+				console.log(response.data);
+				dispatch({
+					type: ActionTypes.POST_NEXT_FETCH_SUCCESS,
+					data: results,
+					category: data.category,
+					next,
+				});
+				return { results, next };
+			})
+			.catch((error) => {
+				dispatch({
+					type: ActionTypes.POST_NEXT_FETCH_FAILED,
 					errmess: "Error in connection with Server",
 				});
 			});

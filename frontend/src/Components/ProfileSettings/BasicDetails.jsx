@@ -43,28 +43,32 @@ function BasicDetails(props) {
 					</div>
 				</h2>
 				<hr />
-				<form>
-					<TextField
-						label="Bio"
-						className="mt-3"
-						variant="outlined"
-						fullWidth
-						multiline
-						rows={4}
-						required
-						onChange={onChange}
-						name="bio"
-						defaultValue={details?.bio}
-						InputProps={{
-							endAdornment: (
-								<InputAdornment position="start">
-									<AssignmentIndIcon />
-								</InputAdornment>
-							),
-						}}
-					/>
-					<div className="mt-3">
-						<FormControl variant="outlined" fullWidth className=" w-50">
+				<Row>
+					<Col>
+						<TextField
+							label="Bio"
+							className="mt-3"
+							variant="outlined"
+							fullWidth
+							multiline
+							rows={4}
+							required
+							onChange={onChange}
+							name="bio"
+							defaultValue={details?.bio}
+							InputProps={{
+								endAdornment: (
+									<InputAdornment position="start">
+										<AssignmentIndIcon />
+									</InputAdornment>
+								),
+							}}
+						/>
+					</Col>
+				</Row>
+				<Row className="mt-3">
+					<Col>
+						<FormControl variant="outlined" fullWidth>
 							<InputLabel>Role</InputLabel>
 							<Select
 								label="Tag"
@@ -78,10 +82,12 @@ function BasicDetails(props) {
 								<MenuItem value="Staff">Staff</MenuItem>
 							</Select>
 						</FormControl>
+					</Col>
+					<Col>
 						<TextField
 							type="number"
 							label="Phone Number"
-							className="w-50"
+							fullWidth
 							variant="outlined"
 							fullWidth
 							required
@@ -96,11 +102,12 @@ function BasicDetails(props) {
 								),
 							}}
 						/>
-					</div>
-					<div className="mt-3">
+					</Col>
+				</Row>
+				<Row className="mt-3">
+					<Col>
 						<TextField
 							label="LinkedIn"
-							className="w-50"
 							variant="outlined"
 							fullWidth
 							required
@@ -115,9 +122,10 @@ function BasicDetails(props) {
 								),
 							}}
 						/>
+					</Col>
+					<Col>
 						<TextField
 							label="Telegram"
-							className="w-50"
 							variant="outlined"
 							fullWidth
 							required
@@ -132,16 +140,16 @@ function BasicDetails(props) {
 								),
 							}}
 						/>
-					</div>
+					</Col>
+				</Row>
 
-					<Button
-						variant="outlined"
-						className="mt-3 float-right rounded-pill bg-info text-white"
-						onClick={updateDetails}
-					>
-						Update
-					</Button>
-				</form>
+				<Button
+					variant="outlined"
+					className="mt-3 float-right rounded-pill bg-info text-white"
+					onClick={updateDetails}
+				>
+					Update
+				</Button>
 			</Col>
 		</Row>
 	);

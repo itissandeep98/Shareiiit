@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { Col, Container, Row, Spinner } from "reactstrap";
-import { fetchPosts } from "../../Store/ActionCreators/post";
+import { fetchNextPosts, fetchPosts } from "../../Store/ActionCreators/post";
 import FilterBar from "./FilterBar";
 import AddIcon from "@mui/icons-material/Add";
 import Create from "../Posts/Create/Create";
@@ -12,30 +12,51 @@ import GroupCard from "../Posts/Cards/GroupCard";
 import ElectronicsCard from "../Posts/Cards/ElectronicsCard";
 import OtherCard from "../Posts/Cards/OtherCard";
 
+const CardTemplates = {
+	book: BookCard,
+	group: GroupCard,
+	electronic: ElectronicsCard,
+	other: OtherCard,
+};
 function Posts(props) {
 	const [cards, setCards] = useState([]);
 	const [category, setCategory] = useState("book");
+	const [next, setNext] = useState(false);
 	const [ordering, setOrdering] = useState("created_at");
 	const [is_request, setRequest] = useState(0);
 	const [modal, setModal] = useState(false);
 
 	const [loading, setLoading] = useState(false);
+	const [moreLoading, setMoreLoading] = useState(false);
 	const dispatch = useDispatch();
 	useEffect(() => {
 		setLoading(true);
 		setCards([]);
 		if (is_request === 0) {
 			dispatch(fetchPosts({ category, ordering })).then((res) => {
-				setCards(res);
+				setCards(res.results);
+				setNext(res.next);
 				setLoading(false);
 			});
 		} else {
 			dispatch(fetchPosts({ category, ordering, is_request })).then((res) => {
-				setCards(res);
+				setCards(res.results);
+				setNext(res.next);
 				setLoading(false);
 			});
 		}
 	}, [category, ordering, is_request]);
+
+	const fetchMore = () => {
+		setMoreLoading(true);
+		dispatch(
+			fetchNextPosts({ category, ordering, is_request, page: next })
+		).then((res) => {
+			// setCards(res.results);
+			// setNext(res.next);
+			setMoreLoading(false);
+		});
+	};
 
 	return (
 		<Container fluid className="p-3 bg-light h-100">
@@ -82,16 +103,23 @@ function Posts(props) {
 									{cards && cards?.length > 0 ? (
 										cards?.map((card) => (
 											<Col xs={12} md={6} lg={4} className="my-3" key={card.id}>
-												{category === "book" && <BookCard {...card} />}
-												{category === "group" && <GroupCard {...card} />}
-												{category === "electronic" && (
-													<ElectronicsCard {...card} />
-												)}
-												{category === "other" && <OtherCard {...card} />}
+												{CardTemplates[card.category]({ ...card })}
 											</Col>
 										))
 									) : (
 										<p className="text-muted"> No Posts yet</p>
+									)}
+								</Row>
+								<Row className="text-center d-flex justify-content-center mt-3">
+									{next && cards?.length > 0 && (
+										<Button
+											variant="contained"
+											size="small"
+											disabled={moreLoading}
+											onClick={fetchMore}
+										>
+											Show More <span className="fa fa-caret-down ml-2" />
+										</Button>
 									)}
 								</Row>
 								{loading && (
