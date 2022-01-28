@@ -22,11 +22,13 @@ function Books(props) {
 			is_price_negotiable: state.is_price_negotiable,
 		};
 		let data = new FormData();
-		data.append("image", state.image);
+		if (state.image) {
+			data.append("image", state.image);
+		}
 		data.append("price", state.price);
 		data.append("book.author", state.author);
 		Object.keys(temp).map((key) => data.append(key, temp[key]));
-		props.toggle();
+		// props.toggle();
 		dispatch(createPost({ data, category: "book" })).then(() => {
 			dispatch(fetchPosts({ category: "book" }));
 		});

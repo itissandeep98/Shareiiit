@@ -20,7 +20,9 @@ function Electronics(props) {
 			is_price_negotiable: state.is_price_negotiable,
 		};
 		let data = new FormData();
-		data.append("image", state.image);
+		if (state.image) {
+			data.append("image", state.image);
+		}
 		data.append("price", state.price);
 		Object.keys(temp).map((key) => data.append(key, temp[key]));
 		props.toggle();

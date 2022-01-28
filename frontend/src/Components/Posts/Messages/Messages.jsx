@@ -9,7 +9,8 @@ function Messages(props) {
 	const { id, recipient, creator } = props;
 	const dispatch = useDispatch();
 	const [users, setUsers] = useState([]);
-	useEffect(() => {
+
+	const updateData = () => {
 		dispatch(fetchMessages({ post: id })).then((res) => {
 			if (creator != recipient && res.length === 0) {
 				setUsers([{ user2: recipient, messages: [] }]);
@@ -17,7 +18,13 @@ function Messages(props) {
 				setUsers(res);
 			}
 		});
-	}, [dispatch, creator]);
+	};
+	useEffect(() => {
+		const interval = setInterval(() => {
+			updateData();
+		}, 7000);
+		return () => clearInterval(interval);
+	}, []);
 
 	if (users.length == 0) {
 		return <p className="text-center text-muted">No Messages Here !!</p>;
