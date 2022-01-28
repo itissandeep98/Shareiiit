@@ -1,20 +1,34 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { Dropdown, Icon } from "semantic-ui-react";
-import { fetchNotification } from "../../Store/ActionCreators/notification";
+import {
+	fetchNextNotification,
+	fetchNotification,
+} from "../../Store/ActionCreators/notification";
 import { NavLink } from "react-router-dom";
 import Content from "./Content";
+import { Button } from "@mui/material";
 
 function Notification(props) {
-	const { notification, page } = props;
+	const { notification, page, next } = props;
 	const dispatch = useDispatch();
+	const [moreLoading, setMoreLoading] = useState(false);
 	useEffect(() => {
-		dispatch(fetchNotification());
+		const interval = setInterval(() => {
+			dispatch(fetchNotification());
+		}, 30000);
+		return () => clearInterval(interval);
 	}, []);
 
 	const unread = notification?.filter((noti) => !noti.read);
 	const read = notification?.filter((noti) => noti.read);
 
+	const fetchMore = () => {
+		setMoreLoading(true);
+		dispatch(fetchNextNotification(next)).then((res) => {
+			setMoreLoading(false);
+		});
+	};
 	return (
 		<>
 			{page ? (
@@ -49,6 +63,16 @@ function Notification(props) {
 							</Dropdown.Menu>
 						</Dropdown>
 					</a>
+					{next && (
+						<Button
+							variant="contained"
+							size="small"
+							disabled={moreLoading}
+							onClick={fetchMore}
+						>
+							Show More <span className="fa fa-caret-down ml-2" />
+						</Button>
+					)}
 				</>
 			)}
 		</>
@@ -57,6 +81,7 @@ function Notification(props) {
 
 const mapStateToProps = (state) => ({
 	notification: state.notification.details,
+	next: state.notification.next,
 });
 
 export default connect(mapStateToProps)(Notification);

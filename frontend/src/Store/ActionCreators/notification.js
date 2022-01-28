@@ -13,15 +13,40 @@ export const fetchNotification = () => {
 		return await axios
 			.get(`${apiUrl}/api/notifications/`, { headers: headers() })
 			.then((response) => {
+				const { results, next } = response.data;
+
 				dispatch({
 					type: ActionTypes.NOTIFICATION_FETCH_SUCCESS,
-					data: response.data.results,
+					data: results,
+					next,
 				});
-				return response.data.results;
 			})
 			.catch((error) => {
 				dispatch({
 					type: ActionTypes.NOTIFICATION_FETCH_FAILED,
+					errmess: "Error in connection with Server",
+				});
+			});
+	};
+};
+
+export const fetchNextNotification = (next) => {
+	return async (dispatch) => {
+		dispatch({ type: ActionTypes.NOTIFICATION_NEXT_FETCH_REQUEST });
+		return await axios
+			.get(`${apiUrl}/api/notifications/?page=${next}`, { headers: headers() })
+			.then((response) => {
+				const { results, next } = response.data;
+
+				dispatch({
+					type: ActionTypes.NOTIFICATION_NEXT_FETCH_SUCCESS,
+					data: results,
+					next,
+				});
+			})
+			.catch((error) => {
+				dispatch({
+					type: ActionTypes.NOTIFICATION_NEXT_FETCH_FAILED,
 					errmess: "Error in connection with Server",
 				});
 			});

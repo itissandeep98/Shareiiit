@@ -1,24 +1,44 @@
-import { Chip, InputAdornment, TextField, Tooltip } from "@mui/material";
+import {
+	Chip,
+	InputAdornment,
+	TextField,
+	Tooltip,
+	Button,
+} from "@mui/material";
 import { Col, Container, Row } from "reactstrap";
 import TechCard from "./TechCard";
 import SearchIcon from "@mui/icons-material/Search";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { useEffect } from "react";
-import { fetchSkillPosts } from "../../Store/ActionCreators/skill";
+import {
+	fetchNextSkillPosts,
+	fetchSkillPosts,
+} from "../../Store/ActionCreators/skill";
 import { useState } from "react";
 import { connect, useDispatch } from "react-redux";
 import { searchSkills } from "../../Store/ActionCreators/search";
 
 function MainView(props) {
 	const { tags, modifyTags } = props;
+	const { next } = props.skill;
 	const [cards, setCards] = useState(props.skill.skills ?? []);
 	const [searchText, setSearchText] = useState("");
+	const [moreLoading, setMoreLoading] = useState(false);
+
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(fetchSkillPosts()).then((res) => {
 			setCards(res);
 		});
 	}, [dispatch]);
+
+	const fetchMore = () => {
+		setMoreLoading(true);
+		dispatch(fetchNextSkillPosts(next)).then((res) => {
+			setCards([...cards, ...res]);
+			setMoreLoading(false);
+		});
+	};
 
 	useEffect(() => {
 		const allCards = props.skill.skills ?? [];
@@ -94,6 +114,18 @@ function MainView(props) {
 					))
 				) : (
 					<p className="text-center text-muted w-100">No Results Found !!</p>
+				)}
+			</Row>
+			<Row className="mt-3 d-flex justify-content-center">
+				{next && (
+					<Button
+						variant="contained"
+						size="small"
+						disabled={moreLoading}
+						onClick={fetchMore}
+					>
+						Show More <span className="fa fa-caret-down ml-2" />
+					</Button>
 				)}
 			</Row>
 		</Container>

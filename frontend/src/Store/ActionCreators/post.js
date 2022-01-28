@@ -44,7 +44,6 @@ export const fetchPosts = (data) => {
 			})
 			.then((response) => {
 				const { results, next } = response.data;
-				console.log(response.data);
 				dispatch({
 					type: ActionTypes.POST_FETCH_SUCCESS,
 					data: results,
@@ -72,7 +71,6 @@ export const fetchNextPosts = (data) => {
 			})
 			.then((response) => {
 				const { results, next } = response.data;
-				console.log(response.data);
 				dispatch({
 					type: ActionTypes.POST_NEXT_FETCH_SUCCESS,
 					data: results,

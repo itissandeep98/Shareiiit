@@ -23,7 +23,7 @@ export const postReducer = (state = initState, action) => {
 			return {
 				...state,
 				errmess: null,
-				[action.category]: [state[action.category], ...action.data],
+				[action.category]: [...state[action.category], ...action.data],
 				next: action.next,
 				isLoading: false,
 			};

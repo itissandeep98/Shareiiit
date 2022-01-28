@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import Meta from "../Meta";
 import { NavLink } from "react-router-dom";
 import ImagePopup from "../../Utils/ImagePopup";
+import { showAlert } from "../../Utils/showAlert";
 
 function Profile(props) {
 	const { user } = props.match.params;
@@ -85,13 +86,18 @@ function Profile(props) {
 										</a>
 									)}
 									{details?.profile?.phone_number && (
-										<a
-											href={`tel:${details?.profile?.phone_number}`}
-											target="_blank"
-											rel="noopener noreferrer"
+										<buton
+											onClick={() => {
+												navigator.clipboard.writeText(
+													`${details?.profile?.phone_number}`
+												);
+												showAlert("Phone Number Copied to Clipboard");
+											}}
 										>
-											<Icon name="phone" size="big" />
-										</a>
+											<a>
+												<Icon name="phone" size="big" />
+											</a>
+										</buton>
 									)}
 								</div>
 								<hr />
