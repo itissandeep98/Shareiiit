@@ -50,5 +50,5 @@ class UserSerializer(serializers.ModelSerializer):
 class OSADetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("id", "first_name", "last_name", "username")
+        fields = ("id", "username", "first_name", "last_name")
         extra_kwargs = {"username": {"read_only": True}}

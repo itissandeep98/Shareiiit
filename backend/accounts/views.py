@@ -1,6 +1,6 @@
 # from backend.accounts.authentications import ExampleAuthentication
 from rest_framework.response import Response
-from rest_framework import generics, status, permissions, viewsets
+from rest_framework import generics, status, permissions, viewsets, filters
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
@@ -59,6 +59,14 @@ class UserViewSet(viewsets.ModelViewSet):
     lookup_field = "username"
     lookup_value_regex = "[\w@.]+"
 
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["username", "first_name", "last_name"]
+
+    def get_serializer_class(self):
+        if self.action == "retrieve":
+            return UserSerializer
+        return OSADetailsSerializer
+
     def get_permissions(self):
         """
         Instantiates and returns the list of permissions that this view requires.
@@ -99,3 +107,16 @@ class ProfileView(generics.RetrieveUpdateAPIView):
     def get_object(self):
         obj = get_object_or_404(Profile, user=self.request.user)
         return obj
+
+
+# class StatusDetail(
+#     mixins.ListModelMixin,  # specify wanted mixins
+#     mixins.RetrieveModelMixin,
+#     viewsets.GenericViewSet,
+# ):
+#     permission_classes = (IsAuthenticated,)
+#     serializer_class = serializers.StatusSerializer
+
+#     def get_queryset(self):
+#         queryset = helperfunctions.getObjects(self.request.user, models.Status)
+#         return queryset
