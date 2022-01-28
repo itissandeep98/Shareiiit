@@ -8,7 +8,7 @@ import {
 	Typography,
 } from "@mui/material";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
-import { Col, Container, Row } from "reactstrap";
+import { Col, Container, Row, Spinner } from "reactstrap";
 import SearchIcon from "@mui/icons-material/Search";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -21,6 +21,16 @@ function Tags(props) {
 	const { tags, modifyTags } = props;
 	const dispatch = useDispatch();
 	const [skillList, setSkillList] = useState([]);
+	const [searchText, setSearchText] = useState("");
+	const [searchLoading, setSearchLoading] = useState(false);
+	var typingTimer;
+	const startSearch = (e) => {
+		clearTimeout(typingTimer);
+		typingTimer = setTimeout(OnChange, 1000);
+	};
+	const endSearch = (e) => {
+		clearTimeout(typingTimer);
+	};
 	useEffect(() => {
 		dispatch(fetchSkillList()).then((res) => {
 			setSkillList(res);
@@ -28,17 +38,17 @@ function Tags(props) {
 	}, [dispatch]);
 
 	const OnChange = (e) => {
-		if (e.charCode === 13) {
-			const query = e.target.value;
-			if (query.length > 0) {
-				dispatch(searchSkillList(query)).then((res) => {
-					setSkillList(res);
-				});
-			} else {
-				dispatch(fetchSkillList()).then((res) => {
-					setSkillList(res);
-				});
-			}
+		setSearchLoading(true);
+		if (searchText.length > 0) {
+			dispatch(searchSkillList(searchText)).then((res) => {
+				setSkillList(res);
+				setSearchLoading(false);
+			});
+		} else {
+			dispatch(fetchSkillList()).then((res) => {
+				setSkillList(res);
+				setSearchLoading(false);
+			});
 		}
 	};
 
@@ -49,13 +59,14 @@ function Tags(props) {
 					<Typography variant="h3">Skills</Typography>
 					<TextField
 						label="Filter Tags"
-						// onChange={OnChange}
-						onKeyPress={OnChange}
+						onChange={(e) => setSearchText(e.target.value)}
+						onKeyDown={endSearch}
+						onKeyUp={startSearch}
 						fullWidth
 						InputProps={{
 							endAdornment: (
 								<InputAdornment position="end">
-									<SearchIcon />
+									{searchLoading ? <Spinner size="sm" /> : <SearchIcon />}
 								</InputAdornment>
 							),
 						}}

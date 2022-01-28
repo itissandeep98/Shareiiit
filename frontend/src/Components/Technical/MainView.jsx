@@ -1,13 +1,6 @@
-import {
-	Chip,
-	InputAdornment,
-	TextField,
-	Tooltip,
-	Button,
-} from "@mui/material";
+import { Chip, Tooltip, Button } from "@mui/material";
 import { Col, Container, Row } from "reactstrap";
 import TechCard from "./TechCard";
-import SearchIcon from "@mui/icons-material/Search";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { useEffect } from "react";
 import {
@@ -16,13 +9,12 @@ import {
 } from "../../Store/ActionCreators/skill";
 import { useState } from "react";
 import { connect, useDispatch } from "react-redux";
-import { searchSkills } from "../../Store/ActionCreators/search";
+import FilterBar from "./FilterBar";
 
 function MainView(props) {
 	const { tags, modifyTags } = props;
 	const { next } = props.skill;
 	const [cards, setCards] = useState(props.skill.skills ?? []);
-	const [searchText, setSearchText] = useState("");
 	const [moreLoading, setMoreLoading] = useState(false);
 
 	const dispatch = useDispatch();
@@ -52,41 +44,9 @@ function MainView(props) {
 		}
 	}, [tags]);
 
-	const OnChange = (e) => {
-		if (e.charCode === 13) {
-			if (searchText.length > 0) {
-				dispatch(searchSkills({ search: searchText })).then((res) => {
-					const temp = res;
-					if (temp?.length > 0) {
-						setCards(temp);
-					} else {
-						setCards([]);
-					}
-				});
-			}
-		}
-	};
-
 	return (
 		<Container className="bg-white p-3 rounded_lg shadow">
-			<Row>
-				<Col>
-					<TextField
-						label="Search Input"
-						fullWidth
-						value={searchText}
-						onChange={(e) => setSearchText(e.target.value)}
-						onKeyPress={OnChange}
-						InputProps={{
-							endAdornment: (
-								<InputAdornment position="end">
-									<SearchIcon />
-								</InputAdornment>
-							),
-						}}
-					/>
-				</Col>
-			</Row>
+			<FilterBar setCards={setCards} />
 			<Row>
 				<Col>
 					{tags.map((tag, i) => (
