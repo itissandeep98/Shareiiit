@@ -36,11 +36,40 @@ export const fetchSkillPosts = () => {
 		return await axios
 			.get(`${apiUrl}/api/posts/?category=skill`, { headers: headers() })
 			.then((response) => {
+				const { results, next } = response.data;
+
 				dispatch({
 					type: ActionTypes.SKILL_POSTS_FETCH_SUCCESS,
-					data: response.data.results,
+					data: results,
+					next,
 				});
-				return response.data.results;
+				return results;
+			})
+			.catch((error) => {
+				dispatch({
+					type: ActionTypes.SKILL_POSTS_FETCH_FAILED,
+					errmess: "Error in connection with Server",
+				});
+			});
+	};
+};
+
+export const fetchNextSkillPosts = (next) => {
+	return async (dispatch) => {
+		dispatch({ type: ActionTypes.SKILL_POSTS_NEXT_FETCH_REQUEST });
+		return await axios
+			.get(`${apiUrl}/api/posts/?category=skill&page=${next}`, {
+				headers: headers(),
+			})
+			.then((response) => {
+				const { results, next } = response.data;
+
+				dispatch({
+					type: ActionTypes.SKILL_POSTS_NEXT_FETCH_SUCCESS,
+					data: results,
+					next,
+				});
+				return results;
 			})
 			.catch((error) => {
 				dispatch({

@@ -52,8 +52,8 @@ function Posts(props) {
 		dispatch(
 			fetchNextPosts({ category, ordering, is_request, page: next })
 		).then((res) => {
-			// setCards(res.results);
-			// setNext(res.next);
+			setCards([...cards, ...res.results]);
+			setNext(res.next);
 			setMoreLoading(false);
 		});
 	};

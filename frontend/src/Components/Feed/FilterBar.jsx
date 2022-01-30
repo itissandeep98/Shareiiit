@@ -5,13 +5,13 @@ import {
 	MenuItem,
 	TextField,
 	Button,
-	RadioGroup,
+	InputAdornment,
 	Radio,
 	FormControlLabel,
 	Checkbox,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
 	Col,
 	Container,
@@ -22,10 +22,18 @@ import {
 	Spinner,
 } from "reactstrap";
 import { searchAdvanced, searchPosts } from "../../Store/ActionCreators/search";
+import SearchIcon from "@mui/icons-material/Search";
 
 function FilterBar(props) {
-	const { category, setCategory, ordering, setOrdering, request, setRequest } =
-		props;
+	const {
+		category,
+		setCategory,
+		ordering,
+		setOrdering,
+		request,
+		setRequest,
+		setResult,
+	} = props;
 	const [search, setSearch] = useState("");
 	const categories = [
 		{ label: "Books", value: "book" },
@@ -39,16 +47,32 @@ function FilterBar(props) {
 		{ label: "Most Upvoted", value: "upvote_count" },
 		{ label: "Most Upvoted First", value: "-upvote_count" },
 	];
+	const [searchLoading, setSearchLoading] = useState(false);
+	const posts = useSelector((state) => state.posts?.[category]);
 
 	const [modal, setModal] = useState(false);
 	const dispatch = useDispatch();
-	const onChange = (value) => {
-		setSearch(value);
-		const data = { search: value };
-		dispatch(searchPosts({ data, category })).then((res) => {
-			props.setResult(res);
-		});
+	const onChange = () => {
+		if (search.length > 0) {
+			setSearchLoading(true);
+			const data = { search };
+			dispatch(searchPosts({ data, category })).then((res) => {
+				setResult(res);
+				setSearchLoading(false);
+			});
+		} else {
+			setResult(posts);
+		}
 	};
+	var typingTimer;
+	const startSearch = (e) => {
+		clearTimeout(typingTimer);
+		typingTimer = setTimeout(onChange, 1000);
+	};
+	const endSearch = (e) => {
+		clearTimeout(typingTimer);
+	};
+
 	return (
 		<Container fluid className=" p-3 bg-light">
 			<Row>
@@ -59,7 +83,16 @@ function FilterBar(props) {
 						value={search}
 						multiline
 						fullWidth
-						onChange={(e) => onChange(e.target.value)}
+						onChange={(e) => setSearch(e.target.value)}
+						onKeyDown={endSearch}
+						onKeyUp={startSearch}
+						InputProps={{
+							endAdornment: (
+								<InputAdornment position="end">
+									{searchLoading ? <Spinner size="sm" /> : <SearchIcon />}
+								</InputAdornment>
+							),
+						}}
 					/>
 				</Col>
 				<Col md={2} className="mt-2">
