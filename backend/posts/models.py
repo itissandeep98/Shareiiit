@@ -4,6 +4,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.db.models.fields import IntegerField
 
+
 User = get_user_model()
 
 
@@ -94,6 +95,7 @@ class Skill(models.Model):
 
 class Group(models.Model):
     post = models.OneToOneField(Post, on_delete=models.CASCADE)
+    current_members = models.ManyToManyField(User)
     members_needed = models.IntegerField()
 
 

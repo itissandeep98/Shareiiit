@@ -14,6 +14,10 @@ from .models import (
     VoteLog,
 )
 
+from accounts.serializers import OSADetailsSerializer
+
+from drf_extra_fields.relations import PresentablePrimaryKeyRelatedField
+
 
 User = get_user_model()
 
@@ -25,9 +29,31 @@ class BookSerializer(serializers.ModelSerializer):
 
 
 class GroupSerializer(serializers.ModelSerializer):
+    # current_members = OSADetailsSerializer(read_only=True, many=True)
+    # current_members_id = serializers.PrimaryKeyRelatedField(
+    #     queryset=User.objects.all(), source="current_members", many=True
+    # )
+
+    current_members = PresentablePrimaryKeyRelatedField(
+        queryset=User.objects.all(),
+        presentation_serializer=OSADetailsSerializer,
+        many=True,
+    )
+
     class Meta:
         model = Group
-        fields = ("members_needed",)
+        fields = (
+            "members_needed",
+            "current_members",
+        )
+
+    # def create(self, validated_data):
+    #     current_members = validated_data.pop('current_members')
+    #     question = Question.objects.create(**validated_data)
+
+    #     for info in info_data:
+    #         Choice.objects.create(question=question, **info)
+    #     return question
 
 
 class VoteCountLogSerializer(serializers.ModelSerializer):
