@@ -303,6 +303,14 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class NotificationSerializer(serializers.ModelSerializer):
+    post = serializers.SerializerMethodField()
+
     class Meta:
         model = Notification
         fields = "__all__"
+
+    def get_post(self, obj):
+        return {
+            "id": obj.post.id,
+            "category": obj.post.category.name,
+        }
