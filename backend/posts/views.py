@@ -277,7 +277,7 @@ class SkillViewSet(viewsets.ReadOnlyModelViewSet):
             kwargs["is_request"] = is_request
 
         if rating:
-            kwargs["skill__rating"] = rating
+            kwargs["skill__rating__gte"] = rating
 
         queryset = Post.objects.filter(category__name="skill", **kwargs)
 
