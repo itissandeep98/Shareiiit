@@ -77,7 +77,7 @@ function TopHeader() {
 									rel="noopener noreferrer"
 								>
 									<p className="d-md-none">Feedback</p>
-									<span className="fa fa-comment fa-lg d-none d-md-inline-block" />
+									<i className="fa fa-comment fa-lg d-none d-md-inline-block" />
 								</a>
 							</NavItem>
 							<NavItem>

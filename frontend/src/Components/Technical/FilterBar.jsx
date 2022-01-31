@@ -50,7 +50,7 @@ function FilterBar(props) {
 		setSearchLoading(true);
 		const { value } = e.target;
 		setRating(value);
-		dispatch(searchSkills({ rating: value })).then((res) => {
+		dispatch(searchSkills({ rating_gte: value })).then((res) => {
 			const temp = res;
 			if (temp?.length > 0) {
 				setCards(temp);

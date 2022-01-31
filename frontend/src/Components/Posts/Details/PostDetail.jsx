@@ -22,7 +22,7 @@ function PostDetail(props) {
 	const [liked, setLiked] = useState(null);
 	const [saved, setSaved] = useState(null);
 	const [dismiss, setDismiss] = useState(null);
-	const username = useSelector((state) => state.user?.details?.username);
+	const username = useSelector((state) => state.user?.osadetails?.username);
 	useEffect(() => {
 		dispatch(fetchPostDetails({ id, category: "book" })).then((res) => {
 			setDetails(res);
@@ -152,19 +152,21 @@ function PostDetail(props) {
 							</Col>
 						</Row>
 
-						<Row className="mt-5">
-							<Col>
-								<hr />
-								<h2>
-									<Icon name="chat" /> Messages
-								</h2>
-								<Messages
-									id={id}
-									recipient={username}
-									creator={details.created_by}
-								/>
-							</Col>
-						</Row>
+						{username && details && (
+							<Row className="mt-5">
+								<Col>
+									<hr />
+									<h2>
+										<Icon name="chat" /> Messages
+									</h2>
+									<Messages
+										id={id}
+										recipient={username}
+										creator={details.created_by}
+									/>
+								</Col>
+							</Row>
+						)}
 					</>
 				)}
 			</Container>

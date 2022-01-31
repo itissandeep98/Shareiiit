@@ -26,7 +26,7 @@ export default function Content({ notification, unread, read }) {
 								<>
 									<h4>Unread</h4>
 									<hr />
-									<ul>
+									<ul className="notif-list">
 										{unread?.map((item) => (
 											<SingleNotification {...item} />
 										))}
@@ -37,7 +37,7 @@ export default function Content({ notification, unread, read }) {
 								<>
 									<h4>Read</h4>
 									<hr />
-									<ul>
+									<ul className="notif-list">
 										{read?.map((item) => (
 											<SingleNotification {...item} />
 										))}
@@ -52,7 +52,7 @@ export default function Content({ notification, unread, read }) {
 	);
 }
 
-const SingleNotification = ({ id, post, category, read, text, timestamp }) => {
+const SingleNotification = ({ id, post, type, read, text, timestamp }) => {
 	const dispatch = useDispatch();
 
 	const markRead = (e) => {
@@ -65,6 +65,10 @@ const SingleNotification = ({ id, post, category, read, text, timestamp }) => {
 		<li>
 			<Row>
 				<Col className="text-break text-wrap">
+					{type === "VOTE" && <Icon name="thumbs up" />}
+					{type === "MSG" && <Icon name="facebook messenger" />}
+					{type === "TAG" && <Icon name="tag" />}
+
 					<NavLink to={`/posts/${post.category}/${post.id}`}>{text}</NavLink>
 					<br />
 					<small>{moment(timestamp).fromNow()}</small>

@@ -5,6 +5,7 @@ import { useState } from "react";
 import { updatePost } from "../../../Store/ActionCreators/post";
 import { useDispatch } from "react-redux";
 import ImageUploader from "../../../Utils/ImageUploader";
+import UserSearchBar from "../../Posts/Create/UserSearchBar";
 
 function EditPostModal(props) {
 	const { modal, setModal, id } = props;
@@ -21,8 +22,14 @@ function EditPostModal(props) {
 			is_price_negotiable: state.is_price_negotiable,
 			book: state.book,
 			price: state.price,
-			group: state.group,
+			group: {
+				...state.group,
+				current_members: state?.group?.current_members?.map(
+					(member) => member.id
+				),
+			},
 		};
+		console.log(data);
 		dispatch(updatePost({ id, data, category }));
 
 		if (typeof state.image === "object") {
@@ -103,38 +110,52 @@ function EditPostModal(props) {
 							}
 						/>
 					)}
-
-					<ImageUploader
-						image={state.image}
-						setImage={(val) => setState({ ...state, image: val })}
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								checked={state.is_request}
-								onChange={(e) =>
-									setState({ ...state, is_request: !state.is_request })
-								}
-								color="primary"
+					{category === "group" && (
+						<UserSearchBar
+							members={state?.group?.current_members}
+							onChange={(val) =>
+								setState({
+									...state,
+									group: { ...state.group, current_members: val },
+								})
+							}
+						/>
+					)}
+					{category !== "group" && (
+						<>
+							<ImageUploader
+								image={state.image}
+								setImage={(val) => setState({ ...state, image: val })}
 							/>
-						}
-						label="This is a Request Post"
-					/>
-					<FormControlLabel
-						control={
-							<Checkbox
-								checked={state.is_price_negotiable}
-								onChange={(e) =>
-									setState({
-										...state,
-										is_price_negotiable: !state.is_price_negotiable,
-									})
+							<FormControlLabel
+								control={
+									<Checkbox
+										checked={state.is_request}
+										onChange={(e) =>
+											setState({ ...state, is_request: !state.is_request })
+										}
+										color="primary"
+									/>
 								}
-								color="primary"
+								label="This is a Request Post"
 							/>
-						}
-						label="Negotiable Price"
-					/>
+							<FormControlLabel
+								control={
+									<Checkbox
+										checked={state.is_price_negotiable}
+										onChange={(e) =>
+											setState({
+												...state,
+												is_price_negotiable: !state.is_price_negotiable,
+											})
+										}
+										color="primary"
+									/>
+								}
+								label="Negotiable Price"
+							/>
+						</>
+					)}
 					<Button
 						variant="outlined"
 						className="mt-3 float-right  "
