@@ -64,11 +64,11 @@ def get_search_kwargs(request, category):
             kwargs["group__members_needed"] = members_needed
 
     if category == "skill":
-        rating = request.query_params.get("rating")
+        rating_gte = request.query_params.get("rating_gte")
         label = request.query_params.get("label")
 
-        if rating is not None:
-            kwargs["skill__rating"] = rating
+        if rating_gte is not None:
+            kwargs["skill__rating__gte"] = rating_gte
 
         if label is not None:
             kwargs["skill__label__icontains"] = label
