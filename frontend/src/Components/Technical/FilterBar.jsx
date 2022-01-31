@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import SearchIcon from "@mui/icons-material/Search";
-import { InputAdornment, TextField } from "@mui/material";
+import {
+	FormControl,
+	InputAdornment,
+	InputLabel,
+	MenuItem,
+	Select,
+	TextField,
+} from "@mui/material";
 import { Col, Spinner, Row } from "reactstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { searchSkills } from "../../Store/ActionCreators/search";
@@ -8,6 +15,7 @@ import { searchSkills } from "../../Store/ActionCreators/search";
 function FilterBar(props) {
 	const { setCards } = props;
 	const [searchText, setSearchText] = useState("");
+	const [rating, setRating] = useState(0);
 	const [searchLoading, setSearchLoading] = useState(false);
 	const dispatch = useDispatch();
 	const skills = useSelector((state) => state.skill?.skills);
@@ -38,9 +46,24 @@ function FilterBar(props) {
 		}
 	};
 
+	const onRatingChange = (e) => {
+		setSearchLoading(true);
+		const { value } = e.target;
+		setRating(value);
+		dispatch(searchSkills({ rating: value })).then((res) => {
+			const temp = res;
+			if (temp?.length > 0) {
+				setCards(temp);
+			} else {
+				setCards([]);
+			}
+			setSearchLoading(false);
+		});
+	};
+
 	return (
 		<Row>
-			<Col>
+			<Col md={10}>
 				<TextField
 					label="Search Input"
 					fullWidth
@@ -57,6 +80,21 @@ function FilterBar(props) {
 					}}
 				/>
 			</Col>
+			<Col md={2}>
+				<FormControl variant="outlined" fullWidth>
+					<InputLabel>Rating greater than</InputLabel>
+					<Select
+						label="Rating Greate Than"
+						value={rating}
+						onChange={onRatingChange}
+					>
+						{Array.from(Array(6).keys()).map((i) => (
+							<MenuItem value={i}>{i}</MenuItem>
+						))}
+					</Select>
+				</FormControl>
+			</Col>
+			<Col></Col>
 		</Row>
 	);
 }

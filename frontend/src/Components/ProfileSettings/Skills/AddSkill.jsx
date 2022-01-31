@@ -1,6 +1,18 @@
-import { Autocomplete, Button, InputLabel, TextField } from "@mui/material";
+import {
+	Autocomplete,
+	Button,
+	InputLabel,
+	InputAdornment,
+	TextField,
+} from "@mui/material";
 import { useEffect, useState } from "react";
-import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import {
+	Modal,
+	ModalBody,
+	ModalFooter,
+	ModalHeader,
+	Spinner,
+} from "reactstrap";
 import { Rating } from "semantic-ui-react";
 import { useDispatch } from "react-redux";
 import {
@@ -9,11 +21,16 @@ import {
 	searchSkillList,
 } from "../../../Store/ActionCreators/skill";
 import { showAlert } from "../../../Utils/showAlert";
+import SearchIcon from "@mui/icons-material/Search";
 
 function AddSkill(props) {
 	const { modal, toggle, userTags, setuserTags } = props;
 	const [data, setData] = useState({});
 	const [skillList, setSkillList] = useState([]);
+	const [searchText, setSearchText] = useState("");
+
+	const [searchLoading, setSearchLoading] = useState(false);
+
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(fetchSkillList()).then((res) => {
@@ -44,10 +61,20 @@ function AddSkill(props) {
 			});
 	};
 
-	const searchSkills = (e) => {
-		const { value } = e.target;
-		dispatch(searchSkillList(value)).then((res) => {
+	var typingTimer;
+	const startSearch = (e) => {
+		clearTimeout(typingTimer);
+		typingTimer = setTimeout(searchSkills, 500);
+	};
+	const endSearch = (e) => {
+		clearTimeout(typingTimer);
+	};
+
+	const searchSkills = () => {
+		setSearchLoading(true);
+		dispatch(searchSkillList(searchText)).then((res) => {
 			setSkillList(res);
+			setSearchLoading(false);
 		});
 	};
 
@@ -57,13 +84,18 @@ function AddSkill(props) {
 			<ModalBody>
 				<Autocomplete
 					freeSolo
+					openOnFocus
+					loading={searchLoading}
+					loadingText="Searching..."
 					options={skillList}
 					onChange={(e, value) => setData({ ...data, label: value.label })}
 					renderInput={(params) => (
 						<TextField
 							fullWidth
 							{...params}
-							onChange={searchSkills}
+							onChange={(e) => setSearchText(e.target.value)}
+							onKeyDown={endSearch}
+							onKeyUp={startSearch}
 							label="Tag"
 						/>
 					)}

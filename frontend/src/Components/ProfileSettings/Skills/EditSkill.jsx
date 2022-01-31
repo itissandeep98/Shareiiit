@@ -14,6 +14,9 @@ function EditSkill(props) {
 	const { modal, toggle, details } = props;
 	const [data, setData] = useState({ ...details });
 	const [skillList, setSkillList] = useState([]);
+	const [searchText, setSearchText] = useState(data?.skill?.label);
+	const [searchLoading, setSearchLoading] = useState(false);
+
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(fetchSkillList()).then((res) => {
@@ -41,10 +44,21 @@ function EditSkill(props) {
 		const skill = { ...data.skill, [name]: value };
 		setData({ ...data, skill });
 	};
-	const searchSkills = (e) => {
-		const { value } = e.target;
-		dispatch(searchSkillList(value)).then((res) => {
+
+	var typingTimer;
+	const startSearch = (e) => {
+		clearTimeout(typingTimer);
+		typingTimer = setTimeout(searchSkills, 500);
+	};
+	const endSearch = (e) => {
+		clearTimeout(typingTimer);
+	};
+
+	const searchSkills = () => {
+		setSearchLoading(true);
+		dispatch(searchSkillList(searchText)).then((res) => {
 			setSkillList(res);
+			setSearchLoading(false);
 		});
 	};
 
@@ -54,6 +68,9 @@ function EditSkill(props) {
 			<ModalBody>
 				<Autocomplete
 					freeSolo
+					openOnFocus
+					loading={searchLoading}
+					loadingText="Searching..."
 					value={data?.skill?.label}
 					options={skillList}
 					onChange={(e, value) => changeSkill("label", value?.label)}
@@ -61,7 +78,9 @@ function EditSkill(props) {
 						<TextField
 							fullWidth
 							{...params}
-							onChange={searchSkills}
+							onChange={(e) => setSearchText(e.target.value)}
+							onKeyDown={endSearch}
+							onKeyUp={startSearch}
 							label="Tag"
 						/>
 					)}
