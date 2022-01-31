@@ -102,3 +102,29 @@ export const searchSkills = (data) => {
 			});
 	};
 };
+
+export const searchUser = (data) => {
+	return async (dispatch) => {
+		dispatch({ type: ActionTypes.PEOPLE_SEARCH_REQUEST });
+		return await axios
+			.get(`${apiUrl}/api/users/`, {
+				params: data,
+				headers: headers(),
+			})
+			.then((response) => {
+				const data = response.data;
+
+				dispatch({
+					type: ActionTypes.PEOPLE_SEARCH_SUCCESS,
+					data: data,
+				});
+				return data;
+			})
+			.catch((error) => {
+				dispatch({
+					type: ActionTypes.PEOPLE_SEARCH_FAILED,
+					errmess: "Error in connection with Server",
+				});
+			});
+	};
+};

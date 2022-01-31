@@ -9,6 +9,15 @@ body {
 	font-family: "Poppins", Times, serif;
 }
 
+span {
+	font-family: "Poppins", Times, serif !important;
+}
+button {
+	font-family: "Poppins", Times, serif !important;
+}
+label {
+	font-family: "Poppins", Times, serif !important;
+}
 .poppins {
 	font-family: "Poppins", Times, serif;
 }

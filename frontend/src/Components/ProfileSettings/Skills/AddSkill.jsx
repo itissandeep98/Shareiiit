@@ -1,18 +1,6 @@
-import {
-	Autocomplete,
-	Button,
-	InputLabel,
-	InputAdornment,
-	TextField,
-} from "@mui/material";
+import { Autocomplete, Button, InputLabel, TextField } from "@mui/material";
 import { useEffect, useState } from "react";
-import {
-	Modal,
-	ModalBody,
-	ModalFooter,
-	ModalHeader,
-	Spinner,
-} from "reactstrap";
+import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import { Rating } from "semantic-ui-react";
 import { useDispatch } from "react-redux";
 import {
@@ -21,7 +9,6 @@ import {
 	searchSkillList,
 } from "../../../Store/ActionCreators/skill";
 import { showAlert } from "../../../Utils/showAlert";
-import SearchIcon from "@mui/icons-material/Search";
 
 function AddSkill(props) {
 	const { modal, toggle, userTags, setuserTags } = props;

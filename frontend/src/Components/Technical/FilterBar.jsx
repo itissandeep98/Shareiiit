@@ -65,6 +65,7 @@ function FilterBar(props) {
 		<Row>
 			<Col md={10}>
 				<TextField
+					className="mb-3"
 					label="Search Input"
 					fullWidth
 					value={searchText}
