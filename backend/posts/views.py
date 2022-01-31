@@ -262,7 +262,7 @@ class SkillViewSet(viewsets.ReadOnlyModelViewSet):
         description__icontains = self.request.query_params.get("body")
         created_by__username = self.request.query_params.get("username")
         is_request = self.request.query_params.get("is_request")
-        rating = self.request.query_params.get("rating")
+        rating_gte = self.request.query_params.get("rating_gte")
 
         if skill__name__icontains:
             kwargs["skill__name__icontains"] = skill__name__icontains
@@ -276,8 +276,8 @@ class SkillViewSet(viewsets.ReadOnlyModelViewSet):
         if is_request:
             kwargs["is_request"] = is_request
 
-        if rating:
-            kwargs["skill__rating__gte"] = rating
+        if rating_gte:
+            kwargs["skill__rating__gte"] = rating_gte
 
         queryset = Post.objects.filter(category__name="skill", **kwargs)
 
