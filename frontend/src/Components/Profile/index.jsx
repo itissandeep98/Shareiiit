@@ -28,6 +28,28 @@ function Profile(props) {
 		});
 	}, [dispatch]);
 
+	const copyToClipboard = (textToCopy) => {
+		if (navigator.clipboard && window.isSecureContext) {
+			return navigator.clipboard.writeText(textToCopy);
+		} else {
+			// text area method
+			let textArea = document.createElement("textarea");
+			textArea.value = textToCopy;
+			// make the textarea out of viewport
+			textArea.style.position = "fixed";
+			textArea.style.left = "-999999px";
+			textArea.style.top = "-999999px";
+			document.body.appendChild(textArea);
+			textArea.focus();
+			textArea.select();
+			return new Promise((res, rej) => {
+				// here the magic happens
+				document.execCommand("copy") ? res() : rej();
+				textArea.remove();
+			});
+		}
+	};
+
 	return (
 		<>
 			<ImagePopup
@@ -88,9 +110,7 @@ function Profile(props) {
 									{details?.profile?.phone_number && (
 										<buton
 											onClick={() => {
-												navigator.clipboard.writeText(
-													`${details?.profile?.phone_number}`
-												);
+												copyToClipboard(`${details?.profile?.phone_number}`);
 												showAlert("Phone Number Copied to Clipboard");
 											}}
 										>
@@ -110,7 +130,7 @@ function Profile(props) {
 								{skills.length > 0 && (
 									<div className="text-center ">
 										<h3>Knows About</h3>
-										<div className="d-flex flex-row align-items-center justify-content-center">
+										<div className="text-break">
 											{skills?.map((term) => (
 												<NavLink to={`/skill/${term.id}`} key={term.id}>
 													<Chip
