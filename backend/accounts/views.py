@@ -79,6 +79,9 @@ class UserViewSet(viewsets.ModelViewSet):
 
         return [permission() for permission in permission_classes]
 
+    def get_queryset(self):
+        return User.objects.all().exclude(is_superuser=True)
+
 
 class OSADetailsView(generics.RetrieveAPIView):
     """
