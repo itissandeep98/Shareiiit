@@ -120,7 +120,7 @@ const Header = ({
 													onClick={closeMenu}
 												>
 													Sign In
-													<span className="fa fa-arrow-right ml-2" />
+													<i className="fa fa-arrow-right ml-2" />
 												</Link>
 											</li>
 										</ul>

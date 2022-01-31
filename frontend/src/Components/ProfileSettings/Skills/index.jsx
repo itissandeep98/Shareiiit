@@ -56,7 +56,7 @@ function Skills() {
 					Add New Skill Post
 				</Button>
 				<Row>
-					<Col className="text-center mb-3">
+					<Col className="text-center my-3">
 						{userTags?.map((tag, i) => (
 							<SkillCard
 								key={i}

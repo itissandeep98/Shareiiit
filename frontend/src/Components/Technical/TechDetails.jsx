@@ -33,7 +33,7 @@ function TechDetails(props) {
 		});
 	}, [dispatch]);
 
-	const username = useSelector((state) => state.user?.details?.username);
+	const username = useSelector((state) => state.user?.osadetails?.username);
 
 	const Vote = (option) => {
 		let data = {};
@@ -139,16 +139,21 @@ function TechDetails(props) {
 					</Row>
 				</Col>
 			</Row>
-
-			<Row className="mt-5">
-				<Col>
-					<hr />
-					<h2>
-						<Icon name="chat" /> Messages
-					</h2>
-					<Messages id={id} recipient={username} creator={details.created_by} />
-				</Col>
-			</Row>
+			{username && details && (
+				<Row className="mt-5">
+					<Col>
+						<hr />
+						<h2>
+							<Icon name="chat" /> Messages
+						</h2>
+						<Messages
+							id={id}
+							recipient={username}
+							creator={details.created_by}
+						/>
+					</Col>
+				</Row>
+			)}
 		</Container>
 	);
 }

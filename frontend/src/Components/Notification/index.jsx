@@ -8,6 +8,7 @@ import {
 import { NavLink } from "react-router-dom";
 import Content from "./Content";
 import { Button } from "@mui/material";
+import "./style.css";
 
 function Notification(props) {
 	const { notification, page, next } = props;
@@ -43,7 +44,7 @@ function Notification(props) {
 					</NavLink>
 					<a className="nav-link p-3 d-none d-md-block">
 						<Dropdown
-							item
+							simple
 							direction="left"
 							icon={
 								<Icon.Group size="large">

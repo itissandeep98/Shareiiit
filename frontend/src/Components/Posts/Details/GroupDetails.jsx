@@ -1,4 +1,4 @@
-import { Tooltip } from "@mui/material";
+import { Chip, Tooltip } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Col, Container, Row } from "reactstrap";
@@ -22,7 +22,7 @@ function GroupDetails(props) {
 	const [liked, setLiked] = useState(null);
 	const [saved, setSaved] = useState(null);
 	const [dismiss, setDismiss] = useState(null);
-	const username = useSelector((state) => state.user?.details?.username);
+	const username = useSelector((state) => state.user?.osadetails?.username);
 	useEffect(() => {
 		dispatch(fetchPostDetails({ id, category: "group" })).then((res) => {
 			setDetails(res);
@@ -141,22 +141,44 @@ function GroupDetails(props) {
 										</small>
 									</Col>
 								</Row>
+								<Row className="mt-3">
+									<Col>
+										<p>Team already has following Members</p>
+										{details.group.current_members &&
+											details.group.current_members?.map((member) => (
+												<Chip
+													label={
+														<NavLink
+															to={`/${member.username}`}
+															target="__blank"
+														>
+															{member.username}
+														</NavLink>
+													}
+													className="m-1 btn "
+													key={member.id}
+												/>
+											))}
+									</Col>
+								</Row>
 							</Col>
 						</Row>
 
-						<Row className="mt-5">
-							<Col>
-								<hr />
-								<h2>
-									<Icon name="chat" /> Messages
-								</h2>
-								<Messages
-									id={id}
-									recipient={username}
-									creator={details.created_by}
-								/>
-							</Col>
-						</Row>
+						{username && details && (
+							<Row className="mt-5">
+								<Col>
+									<hr />
+									<h2>
+										<Icon name="chat" /> Messages
+									</h2>
+									<Messages
+										id={id}
+										recipient={username}
+										creator={details.created_by}
+									/>
+								</Col>
+							</Row>
+						)}
 					</>
 				)}
 			</Container>

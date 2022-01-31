@@ -51,6 +51,9 @@ function UserSearchBar(props) {
 				loadingText="Searching..."
 				options={userList}
 				getOptionLabel={(option) => option.username}
+				getOptionDisabled={(option) =>
+					members?.find((member) => member.username === option.username)
+				}
 				renderInput={(params) => (
 					<TextField
 						fullWidth
@@ -84,6 +87,10 @@ function UserSearchBar(props) {
 }
 
 const CustomOption = (props, option, addMembers) => {
+	const disabled = props["aria-disabled"];
+	if (disabled) {
+		return <></>;
+	}
 	return (
 		<div
 			className="p-2"
