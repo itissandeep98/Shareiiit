@@ -3,6 +3,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { createPost, fetchPosts } from "../../../../Store/ActionCreators/post";
+import UserSearchBar from "../UserSearchBar";
 
 function Groups(props) {
 	const dispatch = useDispatch();
@@ -13,8 +14,12 @@ function Groups(props) {
 		const data = {
 			title: state.title,
 			description: state.description,
-			group: { members_needed: parseInt(state.members_needed) },
+			group: {
+				members_needed: parseInt(state.members_needed),
+				current_members: state?.members?.map((member) => member.id),
+			},
 		};
+
 		dispatch(createPost({ data, category: "group" })).then(() => {
 			dispatch(fetchPosts({ category: "group" }));
 			props.toggle();
@@ -58,6 +63,10 @@ function Groups(props) {
 				name="description"
 				value={state.description}
 				onChange={onChange}
+			/>
+			<UserSearchBar
+				members={state.members}
+				onChange={(val) => setState({ ...state, members: val })}
 			/>
 			<Button
 				variant="outlined"

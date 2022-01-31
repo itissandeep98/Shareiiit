@@ -44,7 +44,12 @@ function Create(props) {
 	return (
 		<>
 			{trigger}
-			<Modal isOpen={modal} toggle={() => setModal(!modal)} size="lg">
+			<Modal
+				isOpen={modal}
+				toggle={() => setModal(!modal)}
+				size="lg"
+				className="poppins"
+			>
 				<ModalHeader toggle={() => setModal(!modal)}>
 					Create New Post
 				</ModalHeader>

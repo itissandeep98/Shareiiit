@@ -67,7 +67,7 @@ function BasicDetails(props) {
 					</Col>
 				</Row>
 				<Row className="mt-3">
-					<Col>
+					<Col xs={12} md={6} className="mb-3">
 						<FormControl variant="outlined" fullWidth>
 							<InputLabel>Role</InputLabel>
 							<Select
@@ -105,7 +105,7 @@ function BasicDetails(props) {
 					</Col>
 				</Row>
 				<Row className="mt-3">
-					<Col>
+					<Col xs={12} md={6} className="mb-3">
 						<TextField
 							label="LinkedIn"
 							variant="outlined"
