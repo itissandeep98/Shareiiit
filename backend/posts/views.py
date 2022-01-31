@@ -2,7 +2,7 @@ from django.db.models import query, Count, Q, F
 from django.shortcuts import get_object_or_404
 
 
-from rest_framework import generics, permissions, viewsets, filters
+from rest_framework import generics, permissions, viewsets, filters, mixins
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import APIException
@@ -11,7 +11,7 @@ from rest_framework.decorators import action
 
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .models import Post, Category, Skill, SkillList, VoteLog
+from .models import Post, Category, Skill, SkillList, VoteLog, Notification
 from .permissions import IsOwnerOrReadOnly
 from .serializers import (
     ElectronicPostSerializer,
@@ -23,6 +23,7 @@ from .serializers import (
     SkillListSerializer,
     VoteLogSerializer,
     SkillPostSerializer,
+    NotificationSerializer,
 )
 
 
@@ -401,3 +402,14 @@ class VoteLogView(generics.RetrieveUpdateAPIView):
             voted_by=self.request.user,
             post__id=post,
         )[0]
+
+
+class NotificationView(
+    mixins.ListModelMixin,
+    mixins.UpdateModelMixin,
+    viewsets.GenericViewSet,
+):
+    serializer_class = NotificationSerializer
+
+    def get_queryset(self):
+        return Notification.objects.filter(user=self.request.user)

@@ -1,12 +1,118 @@
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, m2m_changed
 from django.dispatch import receiver
 from django.contrib.auth import get_user_model
+from django.template.defaultfilters import pluralize
+
 
 # from rest_framework.authtoken.models import Token
 
-from .models import VoteCountLog, Post
+from .models import Group, VoteCountLog, Post, Notification
+from messaging.models import Message
+
+from django.utils import timezone
 
 User = get_user_model()
+
+
+@receiver(post_save, sender=Message)
+def create_message_notification(sender, instance, created, **kwargs):
+    print("here")
+
+    if created:
+        print("here2")
+
+        try:
+            notification = Notification.objects.get(
+                post=instance.conversation.post,
+                user=instance.receiver,
+                type="MSG",
+            )
+            notification.timestamp = timezone.now()
+            notification.read = False
+        except Notification.DoesNotExist:
+            notification = Notification(
+                post=instance.conversation.post,
+                user=instance.receiver,
+                type="MSG",
+            )
+            notification.text = (
+                f"You have a new message from {instance.sender.username}"
+            )
+
+        notification.save()
+
+
+@receiver(post_save, sender=VoteCountLog)
+def create_update_upvote_notification(sender, instance, created, **kwargs):
+    if not created:
+        if instance.tracker.has_changed("upvote_count"):
+            try:
+                notification = Notification.objects.get(
+                    post=instance.post,
+                    user=instance.post.created_by,
+                    type="VOTE",
+                )
+            except:
+                notification = Notification(
+                    post=instance.post,
+                    user=instance.post.created_by,
+                    type="VOTE",
+                )
+
+            if instance.upvote_count == 0:
+                notification.delete()
+            else:
+                notification.text = f"Your post has {instance.upvote_count} upvote{pluralize(instance.upvote_count)}."
+                notification.read = False
+                notification.timestamp = timezone.now()
+                notification.save()
+
+
+@receiver(m2m_changed, sender=Group.current_members.through)
+def create_group_member_notification(
+    sender, instance, action, reverse, model, pk_set, using, **kwargs
+):
+    print("group membernotif", instance)
+    print(action, pk_set)
+
+    if action == "post_add":
+        for pk in pk_set:
+            if pk == instance.post.created_by.pk:
+                continue
+
+            notification = Notification(
+                post=instance.post, user_id=pk, type="TAG"
+            )
+            notification.text = f"You have been mentioned as the member of a group by {instance.post.created_by.username}."
+            notification.save()
+
+    if action == "post_remove":
+        for pk in pk_set:
+            try:
+                notification = Notification.objects.get(
+                    post=instance.post, user_id=pk, type="TAG"
+                )
+                notification.delete()
+            except Notification.DoesNotExist:
+                pass
+
+    # if instance.tracker.has_changed("current_members"):
+    #     try:
+    #         notification = Notification.objects.get(
+    #             post=instance.post, user=instance.post.created_by
+    #         )
+    #     except:
+    #         notification = Notification(
+    #             post=instance.post, user=instance.post.created_by
+    #         )
+
+    #     if instance.upvote_count == 0:
+    #         notification.delete()
+    #     else:
+    #         notification.text = f"Your post has {instance.upvote_count} upvote{pluralize(instance.upvote_count)}."
+    #         notification.read = False
+    #         notification.timestamp = timezone.now()
+    #         notification.save()
 
 
 @receiver(post_save, sender=Post)

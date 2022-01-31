@@ -1,8 +1,12 @@
+from dataclasses import Field
 from django.db import models
 
 # from django.contrib.auth.models import User
 from django.contrib.auth import get_user_model
 from django.db.models.fields import IntegerField
+from django.utils import timezone
+
+from model_utils import FieldTracker
 
 
 User = get_user_model()
@@ -59,6 +63,7 @@ class VoteCountLog(models.Model):
         Post, related_name="vote_count_log", on_delete=models.CASCADE
     )
     upvote_count = models.PositiveIntegerField(default=0)
+    tracker = FieldTracker(fields=["upvote_count"])
 
 
 class VoteLog(models.Model):
@@ -97,6 +102,7 @@ class Group(models.Model):
     post = models.OneToOneField(Post, on_delete=models.CASCADE)
     current_members = models.ManyToManyField(User)
     members_needed = models.IntegerField()
+    # tracker = FieldTracker(fields=["current_members"])
 
 
 class ElectronicItem(models.Model):
@@ -105,3 +111,21 @@ class ElectronicItem(models.Model):
 
 class Other(models.Model):
     post = models.OneToOneField(Post, on_delete=models.CASCADE)
+
+
+class Notification(models.Model):
+    """
+    A new notification is created for the receiver of updates to posts using a signal.
+    """
+
+    TYPE_CHOICES = (("MSG", "message"), ("TAG", "mention"), ("VOTE", "upvote"))
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    read = models.BooleanField(default=False)
+    text = models.TextField()
+    timestamp = models.DateTimeField(default=timezone.now, auto_now=False)
+    type = models.CharField(choices=TYPE_CHOICES, max_length=5)
+
+    class Meta:
+        ordering = ["-timestamp"]

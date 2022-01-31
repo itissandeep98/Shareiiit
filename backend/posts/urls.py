@@ -8,6 +8,7 @@ router = DefaultRouter()
 # router.register(r"myskills", views.MySkillsViewSet, basename="myskills")
 router.register(r"posts", views.PostViewSet, basename="posts")
 router.register(r"myposts", views.MyPostsViewSet, basename="myposts")
+router.register(r"notifications", views.NotificationView, basename="skills")
 
 urlpatterns = [
     path("", include(router.urls)),

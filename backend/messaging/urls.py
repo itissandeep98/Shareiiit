@@ -4,7 +4,7 @@ from messaging import views
 
 router = DefaultRouter()
 
-router.register(r"notifications", views.NotificationView, basename="skills")
+# router.register(r"notifications", views.NotificationView, basename="skills")
 
 urlpatterns = [
     path("", include(router.urls)),

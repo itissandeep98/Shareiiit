@@ -1,3 +1,4 @@
+from tokenize import group
 from django.contrib.auth import get_user_model
 
 from rest_framework.validators import UniqueTogetherValidator
@@ -12,6 +13,7 @@ from .models import (
     SkillList,
     VoteCountLog,
     VoteLog,
+    Notification,
 )
 
 from accounts.serializers import OSADetailsSerializer
@@ -194,7 +196,12 @@ class GroupPostSerializer(PostSerializer):
 
         validated_data["category"] = Category.objects.get(name="group")
         post = Post.objects.create(**validated_data)
+
+        current_members = group_data.pop("current_members", None)
         group = Group.objects.create(post=post, **group_data)
+        group.current_members.set(current_members)
+        group.save()
+
         return post
 
     def update(self, instance, validated_data):
@@ -292,4 +299,10 @@ class SkillPostSerializer(PostSerializer):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
+        fields = "__all__"
+
+
+class NotificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Notification
         fields = "__all__"
