@@ -120,7 +120,12 @@ class Notification(models.Model):
     A new notification is created for the receiver of updates to posts using a signal.
     """
 
-    TYPE_CHOICES = (("MSG", "message"), ("TAG", "mention"), ("VOTE", "upvote"))
+    TYPE_CHOICES = (
+        ("MSG", "message"),
+        ("TAG", "mention"),
+        ("VOTE", "upvote"),
+        ("FLW", "follow"),
+    )
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
@@ -147,7 +152,8 @@ class Notification(models.Model):
             return f"{self.post.created_by.name} tagged you as the member of a group."
         elif self.type == "MSG":
             return f"You have a new message from {self.message_notification.message.sender.name}."
-            # return "Hello World"
+        elif self.type == "FLW":
+            return f"{self.user.name} added a new post."
 
 
 class MessageNotification(models.Model):

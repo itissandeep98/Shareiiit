@@ -6,6 +6,7 @@ from rest_framework.routers import DefaultRouter
 
 router = DefaultRouter()
 router.register("users", views.UserViewSet, basename="users")
+router.register("following", views.UserFollowingViewSet, basename="following")
 urlpatterns = router.urls
 
 

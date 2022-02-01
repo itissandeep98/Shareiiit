@@ -55,10 +55,6 @@ def get_search_kwargs(request, category):
             "created_by__username__icontains"
         ] = created_by__username__icontains
 
-    if category in ("book", "electronic", "other"):
-        if is_request is not None:
-            kwargs["is_request"] = is_request
-
     if category == "book":
         if author is not None:
             kwargs["book__author__icontains"] = author

@@ -111,3 +111,12 @@ def create_count_log(sender, instance, created, **kwargs):
     """
     if created:
         VoteCountLog.objects.create(post=instance)
+
+
+@receiver(post_save, sender=Post)
+def create_follower_notification(sender, instance, created, **kwargs):
+    if created and instance.category.name != "skill":
+        for follower in instance.created_by.followers.all():
+            Notification.objects.create(
+                post=instance, user=follower, type="FLW"
+            )

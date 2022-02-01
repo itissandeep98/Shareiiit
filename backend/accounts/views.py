@@ -9,9 +9,14 @@ from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
 
 
-from .serializers import UserSerializer, OSADetailsSerializer, ProfileSerializer
+from .serializers import (
+    UserFollowingSerializer,
+    UserSerializer,
+    OSADetailsSerializer,
+    ProfileSerializer,
+)
 from .permissions import IsUser
-from .models import Profile
+from .models import Profile, UserFollowing
 
 
 User = get_user_model()
@@ -109,3 +114,14 @@ class ProfileView(generics.RetrieveUpdateAPIView):
     def get_object(self):
         obj = get_object_or_404(Profile, user=self.request.user)
         return obj
+
+
+class UserFollowingViewSet(viewsets.ModelViewSet):
+    serializer_class = UserFollowingSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return UserFollowing.objects.filter(following_user=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(following_user=self.request.user)
