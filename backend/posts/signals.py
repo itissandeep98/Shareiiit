@@ -31,7 +31,7 @@ def create_message_notification(sender, instance, created, **kwargs):
 
             notification.timestamp = timezone.now()
             notification.read = False
-            notification.message_notifiction.message = instance
+            notification.message_notification.message = instance
             notification.save()
         except Notification.DoesNotExist:
             notification = Notification.objects.create(
