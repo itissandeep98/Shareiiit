@@ -6,7 +6,7 @@ from django.template.defaultfilters import pluralize
 
 # from rest_framework.authtoken.models import Token
 
-from .models import Group, VoteCountLog, Post, Notification
+from .models import Group, MessageNotification, VoteCountLog, Post, Notification
 from messaging.models import Message
 
 from django.utils import timezone
@@ -26,20 +26,26 @@ def create_message_notification(sender, instance, created, **kwargs):
                 post=instance.conversation.post,
                 user=instance.receiver,
                 type="MSG",
+                message_notification__message__conversation=instance.conversation,
             )
+
             notification.timestamp = timezone.now()
             notification.read = False
+            notification.message_notifiction.message = instance
+            notification.save()
         except Notification.DoesNotExist:
-            notification = Notification(
+            notification = Notification.objects.create(
                 post=instance.conversation.post,
                 user=instance.receiver,
                 type="MSG",
             )
-            notification.text = (
-                f"You have a new message from {instance.sender.username}"
-            )
 
-        notification.save()
+            message_notification = MessageNotification.objects.create(
+                notification=notification, message=instance
+            )
+            # notification.text = (
+            #     f"You have a new message from {instance.sender.username}"
+            # )
 
 
 @receiver(post_save, sender=VoteCountLog)
@@ -62,7 +68,7 @@ def create_update_upvote_notification(sender, instance, created, **kwargs):
             if instance.upvote_count == 0:
                 notification.delete()
             else:
-                notification.text = f"Your post has {instance.upvote_count} upvote{pluralize(instance.upvote_count)}."
+                # notification.text = f"Your post has {instance.upvote_count} upvote{pluralize(instance.upvote_count)}."
                 notification.read = False
                 notification.timestamp = timezone.now()
                 notification.save()
@@ -83,7 +89,7 @@ def create_group_member_notification(
             notification = Notification(
                 post=instance.post, user_id=pk, type="TAG"
             )
-            notification.text = f"You have been mentioned as the member of a group by {instance.post.created_by.username}."
+            # notification.text = f"You have been mentioned as the member of a group by {instance.post.created_by.username}."
             notification.save()
 
     if action == "post_remove":
@@ -95,24 +101,6 @@ def create_group_member_notification(
                 notification.delete()
             except Notification.DoesNotExist:
                 pass
-
-    # if instance.tracker.has_changed("current_members"):
-    #     try:
-    #         notification = Notification.objects.get(
-    #             post=instance.post, user=instance.post.created_by
-    #         )
-    #     except:
-    #         notification = Notification(
-    #             post=instance.post, user=instance.post.created_by
-    #         )
-
-    #     if instance.upvote_count == 0:
-    #         notification.delete()
-    #     else:
-    #         notification.text = f"Your post has {instance.upvote_count} upvote{pluralize(instance.upvote_count)}."
-    #         notification.read = False
-    #         notification.timestamp = timezone.now()
-    #         notification.save()
 
 
 @receiver(post_save, sender=Post)

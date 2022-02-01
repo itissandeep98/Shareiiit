@@ -304,6 +304,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class NotificationSerializer(serializers.ModelSerializer):
     post = serializers.SerializerMethodField()
+    text = serializers.ReadOnlyField()
 
     class Meta:
         model = Notification

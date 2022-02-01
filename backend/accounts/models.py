@@ -11,6 +11,15 @@ from django.utils import timezone
 class User(AbstractUser):
     username_osa = models.CharField(max_length=150, unique=True)
 
+    @property
+    def name(self):
+        full_name = f"{self.first_name} {self.last_name}"
+
+        if len(full_name) == 1:
+            return self.username
+
+        return full_name
+
 
 class Profile(models.Model):
     # ROLE_CHOICES = ("Student", "Faculty", "Staff", "Other")
@@ -23,3 +32,9 @@ class Profile(models.Model):
     telegram_url = models.URLField(max_length=127, blank=True, null=True)
     image = models.ImageField(upload_to="accounts/", null=True)
     image_url = models.TextField(blank=True, null=True)
+
+
+# class UserFollowing(models.Model):
+#     user = models.ForeignKey("User", related_name="following")
+#     following_user = models.ForeignKey("User", related_name="followers")
+#     timestamp = models.DateTimeField(auto_now_add=True)

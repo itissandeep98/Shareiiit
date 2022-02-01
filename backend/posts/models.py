@@ -4,11 +4,14 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.db.models.fields import IntegerField
 from django.utils import timezone
+from django.template.defaultfilters import pluralize
+
+# from django.apps import apps
 
 from model_utils import FieldTracker
 
-
 User = get_user_model()
+# Conversation = apps.get_model("messaging.conversation")
 
 
 class Category(models.Model):
@@ -122,9 +125,37 @@ class Notification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
     read = models.BooleanField(default=False)
-    text = models.TextField()
+    # text = models.TextField()
     timestamp = models.DateTimeField(default=timezone.now, auto_now=False)
     type = models.CharField(choices=TYPE_CHOICES, max_length=5)
 
     class Meta:
         ordering = ["-timestamp"]
+
+    @property
+    def text(self):
+        if self.type == "VOTE":
+            upvote_count = self.post.vote_count_log.upvote_count
+
+            if self.post.category.name == "skill":
+                return f"Your post has {upvote_count} endorsement{pluralize(upvote_count)}."
+
+            return (
+                f"Your post has {upvote_count} upvote{pluralize(upvote_count)}."
+            )
+        elif self.type == "TAG":
+            return f"{self.post.created_by.name} tagged you as the member of a group."
+        elif self.type == "MSG":
+            return f"You have a new message from {self.message_notification.message.sender.name}."
+            # return "Hello World"
+
+
+class MessageNotification(models.Model):
+    notification = models.OneToOneField(
+        Notification,
+        on_delete=models.CASCADE,
+        related_name="message_notification",
+    )
+    message = models.OneToOneField(
+        "messaging.Message", on_delete=models.CASCADE
+    )

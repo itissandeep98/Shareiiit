@@ -14,9 +14,15 @@ from rest_framework.authtoken.models import Token
 
 
 class ProfileSerializer(serializers.ModelSerializer):
+    # followers = serializers.SerializerMethodField()
+    # following = serializers.SerializerMethodField()
+
     class Meta:
         model = Profile
         exclude = ("user",)
+
+    # def get_followers(self, obj):
+    #     return obj.followers.all()
 
 
 class UserSerializer(serializers.ModelSerializer):
