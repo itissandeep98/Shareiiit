@@ -38,6 +38,10 @@ def get_search_kwargs(request, category):
     created_by__username__icontains = request.query_params.get("username")
     author = request.query_params.get("author")
     is_request = request.query_params.get("is_request")
+
+    if is_request is not None:
+        kwargs["is_request"] = is_request
+
     members_needed = request.query_params.get("members_needed")
 
     if title__icontains:
