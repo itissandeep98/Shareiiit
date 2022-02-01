@@ -118,7 +118,7 @@ function Posts(props) {
 											disabled={moreLoading}
 											onClick={fetchMore}
 										>
-											Show More <span className="fa fa-caret-down ml-2" />
+											Show More <i className="fa fa-caret-down ml-2" />
 										</Button>
 									)}
 								</Row>

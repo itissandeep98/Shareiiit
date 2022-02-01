@@ -21,6 +21,7 @@ function OtherDetails(props) {
 	const [num_upvotes, setNum_upvotes] = useState(null);
 	const [liked, setLiked] = useState(null);
 	const [saved, setSaved] = useState(null);
+	const [imgErr, setImgErr] = useState(false);
 	const [dismiss, setDismiss] = useState(null);
 	const username = useSelector((state) => state.user?.osadetails?.username);
 	useEffect(() => {
@@ -78,9 +79,12 @@ function OtherDetails(props) {
 										<Image
 											onClick={() => setModal(!modal)}
 											src={
-												details.image ??
-												process.env.PUBLIC_URL + "/assets/images/other.svg"
+												!imgErr
+													? details.image ??
+													  process.env.PUBLIC_URL + "/assets/images/other.svg"
+													: process.env.PUBLIC_URL + "/assets/images/other.svg"
 											}
+											onError={(e) => setImgErr(true)}
 											fluid
 										/>
 										<Reaction

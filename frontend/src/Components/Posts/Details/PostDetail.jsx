@@ -22,6 +22,7 @@ function PostDetail(props) {
 	const [liked, setLiked] = useState(null);
 	const [saved, setSaved] = useState(null);
 	const [dismiss, setDismiss] = useState(null);
+	const [imgErr, setImgErr] = useState(false);
 	const username = useSelector((state) => state.user?.osadetails?.username);
 	useEffect(() => {
 		dispatch(fetchPostDetails({ id, category: "book" })).then((res) => {
@@ -76,9 +77,12 @@ function PostDetail(props) {
 										<Image
 											onClick={() => setModal(!modal)}
 											src={
-												details.image ??
-												process.env.PUBLIC_URL + "/assets/images/book.png"
+												!imgErr
+													? details.image ??
+													  process.env.PUBLIC_URL + "/assets/images/book.png"
+													: process.env.PUBLIC_URL + "/assets/images/book.png"
 											}
+											onError={(e) => setImgErr(true)}
 											fluid
 										/>
 										<Reaction

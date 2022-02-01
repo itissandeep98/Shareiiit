@@ -27,6 +27,7 @@ function GroupCard(props) {
 	const [liked, setLiked] = useState(vote_log.upvoted_flag);
 	const [saved, setSaved] = useState(vote_log.saved_flag);
 	const [dismiss, setDismiss] = useState(vote_log.dismiss_flag);
+	const [imgErr, setImgErr] = useState(false);
 	const dispatch = useDispatch();
 	const Vote = (option) => {
 		let data = {};
@@ -63,8 +64,12 @@ function GroupCard(props) {
 								<Image
 									onClick={() => setModal(!modal)}
 									src={
-										image ?? process.env.PUBLIC_URL + "/assets/images/group.svg"
+										!imgErr
+											? image ??
+											  process.env.PUBLIC_URL + "/assets/images/group.svg"
+											: process.env.PUBLIC_URL + "/assets/images/group.svg"
 									}
+									onError={(e) => setImgErr(true)}
 									size="small"
 								/>
 							</Col>

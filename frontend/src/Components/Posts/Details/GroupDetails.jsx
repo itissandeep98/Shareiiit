@@ -21,6 +21,7 @@ function GroupDetails(props) {
 	const [num_upvotes, setNum_upvotes] = useState(null);
 	const [liked, setLiked] = useState(null);
 	const [saved, setSaved] = useState(null);
+	const [imgErr, setImgErr] = useState(false);
 	const [dismiss, setDismiss] = useState(null);
 	const username = useSelector((state) => state.user?.osadetails?.username);
 	useEffect(() => {
@@ -78,9 +79,12 @@ function GroupDetails(props) {
 										<Image
 											onClick={() => setModal(!modal)}
 											src={
-												details.image ??
-												process.env.PUBLIC_URL + "/assets/images/group.svg"
+												!imgErr
+													? details.image ??
+													  process.env.PUBLIC_URL + "/assets/images/group.svg"
+													: process.env.PUBLIC_URL + "/assets/images/group.svg"
 											}
+											onError={(e) => setImgErr(true)}
 											fluid
 										/>
 										<Reaction
@@ -141,11 +145,12 @@ function GroupDetails(props) {
 										</small>
 									</Col>
 								</Row>
-								<Row className="mt-3">
-									<Col>
-										<p>Team already has following Members</p>
-										{details.group.current_members &&
-											details.group.current_members?.map((member) => (
+								{details?.group?.current_members && (
+									<Row className="mt-3">
+										<Col>
+											<p>Team already has following Members</p>
+
+											{details?.group?.current_members?.map((member) => (
 												<Chip
 													label={
 														<NavLink
@@ -159,8 +164,9 @@ function GroupDetails(props) {
 													key={member.id}
 												/>
 											))}
-									</Col>
-								</Row>
+										</Col>
+									</Row>
+								)}
 							</Col>
 						</Row>
 

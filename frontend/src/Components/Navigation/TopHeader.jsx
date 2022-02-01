@@ -13,7 +13,7 @@ import {
 import "./style.css";
 import { Image } from "semantic-ui-react";
 import { logoutAction } from "../../Store/ActionCreators/auth";
-import { fetchUser } from "../../Store/ActionCreators/user";
+import { fetchUser, fetchUserOSA } from "../../Store/ActionCreators/user";
 import Notification from "../Notification";
 
 function TopHeader() {
@@ -21,7 +21,9 @@ function TopHeader() {
 	const [isNavOpen, setIsNavOpen] = useState(false);
 	useEffect(() => {
 		dispatch(fetchUser());
+		dispatch(fetchUserOSA());
 	}, [dispatch]);
+
 	const toggleNav = () => {
 		setIsNavOpen(!isNavOpen);
 	};

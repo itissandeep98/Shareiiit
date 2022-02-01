@@ -52,7 +52,7 @@ function Messages(props) {
 			</Menu.Item>
 		),
 		render: () => (
-			<Tab.Pane attached={false}>
+			<Tab.Pane attached={false} key={i}>
 				<Comment.Group>
 					<UserMessage messages={user?.messages} postid={id} convid={user.id} />
 				</Comment.Group>

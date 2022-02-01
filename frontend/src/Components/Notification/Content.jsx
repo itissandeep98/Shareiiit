@@ -69,7 +69,11 @@ const SingleNotification = ({ id, post, type, read, text, timestamp }) => {
 					{type === "MSG" && <Icon name="facebook messenger" />}
 					{type === "TAG" && <Icon name="tag" />}
 
-					<NavLink to={`/posts/${post.category}/${post.id}`}>{text}</NavLink>
+					{post.category === "skill" ? (
+						<NavLink to={`/skill/${post.id}`}>{text}</NavLink>
+					) : (
+						<NavLink to={`/posts/${post.category}/${post.id}`}>{text}</NavLink>
+					)}
 					<br />
 					<small>{moment(timestamp).fromNow()}</small>
 				</Col>

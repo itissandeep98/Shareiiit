@@ -20,6 +20,7 @@ function ElectronicDetails(props) {
 	const [loading, setLoading] = useState(true);
 	const [num_upvotes, setNum_upvotes] = useState(null);
 	const [liked, setLiked] = useState(null);
+	const [imgErr, setImgErr] = useState(false);
 	const [saved, setSaved] = useState(null);
 	const [dismiss, setDismiss] = useState(null);
 	const username = useSelector((state) => state.user?.osadetails?.username);
@@ -79,9 +80,14 @@ function ElectronicDetails(props) {
 										<Image
 											onClick={() => setModal(!modal)}
 											src={
-												details.image ??
-												process.env.PUBLIC_URL + "/assets/images/electronic.svg"
+												!imgErr
+													? details.image ??
+													  process.env.PUBLIC_URL +
+															"/assets/images/electronic.svg"
+													: process.env.PUBLIC_URL +
+													  "/assets/images/electronic.svg"
 											}
+											onError={(e) => setImgErr(true)}
 											fluid
 										/>
 										<Reaction
