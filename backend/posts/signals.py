@@ -16,11 +16,7 @@ User = get_user_model()
 
 @receiver(post_save, sender=Message)
 def create_message_notification(sender, instance, created, **kwargs):
-    print("here")
-
     if created:
-        print("here2")
-
         try:
             notification = Notification.objects.get(
                 post=instance.conversation.post,
@@ -43,9 +39,6 @@ def create_message_notification(sender, instance, created, **kwargs):
             message_notification = MessageNotification.objects.create(
                 notification=notification, message=instance
             )
-            # notification.text = (
-            #     f"You have a new message from {instance.sender.username}"
-            # )
 
 
 @receiver(post_save, sender=VoteCountLog)
@@ -78,9 +71,6 @@ def create_update_upvote_notification(sender, instance, created, **kwargs):
 def create_group_member_notification(
     sender, instance, action, reverse, model, pk_set, using, **kwargs
 ):
-    print("group membernotif", instance)
-    print(action, pk_set)
-
     if action == "post_add":
         for pk in pk_set:
             if pk == instance.post.created_by.pk:
