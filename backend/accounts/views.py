@@ -3,6 +3,7 @@ from rest_framework import generics, status, permissions, viewsets, filters
 from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
+from rest_framework.exceptions import APIException
 
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import authenticate
@@ -124,4 +125,15 @@ class UserFollowingViewSet(viewsets.ModelViewSet):
         return UserFollowing.objects.filter(following_user=self.request.user)
 
     def perform_create(self, serializer):
+        followed_user_id = self.request.data.get("user")
+        following_user = self.request.user
+
+        if UserFollowing.objects.filter(
+            user__id=followed_user_id, following_user=following_user
+        ).exists():
+            raise APIException("You are already following this user.")
+
+        if following_user.id == followed_user_id:
+            raise APIException("You cannot follow yourself.")
+
         serializer.save(following_user=self.request.user)

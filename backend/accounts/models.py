@@ -45,3 +45,4 @@ class UserFollowing(models.Model):
 
     class Meta:
         ordering = ["user__first_name", "user__last_name", "user__username"]
+        unique_together = ("user", "following_user",)
