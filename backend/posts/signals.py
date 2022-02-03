@@ -116,7 +116,7 @@ def create_count_log(sender, instance, created, **kwargs):
 @receiver(post_save, sender=Post)
 def create_follower_notification(sender, instance, created, **kwargs):
     if created and instance.category.name != "skill":
-        for follower in instance.created_by.followers.all():
+        for relation in instance.created_by.following.all():
             Notification.objects.create(
-                post=instance, user=follower, type="FLW"
+                post=instance, user=relation.following_user, type="FLW"
             )

@@ -143,7 +143,7 @@ class Notification(models.Model):
             upvote_count = self.post.vote_count_log.upvote_count
 
             if self.post.category.name == "skill":
-                return f"Your post has {upvote_count} endorsement{pluralize(upvote_count)}."
+                return f"Your skill has {upvote_count} endorsement{pluralize(upvote_count)}."
 
             return (
                 f"Your post has {upvote_count} upvote{pluralize(upvote_count)}."
@@ -153,7 +153,7 @@ class Notification(models.Model):
         elif self.type == "MSG":
             return f"You have a new message from {self.message_notification.message.sender.name}."
         elif self.type == "FLW":
-            return f"{self.user.name} added a new post."
+            return f"{self.post.created_by.name} added a new post."
 
 
 class MessageNotification(models.Model):

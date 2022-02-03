@@ -227,6 +227,13 @@ class MyPostsViewSet(viewsets.ModelViewSet):
 
         return queryset
 
+    def destroy(self, request, *args, **kwargs):
+        post = self.get_object()
+        post.is_deleted = True
+        post.save()
+        return Response(data="succesfully deleted")
+
+    # TODO: The following action can be removed as we have overriden the destroy method above.
     @action(detail=True, methods=["post"])
     def delete(self, request, pk=None):
         post = self.get_object()
