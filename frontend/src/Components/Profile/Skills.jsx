@@ -1,4 +1,3 @@
-import FaceIcon from '@mui/icons-material/Face';
 import { Chip } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -28,14 +27,13 @@ function Skills({ user }) {
 			)}
 			{skills.length > 0 && (
 				<div className="text-center ">
-					<h3>Knows About</h3>
+					<h3>Skills</h3>
 					<div className="text-break">
 						{skills?.map(term => (
 							<NavLink to={`/skill/${term.id}`} key={term.id}>
 								<Chip
 									label={term.skill.label}
 									className="m-1 btn "
-									icon={<FaceIcon />}
 									key={Math.random()}
 								/>
 							</NavLink>

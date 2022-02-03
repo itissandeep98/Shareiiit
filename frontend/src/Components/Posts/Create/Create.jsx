@@ -1,9 +1,6 @@
 import { Modal, ModalBody, ModalHeader } from 'reactstrap';
 import { Tab } from 'semantic-ui-react';
-import Books from './Forms/Books';
-import Electronics from './Forms/Electronics';
-import Groups from './Forms/Groups';
-import Other from './Forms/Other';
+import Form from './Form';
 
 function Create(props) {
 	const { modal, setModal, trigger } = props;
@@ -12,7 +9,7 @@ function Create(props) {
 			menuItem: 'Book',
 			render: () => (
 				<Tab.Pane attached={false} className="p-0 border-0">
-					<Books toggle={() => setModal(!modal)} />
+					<Form category="book" toggle={() => setModal(!modal)} />
 				</Tab.Pane>
 			),
 		},
@@ -20,7 +17,7 @@ function Create(props) {
 			menuItem: 'Group',
 			render: () => (
 				<Tab.Pane attached={false} className="p-0 border-0">
-					<Groups toggle={() => setModal(!modal)} />
+					<Form category="group" toggle={() => setModal(!modal)} />
 				</Tab.Pane>
 			),
 		},
@@ -28,7 +25,7 @@ function Create(props) {
 			menuItem: 'Electronic Item',
 			render: () => (
 				<Tab.Pane attached={false} className="p-0 border-0">
-					<Electronics toggle={() => setModal(!modal)} />
+					<Form category="electronic" toggle={() => setModal(!modal)} />
 				</Tab.Pane>
 			),
 		},
@@ -36,7 +33,7 @@ function Create(props) {
 			menuItem: 'Other Item',
 			render: () => (
 				<Tab.Pane attached={false} className="p-0 border-0">
-					<Other toggle={() => setModal(!modal)} />
+					<Form category="other" toggle={() => setModal(!modal)} />
 				</Tab.Pane>
 			),
 		},

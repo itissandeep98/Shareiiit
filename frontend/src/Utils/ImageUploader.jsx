@@ -7,7 +7,7 @@ function ImageUploader(props) {
 	try {
 		image = URL.createObjectURL(image);
 	} catch {
-		console.log(typeof image);
+		// console.log(typeof image);
 	}
 	const { getRootProps, getInputProps } = useDropzone({
 		accept: 'image/*',

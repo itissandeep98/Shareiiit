@@ -1,13 +1,10 @@
-import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import SearchIcon from '@mui/icons-material/Search';
 import {
 	InputAdornment,
 	List,
 	ListItem,
-	ListItemIcon,
 	ListItemText,
 	TextField,
-	Typography,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -53,10 +50,9 @@ function Tags(props) {
 	};
 
 	return (
-		<Container className="bg-white p-2 rounded_lg shadow">
+		<Container className="bg-white p-2 rounded_lg shadow poppins">
 			<Row>
 				<Col>
-					<Typography variant="h3">Skills</Typography>
 					<TextField
 						label="Filter Tags"
 						onChange={e => setSearchText(e.target.value)}
@@ -76,11 +72,9 @@ function Tags(props) {
 							<ListItem
 								button
 								selected={tags?.includes(tag.label)}
+								className="poppins text-break"
 								key={Math.random()}
 								onClick={() => modifyTags(tag.label)}>
-								<ListItemIcon>
-									<LocalOfferIcon />
-								</ListItemIcon>
 								<ListItemText primary={tag.label} />
 							</ListItem>
 						))}

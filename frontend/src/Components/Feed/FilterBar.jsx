@@ -42,9 +42,8 @@ function FilterBar(props) {
 	];
 	const sort_by = [
 		{ label: 'Most Recent', value: 'created_at' },
-		{ label: 'Most Recent First', value: '-created_at' },
+		{ label: 'Oldest first', value: '-created_at' },
 		{ label: 'Most Upvoted', value: 'upvote_count' },
-		{ label: 'Most Upvoted First', value: '-upvote_count' },
 	];
 	const [searchLoading, setSearchLoading] = useState(false);
 	const posts = useSelector(state => state.posts?.[category]);
@@ -100,8 +99,7 @@ function FilterBar(props) {
 						<Select
 							label="Request posts"
 							value={request}
-							onChange={e => setRequest(e.target.value)}
-						>
+							onChange={e => setRequest(e.target.value)}>
 							<MenuItem value={0}>All</MenuItem>
 							<MenuItem value={'True'}>Requested</MenuItem>
 							<MenuItem value={'False'}>Giving Away</MenuItem>
@@ -114,8 +112,7 @@ function FilterBar(props) {
 						<Select
 							label="Category"
 							value={category}
-							onChange={e => setCategory(e.target.value)}
-						>
+							onChange={e => setCategory(e.target.value)}>
 							{categories.map((tag, i) => (
 								<MenuItem value={tag.value} key={i}>
 									{tag.label}
@@ -130,8 +127,7 @@ function FilterBar(props) {
 						<Select
 							label="Category"
 							value={ordering}
-							onChange={e => setOrdering(e.target.value)}
-						>
+							onChange={e => setOrdering(e.target.value)}>
 							{sort_by.map((tag, i) => (
 								<MenuItem value={tag.value} key={i}>
 									{tag.label}
@@ -145,8 +141,7 @@ function FilterBar(props) {
 				<Col>
 					<Button
 						className="float-right text-info"
-						onClick={() => setModal(true)}
-					>
+						onClick={() => setModal(true)}>
 						Advanced Search
 					</Button>
 					<AdvancedSearch
@@ -266,8 +261,7 @@ function AdvancedSearch(props) {
 						variant="outlined"
 						className="mt-2 float-right"
 						onClick={handleSearch}
-						disabled={loading}
-					>
+						disabled={loading}>
 						{loading ? <Spinner /> : 'Search'}
 					</Button>
 				</form>

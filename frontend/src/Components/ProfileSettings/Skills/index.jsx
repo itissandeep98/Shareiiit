@@ -30,9 +30,9 @@ function Skills() {
 	};
 
 	return (
-		<Row className="shadow my-3 py-4 rounded_lg bg-white align-items-center">
-			<Col>
-				<h2>
+		<Row className="shadow my-3 py-4 rounded_lg bg-white align-items-center poppins">
+			<Col className="poppins">
+				<h2 className="poppins">
 					Add Skills
 					<div className="d-inline ml-2 d-md-none">
 						<Image

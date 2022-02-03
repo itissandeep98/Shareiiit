@@ -38,6 +38,7 @@ function Messages(props) {
 						messages={users[0]?.messages}
 						postid={id}
 						convid={users[0]?.id}
+						creator={creator}
 					/>
 				</Comment.Group>
 			</div>

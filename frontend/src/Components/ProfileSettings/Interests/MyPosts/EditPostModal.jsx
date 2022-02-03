@@ -29,7 +29,6 @@ function EditPostModal(props) {
 				),
 			},
 		};
-		console.log(data);
 		dispatch(updatePost({ id, data, category }));
 
 		if (typeof state.image === 'object') {
@@ -121,12 +120,12 @@ function EditPostModal(props) {
 							}
 						/>
 					)}
+					<ImageUploader
+						image={state.image}
+						setImage={val => setState({ ...state, image: val })}
+					/>
 					{category !== 'group' && (
 						<>
-							<ImageUploader
-								image={state.image}
-								setImage={val => setState({ ...state, image: val })}
-							/>
 							<FormControlLabel
 								control={
 									<Checkbox

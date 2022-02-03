@@ -22,9 +22,12 @@ function SkillCard(props) {
 				toggle={() => setModal(!modal)}
 				details={details}
 			/>
-			<Accordion expanded={expanded} onChange={handleChange}>
+			<Accordion
+				expanded={expanded}
+				onChange={handleChange}
+				className="poppins">
 				<AccordionSummary expandIcon={<ExpandMoreIcon />}>
-					<Typography>{details.skill.label}</Typography>
+					<Typography className="poppins">{details.skill.label}</Typography>
 					<Rating
 						className="ml-3"
 						rating={details.skill.rating}
@@ -35,7 +38,7 @@ function SkillCard(props) {
 					/>
 				</AccordionSummary>
 				<AccordionDetails>
-					<Typography>{details.description}</Typography>
+					<Typography className="poppins">{details.description}</Typography>
 				</AccordionDetails>
 				<AccordionActions>
 					<Button size="small" onClick={handleDelete}>

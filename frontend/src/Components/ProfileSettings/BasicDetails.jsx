@@ -31,12 +31,12 @@ function BasicDetails(props) {
 	};
 	const osadetails = props.user?.osadetails;
 	return (
-		<Row className="shadow my-3 py-4 rounded_lg bg-white align-items-center">
+		<Row className="shadow my-3 py-4 rounded_lg bg-white align-items-center poppins">
 			<Col xs={12} md={3} lg={2} className="d-none d-md-block text-center">
 				<ProfileUpload photo={details.image} osadetails={osadetails} />
 			</Col>
-			<Col>
-				<h2>
+			<Col className="poppins">
+				<h2 className="poppins">
 					Edit Basic Details
 					<div className="d-inline ml-2 d-md-none">
 						<ProfileUpload photo={details.image} osadetails={osadetails} />

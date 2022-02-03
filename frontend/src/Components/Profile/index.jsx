@@ -61,7 +61,8 @@ function Profile(props) {
 							/>
 							<div className="d-flex align-items-center flex-row  justify-content-around">
 								<p className="text-muted pt-3">
-									{details?.profile?.follower_count} Followers
+									{details?.profile?.follower_count} Follower
+									{details?.profile?.follower_count > 1 && 's'}
 								</p>
 								{username !== user && (
 									<Button

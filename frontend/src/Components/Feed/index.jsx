@@ -106,7 +106,7 @@ function Posts(props) {
 											</Col>
 										))
 									) : (
-										<p className="text-muted"> No Posts yet</p>
+										<p className="text-muted ml-4"> No Posts yet</p>
 									)}
 								</Row>
 								<Row className="text-center d-flex justify-content-center mt-3">

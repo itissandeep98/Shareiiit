@@ -6,7 +6,7 @@ import { Comment, Placeholder } from 'semantic-ui-react';
 import { createMessage } from '../../../Store/ActionCreators/message';
 
 function UserMessage(props) {
-	const { postid, convid } = props;
+	const { postid, convid, creator } = props;
 	const [mess, setMess] = useState('');
 	const [messages, setMessages] = useState(props.messages.reverse());
 	const dispatch = useDispatch();
@@ -54,22 +54,23 @@ function UserMessage(props) {
 					</Comment.Content>
 				</Comment>
 			))}
-
-			<Comment.Action>
-				{loading ? (
-					<Placeholder fluid>
-						<Placeholder.Line />
-					</Placeholder>
-				) : (
-					<TextField
-						fullWidth
-						label="Type Your Message Here"
-						value={mess}
-						onChange={onChange}
-						onKeyPress={onChange}
-					/>
-				)}
-			</Comment.Action>
+			{creator && (
+				<Comment.Action>
+					{loading ? (
+						<Placeholder fluid>
+							<Placeholder.Line />
+						</Placeholder>
+					) : (
+						<TextField
+							fullWidth
+							label="Type Your Message Here"
+							value={mess}
+							onChange={onChange}
+							onKeyPress={onChange}
+						/>
+					)}
+				</Comment.Action>
+			)}
 		</>
 	);
 }

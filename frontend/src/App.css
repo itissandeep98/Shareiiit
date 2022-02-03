@@ -19,7 +19,7 @@ label {
 	font-family: 'Poppins', Times, serif !important;
 }
 .poppins {
-	font-family: 'Poppins', Times, serif;
+	font-family: 'Poppins', Times, serif !important;
 }
 .rounded_lg {
 	border-radius: 20px;

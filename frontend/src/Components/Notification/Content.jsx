@@ -68,6 +68,7 @@ const SingleNotification = ({ id, post, type, read, text, timestamp }) => {
 					{type === 'VOTE' && <Icon name="thumbs up" />}
 					{type === 'MSG' && <Icon name="facebook messenger" />}
 					{type === 'TAG' && <Icon name="tag" />}
+					{type === 'FLW' && <Icon name="user" />}
 
 					{post.category === 'skill' ? (
 						<NavLink to={`/skill/${post.id}`}>{text}</NavLink>

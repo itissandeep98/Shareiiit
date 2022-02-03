@@ -67,7 +67,9 @@ function AddSkill(props) {
 
 	return (
 		<Modal isOpen={modal} toggle={toggle}>
-			<ModalHeader toggle={toggle}>Add Skill</ModalHeader>
+			<ModalHeader toggle={toggle} className="poppins">
+				Add Skill
+			</ModalHeader>
 			<ModalBody>
 				<Autocomplete
 					freeSolo

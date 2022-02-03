@@ -4,12 +4,11 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Col, Container, Row } from 'reactstrap';
-import { Icon, Label, Placeholder } from 'semantic-ui-react';
+import { Icon, Label } from 'semantic-ui-react';
 import { fetchPostDetails } from '../../../Store/ActionCreators/post';
 import { addVote } from '../../../Store/ActionCreators/vote';
 import CustomImage from '../../../Utils/CustomImage';
 import Meta from '../../Meta';
-import Notfound from '../../NotFound/Notfound';
 import Reaction from '../Cards/Reaction';
 import Messages from '../Messages/Messages';
 
@@ -17,7 +16,6 @@ function GroupDetails(props) {
 	const id = props.match.params.postId;
 	const dispatch = useDispatch();
 	const [details, setDetails] = useState(null);
-	const [loading, setLoading] = useState(true);
 	const [num_upvotes, setNum_upvotes] = useState(null);
 	const [liked, setLiked] = useState(null);
 	const [saved, setSaved] = useState(null);
@@ -27,7 +25,6 @@ function GroupDetails(props) {
 	useEffect(() => {
 		dispatch(fetchPostDetails({ id, category: 'group' })).then(res => {
 			setDetails(res);
-			setLoading(false);
 			setNum_upvotes(res?.upvote_count);
 			setLiked(res?.vote_log?.upvoted_flag);
 			setSaved(res?.vote_log?.saved_flag);
@@ -56,62 +53,48 @@ function GroupDetails(props) {
 		dispatch(addVote({ id, data }));
 	};
 
-	if (details === undefined) {
-		return <Notfound />;
-	}
-
 	return (
 		<Container className="shadow p-3 my-4">
+			{details === undefined && (
+				<h3 className="text-danger text-center">
+					<Icon name="ban" /> This post has been either been deleted or it
+					doesn't exists
+				</h3>
+			)}
 			{details && (
 				<>
 					<Meta head={`${details.title} | ShareIIITD`} />
 					<Row>
 						<Col className="d-flex align-items-center">
-							{loading ? (
-								<Placeholder style={{ height: 150, width: 150 }}>
-									<Placeholder.Image />
-								</Placeholder>
-							) : (
-								<div className="text-center p-2  d-flex flex-column">
-									<CustomImage
-										src={
-											!imgErr
-												? details.image ??
-												  process.env.PUBLIC_URL + '/assets/images/group.svg'
-												: process.env.PUBLIC_URL + '/assets/images/group.svg'
-										}
-										onError={e => setImgErr(true)}
-										fluid
-									/>
-									<Reaction
-										num_upvotes={num_upvotes}
-										liked={liked}
-										saved={saved}
-										dismiss={dismiss}
-										Vote={Vote}
-									/>
-								</div>
-							)}
+							<div className="text-center p-2  d-flex flex-column">
+								<CustomImage
+									src={
+										!imgErr
+											? details.image ??
+											  process.env.PUBLIC_URL + '/assets/images/group.svg'
+											: process.env.PUBLIC_URL + '/assets/images/group.svg'
+									}
+									onError={e => setImgErr(true)}
+									fluid
+								/>
+								<Reaction
+									num_upvotes={num_upvotes}
+									liked={liked}
+									saved={saved}
+									dismiss={dismiss}
+									Vote={Vote}
+								/>
+							</div>
 						</Col>
 						<Col xs={8}>
-							{loading ? (
-								<Placeholder fluid>
-									<Placeholder.Line />
-									<Placeholder.Line />
-									<Placeholder.Line />
-									<Placeholder.Line />
-									<Placeholder.Line />
-								</Placeholder>
-							) : (
-								<Row>
-									<Col>
-										<h1 className="text-capitalize">{details.title}</h1>
-										<br />
-										<p className="text-justify">{details.description}</p>
-										<br />
-									</Col>
-								</Row>
-							)}
+							<Row>
+								<Col>
+									<h1 className="text-capitalize">{details.title}</h1>
+									<br />
+									<p className="text-justify">{details.description}</p>
+									<br />
+								</Col>
+							</Row>
 							<Row>
 								{details.group?.members_needed > 0 && (
 									<Col className="align-items-center d-flex" md={4}>
@@ -141,7 +124,7 @@ function GroupDetails(props) {
 									</small>
 								</Col>
 							</Row>
-							{details?.group?.current_members && (
+							{details?.group?.current_members.length > 0 && (
 								<Row className="mt-3">
 									<Col>
 										<p>Team already has following Members</p>
@@ -162,23 +145,22 @@ function GroupDetails(props) {
 							)}
 						</Col>
 					</Row>
-
-					{username && details && (
-						<Row className="mt-5">
-							<Col>
-								<hr />
-								<h2>
-									<Icon name="chat" /> Messages
-								</h2>
-								<Messages
-									id={id}
-									recipient={username}
-									creator={details.created_by}
-								/>
-							</Col>
-						</Row>
-					)}
 				</>
+			)}
+			{username && (
+				<Row className="mt-5">
+					<Col>
+						<hr />
+						<h2>
+							<Icon name="chat" /> Messages
+						</h2>
+						<Messages
+							id={id}
+							recipient={username}
+							creator={details?.created_by}
+						/>
+					</Col>
+				</Row>
 			)}
 		</Container>
 	);

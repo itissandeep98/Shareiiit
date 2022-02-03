@@ -57,20 +57,27 @@ function TechCard(props) {
 	};
 
 	return (
-		<Card className=" border border-info d-flex card_hover justify-content-between h-100">
+		<Card className=" border border-info d-flex card_hover justify-content-between h-100 poppins">
 			<CardActionArea>
 				<div className="d-flex justify-content-between flex-column">
 					<CardContent>
 						<NavLink to={`/skill/${id}`} className="text-dark">
-							<Typography variant="h5">{skill?.label}</Typography>
+							<Typography variant="h5" className="poppins">
+								{skill?.label}
+							</Typography>
 						</NavLink>
-						<Typography variant="overline" color="textSecondary">
+						<Typography
+							variant="overline"
+							color="textSecondary"
+							className="poppins">
 							<NavLink to={`/${created_by.username}`} className="creatorlink">
 								{created_by.name ? created_by.name : created_by.username}
 							</NavLink>
 						</Typography>
 						<NavLink to={`/skill/${id}`} className="text-dark">
-							<Typography variant="body2">{description}</Typography>
+							<Typography variant="body2" className="poppins">
+								{description}
+							</Typography>
 							<small className="text-muted text-center">
 								Posted {moment(created_at).fromNow()}
 							</small>
