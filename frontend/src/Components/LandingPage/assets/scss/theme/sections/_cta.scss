@@ -15,7 +15,7 @@
 	background-position: right bottom;
 }
 
-@include media(">medium") {
+@include media('>medium') {
 	.cta {
 		.form-input {
 			min-width: 280px;

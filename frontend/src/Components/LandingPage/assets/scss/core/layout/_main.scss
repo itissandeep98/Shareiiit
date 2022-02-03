@@ -1,10 +1,10 @@
 .is-boxed {
-    background: color-bg(body-outer);
+	background: color-bg(body-outer);
 
 	.body-wrap {
 		max-width: $container--width-boxed;
-	    margin: 0 auto;
-	    box-shadow: color-bg(body-shadow);
+		margin: 0 auto;
+		box-shadow: color-bg(body-shadow);
 
 		&::before {
 			content: '';
@@ -21,13 +21,13 @@
 
 .body-wrap {
 	position: relative;
-    overflow: hidden;
-    // Sticky footer
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+	overflow: hidden;
+	// Sticky footer
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
 }
 
 .site-content {
-    flex: 1 0 auto;
+	flex: 1 0 auto;
 }

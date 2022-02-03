@@ -1,10 +1,9 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { createPost, fetchPosts } from "../../../../Store/ActionCreators/post";
-import { Button, Checkbox, FormControlLabel, TextField } from "@mui/material";
-import CheckIcon from "@mui/icons-material/Check";
-import MultiUpload from "../../../../Utils/MultiUpload";
-import ImageUploader from "../../../../Utils/ImageUploader";
+import CheckIcon from '@mui/icons-material/Check';
+import { Button, Checkbox, FormControlLabel, TextField } from '@mui/material';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { createPost, fetchPosts } from '../../../../Store/ActionCreators/post';
+import ImageUploader from '../../../../Utils/ImageUploader';
 
 function Books(props) {
 	const dispatch = useDispatch();
@@ -13,7 +12,7 @@ function Books(props) {
 		is_price_negotiable: true,
 	});
 
-	const handleSubmit = (e) => {
+	const handleSubmit = e => {
 		e.preventDefault();
 		const temp = {
 			title: state.title,
@@ -23,17 +22,17 @@ function Books(props) {
 		};
 		let data = new FormData();
 		if (state.image) {
-			data.append("image", state.image);
+			data.append('image', state.image);
 		}
-		data.append("price", state.price);
-		data.append("book.author", state.author);
-		Object.keys(temp).map((key) => data.append(key, temp[key]));
+		data.append('price', state.price);
+		data.append('book.author', state.author);
+		Object.keys(temp).map(key => data.append(key, temp[key]));
 		// props.toggle();
-		dispatch(createPost({ data, category: "book" })).then(() => {
-			dispatch(fetchPosts({ category: "book" }));
+		dispatch(createPost({ data, category: 'book' })).then(() => {
+			dispatch(fetchPosts({ category: 'book' }));
 		});
 	};
-	const onChange = (e) => {
+	const onChange = e => {
 		setState({ ...state, [e.target.name]: e.target.value });
 	};
 
@@ -82,14 +81,14 @@ function Books(props) {
 			/>
 			<ImageUploader
 				image={state.image}
-				setImage={(val) => setState({ ...state, image: val })}
+				setImage={val => setState({ ...state, image: val })}
 			/>
 
 			<FormControlLabel
 				control={
 					<Checkbox
 						checked={state.is_request}
-						onChange={(e) =>
+						onChange={e =>
 							setState({ ...state, is_request: !state.is_request })
 						}
 						color="primary"
@@ -101,7 +100,7 @@ function Books(props) {
 				control={
 					<Checkbox
 						checked={state.is_price_negotiable}
-						onChange={(e) =>
+						onChange={e =>
 							setState({
 								...state,
 								is_price_negotiable: !state.is_price_negotiable,
@@ -117,8 +116,7 @@ function Books(props) {
 				className="mt-3 float-right"
 				disabled={!state.title || !state.author || !state.description}
 				onClick={handleSubmit}
-				startIcon={<CheckIcon />}
-			>
+				startIcon={<CheckIcon />}>
 				Submit
 			</Button>
 		</form>

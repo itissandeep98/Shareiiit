@@ -1,14 +1,14 @@
-import { Button } from "@mui/material";
-import { useEffect, useState } from "react";
-import { Col, Row } from "reactstrap";
-import { Image } from "semantic-ui-react";
-import AddSkill from "./AddSkill";
-import { useDispatch } from "react-redux";
+import { Button } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Col, Row } from 'reactstrap';
+import { Image } from 'semantic-ui-react';
 import {
 	deleteSkillPost,
 	fetchUserSkills,
-} from "../../../Store/ActionCreators/skill";
-import SkillCard from "./SkillCard";
+} from '../../../Store/ActionCreators/skill';
+import AddSkill from './AddSkill';
+import SkillCard from './SkillCard';
 
 function Skills() {
 	const [userTags, setuserTags] = useState([]);
@@ -16,11 +16,11 @@ function Skills() {
 	const dispatch = useDispatch();
 	const [expanded, setExpanded] = useState(0);
 
-	const handleChange = (value) => {
+	const handleChange = value => {
 		setExpanded(value === expanded ? -1 : value);
 	};
 	useEffect(() => {
-		dispatch(fetchUserSkills()).then((res) => {
+		dispatch(fetchUserSkills()).then(res => {
 			setuserTags(res);
 		});
 	}, [dispatch]);
@@ -36,7 +36,7 @@ function Skills() {
 					Add Skills
 					<div className="d-inline ml-2 d-md-none">
 						<Image
-							src={process.env.PUBLIC_URL + "/assets/images/skill.png"}
+							src={process.env.PUBLIC_URL + '/assets/images/skill.png'}
 							avatar
 						/>
 					</div>
@@ -51,8 +51,7 @@ function Skills() {
 				<Button
 					variant="outlined"
 					className="text-iiitd"
-					onClick={() => setModal(true)}
-				>
+					onClick={() => setModal(true)}>
 					Add New Skill Post
 				</Button>
 				<Row>
@@ -71,7 +70,7 @@ function Skills() {
 			</Col>
 			<Col xs={12} md={2} className="d-none d-md-block">
 				<Image
-					src={process.env.PUBLIC_URL + "/assets/images/skill.png"}
+					src={process.env.PUBLIC_URL + '/assets/images/skill.png'}
 					fluid
 				/>
 			</Col>

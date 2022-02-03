@@ -1,11 +1,11 @@
-import { Button, Checkbox, FormControlLabel, TextField } from "@mui/material";
-import { Modal, ModalBody, ModalHeader } from "reactstrap";
-import CheckIcon from "@mui/icons-material/Check";
-import { useState } from "react";
-import { updatePost } from "../../../Store/ActionCreators/post";
-import { useDispatch } from "react-redux";
-import ImageUploader from "../../../Utils/ImageUploader";
-import UserSearchBar from "../../Posts/Create/UserSearchBar";
+import CheckIcon from '@mui/icons-material/Check';
+import { Button, Checkbox, FormControlLabel, TextField } from '@mui/material';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Modal, ModalBody, ModalHeader } from 'reactstrap';
+import { updatePost } from '../../../Store/ActionCreators/post';
+import ImageUploader from '../../../Utils/ImageUploader';
+import UserSearchBar from '../../Posts/Create/UserSearchBar';
 
 function EditPostModal(props) {
 	const { modal, setModal, id } = props;
@@ -13,7 +13,7 @@ function EditPostModal(props) {
 	const [state, setState] = useState(props.details);
 
 	const dispatch = useDispatch();
-	const handleSubmit = (e) => {
+	const handleSubmit = e => {
 		e.preventDefault();
 		let data = {
 			title: state.title,
@@ -25,21 +25,21 @@ function EditPostModal(props) {
 			group: {
 				...state.group,
 				current_members: state?.group?.current_members?.map(
-					(member) => member.id
+					member => member.id
 				),
 			},
 		};
 		console.log(data);
 		dispatch(updatePost({ id, data, category }));
 
-		if (typeof state.image === "object") {
+		if (typeof state.image === 'object') {
 			data = new FormData();
-			data.append("image", state.image);
+			data.append('image', state.image);
 			dispatch(updatePost({ id, data, category }));
 		}
 		setModal(!modal);
 	};
-	const onChange = (e) => {
+	const onChange = e => {
 		setState({ ...state, [e.target.name]: e.target.value });
 	};
 	return (
@@ -56,7 +56,7 @@ function EditPostModal(props) {
 						name="title"
 						onChange={onChange}
 					/>
-					{category === "book" && (
+					{category === 'book' && (
 						<TextField
 							label="Author"
 							className=" mt-3"
@@ -65,7 +65,7 @@ function EditPostModal(props) {
 							required
 							name="author"
 							value={state?.book?.author}
-							onChange={(e) =>
+							onChange={e =>
 								setState({ ...state, book: { author: e.target.value } })
 							}
 						/>
@@ -82,7 +82,7 @@ function EditPostModal(props) {
 						value={state.description}
 						onChange={onChange}
 					/>
-					{category !== "group" ? (
+					{category !== 'group' ? (
 						<TextField
 							type="number"
 							label="Price"
@@ -102,7 +102,7 @@ function EditPostModal(props) {
 							variant="outlined"
 							name="members_needed"
 							value={state.group?.members_needed}
-							onChange={(e) =>
+							onChange={e =>
 								setState({
 									...state,
 									group: { members_needed: parseInt(e.target.value) },
@@ -110,10 +110,10 @@ function EditPostModal(props) {
 							}
 						/>
 					)}
-					{category === "group" && (
+					{category === 'group' && (
 						<UserSearchBar
 							members={state?.group?.current_members}
-							onChange={(val) =>
+							onChange={val =>
 								setState({
 									...state,
 									group: { ...state.group, current_members: val },
@@ -121,17 +121,17 @@ function EditPostModal(props) {
 							}
 						/>
 					)}
-					{category !== "group" && (
+					{category !== 'group' && (
 						<>
 							<ImageUploader
 								image={state.image}
-								setImage={(val) => setState({ ...state, image: val })}
+								setImage={val => setState({ ...state, image: val })}
 							/>
 							<FormControlLabel
 								control={
 									<Checkbox
 										checked={state.is_request}
-										onChange={(e) =>
+										onChange={e =>
 											setState({ ...state, is_request: !state.is_request })
 										}
 										color="primary"
@@ -143,7 +143,7 @@ function EditPostModal(props) {
 								control={
 									<Checkbox
 										checked={state.is_price_negotiable}
-										onChange={(e) =>
+										onChange={e =>
 											setState({
 												...state,
 												is_price_negotiable: !state.is_price_negotiable,
@@ -160,8 +160,7 @@ function EditPostModal(props) {
 						variant="outlined"
 						className="mt-3 float-right  "
 						onClick={handleSubmit}
-						startIcon={<CheckIcon />}
-					>
+						startIcon={<CheckIcon />}>
 						Update
 					</Button>
 				</form>

@@ -1,20 +1,18 @@
-import { Col, Container, Row } from "reactstrap";
-import { Image } from "semantic-ui-react";
-import { useState } from "react";
-import { withRouter } from "react-router";
-import { useDispatch } from "react-redux";
-import { addVote } from "../../../Store/ActionCreators/vote";
-import { NavLink } from "react-router-dom";
-import moment from "moment";
-import "../style.scss";
-import Reaction from "./Reaction";
-import ImagePopup from "../../../Utils/ImagePopup";
+import moment from 'moment';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { withRouter } from 'react-router';
+import { NavLink } from 'react-router-dom';
+import { Col, Container, Row } from 'reactstrap';
+import { addVote } from '../../../Store/ActionCreators/vote';
+import CustomImage from '../../../Utils/CustomImage';
+import '../style.scss';
+import Reaction from './Reaction';
 
 function OtherCard(props) {
 	let {
 		id,
 		description,
-		book,
 		category,
 		image,
 		created_by,
@@ -24,14 +22,13 @@ function OtherCard(props) {
 		upvote_count,
 		vote_log,
 	} = props;
-	const [modal, setModal] = useState(false);
 	const [num_upvotes, setNum_upvotes] = useState(upvote_count);
 	const [liked, setLiked] = useState(vote_log.upvoted_flag);
 	const [saved, setSaved] = useState(vote_log.saved_flag);
 	const [dismiss, setDismiss] = useState(vote_log.dismiss_flag);
 	const [imgErr, setImgErr] = useState(false);
 	const dispatch = useDispatch();
-	const Vote = (option) => {
+	const Vote = option => {
 		let data = {};
 		if (option == 1) {
 			if (liked) {
@@ -52,65 +49,55 @@ function OtherCard(props) {
 		dispatch(addVote({ id, data }));
 	};
 	return (
-		<>
-			<ImagePopup
-				image={image ?? process.env.PUBLIC_URL + "/assets/images/other.svg"}
-				open={modal}
-				onClose={() => setModal(!modal)}
+		<Container className="bg-white pt-3 rounded_lg border-info border mt-3 h-100 d-flex justify-content-between flex-column card_hover">
+			<Row className=" h-100">
+				<Col>
+					<Row>
+						<Col>
+							<CustomImage
+								src={
+									!imgErr
+										? image ??
+										  process.env.PUBLIC_URL + '/assets/images/other.svg'
+										: process.env.PUBLIC_URL + '/assets/images/other.svg'
+								}
+								onError={e => setImgErr(true)}
+								size="small"
+							/>
+						</Col>
+						<Col xs={9}>
+							<h3
+								className="text-capitalize"
+								onClick={() => props.history.push(`/posts/other/${id}`)}
+								style={{ cursor: 'pointer' }}>
+								{title}
+							</h3>
+							<small className="text-muted float-right">
+								-{' '}
+								<NavLink to={`/${created_by.username}`}>
+									{created_by.name ? created_by.name : created_by.username}
+								</NavLink>
+							</small>
+						</Col>
+					</Row>
+					<Row
+						className="mt-1 btn p-0"
+						onClick={() => props.history.push(`/posts/other/${id}`)}>
+						<Col className="text-justify">{description}</Col>
+					</Row>
+				</Col>
+			</Row>
+			<small className="text-muted text-center">
+				Posted {moment(created_at).fromNow()}
+			</small>
+			<Reaction
+				num_upvotes={num_upvotes}
+				liked={liked}
+				saved={saved}
+				dismiss={dismiss}
+				Vote={Vote}
 			/>
-			<Container className="bg-white pt-3 rounded_lg border-info border mt-3 h-100 d-flex justify-content-between flex-column card_hover">
-				<Row className=" h-100">
-					<Col>
-						<Row>
-							<Col>
-								<Image
-									onClick={() => setModal(!modal)}
-									src={
-										!imgErr
-											? image ??
-											  process.env.PUBLIC_URL + "/assets/images/other.svg"
-											: process.env.PUBLIC_URL + "/assets/images/other.svg"
-									}
-									onError={(e) => setImgErr(true)}
-									size="small"
-								/>
-							</Col>
-							<Col xs={9}>
-								<h3
-									className="text-capitalize"
-									onClick={() => props.history.push(`/posts/other/${id}`)}
-									style={{ cursor: "pointer" }}
-								>
-									{title}
-								</h3>
-								<small className="text-muted float-right">
-									-{" "}
-									<NavLink to={`/${created_by.username}`}>
-										{created_by.name ? created_by.name : created_by.username}
-									</NavLink>
-								</small>
-							</Col>
-						</Row>
-						<Row
-							className="mt-1 btn p-0"
-							onClick={() => props.history.push(`/posts/other/${id}`)}
-						>
-							<Col className="text-justify">{description}</Col>
-						</Row>
-					</Col>
-				</Row>
-				<small className="text-muted text-center">
-					Posted {moment(created_at).fromNow()}
-				</small>
-				<Reaction
-					num_upvotes={num_upvotes}
-					liked={liked}
-					saved={saved}
-					dismiss={dismiss}
-					Vote={Vote}
-				/>
-			</Container>
-		</>
+		</Container>
 	);
 }
 

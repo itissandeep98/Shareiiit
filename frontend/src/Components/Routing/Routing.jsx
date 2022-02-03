@@ -1,28 +1,28 @@
-import React, { lazy, Suspense } from "react";
-import { Switch, Redirect } from "react-router-dom";
-import PublicRoute from "./PublicRoute";
-import PrivateRoute from "./PrivateRoute";
-import Loading from "../Loading";
-import TopHeader from "../Navigation/TopHeader";
-import Meta from "../Meta";
+import React, { lazy, Suspense } from 'react';
+import { Redirect, Switch } from 'react-router-dom';
+import Loading from '../Loading';
+import Meta from '../Meta';
+import TopHeader from '../Navigation/TopHeader';
+import PrivateRoute from './PrivateRoute';
+import PublicRoute from './PublicRoute';
 
 // const Home = lazy(() => import("../Home"));
-const Feed = lazy(() => import("../Feed"));
-const Notification = lazy(() => import("../Notification"));
-const AuthComp = lazy(() => import("../Authorization"));
-const ProfileSettings = lazy(() => import("../ProfileSettings"));
-const Profile = lazy(() => import("../Profile"));
-const PostDetail = lazy(() => import("../Posts/Details/PostDetail"));
-const MyPosts = lazy(() => import("../Interests/MyPosts"));
-const Interactions = lazy(() => import("../Interests/MyActivity"));
-const Technical = lazy(() => import("../Technical"));
-const LandingPage = lazy(() => import("../LandingPage"));
-const GroupDetails = lazy(() => import("../Posts/Details/GroupDetails"));
+const Feed = lazy(() => import('../Feed'));
+const Notification = lazy(() => import('../Notification'));
+const AuthComp = lazy(() => import('../Authorization'));
+const ProfileSettings = lazy(() => import('../ProfileSettings'));
+const Profile = lazy(() => import('../Profile'));
+const PostDetail = lazy(() => import('../Posts/Details/PostDetail'));
+const MyPosts = lazy(() => import('../Interests/MyPosts'));
+const Interactions = lazy(() => import('../Interests/MyActivity'));
+const Technical = lazy(() => import('../Technical'));
+const LandingPage = lazy(() => import('../LandingPage'));
+const GroupDetails = lazy(() => import('../Posts/Details/GroupDetails'));
 const ElectronicDetails = lazy(() =>
-	import("../Posts/Details/ElectronicDetails")
+	import('../Posts/Details/ElectronicDetails')
 );
-const OtherDetails = lazy(() => import("../Posts/Details/OtherDetail"));
-const TechDetails = lazy(() => import("../Technical/TechDetails"));
+const OtherDetails = lazy(() => import('../Posts/Details/OtherDetail'));
+const TechDetails = lazy(() => import('../Technical/TechDetails'));
 
 // private => Route requires authentication
 // layout => header should be visible or not
@@ -37,105 +37,103 @@ function Routing() {
 		// 	render: () => <Home />,
 		// },
 		{
-			path: "/profile/myposts",
+			path: '/profile/myposts',
 			private: true,
 			layout: true,
 			render: () => <MyPosts />,
 		},
 		{
-			path: "/profile/myactivity",
+			path: '/profile/myactivity',
 			private: true,
 			layout: true,
 			render: () => <Interactions />,
 		},
 		{
-			path: "/profile",
+			path: '/profile',
 			private: true,
 			layout: true,
 			render: () => <ProfileSettings />,
 		},
 		{
-			path: "/feed",
+			path: '/feed',
 			private: true,
 			layout: true,
 			render: () => <Feed />,
 		},
 		{
-			path: "/notification",
+			path: '/notification',
 			private: true,
 			layout: true,
 			render: () => <Notification page />,
 		},
 		{
-			path: "/technical",
+			path: '/technical',
 			private: true,
 			layout: true,
 			render: () => <Technical />,
 		},
 		{
-			path: "/login",
+			path: '/login',
 			private: false,
 			restricted: true,
 			layout: false,
 			render: () => <AuthComp />,
 		},
 		{
-			path: "/posts/group/:postId",
+			path: '/posts/group/:postId',
 			private: true,
 			layout: true,
-			render: (props) => (
+			render: props => (
 				<GroupDetails key={props.match.params.postId} {...props} />
 			),
 		},
 		{
-			path: "/posts/electronic/:postId",
+			path: '/posts/electronic/:postId',
 			private: true,
 			layout: true,
-			render: (props) => (
+			render: props => (
 				<ElectronicDetails key={props.match.params.postId} {...props} />
 			),
 		},
 		{
-			path: "/posts/other/:postId",
+			path: '/posts/other/:postId',
 			private: true,
 			layout: true,
-			render: (props) => (
+			render: props => (
 				<OtherDetails key={props.match.params.postId} {...props} />
 			),
 		},
 		{
-			path: "/posts/book/:postId",
+			path: '/posts/book/:postId',
 			private: true,
 			layout: true,
-			render: (props) => (
+			render: props => (
 				<PostDetail key={props.match.params.postId} {...props} />
 			),
 		},
 		{
-			path: "/posts/:postId",
+			path: '/posts/:postId',
 			private: true,
 			layout: true,
-			render: (props) => (
+			render: props => (
 				<PostDetail key={props.match.params.postId} {...props} />
 			),
 		},
 
 		{
-			path: "/skill/:id",
+			path: '/skill/:id',
 			private: true,
 			layout: true,
-			render: (props) => <TechDetails key={props.match.params.id} {...props} />,
+			render: props => <TechDetails key={props.match.params.id} {...props} />,
 		},
 		{
-			path: "/:user",
+			path: '/:user',
 			private: true,
 			layout: true,
-			render: (props) => (
-				<Profile key={props.match.params.username} {...props} />
-			),
+			render: props => <Profile key={props.match.params.username} {...props} />,
 		},
 		{
-			path: "/",
+			path: '/',
 			private: false,
 			restricted: true,
 			layout: false,
@@ -152,8 +150,7 @@ function Routing() {
 							restricted={route.restricted}
 							key={index}
 							exact
-							path={route.path}
-						>
+							path={route.path}>
 							<Layout layout={route.layout}>
 								<route.render />
 							</Layout>
@@ -163,8 +160,7 @@ function Routing() {
 							restricted={route.restricted}
 							exact
 							path={route.path}
-							key={index}
-						>
+							key={index}>
 							<Layout layout={route.layout}>
 								<route.render />
 							</Layout>
@@ -189,11 +185,11 @@ function Layout(params) {
 			</div>
 			{layout && (
 				<footer className="text-center bg-dark p-3 text-white">
-					Copyright © 2021 IIITD | All rights reserved | Built by{" "}
+					Copyright © 2021 IIITD | All rights reserved | Built by{' '}
 					<a href="https://github.com/itissandeep98" target="_blank">
 						Sandeep
-					</a>{" "}
-					and{" "}
+					</a>{' '}
+					and{' '}
 					<a href="https://github.com/gupta-anmol" target="_blank">
 						Anmol
 					</a>

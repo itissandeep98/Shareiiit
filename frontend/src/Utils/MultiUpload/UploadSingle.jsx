@@ -1,8 +1,8 @@
-import { useDropzone } from "react-dropzone";
-import { Col } from "reactstrap";
-import { useDispatch } from "react-redux";
-import { showAlert } from "../showAlert";
-import { uploadFiles } from "../../Store/ActionCreators/upload";
+import { useDropzone } from 'react-dropzone';
+import { useDispatch } from 'react-redux';
+import { Col } from 'reactstrap';
+import { uploadFiles } from '../../Store/ActionCreators/upload';
+import { showAlert } from '../showAlert';
 
 function UploadSingle(props) {
 	const { setLink, extensions, len } = props;
@@ -10,21 +10,21 @@ function UploadSingle(props) {
 	const { getRootProps, getInputProps } = useDropzone({
 		accept: extensions,
 		maxFiles: 5,
-		// maxSize: 5242880,
-		onDropRejected: (files) => {
-			showAlert(files[0].errors[0].message, "error");
+		maxSize: 5242880,
+		onDropRejected: files => {
+			showAlert(files[0].errors[0].message, 'error');
 		},
-		onDrop: async (acceptedFiles) => {
+		onDrop: async acceptedFiles => {
 			const links = await Promise.allSettled(
-				acceptedFiles.map((file) => {
+				acceptedFiles.map(file => {
 					const data = {
 						file: file,
-						content: "Images",
+						content: 'Images',
 					};
-					return dispatch(uploadFiles(data)).then((res) => res);
+					return dispatch(uploadFiles(data)).then(res => res);
 				})
 			);
-			setLink(links.map((link) => link.value));
+			setLink(links.map(link => link.value));
 		},
 	});
 
@@ -32,8 +32,7 @@ function UploadSingle(props) {
 		<Col
 			{...getRootProps()}
 			className="text-muted  text-center bg-light mt-3"
-			style={{ cursor: "copy" }}
-		>
+			style={{ cursor: 'copy' }}>
 			<input {...getInputProps()} />
 			<div className="d-flex justify-content-around my-1">
 				<span className="fa fa-image fa-lg" />

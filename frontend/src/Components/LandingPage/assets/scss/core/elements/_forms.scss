@@ -1,16 +1,15 @@
 fieldset {
 	/* Reset fieldset */
-    padding: 0;
-    margin: 0;
-    border: 0;
+	padding: 0;
+	margin: 0;
+	border: 0;
 }
 
 .form-label,
 .form-switch,
 .form-slider {
-    color: color(label);
-    @include font-weight(label);
-
+	color: color(label);
+	@include font-weight(label);
 }
 
 .form-label {
@@ -63,47 +62,63 @@ fieldset {
 	display: block;
 	@include font-size(input);
 	@include font-weight(input);
-	padding: (($button-form--height - get-line-height(input) - ($button-form--border-width * 2)) / 2) ($form--padding-h - $button-form--border-width);
+	padding: (
+			(
+					$button-form--height - get-line-height(input) -
+						($button-form--border-width * 2)
+				) / 2
+		)
+		($form--padding-h - $button-form--border-width);
 	height: $button-form--height;
 	border-radius: $form--radius;
-    color: color(input);
+	color: color(input);
 	box-shadow: none;
-    max-width: 100%;
-    width: 100%;
+	max-width: 100%;
+	width: 100%;
 }
 
 .form-input {
+	&::placeholder {
+		color: color(input-placeholder);
+	}
 
-    &::placeholder {
-        color: color(input-placeholder);
-    }
-
-    &::-ms-input-placeholder {
-        color: color(input-placeholder);
-    }
+	&::-ms-input-placeholder {
+		color: color(input-placeholder);
+	}
 }
 
 textarea.form-input {
 	height: auto;
-    resize: vertical;
+	resize: vertical;
 }
 
 .form-select {
 	padding-right: ($form--padding-h - $button-form--border-width) * 2 + 16;
-    background-image: inline-svg('<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 11.4L2.6 6 4 4.6l4 4 4-4L13.4 6 8 11.4z" fill="' + color-icon(select-arrow) + '" fill-rule="evenodd"/></svg>');
-    background-position: right ($form--padding-h - $button-form--border-width) center;
-    background-repeat: no-repeat;
-    background-size: 16px 16px;
+	background-image: inline-svg(
+		'<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 11.4L2.6 6 4 4.6l4 4 4-4L13.4 6 8 11.4z" fill="' +
+			color-icon(select-arrow) + '" fill-rule="evenodd"/></svg>'
+	);
+	background-position: right ($form--padding-h - $button-form--border-width)
+		center;
+	background-repeat: no-repeat;
+	background-size: 16px 16px;
 }
 
 .form-select-sm {
 	padding-right: ($form-sm--padding-h - $button-form--border-width) * 2 + 16;
-	background-position: right ($form-sm--padding-h - $button-form--border-width) center;
+	background-position: right ($form-sm--padding-h - $button-form--border-width)
+		center;
 }
 
 .form-select-sm,
 .form-input-sm {
-    padding: (($button-form-sm--height - get-line-height(input) - ($button-form--border-width * 2)) / 2) ($form-sm--padding-h - $button-form--border-width);
+	padding: (
+			(
+					$button-form-sm--height - get-line-height(input) -
+						($button-form--border-width * 2)
+				) / 2
+		)
+		($form-sm--padding-h - $button-form--border-width);
 	height: $button-form-sm--height;
 }
 
@@ -120,7 +135,6 @@ textarea.form-input {
 }
 
 .has-icon-left {
-
 	.form-input {
 		padding-left: ($form--padding-h - $button-form--border-width) * 2 + 16;
 
@@ -139,7 +153,6 @@ textarea.form-input {
 }
 
 .has-icon-right {
-
 	.form-input {
 		padding-right: ($form--padding-h - $button-form--border-width) * 2 + 16;
 
@@ -160,7 +173,7 @@ textarea.form-input {
 .form-checkbox,
 .form-radio,
 .form-switch {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 .form-checkbox,
@@ -168,7 +181,7 @@ textarea.form-input {
 .form-switch,
 .form-slider {
 	@include font-size(check-radio);
-    @include font-weight(check-radio);
+	@include font-weight(check-radio);
 }
 
 .form-checkbox,
@@ -178,13 +191,13 @@ textarea.form-input {
 
 .form-checkbox,
 .form-radio {
-    position: relative;
+	position: relative;
 	padding-left: 24px;
 
 	input {
 		position: absolute;
 		left: 0;
-		top: ( ( get-line-height(check-radio) - 16 ) / 2 ) - 1; // -1 is for optical adjustement
+		top: ((get-line-height(check-radio) - 16) / 2) - 1; // -1 is for optical adjustement
 		width: 16px;
 		height: 16px;
 		cursor: pointer;
@@ -198,7 +211,6 @@ textarea.form-input {
 }
 
 .form-checkbox {
-
 	input {
 		border-radius: 2px;
 
@@ -209,7 +221,6 @@ textarea.form-input {
 }
 
 .form-radio {
-
 	input {
 		border-radius: 50%;
 
@@ -220,8 +231,8 @@ textarea.form-input {
 }
 
 .form-switch {
-    display: inline-flex;
-    align-items: center;
+	display: inline-flex;
+	align-items: center;
 	user-select: none;
 
 	input {
@@ -234,9 +245,9 @@ textarea.form-input {
 	}
 
 	.form-switch-icon {
-        display: block;
-        position: relative;
-        min-width: 60px;
+		display: block;
+		position: relative;
+		min-width: 60px;
 		width: 60px;
 		height: 32px;
 		border-radius: 16px;
@@ -252,12 +263,11 @@ textarea.form-input {
 			height: 28px;
 			border-radius: 14px;
 			background: get-color(light, 1);
-			transition: all .15s ease-out;
+			transition: all 0.15s ease-out;
 		}
 	}
 
 	input:checked {
-
 		+ .form-switch-icon {
 			background: color-bg(switch-checked);
 
@@ -265,90 +275,96 @@ textarea.form-input {
 				left: 30px;
 			}
 		}
-    }
-    
-    > span {
+	}
 
-        &:not(.form-switch-icon) {
-            order: -1;
-            margin-right: 12px;
+	> span {
+		&:not(.form-switch-icon) {
+			order: -1;
+			margin-right: 12px;
 
-            &:last-child {
-                order: initial;
-                margin-left: 12px;
-                margin-right: 0;
-            }
-        }
-    }
+			&:last-child {
+				order: initial;
+				margin-left: 12px;
+				margin-right: 0;
+			}
+		}
+	}
 }
 
 .form-slider {
+	> span {
+		display: block;
+	}
 
-    > span {
-        display: block;
-    }
-
-    input[type=range] {
-        -moz-appearance: none;
-	    -webkit-appearance: none;
-        background: color-bg(range-track);
-        border-radius: 3px;
-        height: 6px;
-        width: 100%;
-        margin-top: ($range-thumb-size - 6px) / 2;
-        margin-bottom: ($range-thumb-size - 6px) / 2;
-        outline: none;
+	input[type='range'] {
+		-moz-appearance: none;
+		-webkit-appearance: none;
+		background: color-bg(range-track);
+		border-radius: 3px;
+		height: 6px;
+		width: 100%;
+		margin-top: ($range-thumb-size - 6px) / 2;
+		margin-bottom: ($range-thumb-size - 6px) / 2;
+		outline: none;
 
 		&::-webkit-slider-thumb {
-            appearance: none;
-            -webkit-appearance: none;
-            background-color: color-bg(range-thumb);
-            background-image: inline-svg('<svg width="12" height="8" xmlns="http://www.w3.org/2000/svg"><path d="M8 .5v7L12 4zM0 4l4 3.5v-7z" fill="' + color-icon(range) + '" fill-rule="nonzero"/></svg>');
-            background-position: center;
-            background-repeat: no-repeat;
-            border: 0;
-            border-radius: 50%;
-            cursor: pointer;
-            height: $range-thumb-size;
-            width: $range-thumb-size;            
-        }
+			appearance: none;
+			-webkit-appearance: none;
+			background-color: color-bg(range-thumb);
+			background-image: inline-svg(
+				'<svg width="12" height="8" xmlns="http://www.w3.org/2000/svg"><path d="M8 .5v7L12 4zM0 4l4 3.5v-7z" fill="' +
+					color-icon(range) + '" fill-rule="nonzero"/></svg>'
+			);
+			background-position: center;
+			background-repeat: no-repeat;
+			border: 0;
+			border-radius: 50%;
+			cursor: pointer;
+			height: $range-thumb-size;
+			width: $range-thumb-size;
+		}
 
 		&::-moz-range-thumb {
-            background-color: color-bg(range-thumb);
-            background-image: inline-svg('<svg width="12" height="8" xmlns="http://www.w3.org/2000/svg"><path d="M8 .5v7L12 4zM0 4l4 3.5v-7z" fill="' + color-icon(range) + '" fill-rule="nonzero"/></svg>');
-            background-position: center;
-            background-repeat: no-repeat;
-            border: 0;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            height: $range-thumb-size;
-            width: $range-thumb-size;
-        }
-        
+			background-color: color-bg(range-thumb);
+			background-image: inline-svg(
+				'<svg width="12" height="8" xmlns="http://www.w3.org/2000/svg"><path d="M8 .5v7L12 4zM0 4l4 3.5v-7z" fill="' +
+					color-icon(range) + '" fill-rule="nonzero"/></svg>'
+			);
+			background-position: center;
+			background-repeat: no-repeat;
+			border: 0;
+			border: none;
+			border-radius: 50%;
+			cursor: pointer;
+			height: $range-thumb-size;
+			width: $range-thumb-size;
+		}
+
 		&::-ms-thumb {
-            background-color: color-bg(range-thumb);
-            background-image: inline-svg('<svg width="12" height="8" xmlns="http://www.w3.org/2000/svg"><path d="M8 .5v7L12 4zM0 4l4 3.5v-7z" fill="' + color-icon(range) + '" fill-rule="nonzero"/></svg>');
-            background-position: center;
-            background-repeat: no-repeat;
-            border: 0;
-            border-radius: 50%;
-            cursor: pointer;
-            height: $range-thumb-size;
-            width: $range-thumb-size;
-        }
-        
-        &::-moz-focus-outer {
-            border: 0;
-        }
-    }
+			background-color: color-bg(range-thumb);
+			background-image: inline-svg(
+				'<svg width="12" height="8" xmlns="http://www.w3.org/2000/svg"><path d="M8 .5v7L12 4zM0 4l4 3.5v-7z" fill="' +
+					color-icon(range) + '" fill-rule="nonzero"/></svg>'
+			);
+			background-position: center;
+			background-repeat: no-repeat;
+			border: 0;
+			border-radius: 50%;
+			cursor: pointer;
+			height: $range-thumb-size;
+			width: $range-thumb-size;
+		}
+
+		&::-moz-focus-outer {
+			border: 0;
+		}
+	}
 }
 
 .invert-color {
-
-    .form-label,
-    .form-switch,
-    .form-slider {
+	.form-label,
+	.form-switch,
+	.form-slider {
 		color: color(label-inverse);
 	}
 
@@ -377,34 +393,34 @@ textarea.form-input {
 
 	.form-input,
 	.form-select {
-	    color: color(input-inverse);
+		color: color(input-inverse);
 	}
 
 	.form-input {
+		&::placeholder {
+			color: color(input-ph-inverse);
+		}
 
-	    &::placeholder {
-	        color: color(input-ph-inverse);
-	    }
-
-	    &::-ms-input-placeholder {
-	        color: color(input-ph-inverse);
-	    }
+		&::-ms-input-placeholder {
+			color: color(input-ph-inverse);
+		}
 	}
 
 	.form-select {
-	    background-image: inline-svg('<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 11.4L2.6 6 4 4.6l4 4 4-4L13.4 6 8 11.4z" fill="' + color-icon(select-arrow-inverse) + '" fill-rule="evenodd"/></svg>');
-    }
-    
-    .form-checkbox,
-    .form-radio {
-        color: color(check-radio-inverse);
-    }
+		background-image: inline-svg(
+			'<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M8 11.4L2.6 6 4 4.6l4 4 4-4L13.4 6 8 11.4z" fill="' +
+				color-icon(select-arrow-inverse) + '" fill-rule="evenodd"/></svg>'
+		);
+	}
 
 	.form-checkbox,
 	.form-radio {
+		color: color(check-radio-inverse);
+	}
 
+	.form-checkbox,
+	.form-radio {
 		input {
-
 			&:checked {
 				background-color: color-bg(check-checked-inverse) !important;
 				border-color: color-bg(check-checked-inverse) !important;
@@ -413,41 +429,46 @@ textarea.form-input {
 	}
 
 	.form-switch {
-
 		.form-switch-icon {
 			background: color-bg(switch-inverse);
-
 		}
 
 		input:checked {
-
 			+ .form-switch-icon {
 				background: color-bg(switch-checked-inverse);
 			}
 		}
-    }
-    
-    .form-slider {
+	}
 
-        input[type=range] {
-            background: color-bg(range-track-inverse);
+	.form-slider {
+		input[type='range'] {
+			background: color-bg(range-track-inverse);
 
-            &::-webkit-slider-thumb {
-                background-color: color-bg(range-thumb-inverse);
-                background-image: inline-svg('<svg width="12" height="8" xmlns="http://www.w3.org/2000/svg"><path d="M8 .5v7L12 4zM0 4l4 3.5v-7z" fill="' + color-icon(range-inverse) + '" fill-rule="nonzero"/></svg>');
-            }
+			&::-webkit-slider-thumb {
+				background-color: color-bg(range-thumb-inverse);
+				background-image: inline-svg(
+					'<svg width="12" height="8" xmlns="http://www.w3.org/2000/svg"><path d="M8 .5v7L12 4zM0 4l4 3.5v-7z" fill="' +
+						color-icon(range-inverse) + '" fill-rule="nonzero"/></svg>'
+				);
+			}
 
-            &::-moz-range-thumb {
-                background-color: color-bg(range-thumb-inverse);
-                background-image: inline-svg('<svg width="12" height="8" xmlns="http://www.w3.org/2000/svg"><path d="M8 .5v7L12 4zM0 4l4 3.5v-7z" fill="' + color-icon(range-inverse) + '" fill-rule="nonzero"/></svg>');
-            }
-            
-            &::-ms-thumb {
-                background-color: color-bg(range-thumb-inverse);
-                background-image: inline-svg('<svg width="12" height="8" xmlns="http://www.w3.org/2000/svg"><path d="M8 .5v7L12 4zM0 4l4 3.5v-7z" fill="' + color-icon(range-inverse) + '" fill-rule="nonzero"/></svg>');
-            }           
-        }
-    }    
+			&::-moz-range-thumb {
+				background-color: color-bg(range-thumb-inverse);
+				background-image: inline-svg(
+					'<svg width="12" height="8" xmlns="http://www.w3.org/2000/svg"><path d="M8 .5v7L12 4zM0 4l4 3.5v-7z" fill="' +
+						color-icon(range-inverse) + '" fill-rule="nonzero"/></svg>'
+				);
+			}
+
+			&::-ms-thumb {
+				background-color: color-bg(range-thumb-inverse);
+				background-image: inline-svg(
+					'<svg width="12" height="8" xmlns="http://www.w3.org/2000/svg"><path d="M8 .5v7L12 4zM0 4l4 3.5v-7z" fill="' +
+						color-icon(range-inverse) + '" fill-rule="nonzero"/></svg>'
+				);
+			}
+		}
+	}
 }
 
 .form-group {
@@ -458,7 +479,7 @@ textarea.form-input {
 		flex-shrink: 1;
 		margin-right: $button-form--group-padding;
 
-		@if ( $button-form--group-padding == null ) {
+		@if ($button-form--group-padding == null) {
 			border-top-right-radius: 0;
 			border-bottom-right-radius: 0;
 			border-right-width: 0;
@@ -466,11 +487,11 @@ textarea.form-input {
 	}
 
 	.button {
-        padding-left: $button-w-form--padding-h;
+		padding-left: $button-w-form--padding-h;
 		padding-right: $button-w-form--padding-h;
 		flex-shrink: 0;
 
-		@if ( $button-form--group-padding == null ) {
+		@if ($button-form--group-padding == null) {
 			border-top-left-radius: 0;
 			border-bottom-left-radius: 0;
 		}
@@ -487,14 +508,12 @@ textarea.form-input {
 	margin-top: $form-hint--margin;
 }
 
-@include media( '<=medium' ) {
-
+@include media('<=medium') {
 	.form-group-desktop {
-
 		.form-input {
 			margin-bottom: $button-form--group-padding;
 
-			@if ( $button-form--group-padding == null ) {
+			@if ($button-form--group-padding == null) {
 				border-bottom-left-radius: 0;
 				border-bottom-right-radius: 0;
 				border-bottom-width: 0;
@@ -504,7 +523,7 @@ textarea.form-input {
 		.button {
 			width: 100%;
 
-			@if ( $button-form--group-padding == null ) {
+			@if ($button-form--group-padding == null) {
 				border-top-left-radius: 0;
 				border-top-right-radius: 0;
 			}
@@ -512,29 +531,28 @@ textarea.form-input {
 	}
 }
 
-@include media( '>medium' ) {
-
-    .form-group-desktop {
-        display: flex;
+@include media('>medium') {
+	.form-group-desktop {
+		display: flex;
 
 		.form-input {
 			flex-grow: 1;
 			flex-shrink: 1;
 			margin-right: $button-form--group-padding;
 
-			@if ( $button-form--group-padding == null ) {
+			@if ($button-form--group-padding == null) {
 				border-top-right-radius: 0;
 				border-bottom-right-radius: 0;
 				border-right-width: 0;
 			}
 		}
 
-        .button {
+		.button {
 			padding-left: $button-w-form--padding-h;
 			padding-right: $button-w-form--padding-h;
-            flex-shrink: 0;
+			flex-shrink: 0;
 
-			@if ( $button-form--group-padding == null ) {
+			@if ($button-form--group-padding == null) {
 				border-top-left-radius: 0;
 				border-bottom-left-radius: 0;
 			}
@@ -544,5 +562,5 @@ textarea.form-input {
 			padding-left: $button-sm-w-form--padding-h;
 			padding-right: $button-sm-w-form--padding-h;
 		}
-    }
+	}
 }

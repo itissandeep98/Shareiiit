@@ -1,6 +1,6 @@
-import React from "react";
-import { connect } from "react-redux";
-import { Route, Redirect } from "react-router-dom";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Redirect, Route } from 'react-router-dom';
 
 const updateChildrenWithProps = (props, children) =>
 	React.Children.map(children, (child, i) => {
@@ -10,16 +10,16 @@ const updateChildrenWithProps = (props, children) =>
 		});
 	});
 
-const PrivateRouteComponent = (props) => {
+const PrivateRouteComponent = props => {
 	return (
 		<Route
 			{...props.routeProps}
-			render={(renderProps) => {
+			render={renderProps => {
 				if (!props.logged_in) {
 					return (
 						<Redirect
 							to={{
-								pathname: "/",
+								pathname: '/',
 								state: { from: props.computedMatch.url },
 							}}
 						/>

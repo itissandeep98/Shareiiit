@@ -1,10 +1,10 @@
-import { Col, Container, Row, Spinner } from "reactstrap";
-import Meta from "../../Meta";
-import BookCard from "../../Posts/Cards/BookCard";
-import ElectronicsCard from "../../Posts/Cards/ElectronicsCard";
-import GroupCard from "../../Posts/Cards/GroupCard";
-import OtherCard from "../../Posts/Cards/OtherCard";
-import TechCard from "../../Technical/TechCard";
+import { Col, Container, Row, Spinner } from 'reactstrap';
+import Meta from '../../Meta';
+import BookCard from '../../Posts/Cards/BookCard';
+import ElectronicsCard from '../../Posts/Cards/ElectronicsCard';
+import GroupCard from '../../Posts/Cards/GroupCard';
+import OtherCard from '../../Posts/Cards/OtherCard';
+import TechCard from '../../Technical/TechCard';
 
 function Dismissed(props) {
 	const { cards, loading, category } = props;

@@ -1,6 +1,6 @@
-import { Route, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-import React from "react";
+import React from 'react';
+import { connect } from 'react-redux';
+import { Redirect, Route } from 'react-router-dom';
 
 const updateChildrenWithProps = (props, children) =>
 	React.Children.map(children, (child, i) => {
@@ -11,14 +11,14 @@ const updateChildrenWithProps = (props, children) =>
 		});
 	});
 
-const PublicRouteComponent = (props) => {
+const PublicRouteComponent = props => {
 	if (props.render) {
 		return props.render({ match: props.computedMatch });
 	}
 	return (
 		<Route
 			{...props.routeProps}
-			render={(renderProps) =>
+			render={renderProps =>
 				props.logged_in && props.restricted ? (
 					<Redirect to="/feed"></Redirect>
 				) : (

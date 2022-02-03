@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { NavLink, withRouter } from "react-router-dom";
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { NavLink, withRouter } from 'react-router-dom';
 import {
 	Collapse,
 	Container,
@@ -9,12 +9,12 @@ import {
 	NavbarToggler,
 	NavItem,
 	Row,
-} from "reactstrap";
-import "./style.css";
-import { Image } from "semantic-ui-react";
-import { logoutAction } from "../../Store/ActionCreators/auth";
-import { fetchUser, fetchUserOSA } from "../../Store/ActionCreators/user";
-import Notification from "../Notification";
+} from 'reactstrap';
+import { Image } from 'semantic-ui-react';
+import { logoutAction } from '../../Store/ActionCreators/auth';
+import { fetchUser, fetchUserOSA } from '../../Store/ActionCreators/user';
+import Notification from '../Notification';
+import './style.css';
 
 function TopHeader() {
 	const dispatch = useDispatch();
@@ -27,7 +27,7 @@ function TopHeader() {
 	const toggleNav = () => {
 		setIsNavOpen(!isNavOpen);
 	};
-	const logout = (e) => {
+	const logout = e => {
 		e.preventDefault();
 		dispatch(logoutAction());
 	};
@@ -37,12 +37,12 @@ function TopHeader() {
 				<Row className="d-flex flex-row justify-content-between align-items-center">
 					<div>
 						<Image
-							src={process.env.PUBLIC_URL + "/assets/images/iiitd2.png"}
+							src={process.env.PUBLIC_URL + '/assets/images/iiitd2.png'}
 							alt="IIIT-Delhi"
 						/>
 					</div>
 					<Image
-						src={process.env.PUBLIC_URL + "/assets/images/logo.png"}
+						src={process.env.PUBLIC_URL + '/assets/images/logo.png'}
 						alt="resource sharing app"
 						size="medium"
 						className="d-none d-lg-block"
@@ -76,8 +76,7 @@ function TopHeader() {
 									className="nav-link p-3 "
 									href="https://forms.gle/Fh641DgMdrveindm9"
 									target="_blank"
-									rel="noopener noreferrer"
-								>
+									rel="noopener noreferrer">
 									<p className="d-md-none">Feedback</p>
 									<i className="fa fa-comment fa-lg d-none d-md-inline-block" />
 								</a>

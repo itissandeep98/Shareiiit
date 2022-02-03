@@ -6,7 +6,6 @@
 	background: color-bg(header);
 
 	+ .site-content {
-
 		.section:first-of-type {
 			padding-top: $header-height__mobile;
 		}
@@ -14,13 +13,13 @@
 
 	.brand {
 		margin-right: $header-nav--padding-h;
-	}	
+	}
 }
 
 .site-header-inner {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 	height: $header-height__mobile;
 }
 
@@ -32,36 +31,35 @@
 		flex-grow: 1;
 	}
 
-    ul {
-        display: flex;
-        align-items: center;
+	ul {
+		display: flex;
+		align-items: center;
 		flex-grow: 1;
-        white-space: nowrap;
+		white-space: nowrap;
 		margin-bottom: 0;
 
 		&:first-of-type {
 			flex-wrap: wrap;
 		}
-    }
+	}
 
-    li {
-
+	li {
 		+ .header-button {
 			margin-left: $header-nav--padding-h;
 		}
-    }
+	}
 
-    a:not(.button) {
+	a:not(.button) {
 		display: block;
-        @include anchor-aspect(header);
+		@include anchor-aspect(header);
 		@include font-weight(header-link);
 		text-transform: $link-header--transform;
-        padding: 0 $header-nav--padding-h;
+		padding: 0 $header-nav--padding-h;
 
 		.invert-color & {
 			@include anchor-aspect(header, inverse);
 		}
-    }
+	}
 
 	a.button {
 		margin-left: $header-nav--padding-h;
@@ -85,8 +83,7 @@
 	display: none;
 }
 
-@include media( '<=medium' ) {
-
+@include media('<=medium') {
 	.header-nav-toggle {
 		display: block;
 
@@ -100,9 +97,9 @@
 			z-index: 9999;
 			background: color-bg(menu-mobile);
 			max-height: 0;
-	        opacity: 0;
-	        overflow: hidden;
-	        transition: max-height .25s ease-in-out, opacity .15s;
+			opacity: 0;
+			overflow: hidden;
+			transition: max-height 0.25s ease-in-out, opacity 0.15s;
 
 			&.is-active {
 				opacity: 1;
@@ -117,12 +114,12 @@
 				display: block;
 				text-align: center;
 
-			    a:not(.button) {
+				a:not(.button) {
 					display: inline-flex;
-			        @include anchor-aspect(header-mobile);
+					@include anchor-aspect(header-mobile);
 					padding-top: $header-nav--padding-v__mobile / 2;
 					padding-bottom: $header-nav--padding-v__mobile / 2;
-			    }
+				}
 			}
 
 			a.button {
@@ -134,12 +131,9 @@
 	}
 }
 
-@include media( '>medium' ) {
-
+@include media('>medium') {
 	.site-header {
-
 		+ .site-content {
-
 			.section:first-of-type {
 				padding-top: $header-height__desktop;
 			}

@@ -1,20 +1,18 @@
-import { Tooltip } from "@mui/material";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Col, Container, Row } from "reactstrap";
-import { Icon, Image, Label, Placeholder } from "semantic-ui-react";
-import { addVote } from "../../../Store/ActionCreators/vote";
-import Meta from "../../Meta";
-import moment from "moment";
-import Messages from "../Messages/Messages";
-import { NavLink } from "react-router-dom";
-import { fetchPostDetails } from "../../../Store/ActionCreators/post";
-import Reaction from "../Cards/Reaction";
-import ImagePopup from "../../../Utils/ImagePopup";
+import moment from 'moment';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { Col, Container, Row } from 'reactstrap';
+import { Icon, Placeholder } from 'semantic-ui-react';
+import { fetchPostDetails } from '../../../Store/ActionCreators/post';
+import { addVote } from '../../../Store/ActionCreators/vote';
+import CustomImage from '../../../Utils/CustomImage';
+import Meta from '../../Meta';
+import Reaction from '../Cards/Reaction';
+import Messages from '../Messages/Messages';
 
 function ElectronicDetails(props) {
 	const id = props.match.params.postId;
-	const [modal, setModal] = useState(false);
 	const dispatch = useDispatch();
 	const [details, setDetails] = useState({});
 	const [loading, setLoading] = useState(true);
@@ -23,9 +21,9 @@ function ElectronicDetails(props) {
 	const [imgErr, setImgErr] = useState(false);
 	const [saved, setSaved] = useState(null);
 	const [dismiss, setDismiss] = useState(null);
-	const username = useSelector((state) => state.user?.osadetails?.username);
+	const username = useSelector(state => state.user?.osadetails?.username);
 	useEffect(() => {
-		dispatch(fetchPostDetails({ id, category: "electronic" })).then((res) => {
+		dispatch(fetchPostDetails({ id, category: 'electronic' })).then(res => {
 			setDetails(res);
 			setLoading(false);
 			setNum_upvotes(res?.upvote_count);
@@ -35,7 +33,7 @@ function ElectronicDetails(props) {
 		});
 	}, [dispatch]);
 
-	const Vote = (option) => {
+	const Vote = option => {
 		let data = {};
 		if (option == 1) {
 			if (liked) {
@@ -56,110 +54,99 @@ function ElectronicDetails(props) {
 		dispatch(addVote({ id, data }));
 	};
 	return (
-		<>
-			<ImagePopup
-				image={
-					details.image ??
-					process.env.PUBLIC_URL + "/assets/images/electronic.svg"
-				}
-				open={modal}
-				onClose={() => setModal(!modal)}
-			/>
-			<Container className="shadow p-3 my-4">
-				{details && (
-					<>
-						<Meta head={`${details.title} | ShareIIITD`} />
-						<Row>
-							<Col className="d-flex align-items-center">
-								{loading ? (
-									<Placeholder style={{ height: 150, width: 150 }}>
-										<Placeholder.Image />
-									</Placeholder>
-								) : (
-									<div className="text-center p-2  d-flex flex-column">
-										<Image
-											onClick={() => setModal(!modal)}
-											src={
-												!imgErr
-													? details.image ??
-													  process.env.PUBLIC_URL +
-															"/assets/images/electronic.svg"
-													: process.env.PUBLIC_URL +
-													  "/assets/images/electronic.svg"
-											}
-											onError={(e) => setImgErr(true)}
-											fluid
-										/>
-										<Reaction
-											num_upvotes={num_upvotes}
-											liked={liked}
-											saved={saved}
-											dismiss={dismiss}
-											Vote={Vote}
-										/>
-									</div>
-								)}
-							</Col>
-							<Col xs={8}>
-								{loading ? (
-									<Placeholder fluid>
-										<Placeholder.Line />
-										<Placeholder.Line />
-										<Placeholder.Line />
-										<Placeholder.Line />
-										<Placeholder.Line />
-									</Placeholder>
-								) : (
-									<Row>
-										<Col>
-											<h1 className="text-capitalize">{details.title}</h1>
-
-											<br />
-											<p className="text-justify">{details.description}</p>
-											<br />
-										</Col>
-									</Row>
-								)}
+		<Container className="shadow p-3 my-4">
+			{details && (
+				<>
+					<Meta head={`${details.title} | ShareIIITD`} />
+					<Row>
+						<Col className="d-flex align-items-center">
+							{loading ? (
+								<Placeholder style={{ height: 150, width: 150 }}>
+									<Placeholder.Image />
+								</Placeholder>
+							) : (
+								<div className="text-center p-2  d-flex flex-column">
+									<CustomImage
+										src={
+											!imgErr
+												? details.image ??
+												  process.env.PUBLIC_URL +
+														'/assets/images/electronic.svg'
+												: process.env.PUBLIC_URL +
+												  '/assets/images/electronic.svg'
+										}
+										onError={e => setImgErr(true)}
+										fluid
+									/>
+									<Reaction
+										num_upvotes={num_upvotes}
+										liked={liked}
+										saved={saved}
+										dismiss={dismiss}
+										Vote={Vote}
+									/>
+								</div>
+							)}
+						</Col>
+						<Col xs={8}>
+							{loading ? (
+								<Placeholder fluid>
+									<Placeholder.Line />
+									<Placeholder.Line />
+									<Placeholder.Line />
+									<Placeholder.Line />
+									<Placeholder.Line />
+								</Placeholder>
+							) : (
 								<Row>
-									<Col className="text-muted">
-										<small>
-											<Icon name="user" />
-											Posted by{" "}
-											<NavLink to={`/${details.created_by?.username}`}>
-												{details.created_by?.name
-													? details.created_by?.name
-													: details.created_by?.username}
-											</NavLink>
-										</small>
+									<Col>
+										<h1 className="text-capitalize">{details.title}</h1>
+
 										<br />
-										<small>
-											<Icon name="time" />
-											{moment(details.created_at).fromNow()}
-										</small>
+										<p className="text-justify">{details.description}</p>
+										<br />
 									</Col>
 								</Row>
-							</Col>
-						</Row>
-
-						{username && details && (
-							<Row className="mt-5">
-								<Col>
-									<hr />
-									<h2>
-										<Icon name="chat" /> Messages
-									</h2>
-									<Messages
-										id={id}
-										recipient={username}
-										creator={details.created_by}
-									/>
+							)}
+							<Row>
+								<Col className="text-muted">
+									<small>
+										<Icon name="user" />
+										Posted by{' '}
+										<NavLink to={`/${details.created_by?.username}`}>
+											{details.created_by?.name
+												? details.created_by?.name
+												: details.created_by?.username}
+										</NavLink>
+									</small>
+									<br />
+									<small>
+										<Icon name="time" />
+										{moment(details.created_at).fromNow()}
+									</small>
 								</Col>
 							</Row>
-						)}
-					</>
-				)}
-			</Container>
-		</>
+						</Col>
+					</Row>
+
+					{username && details && (
+						<Row className="mt-5">
+							<Col>
+								<hr />
+								<h2>
+									<Icon name="chat" /> Messages
+								</h2>
+								<Messages
+									id={id}
+									recipient={username}
+									creator={details.created_by}
+								/>
+							</Col>
+						</Row>
+					)}
+				</>
+			)}
+		</Container>
 	);
 }
 

@@ -1,3 +1,7 @@
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import PhoneIcon from '@mui/icons-material/Phone';
+import TelegramIcon from '@mui/icons-material/Telegram';
 import {
 	Button,
 	FormControl,
@@ -6,22 +10,18 @@ import {
 	MenuItem,
 	Select,
 	TextField,
-} from "@mui/material";
-import { useState } from "react";
-import { Col, Row } from "reactstrap";
-import ProfileUpload from "./ProfileUpload";
-import PhoneIcon from "@mui/icons-material/Phone";
-import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import TelegramIcon from "@mui/icons-material/Telegram";
-import { connect, useDispatch } from "react-redux";
-import { updateUser } from "../../Store/ActionCreators/user";
+} from '@mui/material';
+import { useState } from 'react';
+import { connect, useDispatch } from 'react-redux';
+import { Col, Row } from 'reactstrap';
+import { updateUser } from '../../Store/ActionCreators/user';
+import ProfileUpload from './ProfileUpload';
 
 function BasicDetails(props) {
 	const dispatch = useDispatch();
 	const [details, setDetails] = useState(props.user?.details);
 
-	const onChange = (e) => {
+	const onChange = e => {
 		const { name, value } = e.target;
 		setDetails({ ...details, [name]: value });
 	};
@@ -73,10 +73,9 @@ function BasicDetails(props) {
 							<Select
 								label="Tag"
 								value={details?.role}
-								onChange={(e) =>
+								onChange={e =>
 									setDetails({ ...details, role: e.target.value })
-								}
-							>
+								}>
 								<MenuItem value="Student">Student</MenuItem>
 								<MenuItem value="Faculty">Faculty</MenuItem>
 								<MenuItem value="Staff">Staff</MenuItem>
@@ -146,8 +145,7 @@ function BasicDetails(props) {
 				<Button
 					variant="outlined"
 					className="mt-3 float-right rounded-pill bg-info text-white"
-					onClick={updateDetails}
-				>
+					onClick={updateDetails}>
 					Update
 				</Button>
 			</Col>
@@ -155,7 +153,7 @@ function BasicDetails(props) {
 	);
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
 	user: state.user,
 });
 

@@ -1,5 +1,5 @@
-import { useDropzone } from "react-dropzone";
-import { Image } from "semantic-ui-react";
+import { useDropzone } from 'react-dropzone';
+import { Image } from 'semantic-ui-react';
 
 function ImageUploader(props) {
 	const { setImage } = props;
@@ -10,10 +10,10 @@ function ImageUploader(props) {
 		console.log(typeof image);
 	}
 	const { getRootProps, getInputProps } = useDropzone({
-		accept: "image/*",
+		accept: 'image/*',
 		maxFiles: 1,
 		maxSize: 5242880,
-		onDrop: (acceptedFile) => {
+		onDrop: acceptedFile => {
 			if (acceptedFile.length > 0) {
 				const file = acceptedFile[0];
 				if (file) {
@@ -28,8 +28,7 @@ function ImageUploader(props) {
 			<div
 				{...getRootProps()}
 				className="border py-4 text-muted bg-light text-center"
-				style={{ cursor: "copy" }}
-			>
+				style={{ cursor: 'copy' }}>
 				<input {...getInputProps()} />
 				<p>Drag & Drop Image here, or Click to Select</p>
 			</div>

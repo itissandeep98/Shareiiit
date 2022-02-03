@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import { connect, useDispatch } from "react-redux";
-import { Dropdown, Icon } from "semantic-ui-react";
+import { Button } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { connect, useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { Dropdown, Icon } from 'semantic-ui-react';
 import {
 	fetchNextNotification,
 	fetchNotification,
-} from "../../Store/ActionCreators/notification";
-import { NavLink } from "react-router-dom";
-import Content from "./Content";
-import { Button } from "@mui/material";
-import "./style.css";
+} from '../../Store/ActionCreators/notification';
+import Content from './Content';
+import './style.css';
 
 function Notification(props) {
 	const { notification, page, next } = props;
@@ -21,12 +21,12 @@ function Notification(props) {
 		return () => clearInterval(interval);
 	}, []);
 
-	const unread = notification?.filter((noti) => !noti.read);
-	const read = notification?.filter((noti) => noti.read);
+	const unread = notification?.filter(noti => !noti.read);
+	const read = notification?.filter(noti => noti.read);
 
 	const fetchMore = () => {
 		setMoreLoading(true);
-		dispatch(fetchNextNotification(next)).then((res) => {
+		dispatch(fetchNextNotification(next)).then(res => {
 			setMoreLoading(false);
 		});
 	};
@@ -38,8 +38,7 @@ function Notification(props) {
 				<>
 					<NavLink
 						className="nav-link p-3 cust_link d-md-none"
-						to="/notification"
-					>
+						to="/notification">
 						Notifications
 					</NavLink>
 					<a className="nav-link p-3 d-none d-md-block">
@@ -53,8 +52,7 @@ function Notification(props) {
 										<Icon corner="top left" name="circle" color="red" />
 									)}
 								</Icon.Group>
-							}
-						>
+							}>
 							<Dropdown.Menu>
 								<Content
 									notification={notification}
@@ -69,8 +67,7 @@ function Notification(props) {
 							variant="contained"
 							size="small"
 							disabled={moreLoading}
-							onClick={fetchMore}
-						>
+							onClick={fetchMore}>
 							Show More <i className="fa fa-caret-down ml-2" />
 						</Button>
 					)}
@@ -80,7 +77,7 @@ function Notification(props) {
 	);
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
 	notification: state.notification.details,
 	next: state.notification.next,
 });

@@ -1,14 +1,14 @@
-import { Button, InputLabel, TextField, Autocomplete } from "@mui/material";
-import { useEffect, useState } from "react";
-import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
-import { Rating } from "semantic-ui-react";
-import { useDispatch } from "react-redux";
+import { Autocomplete, Button, InputLabel, TextField } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap';
+import { Rating } from 'semantic-ui-react';
 import {
 	fetchSkillList,
-	updateSkillPost,
 	searchSkillList,
-} from "../../../Store/ActionCreators/skill";
-import { showAlert } from "../../../Utils/showAlert";
+	updateSkillPost,
+} from '../../../Store/ActionCreators/skill';
+import { showAlert } from '../../../Utils/showAlert';
 
 function EditSkill(props) {
 	const { modal, toggle, details } = props;
@@ -19,25 +19,25 @@ function EditSkill(props) {
 
 	const dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(fetchSkillList()).then((res) => {
+		dispatch(fetchSkillList()).then(res => {
 			setSkillList(res);
 		});
 	}, [dispatch]);
 
-	const addSkill = (e) => {
+	const addSkill = e => {
 		const id = data.id;
 		const body = {
 			skill: data.skill,
 			description: data.description,
 		};
-		dispatch(updateSkillPost({ id, body })).catch((err) => {
-			showAlert("Update Failed", "error");
+		dispatch(updateSkillPost({ id, body })).catch(err => {
+			showAlert('Update Failed', 'error');
 		});
 
 		toggle();
 	};
 
-	const onChange = (e) => {
+	const onChange = e => {
 		setData({ ...data, [e.target.name]: e.target.value });
 	};
 	const changeSkill = (name, value) => {
@@ -46,17 +46,17 @@ function EditSkill(props) {
 	};
 
 	var typingTimer;
-	const startSearch = (e) => {
+	const startSearch = e => {
 		clearTimeout(typingTimer);
 		typingTimer = setTimeout(searchSkills, 500);
 	};
-	const endSearch = (e) => {
+	const endSearch = e => {
 		clearTimeout(typingTimer);
 	};
 
 	const searchSkills = () => {
 		setSearchLoading(true);
-		dispatch(searchSkillList(searchText)).then((res) => {
+		dispatch(searchSkillList(searchText)).then(res => {
 			setSkillList(res);
 			setSearchLoading(false);
 		});
@@ -73,12 +73,12 @@ function EditSkill(props) {
 					loadingText="Searching..."
 					value={data?.skill?.label}
 					options={skillList}
-					onChange={(e, value) => changeSkill("label", value?.label)}
-					renderInput={(params) => (
+					onChange={(e, value) => changeSkill('label', value?.label)}
+					renderInput={params => (
 						<TextField
 							fullWidth
 							{...params}
-							onChange={(e) => setSearchText(e.target.value)}
+							onChange={e => setSearchText(e.target.value)}
 							onKeyDown={endSearch}
 							onKeyUp={startSearch}
 							label="Tag"
@@ -105,7 +105,7 @@ function EditSkill(props) {
 						maxRating={5}
 						size="huge"
 						clearable
-						onRate={(e, { rating, maxRating }) => changeSkill("rating", rating)}
+						onRate={(e, { rating, maxRating }) => changeSkill('rating', rating)}
 					/>
 				</p>
 			</ModalBody>

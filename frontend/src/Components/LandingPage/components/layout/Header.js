@@ -1,8 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { Link } from "react-router-dom";
-import Logo from "./Logo";
+import React, { useState, useRef, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { Link } from 'react-router-dom';
+import Logo from './Logo';
 
 const propTypes = {
 	navPosition: PropTypes.string,
@@ -13,7 +13,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-	navPosition: "",
+	navPosition: '',
 	hideNav: false,
 	hideSignin: false,
 	bottomOuterDivider: false,
@@ -36,32 +36,32 @@ const Header = ({
 
 	useEffect(() => {
 		isActive && openMenu();
-		document.addEventListener("keydown", keyPress);
-		document.addEventListener("click", clickOutside);
+		document.addEventListener('keydown', keyPress);
+		document.addEventListener('click', clickOutside);
 		return () => {
-			document.removeEventListener("keydown", keyPress);
-			document.removeEventListener("click", clickOutside);
+			document.removeEventListener('keydown', keyPress);
+			document.removeEventListener('click', clickOutside);
 			closeMenu();
 		};
 	});
 
 	const openMenu = () => {
-		document.body.classList.add("off-nav-is-active");
-		nav.current.style.maxHeight = nav.current.scrollHeight + "px";
+		document.body.classList.add('off-nav-is-active');
+		nav.current.style.maxHeight = nav.current.scrollHeight + 'px';
 		setIsactive(true);
 	};
 
 	const closeMenu = () => {
-		document.body.classList.remove("off-nav-is-active");
+		document.body.classList.remove('off-nav-is-active');
 		nav.current && (nav.current.style.maxHeight = null);
 		setIsactive(false);
 	};
 
-	const keyPress = (e) => {
+	const keyPress = e => {
 		isActive && e.keyCode === 27 && closeMenu();
 	};
 
-	const clickOutside = (e) => {
+	const clickOutside = e => {
 		if (!nav.current) return;
 		if (
 			!isActive ||
@@ -73,8 +73,8 @@ const Header = ({
 	};
 
 	const classes = classNames(
-		"site-header",
-		bottomOuterDivider && "has-bottom-divider",
+		'site-header',
+		bottomOuterDivider && 'has-bottom-divider',
 		className
 	);
 
@@ -83,8 +83,8 @@ const Header = ({
 			<div className="container">
 				<div
 					className={classNames(
-						"site-header-inner",
-						bottomDivider && "has-bottom-divider"
+						'site-header-inner',
+						bottomDivider && 'has-bottom-divider'
 					)}
 				>
 					<Logo />
@@ -102,12 +102,12 @@ const Header = ({
 							</button>
 							<nav
 								ref={nav}
-								className={classNames("header-nav", isActive && "is-active")}
+								className={classNames('header-nav', isActive && 'is-active')}
 							>
 								<div className="header-nav-inner">
 									<ul
 										className={classNames(
-											"list-reset text-xs",
+											'list-reset text-xs',
 											navPosition && `header-nav-${navPosition}`
 										)}
 									></ul>

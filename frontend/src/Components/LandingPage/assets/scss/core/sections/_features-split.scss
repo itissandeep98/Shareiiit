@@ -1,5 +1,4 @@
 .features-split {
-
 	.section-inner {
 		padding-top: $features-split--padding-t__mobile;
 		padding-bottom: $features-split--padding-b__mobile;
@@ -10,10 +9,8 @@
 	}
 }
 
-@include media( '>medium' ) {
-
+@include media('>medium') {
 	.features-split {
-
 		.section-inner {
 			padding-top: $features-split--padding-t__desktop;
 			padding-bottom: $features-split--padding-b__desktop;

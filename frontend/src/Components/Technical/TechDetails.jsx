@@ -1,17 +1,17 @@
-import { Icon, IconButton, Tooltip } from "@mui/material";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
-import { Col, Container, Row } from "reactstrap";
-import { Image, Placeholder, Icon as IconSUI, Rating } from "semantic-ui-react";
-import { addVote } from "../../Store/ActionCreators/vote";
-import Messages from "../Posts/Messages/Messages";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import classNames from "classnames";
-import Meta from "../Meta";
-import moment from "moment";
-import { fetchPostDetails } from "../../Store/ActionCreators/post";
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { Icon, IconButton, Tooltip } from '@mui/material';
+import classNames from 'classnames';
+import moment from 'moment';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { Col, Container, Row } from 'reactstrap';
+import { Icon as IconSUI, Image, Placeholder, Rating } from 'semantic-ui-react';
+import { fetchPostDetails } from '../../Store/ActionCreators/post';
+import { addVote } from '../../Store/ActionCreators/vote';
+import Meta from '../Meta';
+import Messages from '../Posts/Messages/Messages';
 
 function TechDetails(props) {
 	const id = props.match.params.id;
@@ -24,7 +24,7 @@ function TechDetails(props) {
 	const [save, setSave] = useState(false);
 
 	useEffect(() => {
-		dispatch(fetchPostDetails({ id, category: "skill" })).then((res) => {
+		dispatch(fetchPostDetails({ id, category: 'skill' })).then(res => {
 			setDetails(res);
 			setNum_upvotes(res.upvote_count);
 			setEndorse(res.vote_log.upvoted_flag);
@@ -33,9 +33,9 @@ function TechDetails(props) {
 		});
 	}, [dispatch]);
 
-	const username = useSelector((state) => state.user?.osadetails?.username);
+	const username = useSelector(state => state.user?.osadetails?.username);
 
-	const Vote = (option) => {
+	const Vote = option => {
 		let data = {};
 		if (option == 1) {
 			if (endorse) {
@@ -68,15 +68,14 @@ function TechDetails(props) {
 					) : (
 						<div className="text-center p-2  d-flex flex-column">
 							<Image
-								src={process.env.PUBLIC_URL + "/assets/images/skill.svg"}
+								src={process.env.PUBLIC_URL + '/assets/images/skill.svg'}
 								fluid
 							/>
 							<div className="d-flex flex-row justify-content-center">
 								<Tooltip title="Endorse" placement="top">
 									<IconButton
 										onClick={() => Vote(1)}
-										className={classNames({ "text-danger": endorse })}
-									>
+										className={classNames({ 'text-danger': endorse })}>
 										<FavoriteBorderIcon />
 										<small> {num_upvotes > 0 && num_upvotes}</small>
 									</IconButton>
@@ -84,8 +83,7 @@ function TechDetails(props) {
 								<Tooltip title="Save" placement="top">
 									<IconButton
 										onClick={() => Vote(2)}
-										className={classNames({ "text-info": save })}
-									>
+										className={classNames({ 'text-info': save })}>
 										<BookmarkBorderIcon />
 									</IconButton>
 								</Tooltip>
@@ -123,7 +121,7 @@ function TechDetails(props) {
 						<Col className="text-muted">
 							<small>
 								<IconSUI name="user" />
-								Posted by{" "}
+								Posted by{' '}
 								<NavLink to={`/${details.created_by?.username}`}>
 									{details.created_by?.name
 										? details.created_by?.name

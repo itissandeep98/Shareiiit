@@ -5,11 +5,23 @@
 @function map-push($parent-map, $child-map) {
 	$result: $parent-map;
 	@each $key, $value in $child-map {
-		@if (not map-has-key($result, $key)) or (type-of(map-get($result, $key)) != type-of($value)) or (not (type-of(map-get($result, $key)) == map and type-of($value) == map)) {
-			$result: map-merge($result, ($key: $value));
-		}
-		@else {
-			$result: map-merge($result, ($key: map-push(map-get($result, $key), $value)));
+		@if (not map-has-key($result, $key)) or
+			(type-of(map-get($result, $key)) != type-of($value)) or
+			(not (type-of(map-get($result, $key)) == map and type-of($value) == map))
+		{
+			$result: map-merge(
+				$result,
+				(
+					$key: $value,
+				)
+			);
+		} @else {
+			$result: map-merge(
+				$result,
+				(
+					$key: map-push(map-get($result, $key), $value),
+				)
+			);
 		}
 	}
 	@return $result;
@@ -28,7 +40,7 @@
 // Used in _mixins.scss [@mixin font-family] --------------------------
 // --------------------------------------------------------------------
 @function get-font-size($elem) {
-	@if ( map-get($font--size, $elem) ) {
+	@if (map-get($font--size, $elem)) {
 		@return nth(map-get($font--scale, map-get($font--size, $elem)), 1);
 	} @else {
 		@return null;
@@ -40,7 +52,7 @@
 // Used in _mixins.scss [@mixin font-size] ----------------------------
 // --------------------------------------------------------------------
 @function get-line-height($elem) {
-	@if ( map-get($font--size, $elem) ) {
+	@if (map-get($font--size, $elem)) {
 		@return nth(map-get($font--scale, map-get($font--size, $elem)), 2);
 	} @else {
 		@return null;
@@ -52,7 +64,7 @@
 // Used in _mixins.scss [@mixin font-size] ----------------------------
 // --------------------------------------------------------------------
 @function get-kerning($elem) {
-	@if ( map-get($font--size, $elem) ) {
+	@if (map-get($font--size, $elem)) {
 		@return nth(map-get($font--scale, map-get($font--size, $elem)), 3);
 	} @else {
 		@return null;
@@ -113,36 +125,41 @@
 @function str-replace($string, $search, $replace: '') {
 	$index: str-index($string, $search);
 	@if $index {
-		@return str-slice($string, 1, $index - 1) + $replace + str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+		@return str-slice($string, 1, $index - 1) + $replace +
+			str-replace(
+				str-slice($string, $index + str-length($search)),
+				$search,
+				$replace
+			);
 	}
 	@return $string;
 }
 
 @function url-encode($string) {
 	$map: (
-	"%": "%25",
-	"<": "%3C",
-	">": "%3E",
-	" ": "%20",
-	"!": "%21",
-	"*": "%2A",
-	"'": "%27",
-	'"': "%22",
-	"(": "%28",
-	")": "%29",
-	";": "%3B",
-	":": "%3A",
-	"@": "%40",
-	"&": "%26",
-	"=": "%3D",
-	"+": "%2B",
-	"$": "%24",
-	",": "%2C",
-	"/": "%2F",
-	"?": "%3F",
-	"#": "%23",
-	"[": "%5B",
-	"]": "%5D"
+		'%': '%25',
+		'<': '%3C',
+		'>': '%3E',
+		' ': '%20',
+		'!': '%21',
+		'*': '%2A',
+		"'": '%27',
+		'"': '%22',
+		'(': '%28',
+		')': '%29',
+		';': '%3B',
+		':': '%3A',
+		'@': '%40',
+		'&': '%26',
+		'=': '%3D',
+		'+': '%2B',
+		'$': '%24',
+		',': '%2C',
+		'/': '%2F',
+		'?': '%3F',
+		'#': '%23',
+		'[': '%5B',
+		']': '%5D',
 	);
 	$new: $string;
 	@each $search, $replace in $map {

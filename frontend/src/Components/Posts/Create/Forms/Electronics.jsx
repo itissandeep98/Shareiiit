@@ -1,9 +1,9 @@
-import { Button, Checkbox, FormControlLabel, TextField } from "@mui/material";
-import CheckIcon from "@mui/icons-material/Check";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { createPost, fetchPosts } from "../../../../Store/ActionCreators/post";
-import ImageUploader from "../../../../Utils/ImageUploader";
+import CheckIcon from '@mui/icons-material/Check';
+import { Button, Checkbox, FormControlLabel, TextField } from '@mui/material';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { createPost, fetchPosts } from '../../../../Store/ActionCreators/post';
+import ImageUploader from '../../../../Utils/ImageUploader';
 
 function Electronics(props) {
 	const dispatch = useDispatch();
@@ -11,7 +11,7 @@ function Electronics(props) {
 		checked: false,
 		is_price_negotiable: true,
 	});
-	const handleSubmit = (e) => {
+	const handleSubmit = e => {
 		e.preventDefault();
 		const temp = {
 			title: state.title,
@@ -21,16 +21,16 @@ function Electronics(props) {
 		};
 		let data = new FormData();
 		if (state.image) {
-			data.append("image", state.image);
+			data.append('image', state.image);
 		}
-		data.append("price", state.price);
-		Object.keys(temp).map((key) => data.append(key, temp[key]));
+		data.append('price', state.price);
+		Object.keys(temp).map(key => data.append(key, temp[key]));
 		props.toggle();
-		dispatch(createPost({ data, category: "electronic" })).then(() => {
-			dispatch(fetchPosts({ category: "electronic" }));
+		dispatch(createPost({ data, category: 'electronic' })).then(() => {
+			dispatch(fetchPosts({ category: 'electronic' }));
 		});
 	};
-	const onChange = (e) => {
+	const onChange = e => {
 		setState({ ...state, [e.target.name]: e.target.value });
 	};
 	return (
@@ -68,13 +68,13 @@ function Electronics(props) {
 			/>
 			<ImageUploader
 				image={state.image}
-				setImage={(val) => setState({ ...state, image: val })}
+				setImage={val => setState({ ...state, image: val })}
 			/>
 			<FormControlLabel
 				control={
 					<Checkbox
 						checked={state.checked}
-						onChange={(e) => setState({ ...state, checked: !state.checked })}
+						onChange={e => setState({ ...state, checked: !state.checked })}
 						color="primary"
 					/>
 				}
@@ -84,7 +84,7 @@ function Electronics(props) {
 				control={
 					<Checkbox
 						checked={state.is_price_negotiable}
-						onChange={(e) =>
+						onChange={e =>
 							setState({
 								...state,
 								is_price_negotiable: !state.is_price_negotiable,
@@ -99,8 +99,7 @@ function Electronics(props) {
 				variant="outlined"
 				className="mt-3 float-right"
 				startIcon={<CheckIcon />}
-				onClick={handleSubmit}
-			>
+				onClick={handleSubmit}>
 				Submit
 			</Button>
 		</form>

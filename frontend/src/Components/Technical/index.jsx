@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { Col, Container, Row } from "reactstrap";
-import Meta from "../Meta";
-import MainView from "./MainView";
-import Tags from "./Tags";
+import { useState } from 'react';
+import { Col, Container, Row } from 'reactstrap';
+import Meta from '../Meta';
+import MainView from './MainView';
+import Tags from './Tags';
 
 function Technical() {
 	const [selectedTags, setSelectedTags] = useState([]);
-	const modifyTags = (tag) => {
+	const modifyTags = tag => {
 		if (selectedTags.includes(tag)) {
 			const index = selectedTags.indexOf(tag);
 			setSelectedTags([

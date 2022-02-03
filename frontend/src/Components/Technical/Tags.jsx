@@ -1,3 +1,5 @@
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import SearchIcon from '@mui/icons-material/Search';
 import {
 	InputAdornment,
 	List,
@@ -6,46 +8,44 @@ import {
 	ListItemText,
 	TextField,
 	Typography,
-} from "@mui/material";
-import LocalOfferIcon from "@mui/icons-material/LocalOffer";
-import { Col, Container, Row, Spinner } from "reactstrap";
-import SearchIcon from "@mui/icons-material/Search";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+} from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Col, Container, Row, Spinner } from 'reactstrap';
 import {
 	fetchSkillList,
 	searchSkillList,
-} from "../../Store/ActionCreators/skill";
+} from '../../Store/ActionCreators/skill';
 
 function Tags(props) {
 	const { tags, modifyTags } = props;
 	const dispatch = useDispatch();
 	const [skillList, setSkillList] = useState([]);
-	const [searchText, setSearchText] = useState("");
+	const [searchText, setSearchText] = useState('');
 	const [searchLoading, setSearchLoading] = useState(false);
 	var typingTimer;
-	const startSearch = (e) => {
+	const startSearch = e => {
 		clearTimeout(typingTimer);
 		typingTimer = setTimeout(OnChange, 1000);
 	};
-	const endSearch = (e) => {
+	const endSearch = e => {
 		clearTimeout(typingTimer);
 	};
 	useEffect(() => {
-		dispatch(fetchSkillList()).then((res) => {
+		dispatch(fetchSkillList()).then(res => {
 			setSkillList(res);
 		});
 	}, [dispatch]);
 
-	const OnChange = (e) => {
+	const OnChange = e => {
 		setSearchLoading(true);
 		if (searchText.length > 0) {
-			dispatch(searchSkillList(searchText)).then((res) => {
+			dispatch(searchSkillList(searchText)).then(res => {
 				setSkillList(res);
 				setSearchLoading(false);
 			});
 		} else {
-			dispatch(fetchSkillList()).then((res) => {
+			dispatch(fetchSkillList()).then(res => {
 				setSkillList(res);
 				setSearchLoading(false);
 			});
@@ -59,7 +59,7 @@ function Tags(props) {
 					<Typography variant="h3">Skills</Typography>
 					<TextField
 						label="Filter Tags"
-						onChange={(e) => setSearchText(e.target.value)}
+						onChange={e => setSearchText(e.target.value)}
 						onKeyDown={endSearch}
 						onKeyUp={startSearch}
 						fullWidth
@@ -72,13 +72,12 @@ function Tags(props) {
 						}}
 					/>
 					<List className="d-none d-md-block">
-						{skillList.map((tag) => (
+						{skillList.map(tag => (
 							<ListItem
 								button
 								selected={tags?.includes(tag.label)}
 								key={Math.random()}
-								onClick={() => modifyTags(tag.label)}
-							>
+								onClick={() => modifyTags(tag.label)}>
 								<ListItemIcon>
 									<LocalOfferIcon />
 								</ListItemIcon>

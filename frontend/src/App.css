@@ -3,23 +3,23 @@ body {
 	height: 100%;
 	min-height: 100vh;
 }
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;500;800&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;500;800&display=swap');
 .App {
 	min-height: 100vh;
-	font-family: "Poppins", Times, serif;
+	font-family: 'Poppins', Times, serif;
 }
 
 span {
-	font-family: "Poppins", Times, serif !important;
+	font-family: 'Poppins', Times, serif !important;
 }
 button {
-	font-family: "Poppins", Times, serif !important;
+	font-family: 'Poppins', Times, serif !important;
 }
 label {
-	font-family: "Poppins", Times, serif !important;
+	font-family: 'Poppins', Times, serif !important;
 }
 .poppins {
-	font-family: "Poppins", Times, serif;
+	font-family: 'Poppins', Times, serif;
 }
 .rounded_lg {
 	border-radius: 20px;
