@@ -10,7 +10,7 @@ import classNames from 'classnames';
 import moment from 'moment';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { addVote } from '../../Store/ActionCreators/vote';
 import './style.scss';
 
@@ -32,7 +32,6 @@ function TechCard(props) {
 	const [save, setSave] = useState(vote_log.saved_flag);
 	const [dismiss, setDismiss] = useState(vote_log.dismiss_flag);
 
-	const history = useHistory();
 	const dispatch = useDispatch();
 
 	const Vote = option => {
@@ -62,20 +61,20 @@ function TechCard(props) {
 			<CardActionArea>
 				<div className="d-flex justify-content-between flex-column">
 					<CardContent>
-						<div onClick={() => history.push(`/skill/${id}`)}>
+						<NavLink to={`/skill/${id}`} className="text-dark">
 							<Typography variant="h5">{skill?.label}</Typography>
-						</div>
+						</NavLink>
 						<Typography variant="overline" color="textSecondary">
-							<NavLink to={`/${created_by.username}`}>
+							<NavLink to={`/${created_by.username}`} className="creatorlink">
 								{created_by.name ? created_by.name : created_by.username}
 							</NavLink>
 						</Typography>
-						<div onClick={() => history.push(`/skill/${id}`)}>
+						<NavLink to={`/skill/${id}`} className="text-dark">
 							<Typography variant="body2">{description}</Typography>
 							<small className="text-muted text-center">
 								Posted {moment(created_at).fromNow()}
 							</small>
-						</div>
+						</NavLink>
 					</CardContent>
 					<div className="d-flex flex-row">
 						<Tooltip title="Endorse" placement="top">

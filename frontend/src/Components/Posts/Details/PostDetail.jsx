@@ -9,13 +9,14 @@ import { fetchPostDetails } from '../../../Store/ActionCreators/post';
 import { addVote } from '../../../Store/ActionCreators/vote';
 import CustomImage from '../../../Utils/CustomImage';
 import Meta from '../../Meta';
+import Notfound from '../../NotFound/Notfound';
 import Reaction from '../Cards/Reaction';
 import Messages from '../Messages/Messages';
 
 function PostDetail(props) {
 	const id = props.match.params.postId;
 	const dispatch = useDispatch();
-	const [details, setDetails] = useState({});
+	const [details, setDetails] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [num_upvotes, setNum_upvotes] = useState(null);
 	const [liked, setLiked] = useState(null);
@@ -54,6 +55,11 @@ function PostDetail(props) {
 
 		dispatch(addVote({ id, data }));
 	};
+
+	if (details === undefined) {
+		return <Notfound />;
+	}
+
 	return (
 		<Container className="shadow p-3 my-4">
 			{details && (

@@ -1,9 +1,11 @@
+import { Tooltip } from '@mui/material';
 import moment from 'moment';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router';
 import { NavLink } from 'react-router-dom';
 import { Col, Container, Row } from 'reactstrap';
+import { Icon } from 'semantic-ui-react';
 import { addVote } from '../../../Store/ActionCreators/vote';
 import CustomImage from '../../../Utils/CustomImage';
 import '../style.scss';
@@ -66,30 +68,36 @@ function OtherCard(props) {
 							/>
 						</Col>
 						<Col xs={9}>
-							<h3
-								className="text-capitalize"
-								onClick={() => props.history.push(`/posts/other/${id}`)}
-								style={{ cursor: 'pointer' }}>
-								{title}
-							</h3>
+							<NavLink to={`/posts/other/${id}`} className="text-dark">
+								<h3 className="text-capitalize">{title}</h3>
+							</NavLink>
 							<small className="text-muted float-right">
 								-{' '}
-								<NavLink to={`/${created_by.username}`}>
+								<NavLink to={`/${created_by.username}`} className="creatorlink">
 									{created_by.name ? created_by.name : created_by.username}
 								</NavLink>
 							</small>
 						</Col>
 					</Row>
-					<Row
-						className="mt-1 btn p-0"
-						onClick={() => props.history.push(`/posts/other/${id}`)}>
-						<Col className="text-justify">{description}</Col>
+					<Row className="mt-1 ">
+						<NavLink to={`/posts/other/${id}`} className="text-dark">
+							<Col className="text-justify">{description}</Col>
+						</NavLink>
 					</Row>
 				</Col>
 			</Row>
-			<small className="text-muted text-center">
-				Posted {moment(created_at).fromNow()}
-			</small>
+			<Row className="d-flex justify-content-around">
+				<small className="text-muted text-center">
+					Posted {moment(created_at).fromNow()}
+				</small>
+				{is_request && (
+					<Tooltip title="This is a Request Post" placement="top">
+						<p>
+							<Icon name="handshake" color="red" />
+						</p>
+					</Tooltip>
+				)}
+			</Row>
 			<Reaction
 				num_upvotes={num_upvotes}
 				liked={liked}

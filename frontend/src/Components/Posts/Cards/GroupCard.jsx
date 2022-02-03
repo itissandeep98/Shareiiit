@@ -65,24 +65,21 @@ function GroupCard(props) {
 							/>
 						</Col>
 						<Col xs={9}>
-							<h3
-								className="text-capitalize"
-								onClick={() => props.history.push(`/posts/group/${id}`)}
-								style={{ cursor: 'pointer' }}>
-								{title}
-							</h3>
+							<NavLink to={`/posts/group/${id}`} className="text-dark">
+								<h3 className="text-capitalize">{title}</h3>
+							</NavLink>
 							<small className="text-muted float-right">
 								-{' '}
-								<NavLink to={`/${created_by.username}`}>
+								<NavLink to={`/${created_by.username}`} className="creatorlink">
 									{created_by.name ? created_by.name : created_by.username}
 								</NavLink>
 							</small>
 						</Col>
 					</Row>
-					<Row
-						className="mt-1 btn p-0"
-						onClick={() => props.history.push(`/posts/group/${id}`)}>
-						<Col className="text-justify">{description}</Col>
+					<Row className="mt-1 ">
+						<NavLink to={`/posts/group/${id}`} className="text-dark">
+							<Col className="text-justify">{description}</Col>
+						</NavLink>
 					</Row>
 				</Col>
 			</Row>

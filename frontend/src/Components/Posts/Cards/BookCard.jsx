@@ -25,6 +25,7 @@ function BookCard(props) {
 		upvote_count,
 		vote_log,
 	} = props;
+
 	const [num_upvotes, setNum_upvotes] = useState(upvote_count);
 	const [liked, setLiked] = useState(vote_log.upvoted_flag);
 	const [saved, setSaved] = useState(vote_log.saved_flag);
@@ -69,24 +70,21 @@ function BookCard(props) {
 							/>
 						</Col>
 						<Col xs={9}>
-							<h3
-								className="text-capitalize"
-								onClick={() => props.history.push(`/posts/book/${id}`)}
-								style={{ cursor: 'pointer' }}>
-								{title}
-							</h3>
+							<NavLink to={`/posts/book/${id}`} className="text-dark">
+								<h3 className="text-capitalize">{title}</h3>
+							</NavLink>
 							<small className="text-muted float-right">
 								-{' '}
-								<NavLink to={`/${created_by.username}`}>
+								<NavLink to={`/${created_by.username}`} className="creatorlink">
 									{created_by.name ? created_by.name : created_by.username}
 								</NavLink>
 							</small>
 						</Col>
 					</Row>
-					<Row
-						className="mt-1 btn p-0"
-						onClick={() => props.history.push(`/posts/book/${id}`)}>
-						<Col className="text-justify">{description}</Col>
+					<Row className="mt-1 ">
+						<NavLink to={`/posts/book/${id}`} className="text-dark">
+							<Col className="text-justify">{description}</Col>
+						</NavLink>
 					</Row>
 				</Col>
 			</Row>
