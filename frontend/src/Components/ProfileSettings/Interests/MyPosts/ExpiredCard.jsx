@@ -5,8 +5,8 @@ import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Col, Container, Row } from 'reactstrap';
 import { Icon } from 'semantic-ui-react';
-import { deletePost } from '../../../Store/ActionCreators/post';
-import CustomImage from '../../../Utils/CustomImage';
+import { deletePost } from '../../../../Store/ActionCreators/post';
+import CustomImage from '../../../../Utils/CustomImage';
 import DeleteModal from './DeleteModal';
 
 function ExpiredCard(props) {

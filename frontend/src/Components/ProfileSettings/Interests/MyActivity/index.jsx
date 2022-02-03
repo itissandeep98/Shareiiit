@@ -2,7 +2,7 @@ import { Box, Paper, Tab, Tabs } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Col, Container, Row } from 'reactstrap';
-import { fetchVotedPosts } from '../../../Store/ActionCreators/vote';
+import { fetchVotedPosts } from '../../../../Store/ActionCreators/vote';
 import Dismissed from './Dismissed';
 import Saved from './Saved';
 import Upvoted from './Upvoted';
@@ -36,8 +36,7 @@ function MyActivity() {
 					onChange={(e, value) => setValue(value)}
 					indicatorColor="primary"
 					textColor="primary"
-					centered
-				>
+					centered>
 					<Tab label="Saved" />
 					<Tab label="Upvoted" />
 					<Tab label="Dismissed" />
@@ -52,8 +51,7 @@ function MyActivity() {
 							indicatorColor="primary"
 							textColor="primary"
 							orientation="vertical"
-							centered
-						>
+							centered>
 							<Tab label="Books" />
 							<Tab label="Groups" />
 							<Tab label="Electronics" />
@@ -68,8 +66,7 @@ function MyActivity() {
 						cards={cards}
 						category={category}
 						loading={loading}
-						index={0}
-					>
+						index={0}>
 						<Saved />
 					</TabPanel>
 					<TabPanel
@@ -77,8 +74,7 @@ function MyActivity() {
 						cards={cards}
 						category={category}
 						loading={loading}
-						index={1}
-					>
+						index={1}>
 						<Upvoted />
 					</TabPanel>
 					<TabPanel
@@ -86,8 +82,7 @@ function MyActivity() {
 						cards={cards}
 						category={category}
 						loading={loading}
-						index={2}
-					>
+						index={2}>
 						<Dismissed />
 					</TabPanel>
 				</Col>

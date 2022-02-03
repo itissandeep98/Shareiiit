@@ -1,6 +1,6 @@
 import { Col, Container, Row } from 'reactstrap';
 import { Tab } from 'semantic-ui-react';
-import Meta from '../../Meta';
+import Meta from '../../../Meta';
 import PostList from './PostList';
 
 function MyPosts(props) {

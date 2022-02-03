@@ -13,8 +13,11 @@ const AuthComp = lazy(() => import('../Authorization'));
 const ProfileSettings = lazy(() => import('../ProfileSettings'));
 const Profile = lazy(() => import('../Profile'));
 const PostDetail = lazy(() => import('../Posts/Details/PostDetail'));
-const MyPosts = lazy(() => import('../Interests/MyPosts'));
-const Interactions = lazy(() => import('../Interests/MyActivity'));
+const Following = lazy(() => import('../ProfileSettings/Following'));
+const MyPosts = lazy(() => import('../ProfileSettings/Interests/MyPosts'));
+const Interactions = lazy(() =>
+	import('../ProfileSettings/Interests/MyActivity')
+);
 const Technical = lazy(() => import('../Technical'));
 const LandingPage = lazy(() => import('../LandingPage'));
 const GroupDetails = lazy(() => import('../Posts/Details/GroupDetails'));
@@ -47,6 +50,12 @@ function Routing() {
 			private: true,
 			layout: true,
 			render: () => <Interactions />,
+		},
+		{
+			path: '/profile/following',
+			private: true,
+			layout: true,
+			render: () => <Following />,
 		},
 		{
 			path: '/profile',

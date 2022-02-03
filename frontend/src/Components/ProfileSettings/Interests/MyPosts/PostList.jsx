@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Col, Container, Row, Spinner } from 'reactstrap';
-import { fetchMyPosts } from '../../../Store/ActionCreators/post';
+import { fetchMyPosts } from '../../../../Store/ActionCreators/post';
 import ExpiredCard from './ExpiredCard';
 import MyPostCard from './MyPostCard';
 

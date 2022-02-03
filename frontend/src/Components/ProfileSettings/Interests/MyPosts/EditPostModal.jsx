@@ -3,9 +3,9 @@ import { Button, Checkbox, FormControlLabel, TextField } from '@mui/material';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Modal, ModalBody, ModalHeader } from 'reactstrap';
-import { updatePost } from '../../../Store/ActionCreators/post';
-import ImageUploader from '../../../Utils/ImageUploader';
-import UserSearchBar from '../../Posts/Create/UserSearchBar';
+import { updatePost } from '../../../../Store/ActionCreators/post';
+import ImageUploader from '../../../../Utils/ImageUploader';
+import UserSearchBar from '../../../Posts/Create/UserSearchBar';
 
 function EditPostModal(props) {
 	const { modal, setModal, id } = props;

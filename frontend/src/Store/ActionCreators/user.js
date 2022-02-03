@@ -72,3 +72,26 @@ export const updateUser = data => {
 			});
 	};
 };
+
+export const fetchUserFollowers = () => {
+	return async dispatch => {
+		dispatch({ type: ActionTypes.USER_FOLLOWERS_FETCH_REQUEST });
+		return await axios
+			.get(`${apiUrl}/api/following/`, { headers: headers() })
+			.then(response => {
+				const { results, next } = response.data;
+				dispatch({
+					type: ActionTypes.USER_FOLLOWERS_FETCH_SUCCESS,
+					data: results,
+					next,
+				});
+				return results;
+			})
+			.catch(error => {
+				dispatch({
+					type: ActionTypes.USER_FOLLOWERS_FETCH_FAILED,
+					errmess: 'Error in connection with Server',
+				});
+			});
+	};
+};

@@ -4,8 +4,9 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Col, Container, Row } from 'reactstrap';
-import { Icon, Image } from 'semantic-ui-react';
-import { deletePost } from '../../../Store/ActionCreators/post';
+import { Icon } from 'semantic-ui-react';
+import { deletePost } from '../../../../Store/ActionCreators/post';
+import CustomImage from '../../../../Utils/CustomImage';
 import DeleteModal from './DeleteModal';
 import EditPostModal from './EditPostModal';
 
@@ -41,7 +42,7 @@ function MyPostCard(props) {
 					<Col>
 						<Row>
 							<Col>
-								<Image
+								<CustomImage
 									src={
 										image ??
 										process.env.PUBLIC_URL +

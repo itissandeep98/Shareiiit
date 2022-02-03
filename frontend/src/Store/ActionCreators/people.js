@@ -55,3 +55,65 @@ export const fetchPeopleSkills = user => {
 			});
 	};
 };
+
+export const followPeople = ({ id }) => {
+	return async dispatch => {
+		dispatch({ type: ActionTypes.USER_FOLLOW_REQUEST });
+		return await axios
+			.post(
+				`${apiUrl}/api/following/`,
+				{ user: id },
+				{
+					headers: headers(),
+				}
+			)
+			.then(response => {
+				dispatch({
+					type: ActionTypes.USER_FOLLOW_SUCCESS,
+					data: response.data,
+				});
+			})
+			.catch(error => {
+				if (error?.response?.data?.detail) {
+					dispatch({
+						type: ActionTypes.USER_FOLLOW_FAILED,
+						errmess: error.response.data.detail,
+					});
+				} else {
+					dispatch({
+						type: ActionTypes.USER_FOLLOW_FAILED,
+						errmess: error.response,
+					});
+				}
+			});
+	};
+};
+
+export const unfollowPeople = ({ id }) => {
+	return async dispatch => {
+		dispatch({ type: ActionTypes.USER_UNFOLLOW_REQUEST });
+		return await axios
+			.delete(`${apiUrl}/api/following/${id}/`, {
+				headers: headers(),
+			})
+			.then(response => {
+				dispatch({
+					type: ActionTypes.USER_UNFOLLOW_SUCCESS,
+					data: response.data,
+				});
+			})
+			.catch(error => {
+				if (error?.response?.data?.detail) {
+					dispatch({
+						type: ActionTypes.USER_UNFOLLOW_FAILED,
+						errmess: error.response.data.detail,
+					});
+				} else {
+					dispatch({
+						type: ActionTypes.USER_UNFOLLOW_FAILED,
+						errmess: error.response,
+					});
+				}
+			});
+	};
+};

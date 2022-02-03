@@ -144,7 +144,7 @@ function BasicDetails(props) {
 
 				<Button
 					variant="outlined"
-					className="mt-3 float-right rounded-pill bg-info text-white"
+					className="mt-3 float-right  text-iiitd"
 					onClick={updateDetails}>
 					Update
 				</Button>
