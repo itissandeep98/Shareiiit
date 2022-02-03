@@ -1,14 +1,14 @@
-import ReactDOM from "react-dom";
-import React from "react";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "font-awesome/css/font-awesome.css";
-import "semantic-ui-css/semantic.min.css";
-import { Provider } from "react-redux";
-import { configureStore, persistor } from "./Store/configureStore";
-import { PersistGate } from "redux-persist/integration/react";
-import * as serviceWorkerRegistration from "./serviceWorkerRegistration";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'font-awesome/css/font-awesome.css';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import 'semantic-ui-css/semantic.min.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import * as serviceWorkerRegistration from './serviceWorkerRegistration';
+import { configureStore, persistor } from './Store/configureStore';
 
 const store = configureStore;
 
@@ -20,7 +20,7 @@ ReactDOM.render(
 			</React.StrictMode>
 		</PersistGate>
 	</Provider>,
-	document.getElementById("root")
+	document.getElementById('root')
 );
 
 reportWebVitals();

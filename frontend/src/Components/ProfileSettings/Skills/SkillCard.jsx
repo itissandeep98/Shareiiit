@@ -1,3 +1,4 @@
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {
 	Accordion,
 	AccordionActions,
@@ -5,11 +6,10 @@ import {
 	AccordionSummary,
 	Button,
 	Typography,
-} from "@mui/material";
-import { Rating } from "semantic-ui-react";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import EditSkill from "./EditSkill";
-import { useState } from "react";
+} from '@mui/material';
+import { useState } from 'react';
+import { Rating } from 'semantic-ui-react';
+import EditSkill from './EditSkill';
 
 function SkillCard(props) {
 	const { details, handleChange, expanded, handleDelete } = props;

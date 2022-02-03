@@ -1,6 +1,6 @@
-import React from "react";
-import classNames from "classnames";
-import { SectionProps } from "../../utils/SectionProps";
+import React from 'react';
+import classNames from 'classnames';
+import { SectionProps } from '../../utils/SectionProps';
 
 const propTypes = {
 	...SectionProps.types,
@@ -21,18 +21,18 @@ const Hero = ({
 	...props
 }) => {
 	const outerClasses = classNames(
-		"hero section center-content",
-		topOuterDivider && "has-top-divider",
-		bottomOuterDivider && "has-bottom-divider",
-		hasBgColor && "has-bg-color",
-		invertColor && "invert-color",
+		'hero section center-content',
+		topOuterDivider && 'has-top-divider',
+		bottomOuterDivider && 'has-bottom-divider',
+		hasBgColor && 'has-bg-color',
+		invertColor && 'invert-color',
 		className
 	);
 
 	const innerClasses = classNames(
-		"hero-inner section-inner",
-		topDivider && "has-top-divider",
-		bottomDivider && "has-bottom-divider"
+		'hero-inner section-inner',
+		topDivider && 'has-top-divider',
+		bottomDivider && 'has-bottom-divider'
 	);
 
 	return (
@@ -45,10 +45,7 @@ const Hero = ({
 							data-reveal-delay="200"
 						>
 							Resource Sharing Platform
-							<span className="text-color-primary">
-								{" "}
-								for IIITD
-							</span>
+							<span className="text-color-primary"> for IIITD</span>
 						</h1>
 						<div className="container-xs">
 							<p

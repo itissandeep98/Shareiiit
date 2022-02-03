@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { Comment, Label, Menu, Tab } from "semantic-ui-react";
-import { fetchMessages } from "../../../Store/ActionCreators/message";
-import "./style.css";
-import UserMessage from "./UserMessage";
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Comment, Label, Menu, Tab } from 'semantic-ui-react';
+import { fetchMessages } from '../../../Store/ActionCreators/message';
+import './style.css';
+import UserMessage from './UserMessage';
 
 function Messages(props) {
 	const { id, recipient, creator } = props;
@@ -11,7 +11,7 @@ function Messages(props) {
 	const [users, setUsers] = useState([]);
 
 	const updateData = () => {
-		dispatch(fetchMessages({ post: id })).then((res) => {
+		dispatch(fetchMessages({ post: id })).then(res => {
 			if (creator != recipient && res.length === 0) {
 				setUsers([{ user2: recipient, messages: [] }]);
 			} else {

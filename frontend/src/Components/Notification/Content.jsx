@@ -1,13 +1,13 @@
-import { useDispatch } from "react-redux";
-import { Icon } from "semantic-ui-react";
+import IconButton from '@mui/material/IconButton';
+import moment from 'moment';
+import { useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { Col, Container, Row } from 'reactstrap';
+import { Icon } from 'semantic-ui-react';
 import {
 	fetchNotification,
 	updateNotification,
-} from "../../Store/ActionCreators/notification";
-import { NavLink } from "react-router-dom";
-import { Col, Container, Row } from "reactstrap";
-import IconButton from "@mui/material/IconButton";
-import moment from "moment";
+} from '../../Store/ActionCreators/notification';
 
 export default function Content({ notification, unread, read }) {
 	return (
@@ -27,7 +27,7 @@ export default function Content({ notification, unread, read }) {
 									<h4>Unread</h4>
 									<hr />
 									<ul className="notif-list">
-										{unread?.map((item) => (
+										{unread?.map(item => (
 											<SingleNotification {...item} />
 										))}
 									</ul>
@@ -38,7 +38,7 @@ export default function Content({ notification, unread, read }) {
 									<h4>Read</h4>
 									<hr />
 									<ul className="notif-list">
-										{read?.map((item) => (
+										{read?.map(item => (
 											<SingleNotification {...item} />
 										))}
 									</ul>
@@ -55,7 +55,7 @@ export default function Content({ notification, unread, read }) {
 const SingleNotification = ({ id, post, type, read, text, timestamp }) => {
 	const dispatch = useDispatch();
 
-	const markRead = (e) => {
+	const markRead = e => {
 		e.preventDefault();
 		dispatch(updateNotification(id)).then(() => {
 			dispatch(fetchNotification());
@@ -65,11 +65,11 @@ const SingleNotification = ({ id, post, type, read, text, timestamp }) => {
 		<li>
 			<Row>
 				<Col className="text-break text-wrap">
-					{type === "VOTE" && <Icon name="thumbs up" />}
-					{type === "MSG" && <Icon name="facebook messenger" />}
-					{type === "TAG" && <Icon name="tag" />}
+					{type === 'VOTE' && <Icon name="thumbs up" />}
+					{type === 'MSG' && <Icon name="facebook messenger" />}
+					{type === 'TAG' && <Icon name="tag" />}
 
-					{post.category === "skill" ? (
+					{post.category === 'skill' ? (
 						<NavLink to={`/skill/${post.id}`}>{text}</NavLink>
 					) : (
 						<NavLink to={`/posts/${post.category}/${post.id}`}>{text}</NavLink>

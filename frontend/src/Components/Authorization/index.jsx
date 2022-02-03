@@ -1,18 +1,18 @@
-import { Col, Container, Row } from "reactstrap";
-import { Image } from "semantic-ui-react";
-import Login from "./Login";
-import "./style.scss";
+import { Col, Container, Row } from 'reactstrap';
+import { Image } from 'semantic-ui-react';
+import Login from './Login';
+import './style.scss';
 
 function AuthComp(props) {
 	return (
 		<div
 			className="align-items-center bg-gradient px-3 pt-5"
-			style={{ minHeight: "100vh" }}
+			style={{ minHeight: '100vh' }}
 		>
 			<Container className="py-4">
 				<Row
 					className="bg-white py-5 rounded-lg shadow"
-					style={{ minHeight: "80vh" }}
+					style={{ minHeight: '80vh' }}
 				>
 					<Col
 						xs={12}
@@ -20,7 +20,7 @@ function AuthComp(props) {
 						className="align-items-center d-flex justify-content-center"
 					>
 						<Image
-							src={process.env.PUBLIC_URL + "/assets/images/auth-image.png"}
+							src={process.env.PUBLIC_URL + '/assets/images/auth-image.png'}
 							alt="ShareIIITD"
 							size="large"
 						/>

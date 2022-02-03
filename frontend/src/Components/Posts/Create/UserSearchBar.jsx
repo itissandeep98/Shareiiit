@@ -1,44 +1,44 @@
-import { useEffect, useState } from "react";
-import { Autocomplete, Chip, TextField } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { searchUser } from "../../../Store/ActionCreators/search";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import { NavLink, withRouter } from "react-router-dom";
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { Autocomplete, Chip, TextField } from '@mui/material';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { searchUser } from '../../../Store/ActionCreators/search';
 
 function UserSearchBar(props) {
 	const { members, onChange } = props;
 	const [userList, setuserList] = useState([]);
 	const [searchLoading, setSearchLoading] = useState(false);
-	const [searchText, setSearchText] = useState("");
+	const [searchText, setSearchText] = useState('');
 	const dispatch = useDispatch();
 
 	var typingTimer;
-	const startSearch = (e) => {
+	const startSearch = e => {
 		clearTimeout(typingTimer);
 		typingTimer = setTimeout(handleSearch, 500);
 	};
-	const endSearch = (e) => {
+	const endSearch = e => {
 		clearTimeout(typingTimer);
 	};
 
 	const handleSearch = () => {
 		setSearchLoading(true);
-		dispatch(searchUser({ search: searchText })).then((res) => {
+		dispatch(searchUser({ search: searchText })).then(res => {
 			setuserList(res);
 			setSearchLoading(false);
 		});
 	};
 
-	const addMembers = (user) => {
+	const addMembers = user => {
 		if (members) {
 			onChange([...members, user]);
 		} else {
 			onChange([user]);
 		}
 	};
-	const removeMembers = (user) => {
+	const removeMembers = user => {
 		if (members) {
-			onChange(members.filter((member) => member.username !== user));
+			onChange(members.filter(member => member.username !== user));
 		}
 	};
 	return (
@@ -50,15 +50,15 @@ function UserSearchBar(props) {
 				loading={searchLoading}
 				loadingText="Searching..."
 				options={userList}
-				getOptionLabel={(option) => option.username}
-				getOptionDisabled={(option) =>
-					members?.find((member) => member.username === option.username)
+				getOptionLabel={option => option.username}
+				getOptionDisabled={option =>
+					members?.find(member => member.username === option.username)
 				}
-				renderInput={(params) => (
+				renderInput={params => (
 					<TextField
 						fullWidth
 						{...params}
-						onChange={(e) => setSearchText(e.target.value)}
+						onChange={e => setSearchText(e.target.value)}
 						onKeyDown={endSearch}
 						onKeyUp={startSearch}
 						label="Tag Members"
@@ -69,7 +69,7 @@ function UserSearchBar(props) {
 				}
 			/>
 			{members &&
-				members?.map((member) => (
+				members?.map(member => (
 					<Chip
 						label={
 							<NavLink to={`/${member.username}`} target="__blank">
@@ -87,16 +87,15 @@ function UserSearchBar(props) {
 }
 
 const CustomOption = (props, option, addMembers) => {
-	const disabled = props["aria-disabled"];
+	const disabled = props['aria-disabled'];
 	if (disabled) {
 		return <></>;
 	}
 	return (
 		<div
 			className="p-2"
-			style={{ cursor: "pointer" }}
-			onClick={(e) => addMembers(option)}
-		>
+			style={{ cursor: 'pointer' }}
+			onClick={e => addMembers(option)}>
 			{option.first_name} {option.last_name} - {option.username}
 		</div>
 	);

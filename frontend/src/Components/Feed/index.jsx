@@ -1,16 +1,16 @@
-import { Button } from "@mui/material";
-import { useEffect, useState } from "react";
-import { connect, useDispatch } from "react-redux";
-import { Col, Container, Row, Spinner } from "reactstrap";
-import { fetchNextPosts, fetchPosts } from "../../Store/ActionCreators/post";
-import FilterBar from "./FilterBar";
-import AddIcon from "@mui/icons-material/Add";
-import Create from "../Posts/Create/Create";
-import Meta from "../Meta";
-import BookCard from "../Posts/Cards/BookCard";
-import GroupCard from "../Posts/Cards/GroupCard";
-import ElectronicsCard from "../Posts/Cards/ElectronicsCard";
-import OtherCard from "../Posts/Cards/OtherCard";
+import AddIcon from '@mui/icons-material/Add';
+import { Button } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Col, Container, Row, Spinner } from 'reactstrap';
+import { fetchNextPosts, fetchPosts } from '../../Store/ActionCreators/post';
+import Meta from '../Meta';
+import BookCard from '../Posts/Cards/BookCard';
+import ElectronicsCard from '../Posts/Cards/ElectronicsCard';
+import GroupCard from '../Posts/Cards/GroupCard';
+import OtherCard from '../Posts/Cards/OtherCard';
+import Create from '../Posts/Create/Create';
+import FilterBar from './FilterBar';
 
 const CardTemplates = {
 	book: BookCard,
@@ -18,28 +18,29 @@ const CardTemplates = {
 	electronic: ElectronicsCard,
 	other: OtherCard,
 };
+
 function Posts(props) {
 	const [cards, setCards] = useState([]);
-	const [category, setCategory] = useState("book");
+	const [category, setCategory] = useState('book');
 	const [next, setNext] = useState(false);
-	const [ordering, setOrdering] = useState("created_at");
+	const [ordering, setOrdering] = useState('created_at');
 	const [is_request, setRequest] = useState(0);
 	const [modal, setModal] = useState(false);
-
 	const [loading, setLoading] = useState(false);
 	const [moreLoading, setMoreLoading] = useState(false);
 	const dispatch = useDispatch();
+
 	useEffect(() => {
 		setLoading(true);
 		setCards([]);
 		if (is_request === 0) {
-			dispatch(fetchPosts({ category, ordering })).then((res) => {
+			dispatch(fetchPosts({ category, ordering })).then(res => {
 				setCards(res.results);
 				setNext(res.next);
 				setLoading(false);
 			});
 		} else {
-			dispatch(fetchPosts({ category, ordering, is_request })).then((res) => {
+			dispatch(fetchPosts({ category, ordering, is_request })).then(res => {
 				setCards(res.results);
 				setNext(res.next);
 				setLoading(false);
@@ -51,7 +52,7 @@ function Posts(props) {
 		setMoreLoading(true);
 		dispatch(
 			fetchNextPosts({ category, ordering, is_request, page: next })
-		).then((res) => {
+		).then(res => {
 			setCards([...cards, ...res.results]);
 			setNext(res.next);
 			setMoreLoading(false);
@@ -65,8 +66,7 @@ function Posts(props) {
 				<Col md={10}>
 					<Container
 						fluid
-						className="shadow my-3 py-4 rounded_lg bg-white align-items-center"
-					>
+						className="shadow my-3 py-4 rounded_lg bg-white align-items-center">
 						<Row>
 							<Col className="text-center">
 								<Create
@@ -78,8 +78,7 @@ function Posts(props) {
 											className="mt-3 text-iiitd"
 											startIcon={<AddIcon />}
 											size="large"
-											onClick={() => setModal(!modal)}
-										>
+											onClick={() => setModal(!modal)}>
 											Create New Post
 										</Button>
 									}
@@ -101,7 +100,7 @@ function Posts(props) {
 								<br />
 								<Row>
 									{cards && cards?.length > 0 ? (
-										cards?.map((card) => (
+										cards?.map(card => (
 											<Col xs={12} md={6} lg={4} className="my-3" key={card.id}>
 												{CardTemplates[card.category]({ ...card })}
 											</Col>
@@ -116,8 +115,7 @@ function Posts(props) {
 											variant="contained"
 											size="small"
 											disabled={moreLoading}
-											onClick={fetchMore}
-										>
+											onClick={fetchMore}>
 											Show More <i className="fa fa-caret-down ml-2" />
 										</Button>
 									)}
@@ -136,8 +134,4 @@ function Posts(props) {
 	);
 }
 
-const mapStateToProps = (state) => ({
-	posts: state.posts,
-});
-
-export default connect(mapStateToProps)(Posts);
+export default Posts;

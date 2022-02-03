@@ -1,19 +1,19 @@
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import { CardActionArea, CardMedia, Tooltip } from "@mui/material";
-import moment from "moment";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import { NavLink } from "react-router-dom";
-import { useHistory } from "react-router-dom";
-import "./style.scss";
-import { useState } from "react";
-import classNames from "classnames";
-import { addVote } from "../../Store/ActionCreators/vote";
-import { useDispatch } from "react-redux";
-import CloseIcon from "@mui/icons-material/Close";
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import CloseIcon from '@mui/icons-material/Close';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { CardActionArea, CardMedia, Tooltip } from '@mui/material';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import classNames from 'classnames';
+import moment from 'moment';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { addVote } from '../../Store/ActionCreators/vote';
+import './style.scss';
+
 function TechCard(props) {
 	const {
 		id,
@@ -32,10 +32,9 @@ function TechCard(props) {
 	const [save, setSave] = useState(vote_log.saved_flag);
 	const [dismiss, setDismiss] = useState(vote_log.dismiss_flag);
 
-	const history = useHistory();
 	const dispatch = useDispatch();
 
-	const Vote = (option) => {
+	const Vote = option => {
 		let data = {};
 		if (option == 1) {
 			if (endorse) {
@@ -62,27 +61,26 @@ function TechCard(props) {
 			<CardActionArea>
 				<div className="d-flex justify-content-between flex-column">
 					<CardContent>
-						<div onClick={() => history.push(`/skill/${id}`)}>
+						<NavLink to={`/skill/${id}`} className="text-dark">
 							<Typography variant="h5">{skill?.label}</Typography>
-						</div>
+						</NavLink>
 						<Typography variant="overline" color="textSecondary">
-							<NavLink to={`/${created_by.username}`}>
+							<NavLink to={`/${created_by.username}`} className="creatorlink">
 								{created_by.name ? created_by.name : created_by.username}
 							</NavLink>
 						</Typography>
-						<div onClick={() => history.push(`/skill/${id}`)}>
+						<NavLink to={`/skill/${id}`} className="text-dark">
 							<Typography variant="body2">{description}</Typography>
 							<small className="text-muted text-center">
 								Posted {moment(created_at).fromNow()}
 							</small>
-						</div>
+						</NavLink>
 					</CardContent>
 					<div className="d-flex flex-row">
 						<Tooltip title="Endorse" placement="top">
 							<IconButton
 								onClick={() => Vote(1)}
-								className={classNames({ "text-danger": endorse })}
-							>
+								className={classNames({ 'text-danger': endorse })}>
 								<FavoriteBorderIcon />
 								<small> {num_upvotes > 0 && num_upvotes}</small>
 							</IconButton>
@@ -90,16 +88,14 @@ function TechCard(props) {
 						<Tooltip title="Save" placement="top">
 							<IconButton
 								onClick={() => Vote(2)}
-								className={classNames({ "text-info": save })}
-							>
+								className={classNames({ 'text-info': save })}>
 								<BookmarkBorderIcon />
 							</IconButton>
 						</Tooltip>
 						<Tooltip title="Dismiss" placement="top">
 							<IconButton
 								onClick={() => Vote(3)}
-								className={classNames({ "text-danger": dismiss })}
-							>
+								className={classNames({ 'text-danger': dismiss })}>
 								<CloseIcon />
 							</IconButton>
 						</Tooltip>
@@ -108,7 +104,7 @@ function TechCard(props) {
 			</CardActionArea>
 			<CardMedia
 				className="float-right w-50"
-				image={process.env.PUBLIC_URL + "/assets/images/skill.svg"}
+				image={process.env.PUBLIC_URL + '/assets/images/skill.svg'}
 			/>
 		</Card>
 	);

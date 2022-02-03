@@ -1,32 +1,32 @@
-import { Button, TextField } from "@mui/material";
-import CheckIcon from "@mui/icons-material/Check";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { createPost, fetchPosts } from "../../../../Store/ActionCreators/post";
-import UserSearchBar from "../UserSearchBar";
+import CheckIcon from '@mui/icons-material/Check';
+import { Button, TextField } from '@mui/material';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { createPost, fetchPosts } from '../../../../Store/ActionCreators/post';
+import UserSearchBar from '../UserSearchBar';
 
 function Groups(props) {
 	const dispatch = useDispatch();
 	const [state, setState] = useState({});
 
-	const handleSubmit = (e) => {
+	const handleSubmit = e => {
 		e.preventDefault();
 		const data = {
 			title: state.title,
 			description: state.description,
 			group: {
 				members_needed: parseInt(state.members_needed),
-				current_members: state?.members?.map((member) => member.id),
+				current_members: state?.members?.map(member => member.id),
 			},
 		};
 
-		dispatch(createPost({ data, category: "group" })).then(() => {
-			dispatch(fetchPosts({ category: "group" }));
+		dispatch(createPost({ data, category: 'group' })).then(() => {
+			dispatch(fetchPosts({ category: 'group' }));
 			props.toggle();
 		});
 	};
 
-	const onChange = (e) => {
+	const onChange = e => {
 		setState({ ...state, [e.target.name]: e.target.value });
 	};
 
@@ -66,14 +66,13 @@ function Groups(props) {
 			/>
 			<UserSearchBar
 				members={state.members}
-				onChange={(val) => setState({ ...state, members: val })}
+				onChange={val => setState({ ...state, members: val })}
 			/>
 			<Button
 				variant="outlined"
 				className="mt-3 float-right"
 				startIcon={<CheckIcon />}
-				onClick={handleSubmit}
-			>
+				onClick={handleSubmit}>
 				Submit
 			</Button>
 		</form>

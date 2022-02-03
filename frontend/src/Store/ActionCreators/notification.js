@@ -1,18 +1,18 @@
-import * as ActionTypes from "../ActionTypes";
-import axios from "axios";
-import { apiUrl } from "../Urls";
-import { getAuthToken } from "../../Components/checkAuth";
+import axios from 'axios';
+import { getAuthToken } from '../../Components/checkAuth';
+import * as ActionTypes from '../ActionTypes';
+import { apiUrl } from '../Urls';
 
 const headers = () => ({
-	Authorization: "Token " + getAuthToken(),
+	Authorization: 'Token ' + getAuthToken(),
 });
 
 export const fetchNotification = () => {
-	return async (dispatch) => {
+	return async dispatch => {
 		dispatch({ type: ActionTypes.NOTIFICATION_FETCH_REQUEST });
 		return await axios
 			.get(`${apiUrl}/api/notifications/`, { headers: headers() })
-			.then((response) => {
+			.then(response => {
 				const { results, next } = response.data;
 
 				dispatch({
@@ -21,21 +21,21 @@ export const fetchNotification = () => {
 					next,
 				});
 			})
-			.catch((error) => {
+			.catch(error => {
 				dispatch({
 					type: ActionTypes.NOTIFICATION_FETCH_FAILED,
-					errmess: "Error in connection with Server",
+					errmess: 'Error in connection with Server',
 				});
 			});
 	};
 };
 
-export const fetchNextNotification = (next) => {
-	return async (dispatch) => {
+export const fetchNextNotification = next => {
+	return async dispatch => {
 		dispatch({ type: ActionTypes.NOTIFICATION_NEXT_FETCH_REQUEST });
 		return await axios
 			.get(`${apiUrl}/api/notifications/?page=${next}`, { headers: headers() })
-			.then((response) => {
+			.then(response => {
 				const { results, next } = response.data;
 
 				dispatch({
@@ -44,17 +44,17 @@ export const fetchNextNotification = (next) => {
 					next,
 				});
 			})
-			.catch((error) => {
+			.catch(error => {
 				dispatch({
 					type: ActionTypes.NOTIFICATION_NEXT_FETCH_FAILED,
-					errmess: "Error in connection with Server",
+					errmess: 'Error in connection with Server',
 				});
 			});
 	};
 };
 
-export const updateNotification = (id) => {
-	return async (dispatch) => {
+export const updateNotification = id => {
+	return async dispatch => {
 		dispatch({ type: ActionTypes.NOTIFICATION_UPDATE_REQUEST });
 		return await axios
 			.patch(
@@ -64,15 +64,15 @@ export const updateNotification = (id) => {
 				},
 				{ headers: headers() }
 			)
-			.then((response) => {
+			.then(response => {
 				dispatch({
 					type: ActionTypes.NOTIFICATION_UPDATE_SUCCESS,
 				});
 			})
-			.catch((error) => {
+			.catch(error => {
 				dispatch({
 					type: ActionTypes.NOTIFICATION_UPDATE_FAILED,
-					errmess: "Error in connection with Server",
+					errmess: 'Error in connection with Server',
 				});
 			});
 	};

@@ -1,5 +1,4 @@
 .cta {
-
 	.section-inner {
 		padding-top: $cta--padding-t__mobile;
 		padding-bottom: $cta--padding-b__mobile;
@@ -10,10 +9,8 @@
 	margin-bottom: $cta-slogan--padding-v__mobile;
 }
 
-@include media( '>medium' ) {
-
+@include media('>medium') {
 	.cta {
-
 		.section-inner {
 			padding-top: $cta--padding-t__desktop;
 			padding-bottom: $cta--padding-b__desktop;

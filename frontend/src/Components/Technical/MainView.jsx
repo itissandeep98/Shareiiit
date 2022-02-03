@@ -1,15 +1,14 @@
-import { Chip, Tooltip, Button } from "@mui/material";
-import { Col, Container, Row } from "reactstrap";
-import TechCard from "./TechCard";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import { useEffect } from "react";
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { Button, Chip, Tooltip } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { connect, useDispatch } from 'react-redux';
+import { Col, Container, Row } from 'reactstrap';
 import {
 	fetchNextSkillPosts,
 	fetchSkillPosts,
-} from "../../Store/ActionCreators/skill";
-import { useState } from "react";
-import { connect, useDispatch } from "react-redux";
-import FilterBar from "./FilterBar";
+} from '../../Store/ActionCreators/skill';
+import FilterBar from './FilterBar';
+import TechCard from './TechCard';
 
 function MainView(props) {
 	const { tags, modifyTags } = props;
@@ -19,14 +18,14 @@ function MainView(props) {
 
 	const dispatch = useDispatch();
 	useEffect(() => {
-		dispatch(fetchSkillPosts()).then((res) => {
+		dispatch(fetchSkillPosts()).then(res => {
 			setCards(res);
 		});
 	}, [dispatch]);
 
 	const fetchMore = () => {
 		setMoreLoading(true);
-		dispatch(fetchNextSkillPosts(next)).then((res) => {
+		dispatch(fetchNextSkillPosts(next)).then(res => {
 			setCards([...cards, ...res]);
 			setMoreLoading(false);
 		});
@@ -34,7 +33,7 @@ function MainView(props) {
 
 	useEffect(() => {
 		const allCards = props.skill.skills ?? [];
-		const temp = allCards.filter((card) => tags.includes(card.skill.label));
+		const temp = allCards.filter(card => tags.includes(card.skill.label));
 		if (temp.length > 0) {
 			setCards(temp);
 		} else if (tags.length > 0) {
@@ -54,8 +53,7 @@ function MainView(props) {
 							title={tag}
 							placement="top"
 							key={Math.random()}
-							className="mx-1 my-2"
-						>
+							className="mx-1 my-2">
 							<Chip
 								label={tag}
 								onDelete={() => modifyTags(tag)}
@@ -67,7 +65,7 @@ function MainView(props) {
 			</Row>
 			<Row className="mt-3">
 				{cards?.length > 0 ? (
-					cards?.map((card) => (
+					cards?.map(card => (
 						<Col md={4} className="mt-4">
 							<TechCard {...card} />
 						</Col>
@@ -82,8 +80,7 @@ function MainView(props) {
 						variant="contained"
 						size="small"
 						disabled={moreLoading}
-						onClick={fetchMore}
-					>
+						onClick={fetchMore}>
 						Show More <i className="fa fa-caret-down ml-2" />
 					</Button>
 				)}
@@ -91,7 +88,7 @@ function MainView(props) {
 		</Container>
 	);
 }
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
 	skill: state.skill,
 });
 

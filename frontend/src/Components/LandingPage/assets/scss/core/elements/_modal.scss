@@ -3,7 +3,7 @@
 	bottom: 0;
 	left: 0;
 	right: 0;
-	top: 0
+	top: 0;
 }
 
 .modal {
@@ -16,7 +16,6 @@
 	z-index: 40;
 
 	&.modal-video {
-
 		.modal-inner {
 			padding: 0;
 			max-width: $modal-video--max-width;
@@ -24,7 +23,7 @@
 	}
 
 	&::before,
-	.modal-inner  {
+	.modal-inner {
 		display: none;
 	}
 
@@ -43,11 +42,11 @@
 		}
 
 		.modal-inner {
-			animation: slideUpInModal .15s ease-in-out both;
+			animation: slideUpInModal 0.15s ease-in-out both;
 		}
 
 		&::before {
-			animation: slideUpInModalBg .15s ease-in-out both;
+			animation: slideUpInModalBg 0.15s ease-in-out both;
 		}
 	}
 }
@@ -56,7 +55,7 @@
 	max-height: calc(100vh - #{$modal--outer-padding-v__mobile} * 2);
 	overflow: auto;
 	position: relative;
-	width: calc(100%  - ( #{$container--padding__mobile} * 2 ));
+	width: calc(100% - (#{$container--padding__mobile} * 2));
 	min-width: $modal--min-width;
 	max-width: $modal--max-width;
 	margin-left: $container--padding__mobile;
@@ -104,7 +103,6 @@
 	}
 
 	&:hover {
-
 		&::before,
 		&::after {
 			background: color-icon(modal-hover);
@@ -112,8 +110,7 @@
 	}
 }
 
-@include media( '>medium' ) {
-
+@include media('>medium') {
 	.modal-inner {
 		margin: 0 auto;
 		max-height: calc(100vh - #{$modal--outer-padding-v__desktop} * 2);
@@ -128,23 +125,23 @@
 }
 
 @keyframes slideUpInModal {
-    0% {
-        opacity: 0;
-        transform: translateY(-24px);
-    }
+	0% {
+		opacity: 0;
+		transform: translateY(-24px);
+	}
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 
 @keyframes slideUpInModalBg {
-    0% {
-        opacity: 0;
-    }
+	0% {
+		opacity: 0;
+	}
 
-    to {
-        opacity: 1;
-    }
+	to {
+		opacity: 1;
+	}
 }

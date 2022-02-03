@@ -1,16 +1,16 @@
-import { Button, Icon } from "semantic-ui-react";
-import { Col } from "reactstrap";
+import { Col } from 'reactstrap';
+import { Button, Icon } from 'semantic-ui-react';
 
 const thumb = {
-	display: "inline-flex",
+	display: 'inline-flex',
 	borderRadius: 2,
-	border: "1px solid #eaeaea",
+	border: '1px solid #eaeaea',
 	marginBottom: 8,
 	marginRight: 8,
 	width: 100,
 	height: 100,
 	padding: 2,
-	boxSizing: "border-box",
+	boxSizing: 'border-box',
 };
 
 function Preview(props) {
@@ -25,13 +25,12 @@ function Preview(props) {
 							<Button
 								icon
 								style={{
-									position: "absolute",
-									left: "35px",
-									top: "-5px",
+									position: 'absolute',
+									left: '35px',
+									top: '-5px',
 								}}
 								className="rounded-pill p-2"
-								onClick={props.deleteLink}
-							>
+								onClick={props.deleteLink}>
 								<Icon name="times" />
 							</Button>
 							<img src={link} alt="icon" />

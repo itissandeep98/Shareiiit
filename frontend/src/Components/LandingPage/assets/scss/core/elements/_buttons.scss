@@ -1,27 +1,33 @@
 .button {
-    display: inline-flex;
+	display: inline-flex;
 	@include font-size(button);
-    @include font-weight(button);
-	padding: (($button-form--height - get-line-height(button) - ($button-form--border-width * 2)) / 2) ($button--padding-h - $button-form--border-width);
+	@include font-weight(button);
+	padding: (
+			(
+					$button-form--height - get-line-height(button) -
+						($button-form--border-width * 2)
+				) / 2
+		)
+		($button--padding-h - $button-form--border-width);
 	height: $button-form--height;
-    text-decoration: none !important;
+	text-decoration: none !important;
 	text-transform: $button--transform;
 	color: color(button-light);
-    background-color: color-bg(button-light);
-    border-width: $button-form--border-width;
+	background-color: color-bg(button-light);
+	border-width: $button-form--border-width;
 	border-style: $button-form--border-style;
 	border-color: color-border(button-light);
-    border-radius: $button--radius;
-    cursor: pointer;
-    justify-content: center;
-    text-align: center;
-    letter-spacing: inherit;
-    white-space: nowrap;
-	transition: background .15s ease;
+	border-radius: $button--radius;
+	cursor: pointer;
+	justify-content: center;
+	text-align: center;
+	letter-spacing: inherit;
+	white-space: nowrap;
+	transition: background 0.15s ease;
 
-    &:active {
-        outline: 0;
-    }
+	&:active {
+		outline: 0;
+	}
 
 	&:hover {
 		background-color: color-bg(button-light-hover);
@@ -30,7 +36,7 @@
 
 	&.is-loading {
 		position: relative;
-		color: transparent!important;
+		color: transparent !important;
 		pointer-events: none;
 
 		&::after {
@@ -48,7 +54,7 @@
 			border-right-color: transparent !important;
 			border-top-color: transparent !important;
 			z-index: 1;
-			animation: button-loading .6s infinite linear;
+			animation: button-loading 0.6s infinite linear;
 		}
 	}
 
@@ -59,7 +65,6 @@
 		border-color: color-border(button-disabled);
 
 		&.is-loading {
-
 			&::after {
 				border-color: color(button-disabled);
 			}
@@ -68,22 +73,27 @@
 }
 
 .button-sm {
-    padding: (($button-form-sm--height - get-line-height(button) - ($button-form--border-width * 2)) / 2) ($button-sm--padding-h - $button-form--border-width);
+	padding: (
+			(
+					$button-form-sm--height - get-line-height(button) -
+						($button-form--border-width * 2)
+				) / 2
+		)
+		($button-sm--padding-h - $button-form--border-width);
 	height: $button-form-sm--height;
 }
 
 .button-dark {
 	color: color(button-dark);
-    background-color: color-bg(button-dark);
+	background-color: color-bg(button-dark);
 	border-color: color-border(button-dark);
 
-    &:hover {
-        background-color: color-bg(button-dark-hover);
+	&:hover {
+		background-color: color-bg(button-dark-hover);
 		border-color: color-border(button-dark-hover);
-    }
+	}
 
 	&.is-loading {
-
 		&::after {
 			border-color: color(button-dark);
 		}
@@ -92,16 +102,15 @@
 
 .button-primary {
 	color: color(button-primary);
-    background-color: color-bg(button-primary);
+	background-color: color-bg(button-primary);
 	border-color: color-border(button-primary);
 
-    &:hover {
-        background-color: color-bg(button-primary-hover);
+	&:hover {
+		background-color: color-bg(button-primary-hover);
 		border-color: color-border(button-primary-hover);
-    }
+	}
 
 	&.is-loading {
-
 		&::after {
 			border-color: color(button-primary);
 		}
@@ -110,16 +119,15 @@
 
 .button-secondary {
 	color: color(button-secondary);
-    background-color: color-bg(button-secondary);
+	background-color: color-bg(button-secondary);
 	border-color: color-border(button-secondary);
 
-    &:hover {
-        background-color: color-bg(button-secondary-hover);
+	&:hover {
+		background-color: color-bg(button-secondary-hover);
 		border-color: color-border(button-secondary-hover);
-    }
+	}
 
 	&.is-loading {
-
 		&::after {
 			border-color: color(button-secondary);
 		}
@@ -127,7 +135,7 @@
 }
 
 .button-block {
-    display: flex;
+	display: flex;
 	width: 100%;
 }
 
@@ -147,13 +155,12 @@
 		margin-bottom: ($button-group-padding / 2);
 	}
 
-	> [class*=button] {
+	> [class*='button'] {
 		margin: $button-group-padding / 2;
 	}
 }
 
-@include media( '<=medium' ) {
-
+@include media('<=medium') {
 	.button-wide-mobile {
 		width: 100%;
 		max-width: $button--max-size-mobile;
@@ -161,11 +168,11 @@
 }
 
 @keyframes button-loading {
-    0% {
-        transform: rotate(0);
-    }
+	0% {
+		transform: rotate(0);
+	}
 
-    100% {
-        transform: rotate(360deg);
-    }
+	100% {
+		transform: rotate(360deg);
+	}
 }

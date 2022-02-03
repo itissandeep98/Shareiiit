@@ -17,8 +17,9 @@
 
 // Anchor aspect
 @mixin anchor-aspect($type: 'main', $layout: false) {
-	@if ( $type == 'main' ) { // Base
-		@if ( $layout == 'inverse' ) {
+	@if ($type == 'main') {
+		// Base
+		@if ($layout == 'inverse') {
 			color: color(link-inverse);
 		} @else {
 			color: color(link);
@@ -27,7 +28,7 @@
 
 		&:hover,
 		&:active {
-			@if ( $layout == 'inverse' ) {
+			@if ($layout == 'inverse') {
 				color: color(link-hover-inverse);
 			} @else {
 				color: color(link-hover);
@@ -36,7 +37,7 @@
 			text-decoration: $link-main--decoration-hover;
 		}
 	} @else if ($type == 'header') {
-		@if ( $layout == 'inverse' ) {
+		@if ($layout == 'inverse') {
 			color: color(header-link-inverse);
 		} @else {
 			color: color(header-link);
@@ -45,7 +46,7 @@
 
 		&:hover,
 		&:active {
-			@if ( $layout == 'inverse' ) {
+			@if ($layout == 'inverse') {
 				color: color(header-link-hover-inverse);
 			} @else {
 				color: color(header-link-hover);
@@ -60,7 +61,7 @@
 			color: color(header-link-mobile-hover);
 		}
 	} @else if ($type == 'footer') {
-		@if ( $layout == 'inverse' ) {
+		@if ($layout == 'inverse') {
 			color: color(footer-link-inverse);
 		} @else {
 			color: color(footer-link);
@@ -69,7 +70,7 @@
 
 		&:hover,
 		&:active {
-			@if ( $layout == 'inverse' ) {
+			@if ($layout == 'inverse') {
 				color: color(footer-link-hover-inverse);
 			} @else {
 				color: color(footer-link-hover);
@@ -77,7 +78,7 @@
 			text-decoration: $link-footer--decoration-hover;
 		}
 	} @else if ($type == 'footer-block') {
-		@if ( $layout == 'inverse' ) {
+		@if ($layout == 'inverse') {
 			color: color(footer-block-link-inverse);
 		} @else {
 			color: color(footer-block-link);
@@ -86,7 +87,7 @@
 
 		&:hover,
 		&:active {
-			@if ( $layout == 'inverse' ) {
+			@if ($layout == 'inverse') {
 				color: color(footer-block-link-hover-inverse);
 			} @else {
 				color: color(footer-block-link-hover);
@@ -94,7 +95,7 @@
 			text-decoration: $link-footer-block--decoration-hover;
 		}
 	} @else if ($type == 'button-link') {
-		@if ( $layout == 'inverse' ) {
+		@if ($layout == 'inverse') {
 			color: color(button-link-inverse);
 		} @else {
 			color: color(button-link);
@@ -103,7 +104,7 @@
 
 		&:hover,
 		&:active {
-			@if ( $layout == 'inverse' ) {
+			@if ($layout == 'inverse') {
 				color: color(button-link-hover-inverse);
 			} @else {
 				color: color(button-link-hover);
@@ -111,7 +112,7 @@
 			text-decoration: $link-button--decoration-hover;
 		}
 	} @else if ($type == 'func-link') {
-		@if ( $layout == 'inverse' ) {
+		@if ($layout == 'inverse') {
 			color: color(func-link-inverse);
 		} @else {
 			color: color(func-link);
@@ -120,7 +121,7 @@
 
 		&:hover,
 		&:active {
-			@if ( $layout == 'inverse' ) {
+			@if ($layout == 'inverse') {
 				color: color(func-link-hover-inverse);
 			} @else {
 				color: color(func-link-hover);
@@ -133,7 +134,7 @@
 @mixin divider-mix($layout: false) {
 	display: block;
 	height: 1px;
-	@if ( $layout == 'inverse' ) {
+	@if ($layout == 'inverse') {
 		background: color-border(divider-inverse);
 	} @else {
 		background: color-border(divider);
@@ -141,7 +142,7 @@
 }
 
 @mixin divider($type: false, $layout: false) {
-	@if ( $type == 'before' ) {
+	@if ($type == 'before') {
 		position: relative;
 
 		&::before {
@@ -175,7 +176,14 @@
 // $vpos: illustration is centered by default, allowed values: top or bottom
 // $hoffset: horizontal offset
 // $voffset: vertical offset
-@mixin illustration($file, $width, $height, $vpos: null, $hoffset: null, $voffset: null) {
+@mixin illustration(
+	$file,
+	$width,
+	$height,
+	$vpos: null,
+	$hoffset: null,
+	$voffset: null
+) {
 	content: '';
 	position: absolute;
 	width: $width;
@@ -183,26 +191,26 @@
 	height: $height;
 	background-image: url(../../../images/#{$file});
 	background-repeat: no-repeat;
-	@if( unit( $height ) == '%' ) {
+	@if (unit($height) == '%') {
 		background-size: contain;
 	} @else {
 		background-size: auto;
 	}
-	@if ( $hoffset ) {
+	@if ($hoffset) {
 		left: calc(50% + #{$hoffset});
 	} @else {
 		left: 50%;
 	}
-	@if ( $vpos == 'top' ) {
-		@if ( $voffset ) {
+	@if ($vpos == 'top') {
+		@if ($voffset) {
 			top: #{$voffset};
 		} @else {
 			top: 0;
 		}
 		background-position: center top;
 		transform: translate(-50%);
-	} @else if ( $vpos == 'bottom' ) {
-		@if ( $voffset ) {
+	} @else if ($vpos == 'bottom') {
+		@if ($voffset) {
 			bottom: #{$voffset};
 		} @else {
 			bottom: 0;
@@ -211,7 +219,7 @@
 		transform: translate(-50%);
 	} @else {
 		background-position: center;
-		@if ( $voffset ) {
+		@if ($voffset) {
 			top: calc(50% + #{$voffset});
 		} @else {
 			top: 50%;

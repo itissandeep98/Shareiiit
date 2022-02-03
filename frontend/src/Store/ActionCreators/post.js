@@ -1,14 +1,14 @@
-import * as ActionTypes from "../ActionTypes";
-import axios from "axios";
-import { apiUrl } from "../Urls";
-import { getAuthToken } from "../../Components/checkAuth";
+import axios from 'axios';
+import { getAuthToken } from '../../Components/checkAuth';
+import * as ActionTypes from '../ActionTypes';
+import { apiUrl } from '../Urls';
 
 const headers = () => ({
-	Authorization: "Token " + getAuthToken(),
+	Authorization: 'Token ' + getAuthToken(),
 });
 
 export const fetchPostDetails = ({ id, category }) => {
-	return async (dispatch) => {
+	return async dispatch => {
 		dispatch({ type: ActionTypes.POST_DETAILS_FETCH_REQUEST });
 		return await axios
 			.get(
@@ -17,7 +17,7 @@ export const fetchPostDetails = ({ id, category }) => {
 					headers: headers(),
 				}
 			)
-			.then((response) => {
+			.then(response => {
 				dispatch({
 					type: ActionTypes.POST_DETAILS_FETCH_SUCCESS,
 					data: response.data,
@@ -25,24 +25,24 @@ export const fetchPostDetails = ({ id, category }) => {
 				});
 				return response.data;
 			})
-			.catch((error) => {
+			.catch(error => {
 				dispatch({
 					type: ActionTypes.POST_DETAILS_FETCH_FAILED,
-					errmess: "Error in connection with Server",
+					errmess: 'Error in connection with Server',
 				});
 			});
 	};
 };
 
-export const fetchPosts = (data) => {
-	return async (dispatch) => {
+export const fetchPosts = data => {
+	return async dispatch => {
 		dispatch({ type: ActionTypes.POST_FETCH_REQUEST });
 		return await axios
 			.get(`${apiUrl}/api/posts/`, {
 				params: data,
 				headers: headers(),
 			})
-			.then((response) => {
+			.then(response => {
 				const { results, next } = response.data;
 				dispatch({
 					type: ActionTypes.POST_FETCH_SUCCESS,
@@ -52,24 +52,24 @@ export const fetchPosts = (data) => {
 				});
 				return { results, next };
 			})
-			.catch((error) => {
+			.catch(error => {
 				dispatch({
 					type: ActionTypes.POST_FETCH_FAILED,
-					errmess: "Error in connection with Server",
+					errmess: 'Error in connection with Server',
 				});
 			});
 	};
 };
 
-export const fetchNextPosts = (data) => {
-	return async (dispatch) => {
+export const fetchNextPosts = data => {
+	return async dispatch => {
 		dispatch({ type: ActionTypes.POST_NEXT_FETCH_REQUEST });
 		return await axios
 			.get(`${apiUrl}/api/posts/`, {
 				params: data,
 				headers: headers(),
 			})
-			.then((response) => {
+			.then(response => {
 				const { results, next } = response.data;
 				dispatch({
 					type: ActionTypes.POST_NEXT_FETCH_SUCCESS,
@@ -79,30 +79,30 @@ export const fetchNextPosts = (data) => {
 				});
 				return { results, next };
 			})
-			.catch((error) => {
+			.catch(error => {
 				dispatch({
 					type: ActionTypes.POST_NEXT_FETCH_FAILED,
-					errmess: "Error in connection with Server",
+					errmess: 'Error in connection with Server',
 				});
 			});
 	};
 };
 
 export const createPost = ({ data, category }) => {
-	return async (dispatch) => {
+	return async dispatch => {
 		dispatch({ type: ActionTypes.POST_CREATE_REQUEST });
 		return await axios
 			.post(`${apiUrl}/api/myposts/?category=${category}`, data, {
 				headers: headers(),
 			})
-			.then((response) => {
+			.then(response => {
 				dispatch({
 					type: ActionTypes.POST_CREATE_SUCCESS,
 					data: response.data,
 					category,
 				});
 			})
-			.catch((error) => {
+			.catch(error => {
 				if (error?.response?.data?.detail) {
 					dispatch({
 						type: ActionTypes.POST_CREATE_FAILED,
@@ -119,13 +119,13 @@ export const createPost = ({ data, category }) => {
 };
 
 export const fetchMyPosts = ({ category }) => {
-	return async (dispatch) => {
+	return async dispatch => {
 		dispatch({ type: ActionTypes.USER_POST_FETCH_REQUEST });
 		return await axios
 			.get(`${apiUrl}/api/myposts/?category=${category}`, {
 				headers: headers(),
 			})
-			.then((response) => {
+			.then(response => {
 				dispatch({
 					type: ActionTypes.USER_POST_FETCH_SUCCESS,
 					data: response.data.results,
@@ -133,51 +133,51 @@ export const fetchMyPosts = ({ category }) => {
 				});
 				return response.data.results;
 			})
-			.catch((error) => {
+			.catch(error => {
 				dispatch({
 					type: ActionTypes.USER_POST_FETCH_FAILED,
-					errmess: "Error in connection with Server",
+					errmess: 'Error in connection with Server',
 				});
 			});
 	};
 };
 
 export const deletePost = ({ id, category }) => {
-	return async (dispatch) => {
+	return async dispatch => {
 		dispatch({ type: ActionTypes.POST_DELETE_REQUEST });
 		return await axios
 			.delete(`${apiUrl}/api/myposts/${id}/?category=${category}`, {
 				headers: headers(),
 			})
-			.then((response) => {
+			.then(response => {
 				dispatch({
 					type: ActionTypes.POST_DELETE_SUCCESS,
 					data: response.data,
 				});
 			})
-			.catch((error) => {
+			.catch(error => {
 				dispatch({
 					type: ActionTypes.POST_DELETE_FAILED,
-					errmess: "Error in connection with Server",
+					errmess: 'Error in connection with Server',
 				});
 			});
 	};
 };
 
 export const updatePost = ({ id, data, category }) => {
-	return async (dispatch) => {
+	return async dispatch => {
 		dispatch({ type: ActionTypes.POST_UPDATE_REQUEST });
 		return await axios
 			.patch(`${apiUrl}/api/myposts/${id}/?category=${category}`, data, {
 				headers: headers(),
 			})
-			.then((response) => {
+			.then(response => {
 				dispatch({
 					type: ActionTypes.POST_UPDATE_SUCCESS,
 					data: response.data,
 				});
 			})
-			.catch((error) => {
+			.catch(error => {
 				if (error?.response?.data?.detail) {
 					dispatch({
 						type: ActionTypes.POST_UPDATE_FAILED,
@@ -186,7 +186,7 @@ export const updatePost = ({ id, data, category }) => {
 				} else {
 					dispatch({
 						type: ActionTypes.POST_UPDATE_FAILED,
-						errmess: "Error in connection with Server",
+						errmess: 'Error in connection with Server',
 					});
 				}
 			});

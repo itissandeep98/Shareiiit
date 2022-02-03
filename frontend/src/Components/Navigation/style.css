@@ -1,17 +1,17 @@
 .navbar-dark {
-  background-color: #3fada8;
+	background-color: #3fada8;
 }
 
 .navbar-dark .nav-link {
-  color: white !important;
+	color: white !important;
 }
 
 .cust_link.nav-link.active {
-  background-color: white;
-  color: #3fada8 !important;
+	background-color: white;
+	color: #3fada8 !important;
 }
 
 .cust_link.nav-link:hover {
-  background-color: white;
-  color: #3fada8 !important;
+	background-color: white;
+	color: #3fada8 !important;
 }

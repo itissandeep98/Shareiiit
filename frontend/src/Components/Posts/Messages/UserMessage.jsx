@@ -1,19 +1,18 @@
-import { TextField } from "@mui/material";
-import React, { useState } from "react";
-import { Comment, Placeholder } from "semantic-ui-react";
-import moment from "moment";
-import { useDispatch } from "react-redux";
-import { createMessage } from "../../../Store/ActionCreators/message";
-import { Spinner } from "reactstrap";
+import { TextField } from '@mui/material';
+import moment from 'moment';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Comment, Placeholder } from 'semantic-ui-react';
+import { createMessage } from '../../../Store/ActionCreators/message';
 
 function UserMessage(props) {
 	const { postid, convid } = props;
-	const [mess, setMess] = useState("");
+	const [mess, setMess] = useState('');
 	const [messages, setMessages] = useState(props.messages.reverse());
 	const dispatch = useDispatch();
 	const [loading, setLoading] = useState(false);
-	const onChange = (e) => {
-		if (e.charCode === 13 && e.target.value !== "") {
+	const onChange = e => {
+		if (e.charCode === 13 && e.target.value !== '') {
 			setLoading(true);
 			const data = {
 				text: mess,
@@ -24,8 +23,8 @@ function UserMessage(props) {
 			} else {
 				type.post = postid;
 			}
-			setMess("");
-			dispatch(createMessage({ type, data })).then((res) => {
+			setMess('');
+			dispatch(createMessage({ type, data })).then(res => {
 				setMessages([...messages, res]);
 				setLoading(false);
 			});
@@ -36,12 +35,12 @@ function UserMessage(props) {
 
 	return (
 		<>
-			{messages.map((message) => (
+			{messages.map(message => (
 				<Comment key={Math.random()}>
 					<Comment.Avatar
 						src={
 							message.sender_photo ??
-							process.env.PUBLIC_URL + "/assets/images/user.png"
+							process.env.PUBLIC_URL + '/assets/images/user.png'
 						}
 					/>
 					<Comment.Content>

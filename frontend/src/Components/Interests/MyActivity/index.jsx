@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Box, Tab, Tabs, Paper } from "@mui/material";
-import Saved from "./Saved";
-import Upvoted from "./Upvoted";
-import Dismissed from "./Dismissed";
-import { Col, Container, Row } from "reactstrap";
-import { useDispatch } from "react-redux";
-import { fetchVotedPosts } from "../../../Store/ActionCreators/vote";
+import { Box, Paper, Tab, Tabs } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Col, Container, Row } from 'reactstrap';
+import { fetchVotedPosts } from '../../../Store/ActionCreators/vote';
+import Dismissed from './Dismissed';
+import Saved from './Saved';
+import Upvoted from './Upvoted';
 
 function MyActivity() {
-	const choices = ["saved", "upvoted", "dismissed"];
-	const categories = ["book", "group", "electronic", "other", "skill"];
+	const choices = ['saved', 'upvoted', 'dismissed'];
+	const categories = ['book', 'group', 'electronic', 'other', 'skill'];
 	const [value, setValue] = useState(0);
 	const [category, setCategory] = useState(0);
 	const [cards, setCards] = useState([]);
@@ -22,7 +22,7 @@ function MyActivity() {
 			category: categories[category],
 			choice: choices[value],
 		};
-		dispatch(fetchVotedPosts(data)).then((res) => {
+		dispatch(fetchVotedPosts(data)).then(res => {
 			setCards(res);
 			setLoading(false);
 		});

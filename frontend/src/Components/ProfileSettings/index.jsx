@@ -1,14 +1,14 @@
-import { Button } from "@mui/material";
-import { Col, Container, Row } from "reactstrap";
-import BookmarksIcon from "@mui/icons-material/Bookmarks";
-import GridOnIcon from "@mui/icons-material/GridOn";
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { fetchUser, fetchUserOSA } from "../../Store/ActionCreators/user";
-import { useHistory } from "react-router-dom";
-import BasicDetails from "./BasicDetails";
-import Skills from "./Skills";
-import Meta from "../Meta";
+import BookmarksIcon from '@mui/icons-material/Bookmarks';
+import GridOnIcon from '@mui/icons-material/GridOn';
+import { Button } from '@mui/material';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { Col, Container, Row } from 'reactstrap';
+import { fetchUser, fetchUserOSA } from '../../Store/ActionCreators/user';
+import Meta from '../Meta';
+import BasicDetails from './BasicDetails';
+import Skills from './Skills';
 
 function Profile(props) {
 	const dispatch = useDispatch();
@@ -29,8 +29,7 @@ function Profile(props) {
 							className="mr-2 rounded-pill text-iiitd"
 							startIcon={<GridOnIcon />}
 							size="large"
-							onClick={() => history.push("/profile/myposts")}
-						>
+							onClick={() => history.push('/profile/myposts')}>
 							My Posts
 						</Button>
 						<Button
@@ -38,8 +37,7 @@ function Profile(props) {
 							className="float-right rounded-pill text-iiitd"
 							startIcon={<BookmarksIcon />}
 							size="large"
-							onClick={() => history.push("/profile/myactivity")}
-						>
+							onClick={() => history.push('/profile/myactivity')}>
 							My Activity
 						</Button>
 					</Col>

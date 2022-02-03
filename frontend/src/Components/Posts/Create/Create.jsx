@@ -1,15 +1,15 @@
-import { Col, Container, Modal, ModalBody, ModalHeader, Row } from "reactstrap";
-import { Tab } from "semantic-ui-react";
-import Books from "./Forms/Books";
-import Electronics from "./Forms/Electronics";
-import Groups from "./Forms/Groups";
-import Other from "./Forms/Other";
+import { Modal, ModalBody, ModalHeader } from 'reactstrap';
+import { Tab } from 'semantic-ui-react';
+import Books from './Forms/Books';
+import Electronics from './Forms/Electronics';
+import Groups from './Forms/Groups';
+import Other from './Forms/Other';
 
 function Create(props) {
 	const { modal, setModal, trigger } = props;
 	const panes = [
 		{
-			menuItem: "Book",
+			menuItem: 'Book',
 			render: () => (
 				<Tab.Pane attached={false} className="p-0 border-0">
 					<Books toggle={() => setModal(!modal)} />
@@ -17,7 +17,7 @@ function Create(props) {
 			),
 		},
 		{
-			menuItem: "Group",
+			menuItem: 'Group',
 			render: () => (
 				<Tab.Pane attached={false} className="p-0 border-0">
 					<Groups toggle={() => setModal(!modal)} />
@@ -25,7 +25,7 @@ function Create(props) {
 			),
 		},
 		{
-			menuItem: "Electronic Item",
+			menuItem: 'Electronic Item',
 			render: () => (
 				<Tab.Pane attached={false} className="p-0 border-0">
 					<Electronics toggle={() => setModal(!modal)} />
@@ -33,7 +33,7 @@ function Create(props) {
 			),
 		},
 		{
-			menuItem: "Other Item",
+			menuItem: 'Other Item',
 			render: () => (
 				<Tab.Pane attached={false} className="p-0 border-0">
 					<Other toggle={() => setModal(!modal)} />
@@ -48,8 +48,7 @@ function Create(props) {
 				isOpen={modal}
 				toggle={() => setModal(!modal)}
 				size="lg"
-				className="poppins"
-			>
+				className="poppins">
 				<ModalHeader toggle={() => setModal(!modal)}>
 					Create New Post
 				</ModalHeader>

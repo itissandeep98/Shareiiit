@@ -1,0 +1,26 @@
+.notfound h1 {
+	font-family: 'Fontdiner Swanky', cursive;
+	font-size: 4rem;
+	color: #c5dc50;
+}
+
+.notfound p em {
+	font-style: italic;
+	color: #c5dc50;
+}
+
+.notfound a {
+	font-family: 'Fontdiner Swanky', cursive;
+	font-size: 1rem;
+	color: #383838 !important;
+	border: none;
+	background-color: #f36a6f;
+	padding: 1rem 2.5rem;
+	transform: skew(-5deg);
+	transition: all 0.1s ease;
+}
+
+.notfound a:hover {
+	background-color: #c5dc50;
+	transform: scale(1.15);
+}

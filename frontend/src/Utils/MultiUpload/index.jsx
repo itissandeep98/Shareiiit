@@ -1,22 +1,21 @@
-import { useEffect, useState } from "react";
-import { Col, Row } from "reactstrap";
-import { CircularProgress } from "@mui/material";
-import UploadSingle from "./UploadSingle";
-import Preview from "./Preview";
+import { useEffect, useState } from 'react';
+import { Row } from 'reactstrap';
+import Preview from './Preview';
+import UploadSingle from './UploadSingle';
 
 function MultiUpload(props) {
 	const { content, changeState } = props;
 
-	let extensions = ".png, .jpeg, .jpg";
+	let extensions = '.png, .jpeg, .jpg';
 
-	const temp = content?.split(",")?.filter((con) => con.length > 5) ?? [];
+	const temp = content?.split(',')?.filter(con => con.length > 5) ?? [];
 	const [files, setFiles] = useState(temp);
 
 	useEffect(() => {
 		changeState(files?.toString());
 	}, [files]);
 
-	const updateLink = (links) => {
+	const updateLink = links => {
 		setFiles([...files, ...links]);
 	};
 
@@ -40,7 +39,7 @@ function MultiUpload(props) {
 					<Preview
 						key={index}
 						link={file}
-						deleteLink={(e) => deleteLink(e, index)}
+						deleteLink={e => deleteLink(e, index)}
 					/>
 				))}
 			</Row>

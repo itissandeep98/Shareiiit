@@ -1,7 +1,7 @@
-import { Row, Col } from "reactstrap";
-import { Icon } from "semantic-ui-react";
-import classNames from "classnames";
-import { Tooltip } from "@mui/material";
+import { Tooltip } from '@mui/material';
+import classNames from 'classnames';
+import { Col, Row } from 'reactstrap';
+import { Icon } from 'semantic-ui-react';
 
 function Reaction({ num_upvotes, liked, saved, dismiss, Vote }) {
 	return (
@@ -13,9 +13,9 @@ function Reaction({ num_upvotes, liked, saved, dismiss, Vote }) {
 						<p>
 							<Icon
 								name="arrow up circle"
-								className={classNames({ "text-success": liked })}
+								className={classNames({ 'text-success': liked })}
 								onClick={() => Vote(1)}
-								style={{ cursor: "pointer" }}
+								style={{ cursor: 'pointer' }}
 								size="large"
 							/>
 							<small> {num_upvotes > 0 && num_upvotes}</small>
@@ -25,9 +25,9 @@ function Reaction({ num_upvotes, liked, saved, dismiss, Vote }) {
 						<p>
 							<Icon
 								name="bookmark outline"
-								className={classNames({ "text-info": saved })}
+								className={classNames({ 'text-info': saved })}
 								onClick={() => Vote(2)}
-								style={{ cursor: "pointer" }}
+								style={{ cursor: 'pointer' }}
 								size="large"
 							/>
 						</p>
@@ -36,9 +36,9 @@ function Reaction({ num_upvotes, liked, saved, dismiss, Vote }) {
 						<p>
 							<Icon
 								name="times"
-								className={classNames({ "text-danger": dismiss })}
+								className={classNames({ 'text-danger': dismiss })}
 								onClick={() => Vote(3)}
-								style={{ cursor: "pointer" }}
+								style={{ cursor: 'pointer' }}
 								size="large"
 							/>
 						</p>

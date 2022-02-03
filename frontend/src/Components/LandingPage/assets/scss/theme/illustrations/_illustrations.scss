@@ -1,4 +1,4 @@
-[class*="illustration-"] {
+[class*='illustration-'] {
 	position: relative;
 
 	&::after {
@@ -6,11 +6,11 @@
 	}
 }
 
-[class*="illustration-element-"]::after {
+[class*='illustration-element-']::after {
 	z-index: -1;
 }
 
-[class*="illustration-section-"]::after {
+[class*='illustration-section-']::after {
 	z-index: -2;
 }
 

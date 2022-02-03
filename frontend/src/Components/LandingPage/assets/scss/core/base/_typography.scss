@@ -16,8 +16,18 @@ textarea {
 	@include font-weight(base);
 }
 
-h1, h2, h3, h4, h5, h6,
-.h1, .h2, .h3, .h4, .h5, .h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
 	@include font-family(heading);
 	@include font-weight(heading);
 	clear: both;
@@ -72,7 +82,6 @@ figcaption {
 }
 
 a {
-
 	&:not(.button) {
 		@include anchor-aspect(main);
 		@include font-weight(link);
@@ -87,7 +96,7 @@ a {
 	&.func-link {
 		@include anchor-aspect(func-link);
 		@include font-weight(func-link);
-		text-transform: $link-func--transform;		
+		text-transform: $link-func--transform;
 	}
 }
 
@@ -109,8 +118,12 @@ h3,
 	margin-bottom: $spacing--h3-b;
 }
 
-h4, h5, h6,
-.h4, .h5, .h6 {
+h4,
+h5,
+h6,
+.h4,
+.h5,
+.h6 {
 	margin-top: $spacing--hx-t;
 	margin-bottom: $spacing--hx-b;
 }
@@ -120,7 +133,10 @@ p {
 	margin-bottom: $spacing--shared-v;
 }
 
-dfn, cite, em, i {
+dfn,
+cite,
+em,
+i {
 	font-style: italic;
 }
 
@@ -131,11 +147,11 @@ blockquote {
 	margin-left: $spacing--shared-h;
 
 	&::before {
-		content: "\201C";
+		content: '\201C';
 	}
 
 	&::after {
-		content: "\201D";
+		content: '\201D';
 	}
 
 	p {
@@ -163,11 +179,15 @@ pre .h2,
 pre .h3,
 pre .h4,
 pre .h5,
-pre .h6  {
+pre .h6 {
 	@include font-family(pre);
 }
 
-pre, code, kbd, tt, var {
+pre,
+code,
+kbd,
+tt,
+var {
 	background: color-bg(code);
 }
 
@@ -180,17 +200,22 @@ pre {
 	margin-bottom: $spacing--shared-v;
 }
 
-code, kbd, tt, var {
+code,
+kbd,
+tt,
+var {
 	@include font-family(code);
 	@include font-size(code);
 	padding: $spacing--code-v $spacing--code-h;
 }
 
-abbr, acronym {
+abbr,
+acronym {
 	cursor: help;
 }
 
-mark, ins {
+mark,
+ins {
 	text-decoration: none;
 }
 
@@ -203,7 +228,6 @@ strong {
 	color: color(base-inverse);
 
 	a {
-
 		&:not(.button) {
 			@include anchor-aspect(main, inverse);
 		}
@@ -214,11 +238,21 @@ strong {
 
 		&.func-link {
 			@include anchor-aspect(func-link, inverse);
-		}		
+		}
 	}
 
-	h1, h2, h3, h4, h5, h6,
-	.h1, .h2, .h3, .h4, .h5, .h6 {
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	.h1,
+	.h2,
+	.h3,
+	.h4,
+	.h5,
+	.h6 {
 		color: color(heading-inverse);
 	}
 
@@ -226,13 +260,16 @@ strong {
 		border-color: color-border(divider-inverse);
 	}
 
-	pre, code, kbd, tt, var {
+	pre,
+	code,
+	kbd,
+	tt,
+	var {
 		background: color-bg(code-inverse);
 	}
 }
 
-@include media( '<=medium' ) {
-
+@include media('<=medium') {
 	.h1-mobile {
 		@include font-size(h1);
 	}
@@ -248,18 +285,17 @@ strong {
 	.h4-mobile {
 		@include font-size(h4);
 	}
-	
+
 	.h5-mobile {
 		@include font-size(base);
 	}
-	
+
 	.h6-mobile {
 		@include font-size(sm);
 	}
 }
 
-@include media( '>medium' ) {
-
+@include media('>medium') {
 	html {
 		@include font-size(base-desktop);
 	}
@@ -282,13 +318,13 @@ strong {
 	h4,
 	.h4 {
 		@include font-size(h4-desktop);
-	}	
+	}
 
 	h5,
 	.h5 {
 		@include font-size(base-desktop);
 	}
-	
+
 	h6,
 	.h6,
 	small,

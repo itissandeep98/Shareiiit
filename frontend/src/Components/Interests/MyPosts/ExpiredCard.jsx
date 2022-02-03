@@ -1,12 +1,13 @@
-import { Col, Container, Row } from "reactstrap";
-import { Icon, Image } from "semantic-ui-react";
-import { withRouter } from "react-router";
-import { useDispatch } from "react-redux";
-import { Tooltip } from "@mui/material";
-import moment from "moment";
-import { deletePost } from "../../../Store/ActionCreators/post";
-import { useState } from "react";
-import DeleteModal from "./DeleteModal";
+import { Tooltip } from '@mui/material';
+import moment from 'moment';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { withRouter } from 'react-router';
+import { Col, Container, Row } from 'reactstrap';
+import { Icon } from 'semantic-ui-react';
+import { deletePost } from '../../../Store/ActionCreators/post';
+import CustomImage from '../../../Utils/CustomImage';
+import DeleteModal from './DeleteModal';
 
 function ExpiredCard(props) {
 	let { id, description, created_at, title, image } = props.details;
@@ -30,9 +31,9 @@ function ExpiredCard(props) {
 				<Col>
 					<Row>
 						<Col>
-							<Image
+							<CustomImage
 								src={
-									image ?? process.env.PUBLIC_URL + "/assets/images/book.png"
+									image ?? process.env.PUBLIC_URL + '/assets/images/book.png'
 								}
 								size="small"
 							/>

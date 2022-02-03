@@ -1,17 +1,17 @@
+import SearchIcon from '@mui/icons-material/Search';
 import {
-	FormControl,
-	InputLabel,
-	Select,
-	MenuItem,
-	TextField,
 	Button,
-	InputAdornment,
-	Radio,
-	FormControlLabel,
 	Checkbox,
-} from "@mui/material";
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+	FormControl,
+	FormControlLabel,
+	InputAdornment,
+	InputLabel,
+	MenuItem,
+	Select,
+	TextField,
+} from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
 	Col,
 	Container,
@@ -20,9 +20,8 @@ import {
 	ModalHeader,
 	Row,
 	Spinner,
-} from "reactstrap";
-import { searchAdvanced, searchPosts } from "../../Store/ActionCreators/search";
-import SearchIcon from "@mui/icons-material/Search";
+} from 'reactstrap';
+import { searchAdvanced, searchPosts } from '../../Store/ActionCreators/search';
 
 function FilterBar(props) {
 	const {
@@ -34,21 +33,21 @@ function FilterBar(props) {
 		setRequest,
 		setResult,
 	} = props;
-	const [search, setSearch] = useState("");
+	const [search, setSearch] = useState('');
 	const categories = [
-		{ label: "Books", value: "book" },
-		{ label: "Groups", value: "group" },
-		{ label: "Electronics", value: "electronic" },
-		{ label: "Other", value: "other" },
+		{ label: 'Books', value: 'book' },
+		{ label: 'Groups', value: 'group' },
+		{ label: 'Electronics', value: 'electronic' },
+		{ label: 'Other', value: 'other' },
 	];
 	const sort_by = [
-		{ label: "Most Recent", value: "created_at" },
-		{ label: "Most Recent First", value: "-created_at" },
-		{ label: "Most Upvoted", value: "upvote_count" },
-		{ label: "Most Upvoted First", value: "-upvote_count" },
+		{ label: 'Most Recent', value: 'created_at' },
+		{ label: 'Most Recent First', value: '-created_at' },
+		{ label: 'Most Upvoted', value: 'upvote_count' },
+		{ label: 'Most Upvoted First', value: '-upvote_count' },
 	];
 	const [searchLoading, setSearchLoading] = useState(false);
-	const posts = useSelector((state) => state.posts?.[category]);
+	const posts = useSelector(state => state.posts?.[category]);
 
 	const [modal, setModal] = useState(false);
 	const dispatch = useDispatch();
@@ -56,7 +55,7 @@ function FilterBar(props) {
 		if (search.length > 0) {
 			setSearchLoading(true);
 			const data = { search };
-			dispatch(searchPosts({ data, category })).then((res) => {
+			dispatch(searchPosts({ data, category })).then(res => {
 				setResult(res);
 				setSearchLoading(false);
 			});
@@ -65,11 +64,11 @@ function FilterBar(props) {
 		}
 	};
 	var typingTimer;
-	const startSearch = (e) => {
+	const startSearch = e => {
 		clearTimeout(typingTimer);
 		typingTimer = setTimeout(onChange, 1000);
 	};
-	const endSearch = (e) => {
+	const endSearch = e => {
 		clearTimeout(typingTimer);
 	};
 
@@ -83,7 +82,7 @@ function FilterBar(props) {
 						value={search}
 						multiline
 						fullWidth
-						onChange={(e) => setSearch(e.target.value)}
+						onChange={e => setSearch(e.target.value)}
 						onKeyDown={endSearch}
 						onKeyUp={startSearch}
 						InputProps={{
@@ -101,11 +100,11 @@ function FilterBar(props) {
 						<Select
 							label="Request posts"
 							value={request}
-							onChange={(e) => setRequest(e.target.value)}
+							onChange={e => setRequest(e.target.value)}
 						>
 							<MenuItem value={0}>All</MenuItem>
-							<MenuItem value={"True"}>Requested</MenuItem>
-							<MenuItem value={"False"}>Giving Away</MenuItem>
+							<MenuItem value={'True'}>Requested</MenuItem>
+							<MenuItem value={'False'}>Giving Away</MenuItem>
 						</Select>
 					</FormControl>
 				</Col>
@@ -115,7 +114,7 @@ function FilterBar(props) {
 						<Select
 							label="Category"
 							value={category}
-							onChange={(e) => setCategory(e.target.value)}
+							onChange={e => setCategory(e.target.value)}
 						>
 							{categories.map((tag, i) => (
 								<MenuItem value={tag.value} key={i}>
@@ -131,7 +130,7 @@ function FilterBar(props) {
 						<Select
 							label="Category"
 							value={ordering}
-							onChange={(e) => setOrdering(e.target.value)}
+							onChange={e => setOrdering(e.target.value)}
 						>
 							{sort_by.map((tag, i) => (
 								<MenuItem value={tag.value} key={i}>
@@ -167,24 +166,24 @@ function AdvancedSearch(props) {
 	const dispatch = useDispatch();
 	const [loading, setLoading] = useState(false);
 	const [data, setData] = useState({
-		title: "",
-		description: "",
-		username: "",
+		title: '',
+		description: '',
+		username: '',
 	});
 	useEffect(() => {
 		setData({
-			title: "",
-			description: "",
-			username: "",
+			title: '',
+			description: '',
+			username: '',
 		});
 	}, [category]);
 
-	const handleChange = (e) => {
+	const handleChange = e => {
 		setData({ ...data, [e.target.name]: e.target.value });
 	};
 	const handleSearch = () => {
 		setLoading(true);
-		dispatch(searchAdvanced({ ...data, category })).then((res) => {
+		dispatch(searchAdvanced({ ...data, category })).then(res => {
 			setResult(res);
 			toggle();
 			setLoading(false);
@@ -218,7 +217,7 @@ function AdvancedSearch(props) {
 						name="username"
 						onChange={handleChange}
 					/>
-					{category === "book" && (
+					{category === 'book' && (
 						<TextField
 							label="Author"
 							className=" mt-3"
@@ -229,7 +228,7 @@ function AdvancedSearch(props) {
 							onChange={handleChange}
 						/>
 					)}
-					{category !== "group" ? (
+					{category !== 'group' ? (
 						<TextField
 							type="number"
 							label="Price"
@@ -255,7 +254,7 @@ function AdvancedSearch(props) {
 						control={
 							<Checkbox
 								checked={data.is_request}
-								onChange={(e) =>
+								onChange={e =>
 									setData({ ...data, is_request: !data.is_request })
 								}
 								color="primary"
@@ -269,7 +268,7 @@ function AdvancedSearch(props) {
 						onClick={handleSearch}
 						disabled={loading}
 					>
-						{loading ? <Spinner /> : "Search"}
+						{loading ? <Spinner /> : 'Search'}
 					</Button>
 				</form>
 			</ModalBody>

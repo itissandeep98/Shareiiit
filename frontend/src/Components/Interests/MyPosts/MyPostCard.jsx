@@ -1,13 +1,13 @@
-import { Col, Container, Row } from "reactstrap";
-import { Icon, Image } from "semantic-ui-react";
-import { withRouter } from "react-router";
-import { useDispatch } from "react-redux";
-import { Tooltip } from "@mui/material";
-import moment from "moment";
-import { deletePost } from "../../../Store/ActionCreators/post";
-import { useState } from "react";
-import EditPostModal from "./EditPostModal";
-import DeleteModal from "./DeleteModal";
+import { Tooltip } from '@mui/material';
+import moment from 'moment';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { withRouter } from 'react-router';
+import { Col, Container, Row } from 'reactstrap';
+import { Icon, Image } from 'semantic-ui-react';
+import { deletePost } from '../../../Store/ActionCreators/post';
+import DeleteModal from './DeleteModal';
+import EditPostModal from './EditPostModal';
 
 function MyPostCard(props) {
 	let { id, description, created_at, title, image, category } = props.details;
@@ -45,8 +45,8 @@ function MyPostCard(props) {
 									src={
 										image ??
 										process.env.PUBLIC_URL +
-											"/assets/images/" +
-											(category === "book" ? "book.png" : `${category}.svg`)
+											'/assets/images/' +
+											(category === 'book' ? 'book.png' : `${category}.svg`)
 									}
 									size="small"
 								/>
@@ -55,8 +55,7 @@ function MyPostCard(props) {
 								<h3
 									className="text-capitalize"
 									onClick={() => props.history.push(`/posts/${category}/${id}`)}
-									style={{ cursor: "pointer" }}
-								>
+									style={{ cursor: 'pointer' }}>
 									{title}
 								</h3>
 							</Col>
