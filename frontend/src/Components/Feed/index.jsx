@@ -48,15 +48,20 @@ function Posts(props) {
 		}
 	}, [category, ordering, is_request]);
 
-	const fetchMore = () => {
+	const fetchMore = async () => {
 		setMoreLoading(true);
-		dispatch(
-			fetchNextPosts({ category, ordering, is_request, page: next })
-		).then(res => {
-			setCards([...cards, ...res.results]);
-			setNext(res.next);
-			setMoreLoading(false);
-		});
+		let res;
+		if (is_request === 0) {
+			res = await dispatch(fetchNextPosts({ category, ordering, page: next }));
+		} else {
+			res = await dispatch(
+				fetchNextPosts({ category, ordering, is_request, page: next })
+			);
+		}
+
+		setCards([...cards, ...res?.results]);
+		setNext(res.next);
+		setMoreLoading(false);
 	};
 
 	return (

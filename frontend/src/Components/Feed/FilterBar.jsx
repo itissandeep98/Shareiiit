@@ -41,8 +41,8 @@ function FilterBar(props) {
 		{ label: 'Other', value: 'other' },
 	];
 	const sort_by = [
-		{ label: 'Most Recent', value: 'created_at' },
-		{ label: 'Oldest first', value: '-created_at' },
+		{ label: 'Most Recent', value: '-created_at' },
+		{ label: 'Oldest first', value: 'created_at' },
 		{ label: 'Most Upvoted', value: 'upvote_count' },
 	];
 	const [searchLoading, setSearchLoading] = useState(false);

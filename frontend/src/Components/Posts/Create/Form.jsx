@@ -34,13 +34,13 @@ function Form(props) {
 		if (state?.book?.author) {
 			data.append('book.author', state?.book?.author);
 		}
-		if (state?.members_needed) {
-			data.append('group.members_needed', parseInt(state.members_needed));
+		if (state?.group?.members_needed) {
+			data.append('group.members_needed', parseInt(state.group.members_needed));
 		}
-		if (state?.members?.length > 0) {
+		if (state?.group?.current_members?.length > 0) {
 			data.append(
 				'group.current_members',
-				state?.members?.map(member => member.id)
+				state?.group?.current_members?.map(member => member.id)
 			);
 		}
 
@@ -170,7 +170,7 @@ function Form(props) {
 				className="mt-3 float-right  "
 				onClick={handleSubmit}
 				startIcon={<CheckIcon />}>
-				Update
+				Create
 			</Button>
 		</form>
 	);
