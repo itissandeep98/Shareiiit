@@ -1,5 +1,6 @@
 from tokenize import group
 from django.contrib.auth import get_user_model
+import json
 
 from rest_framework.validators import UniqueTogetherValidator
 from rest_framework import serializers
@@ -187,6 +188,26 @@ class GroupPostSerializer(PostSerializer):
     class Meta:
         model = PostSerializer.Meta.model
         fields = PostSerializer.Meta.fields + ("group",)
+
+    def to_internal_value(self, data):
+        if data.__contains__("group.current_members"):
+            data._mutable = True
+
+            # print(data["group.current_members"])
+            # print(type(data["group.current_members"]))
+            # print(data["group"]["current_members"])
+            # print(type(data["group"]["current_members"]))
+
+            data.setlist(
+                "group.current_members",
+                list(map(int, data["group.current_members"].split(","))),
+            )
+
+            data._mutable = False
+
+        # print("here2", data)
+
+        return super(GroupPostSerializer, self).to_internal_value(data)
 
     def create(self, validated_data):
         if "group" in validated_data:
