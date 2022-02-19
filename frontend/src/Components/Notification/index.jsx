@@ -53,7 +53,7 @@ function Notification(props) {
 									)}
 								</Icon.Group>
 							}>
-							<Dropdown.Menu>
+							<Dropdown.Menu style={{ maxHeight: '300px', overflow: 'auto' }}>
 								<Content
 									notification={notification}
 									read={read}
