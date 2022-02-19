@@ -103,7 +103,7 @@ class Skill(models.Model):
 class Group(models.Model):
     post = models.OneToOneField(Post, on_delete=models.CASCADE)
     current_members = models.ManyToManyField(User)
-    members_needed = models.IntegerField()
+    members_needed = models.IntegerField(blank=True, null=True)
     # tracker = FieldTracker(fields=["current_members"])
 
 

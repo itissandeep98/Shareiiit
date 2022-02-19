@@ -108,3 +108,17 @@ All commands are available in [server.sh](server.sh)
 ### Reference
 
 https://www.digitalocean.com/community/tutorials/how-to-set-up-django-with-postgres-nginx-and-gunicorn-on-ubuntu-18-04
+
+## Project Structure
+
+### Backend
+
+The django project has been dividied into three parts based on the functionality: accounts, posts and messaging. The code corresponding to each part is inside that particular django app.
+
+The code for notification generation is in `posts/signals.py` file.
+
+The scripts folder contains two scripts:
+
+-   init-db script to initialize a db if required, the script makes use of skills.csv file which has been sourced from https://github.com/varadchoudhari/LinkedIn-Skills-Crawler
+
+-   delete-posts to for permanent deletion of posts.

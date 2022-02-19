@@ -357,6 +357,7 @@ GET http://localhost:8000/api/profile/
                                     <div class="url">http://localhost:8000/api/profile/</div>
                                     
                                     <div class="description request-description">
+                                        <p><p>Update details of the currently logged in user. All the information inside profile is local to our app, fields like first<em>name, last</em>name and username are synced OSA backend. Therefore, the request is forwarded to OSA first and on its success, we update these details locally as well.</p></p>
                                     </div>
                                     
                                     <div class="request-body">
@@ -536,6 +537,252 @@ GET http://localhost:8000/api/osadetails/
                                 <div class="api-information" id="6">
                                      <div class="heading">
                                         <div class="name">
+                                            <span class="POST method" >POST</span>
+                                            follow other user <span class="lock-icon"></span>
+                                        </div>
+                                     </div>
+                                    <div class="url">http://localhost:8000/api/following/</div>
+                                    
+                                    <div class="request-body">
+                                        <div class="body-heading">HEADERS</div>
+                                        <hr>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">Content-Type</div>
+                                            <div class="value col-md-9 col-xs-12">application/json</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">Authorization</div>
+                                            <div class="value col-md-9 col-xs-12">Token {{swastik token}}</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                    </div>
+                                    
+                                    <div class="request-body">
+                                        <div class="body-heading">BODY <span class="body-type">raw</span></div>
+                                        <hr>
+                                            <div class="raw-body code-snippet">
+                                              <pre class="body-block click-to-expand-wrapper is-snippet-wrapper " data-title="follow other user">
+                                                  <code>
+                                                    
+{
+    "user": 2
+}
+                                                  </code>
+                                              </pre>
+                                            </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xs-12 examples">
+                                <div class="sample-request">
+                                    <div class="heading">
+                                        <span>Example Request</span>
+                                    </div>
+                                    <div class="responses-index">
+                                        <div class="dropdown response-name">
+                                            <button class="btn   responses-dropdown truncate" type="button" id="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                              <span id="selected" class="response-name-label">follow other user</span>
+                                                <span class="caret"></span>
+
+                                            </button>
+
+                                            <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
+                                                <li class="truncate" data-request-info="6" data-response-info="response_6">follow other user</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="formatted-requests " data-request-id="6"  data-id="response_6">
+                                    <div class="request code-snippet">
+                                        <div>
+                                            <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="follow other user">
+                                                <code class="is-highlighted">
+POST http://localhost:8000/api/following/
+
+{
+    "user": 2
+}</code>
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row row-no-padding row-eq-height">
+                            <div class="col-md-6 col-xs-12 section">
+                                <div class="api-information" id="7">
+                                     <div class="heading">
+                                        <div class="name">
+                                            <span class="DELETE method" >DELETE</span>
+                                            unfollow other user <span class="lock-icon"></span>
+                                        </div>
+                                     </div>
+                                    <div class="url">http://localhost:8000/api/following/12/</div>
+                                    
+                                    <div class="request-body">
+                                        <div class="body-heading">HEADERS</div>
+                                        <hr>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">Content-Type</div>
+                                            <div class="value col-md-9 col-xs-12">application/json</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">Authorization</div>
+                                            <div class="value col-md-9 col-xs-12">Token {{swastik token}}</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                    </div>
+                                    
+                                    <div class="request-body">
+                                        <div class="body-heading">BODY <span class="body-type">raw</span></div>
+                                        <hr>
+                                            <div class="raw-body code-snippet">
+                                              <pre class="body-block click-to-expand-wrapper is-snippet-wrapper " data-title="unfollow other user">
+                                                  <code>
+                                                    
+{
+    "user": 3
+}
+                                                  </code>
+                                              </pre>
+                                            </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xs-12 examples">
+                                <div class="sample-request">
+                                    <div class="heading">
+                                        <span>Example Request</span>
+                                    </div>
+                                    <div class="responses-index">
+                                        <div class="dropdown response-name">
+                                            <button class="btn   responses-dropdown truncate" type="button" id="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                              <span id="selected" class="response-name-label">unfollow other user</span>
+                                                <span class="caret"></span>
+
+                                            </button>
+
+                                            <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
+                                                <li class="truncate" data-request-info="7" data-response-info="response_7">unfollow other user</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="formatted-requests " data-request-id="7"  data-id="response_7">
+                                    <div class="request code-snippet">
+                                        <div>
+                                            <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="unfollow other user">
+                                                <code class="is-highlighted">
+DELETE http://localhost:8000/api/following/12/
+
+{
+    "user": 3
+}</code>
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row row-no-padding row-eq-height">
+                            <div class="col-md-6 col-xs-12 section">
+                                <div class="api-information" id="8">
+                                     <div class="heading">
+                                        <div class="name">
+                                            <span class="GET method" >GET</span>
+                                            get following list <span class="lock-icon"></span>
+                                        </div>
+                                     </div>
+                                    <div class="url">http://localhost:8000/api/following/</div>
+                                    
+                                    <div class="request-body">
+                                        <div class="body-heading">HEADERS</div>
+                                        <hr>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">Content-Type</div>
+                                            <div class="value col-md-9 col-xs-12">application/json</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">Authorization</div>
+                                            <div class="value col-md-9 col-xs-12">Token {{anmol token}}</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                    </div>
+                                    
+                                    <div class="request-body">
+                                        <div class="body-heading">BODY <span class="body-type">raw</span></div>
+                                        <hr>
+                                            <div class="raw-body code-snippet">
+                                              <pre class="body-block click-to-expand-wrapper is-snippet-wrapper " data-title="get following list">
+                                                  <code>
+                                                    
+{
+    "user": 3
+}
+                                                  </code>
+                                              </pre>
+                                            </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xs-12 examples">
+                                <div class="sample-request">
+                                    <div class="heading">
+                                        <span>Example Request</span>
+                                    </div>
+                                    <div class="responses-index">
+                                        <div class="dropdown response-name">
+                                            <button class="btn   responses-dropdown truncate" type="button" id="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                              <span id="selected" class="response-name-label">get following list</span>
+                                                <span class="caret"></span>
+
+                                            </button>
+
+                                            <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
+                                                <li class="truncate" data-request-info="8" data-response-info="response_8">get following list</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="formatted-requests " data-request-id="8"  data-id="response_8">
+                                    <div class="request code-snippet">
+                                        <div>
+                                            <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="get following list">
+                                                <code class="is-highlighted">
+GET http://localhost:8000/api/following/
+
+{
+    "user": 3
+}</code>
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row row-no-padding row-eq-height">
+                            <div class="col-md-6 col-xs-12 section">
+                                <div class="api-information" id="9">
+                                     <div class="heading">
+                                        <div class="name">
                                             <span class="GET method" >GET</span>
                                             get details of other user <span class="lock-icon"></span>
                                         </div>
@@ -553,7 +800,7 @@ GET http://localhost:8000/api/osadetails/
                                           </div>
                                           <div class="param row">
                                             <div class="name col-md-3 col-xs-12">Authorization</div>
-                                            <div class="value col-md-9 col-xs-12">Token {{anmol token}}</div>
+                                            <div class="value col-md-9 col-xs-12">Token {{swastik token}}</div>
                                             <div class="description col-md-9 col-xs-12"><p>None</p>
                                             </div>
                                           </div>
@@ -589,12 +836,12 @@ GET http://localhost:8000/api/osadetails/
                                             </button>
 
                                             <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
-                                                <li class="truncate" data-request-info="6" data-response-info="response_6">get details of other user</li>
+                                                <li class="truncate" data-request-info="9" data-response-info="response_9">get details of other user</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="formatted-requests " data-request-id="6"  data-id="response_6">
+                                <div class="formatted-requests " data-request-id="9"  data-id="response_9">
                                     <div class="request code-snippet">
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="get details of other user">
@@ -611,7 +858,96 @@ GET http://localhost:8000/api/users/anmol/
                         </div>
                         <div class="row row-no-padding row-eq-height">
                             <div class="col-md-6 col-xs-12 section">
-                                <div class="api-information" id="7">
+                                <div class="api-information" id="10">
+                                     <div class="heading">
+                                        <div class="name">
+                                            <span class="GET method" >GET</span>
+                                            search users <span class="lock-icon"></span>
+                                        </div>
+                                     </div>
+                                    <div class="url">http://localhost:8000/api/users/?search=swa</div>
+                                    
+                                    <div class="request-body">
+                                        <div class="body-heading">HEADERS</div>
+                                        <hr>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">Content-Type</div>
+                                            <div class="value col-md-9 col-xs-12">application/json</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">Authorization</div>
+                                            <div class="value col-md-9 col-xs-12">Token {{anmol token}}</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                    </div>
+                                    
+                                    <div class="request-body">
+                                        <div class="body-heading">PARAMS</div>
+                                        <hr>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">search</div>
+                                            <div class="value col-md-9 col-xs-12">swa</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                    </div>
+                                    
+                                    <div class="request-body">
+                                        <div class="body-heading">BODY <span class="body-type">raw</span></div>
+                                        <hr>
+                                            <div class="raw-body code-snippet">
+                                              <pre class="body-block click-to-expand-wrapper is-snippet-wrapper " data-title="search users">
+                                                  <code>
+                                                    
+
+                                                  </code>
+                                              </pre>
+                                            </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xs-12 examples">
+                                <div class="sample-request">
+                                    <div class="heading">
+                                        <span>Example Request</span>
+                                    </div>
+                                    <div class="responses-index">
+                                        <div class="dropdown response-name">
+                                            <button class="btn   responses-dropdown truncate" type="button" id="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                              <span id="selected" class="response-name-label">search users</span>
+                                                <span class="caret"></span>
+
+                                            </button>
+
+                                            <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
+                                                <li class="truncate" data-request-info="10" data-response-info="response_10">search users</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="formatted-requests " data-request-id="10"  data-id="response_10">
+                                    <div class="request code-snippet">
+                                        <div>
+                                            <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="search users">
+                                                <code class="is-highlighted">
+GET http://localhost:8000/api/users/?search=swa
+
+</code>
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row row-no-padding row-eq-height">
+                            <div class="col-md-6 col-xs-12 section">
+                                <div class="api-information" id="11">
                                      <div class="heading">
                                         <div class="name">
                                             <span class="POST method" >POST</span>
@@ -671,12 +1007,12 @@ GET http://localhost:8000/api/users/anmol/
                                             </button>
 
                                             <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
-                                                <li class="truncate" data-request-info="7" data-response-info="response_7">logout</li>
+                                                <li class="truncate" data-request-info="11" data-response-info="response_11">logout</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="formatted-requests " data-request-id="7"  data-id="response_7">
+                                <div class="formatted-requests " data-request-id="11"  data-id="response_11">
                                     <div class="request code-snippet">
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="logout">
@@ -693,7 +1029,7 @@ POST http://localhost:8000/api/logout/
                         </div>
                         <div class="row row-no-padding row-eq-height">
                             <div class="col-md-6 col-xs-12 section">
-                                <div class="api-information" id="8">
+                                <div class="api-information" id="12">
                                      <div class="heading">
                                         <div class="name">
                                             <span class="POST method" >POST</span>
@@ -769,12 +1105,12 @@ POST http://localhost:8000/api/logout/
                                             </button>
 
                                             <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
-                                                <li class="truncate" data-request-info="8" data-response-info="response_8">create my book</li>
+                                                <li class="truncate" data-request-info="12" data-response-info="response_12">create my book</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="formatted-requests " data-request-id="8"  data-id="response_8">
+                                <div class="formatted-requests " data-request-id="12"  data-id="response_12">
                                     <div class="request code-snippet">
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper is-expandable" data-title="create my book">
@@ -800,7 +1136,7 @@ POST http://localhost:8000/api/myposts/?category=book
                         </div>
                         <div class="row row-no-padding row-eq-height">
                             <div class="col-md-6 col-xs-12 section">
-                                <div class="api-information" id="9">
+                                <div class="api-information" id="13">
                                      <div class="heading">
                                         <div class="name">
                                             <span class="PATCH method" >PATCH</span>
@@ -869,12 +1205,12 @@ POST http://localhost:8000/api/myposts/?category=book
                                             </button>
 
                                             <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
-                                                <li class="truncate" data-request-info="9" data-response-info="response_9">update my book</li>
+                                                <li class="truncate" data-request-info="13" data-response-info="response_13">update my book</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="formatted-requests " data-request-id="9"  data-id="response_9">
+                                <div class="formatted-requests " data-request-id="13"  data-id="response_13">
                                     <div class="request code-snippet">
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="update my book">
@@ -893,14 +1229,14 @@ PATCH http://localhost:8000/api/myposts/3/?category=book
                         </div>
                         <div class="row row-no-padding row-eq-height">
                             <div class="col-md-6 col-xs-12 section">
-                                <div class="api-information" id="10">
+                                <div class="api-information" id="14">
                                      <div class="heading">
                                         <div class="name">
-                                            <span class="POST method" >POST</span>
+                                            <span class="DELETE method" >DELETE</span>
                                             delete my book <span class="lock-icon"></span>
                                         </div>
                                      </div>
-                                    <div class="url">http://localhost:8000/api/myposts/3/delete/?category=book</div>
+                                    <div class="url">http://localhost:8000/api/myposts/3/?category=book</div>
                                     
                                     <div class="request-body">
                                         <div class="body-heading">HEADERS</div>
@@ -946,17 +1282,17 @@ PATCH http://localhost:8000/api/myposts/3/?category=book
                                             </button>
 
                                             <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
-                                                <li class="truncate" data-request-info="10" data-response-info="response_10">delete my book</li>
+                                                <li class="truncate" data-request-info="14" data-response-info="response_14">delete my book</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="formatted-requests " data-request-id="10"  data-id="response_10">
+                                <div class="formatted-requests " data-request-id="14"  data-id="response_14">
                                     <div class="request code-snippet">
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="delete my book">
                                                 <code class="is-highlighted">
-POST http://localhost:8000/api/myposts/3/delete/?category=book</code>
+DELETE http://localhost:8000/api/myposts/3/?category=book</code>
                                             </pre>
                                         </div>
                                     </div>
@@ -966,7 +1302,7 @@ POST http://localhost:8000/api/myposts/3/delete/?category=book</code>
                         </div>
                         <div class="row row-no-padding row-eq-height">
                             <div class="col-md-6 col-xs-12 section">
-                                <div class="api-information" id="11">
+                                <div class="api-information" id="15">
                                      <div class="heading">
                                         <div class="name">
                                             <span class="GET method" >GET</span>
@@ -1019,12 +1355,12 @@ POST http://localhost:8000/api/myposts/3/delete/?category=book</code>
                                             </button>
 
                                             <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
-                                                <li class="truncate" data-request-info="11" data-response-info="response_11">list of my books</li>
+                                                <li class="truncate" data-request-info="15" data-response-info="response_15">list of my books</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="formatted-requests " data-request-id="11"  data-id="response_11">
+                                <div class="formatted-requests " data-request-id="15"  data-id="response_15">
                                     <div class="request code-snippet">
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="list of my books">
@@ -1039,7 +1375,7 @@ GET http://localhost:8000/api/myposts/?category=book</code>
                         </div>
                         <div class="row row-no-padding row-eq-height">
                             <div class="col-md-6 col-xs-12 section">
-                                <div class="api-information" id="12">
+                                <div class="api-information" id="16">
                                      <div class="heading">
                                         <div class="name">
                                             <span class="GET method" >GET</span>
@@ -1106,12 +1442,12 @@ GET http://localhost:8000/api/myposts/?category=book</code>
                                             </button>
 
                                             <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
-                                                <li class="truncate" data-request-info="12" data-response-info="response_12">list of all books</li>
+                                                <li class="truncate" data-request-info="16" data-response-info="response_16">list of all books</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="formatted-requests " data-request-id="12"  data-id="response_12">
+                                <div class="formatted-requests " data-request-id="16"  data-id="response_16">
                                     <div class="request code-snippet">
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="list of all books">
@@ -1236,7 +1572,7 @@ GET http://localhost:8000/api/posts/?category=book
                         </div>
                         <div class="row row-no-padding row-eq-height">
                             <div class="col-md-6 col-xs-12 section">
-                                <div class="api-information" id="13">
+                                <div class="api-information" id="17">
                                      <div class="heading">
                                         <div class="name">
                                             <span class="GET method" >GET</span>
@@ -1295,12 +1631,12 @@ GET http://localhost:8000/api/posts/?category=book
                                             </button>
 
                                             <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
-                                                <li class="truncate" data-request-info="13" data-response-info="response_13">instance of a book</li>
+                                                <li class="truncate" data-request-info="17" data-response-info="response_17">instance of a book</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="formatted-requests " data-request-id="13"  data-id="response_13">
+                                <div class="formatted-requests " data-request-id="17"  data-id="response_17">
                                     <div class="request code-snippet">
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="instance of a book">
@@ -1315,7 +1651,7 @@ GET http://localhost:8000/api/posts/5/?category=book&show_dismissed=True</code>
                         </div>
                         <div class="row row-no-padding row-eq-height">
                             <div class="col-md-6 col-xs-12 section">
-                                <div class="api-information" id="14">
+                                <div class="api-information" id="18">
                                      <div class="heading">
                                         <div class="name">
                                             <span class="GET method" >GET</span>
@@ -1374,12 +1710,12 @@ GET http://localhost:8000/api/posts/5/?category=book&show_dismissed=True</code>
                                             </button>
 
                                             <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
-                                                <li class="truncate" data-request-info="14" data-response-info="response_14">search all books</li>
+                                                <li class="truncate" data-request-info="18" data-response-info="response_18">search all books</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="formatted-requests " data-request-id="14"  data-id="response_14">
+                                <div class="formatted-requests " data-request-id="18"  data-id="response_18">
                                     <div class="request code-snippet">
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="search all books">
@@ -1394,7 +1730,596 @@ GET http://localhost:8000/api/posts/?category=book&search=algorithm</code>
                         </div>
                         <div class="row row-no-padding row-eq-height">
                             <div class="col-md-6 col-xs-12 section">
-                                <div class="api-information" id="15">
+                                <div class="api-information" id="19">
+                                     <div class="heading">
+                                        <div class="name">
+                                            <span class="POST method" >POST</span>
+                                            create my group <span class="lock-icon"></span>
+                                        </div>
+                                     </div>
+                                    <div class="url">http://localhost:8000/api/myposts/?category=group</div>
+                                    
+                                    <div class="request-body">
+                                        <div class="body-heading">HEADERS</div>
+                                        <hr>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">Content-Type</div>
+                                            <div class="value col-md-9 col-xs-12">application/json</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">Authorization</div>
+                                            <div class="value col-md-9 col-xs-12">Token {{anmol token}}</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                    </div>
+                                    
+                                    <div class="request-body">
+                                        <div class="body-heading">PARAMS</div>
+                                        <hr>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">category</div>
+                                            <div class="value col-md-9 col-xs-12">group</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                    </div>
+                                    
+                                    <div class="request-body">
+                                        <div class="body-heading">BODY <span class="body-type">raw</span></div>
+                                        <hr>
+                                            <div class="raw-body code-snippet">
+                                              <pre class="body-block click-to-expand-wrapper is-snippet-wrapper is-expandable" data-title="create my group">
+                                                  <code>
+                                                    
+{
+    "title": "Football Match",
+    "description": "We will have a football match at 6 PM",
+    "group": {
+        "members_needed": 2,
+        "current_members": [2,3]
+    }
+}
+                                                  </code>
+                                              </pre>
+                                            </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xs-12 examples">
+                                <div class="sample-request">
+                                    <div class="heading">
+                                        <span>Example Request</span>
+                                    </div>
+                                    <div class="responses-index">
+                                        <div class="dropdown response-name">
+                                            <button class="btn   responses-dropdown truncate" type="button" id="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                              <span id="selected" class="response-name-label">create my group</span>
+                                                <span class="caret"></span>
+
+                                            </button>
+
+                                            <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
+                                                <li class="truncate" data-request-info="19" data-response-info="response_19">create my group</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="formatted-requests " data-request-id="19"  data-id="response_19">
+                                    <div class="request code-snippet">
+                                        <div>
+                                            <pre class="click-to-expand-wrapper is-snippet-wrapper is-expandable" data-title="create my group">
+                                                <code class="is-highlighted">
+POST http://localhost:8000/api/myposts/?category=group
+
+{
+    "title": "Football Match",
+    "description": "We will have a football match at 6 PM",
+    "group": {
+        "members_needed": 2,
+        "current_members": [2,3]
+    }
+}</code>
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row row-no-padding row-eq-height">
+                            <div class="col-md-6 col-xs-12 section">
+                                <div class="api-information" id="20">
+                                     <div class="heading">
+                                        <div class="name">
+                                            <span class="PATCH method" >PATCH</span>
+                                            update my group <span class="lock-icon"></span>
+                                        </div>
+                                     </div>
+                                    <div class="url">http://localhost:8000/api/myposts/8/?category=group</div>
+                                    
+                                    <div class="request-body">
+                                        <div class="body-heading">HEADERS</div>
+                                        <hr>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">Content-Type</div>
+                                            <div class="value col-md-9 col-xs-12">application/json</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">Authorization</div>
+                                            <div class="value col-md-9 col-xs-12">Token {{anmol token}}</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                    </div>
+                                    
+                                    <div class="request-body">
+                                        <div class="body-heading">PARAMS</div>
+                                        <hr>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">category</div>
+                                            <div class="value col-md-9 col-xs-12">group</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                    </div>
+                                    
+                                    <div class="request-body">
+                                        <div class="body-heading">BODY <span class="body-type">raw</span></div>
+                                        <hr>
+                                            <div class="raw-body code-snippet">
+                                              <pre class="body-block click-to-expand-wrapper is-snippet-wrapper " data-title="update my group">
+                                                  <code>
+                                                    
+{
+    "group": {"current_members": [1,2, 3]}
+}
+                                                  </code>
+                                              </pre>
+                                            </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xs-12 examples">
+                                <div class="sample-request">
+                                    <div class="heading">
+                                        <span>Example Request</span>
+                                    </div>
+                                    <div class="responses-index">
+                                        <div class="dropdown response-name">
+                                            <button class="btn   responses-dropdown truncate" type="button" id="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                              <span id="selected" class="response-name-label">update my group</span>
+                                                <span class="caret"></span>
+
+                                            </button>
+
+                                            <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
+                                                <li class="truncate" data-request-info="20" data-response-info="response_20">update my group</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="formatted-requests " data-request-id="20"  data-id="response_20">
+                                    <div class="request code-snippet">
+                                        <div>
+                                            <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="update my group">
+                                                <code class="is-highlighted">
+PATCH http://localhost:8000/api/myposts/8/?category=group
+
+{
+    "group": {"current_members": [1,2, 3]}
+}</code>
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row row-no-padding row-eq-height">
+                            <div class="col-md-6 col-xs-12 section">
+                                <div class="api-information" id="21">
+                                     <div class="heading">
+                                        <div class="name">
+                                            <span class="DELETE method" >DELETE</span>
+                                            delete my group post <span class="lock-icon"></span>
+                                        </div>
+                                     </div>
+                                    <div class="url">http://localhost:8000/api/myposts/3/?category=group</div>
+                                    
+                                    <div class="request-body">
+                                        <div class="body-heading">HEADERS</div>
+                                        <hr>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">Content-Type</div>
+                                            <div class="value col-md-9 col-xs-12">application/json</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">Authorization</div>
+                                            <div class="value col-md-9 col-xs-12">Token {{anmol token}}</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                    </div>
+                                    
+                                    <div class="request-body">
+                                        <div class="body-heading">PARAMS</div>
+                                        <hr>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">category</div>
+                                            <div class="value col-md-9 col-xs-12">group</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xs-12 examples">
+                                <div class="sample-request">
+                                    <div class="heading">
+                                        <span>Example Request</span>
+                                    </div>
+                                    <div class="responses-index">
+                                        <div class="dropdown response-name">
+                                            <button class="btn   responses-dropdown truncate" type="button" id="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                              <span id="selected" class="response-name-label">delete my group post</span>
+                                                <span class="caret"></span>
+
+                                            </button>
+
+                                            <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
+                                                <li class="truncate" data-request-info="21" data-response-info="response_21">delete my group post</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="formatted-requests " data-request-id="21"  data-id="response_21">
+                                    <div class="request code-snippet">
+                                        <div>
+                                            <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="delete my group post">
+                                                <code class="is-highlighted">
+DELETE http://localhost:8000/api/myposts/3/?category=group</code>
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row row-no-padding row-eq-height">
+                            <div class="col-md-6 col-xs-12 section">
+                                <div class="api-information" id="22">
+                                     <div class="heading">
+                                        <div class="name">
+                                            <span class="GET method" >GET</span>
+                                            list of my group posts <span class="lock-icon"></span>
+                                        </div>
+                                     </div>
+                                    <div class="url">http://localhost:8000/api/myposts/?category=group</div>
+                                    
+                                    <div class="request-body">
+                                        <div class="body-heading">HEADERS</div>
+                                        <hr>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">Content-Type</div>
+                                            <div class="value col-md-9 col-xs-12">application/json</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">Authorization</div>
+                                            <div class="value col-md-9 col-xs-12">Token {{anmol token}}</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                    </div>
+                                    
+                                    <div class="request-body">
+                                        <div class="body-heading">PARAMS</div>
+                                        <hr>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">category</div>
+                                            <div class="value col-md-9 col-xs-12">group</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xs-12 examples">
+                                <div class="sample-request">
+                                    <div class="heading">
+                                        <span>Example Request</span>
+                                    </div>
+                                    <div class="responses-index">
+                                        <div class="dropdown response-name">
+                                            <button class="btn   responses-dropdown truncate" type="button" id="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                              <span id="selected" class="response-name-label">list of my group posts</span>
+                                                <span class="caret"></span>
+
+                                            </button>
+
+                                            <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
+                                                <li class="truncate" data-request-info="22" data-response-info="response_22">list of my group posts</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="formatted-requests " data-request-id="22"  data-id="response_22">
+                                    <div class="request code-snippet">
+                                        <div>
+                                            <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="list of my group posts">
+                                                <code class="is-highlighted">
+GET http://localhost:8000/api/myposts/?category=group</code>
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row row-no-padding row-eq-height">
+                            <div class="col-md-6 col-xs-12 section">
+                                <div class="api-information" id="23">
+                                     <div class="heading">
+                                        <div class="name">
+                                            <span class="GET method" >GET</span>
+                                            list of all group posts <span class="lock-icon"></span>
+                                        </div>
+                                     </div>
+                                    <div class="url">http://localhost:8000/api/posts/?category=book</div>
+                                    
+                                    <div class="request-body">
+                                        <div class="body-heading">HEADERS</div>
+                                        <hr>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">Content-Type</div>
+                                            <div class="value col-md-9 col-xs-12">application/json</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">Authorization</div>
+                                            <div class="value col-md-9 col-xs-12">Token {{anmol token}}</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                    </div>
+                                    
+                                    <div class="request-body">
+                                        <div class="body-heading">PARAMS</div>
+                                        <hr>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">category</div>
+                                            <div class="value col-md-9 col-xs-12">book</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                    </div>
+                                    
+                                    <div class="request-body">
+                                        <div class="body-heading">BODY <span class="body-type">raw</span></div>
+                                        <hr>
+                                            <div class="raw-body code-snippet">
+                                              <pre class="body-block click-to-expand-wrapper is-snippet-wrapper " data-title="list of all group posts">
+                                                  <code>
+                                                    
+
+                                                  </code>
+                                              </pre>
+                                            </div>
+                                        
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xs-12 examples">
+                                <div class="sample-request">
+                                    <div class="heading">
+                                        <span>Example Request</span>
+                                    </div>
+                                    <div class="responses-index">
+                                        <div class="dropdown response-name">
+                                            <button class="btn   responses-dropdown truncate" type="button" id="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                              <span id="selected" class="response-name-label">list of all group posts</span>
+                                                <span class="caret"></span>
+
+                                            </button>
+
+                                            <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
+                                                <li class="truncate" data-request-info="23" data-response-info="response_23">list of all group posts</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="formatted-requests " data-request-id="23"  data-id="response_23">
+                                    <div class="request code-snippet">
+                                        <div>
+                                            <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="list of all group posts">
+                                                <code class="is-highlighted">
+GET http://localhost:8000/api/posts/?category=book
+
+</code>
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row row-no-padding row-eq-height">
+                            <div class="col-md-6 col-xs-12 section">
+                                <div class="api-information" id="24">
+                                     <div class="heading">
+                                        <div class="name">
+                                            <span class="GET method" >GET</span>
+                                            instance of a group post <span class="lock-icon"></span>
+                                        </div>
+                                     </div>
+                                    <div class="url">http://localhost:8000/api/posts/5/?category=group&show_dismissed=True</div>
+                                    
+                                    <div class="request-body">
+                                        <div class="body-heading">HEADERS</div>
+                                        <hr>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">Content-Type</div>
+                                            <div class="value col-md-9 col-xs-12">application/json</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">Authorization</div>
+                                            <div class="value col-md-9 col-xs-12">Token {{anmol token}}</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                    </div>
+                                    
+                                    <div class="request-body">
+                                        <div class="body-heading">PARAMS</div>
+                                        <hr>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">category</div>
+                                            <div class="value col-md-9 col-xs-12">group</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">show_dismissed</div>
+                                            <div class="value col-md-9 col-xs-12">True</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xs-12 examples">
+                                <div class="sample-request">
+                                    <div class="heading">
+                                        <span>Example Request</span>
+                                    </div>
+                                    <div class="responses-index">
+                                        <div class="dropdown response-name">
+                                            <button class="btn   responses-dropdown truncate" type="button" id="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                              <span id="selected" class="response-name-label">instance of a group post</span>
+                                                <span class="caret"></span>
+
+                                            </button>
+
+                                            <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
+                                                <li class="truncate" data-request-info="24" data-response-info="response_24">instance of a group post</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="formatted-requests " data-request-id="24"  data-id="response_24">
+                                    <div class="request code-snippet">
+                                        <div>
+                                            <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="instance of a group post">
+                                                <code class="is-highlighted">
+GET http://localhost:8000/api/posts/5/?category=group&show_dismissed=True</code>
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row row-no-padding row-eq-height">
+                            <div class="col-md-6 col-xs-12 section">
+                                <div class="api-information" id="25">
+                                     <div class="heading">
+                                        <div class="name">
+                                            <span class="GET method" >GET</span>
+                                            search all group posts <span class="lock-icon"></span>
+                                        </div>
+                                     </div>
+                                    <div class="url">http://localhost:8000/api/posts/?category=group&search=football</div>
+                                    
+                                    <div class="request-body">
+                                        <div class="body-heading">HEADERS</div>
+                                        <hr>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">Content-Type</div>
+                                            <div class="value col-md-9 col-xs-12">application/json</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">Authorization</div>
+                                            <div class="value col-md-9 col-xs-12">Token {{swastik token}}</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                    </div>
+                                    
+                                    <div class="request-body">
+                                        <div class="body-heading">PARAMS</div>
+                                        <hr>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">category</div>
+                                            <div class="value col-md-9 col-xs-12">group</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                          <div class="param row">
+                                            <div class="name col-md-3 col-xs-12">search</div>
+                                            <div class="value col-md-9 col-xs-12">football</div>
+                                            <div class="description col-md-9 col-xs-12"><p>None</p>
+                                            </div>
+                                          </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-xs-12 examples">
+                                <div class="sample-request">
+                                    <div class="heading">
+                                        <span>Example Request</span>
+                                    </div>
+                                    <div class="responses-index">
+                                        <div class="dropdown response-name">
+                                            <button class="btn   responses-dropdown truncate" type="button" id="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                              <span id="selected" class="response-name-label">search all group posts</span>
+                                                <span class="caret"></span>
+
+                                            </button>
+
+                                            <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
+                                                <li class="truncate" data-request-info="25" data-response-info="response_25">search all group posts</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="formatted-requests " data-request-id="25"  data-id="response_25">
+                                    <div class="request code-snippet">
+                                        <div>
+                                            <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="search all group posts">
+                                                <code class="is-highlighted">
+GET http://localhost:8000/api/posts/?category=group&search=football</code>
+                                            </pre>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <div class="row row-no-padding row-eq-height">
+                            <div class="col-md-6 col-xs-12 section">
+                                <div class="api-information" id="26">
                                      <div class="heading">
                                         <div class="name">
                                             <span class="POST method" >POST</span>
@@ -1469,12 +2394,12 @@ GET http://localhost:8000/api/posts/?category=book&search=algorithm</code>
                                             </button>
 
                                             <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
-                                                <li class="truncate" data-request-info="15" data-response-info="response_15">create</li>
+                                                <li class="truncate" data-request-info="26" data-response-info="response_26">create</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="formatted-requests " data-request-id="15"  data-id="response_15">
+                                <div class="formatted-requests " data-request-id="26"  data-id="response_26">
                                     <div class="request code-snippet">
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper is-expandable" data-title="create">
@@ -1499,7 +2424,7 @@ POST http://localhost:8000/api/myposts/?category=skill
                         </div>
                         <div class="row row-no-padding row-eq-height">
                             <div class="col-md-6 col-xs-12 section">
-                                <div class="api-information" id="16">
+                                <div class="api-information" id="27">
                                      <div class="heading">
                                         <div class="name">
                                             <span class="PATCH method" >PATCH</span>
@@ -1573,12 +2498,12 @@ POST http://localhost:8000/api/myposts/?category=skill
                                             </button>
 
                                             <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
-                                                <li class="truncate" data-request-info="16" data-response-info="response_16">instance</li>
+                                                <li class="truncate" data-request-info="27" data-response-info="response_27">instance</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="formatted-requests " data-request-id="16"  data-id="response_16">
+                                <div class="formatted-requests " data-request-id="27"  data-id="response_27">
                                     <div class="request code-snippet">
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper is-expandable" data-title="instance">
@@ -1602,7 +2527,7 @@ PATCH http://localhost:8000/api/myposts/6/?category=skill
                         </div>
                         <div class="row row-no-padding row-eq-height">
                             <div class="col-md-6 col-xs-12 section">
-                                <div class="api-information" id="17">
+                                <div class="api-information" id="28">
                                      <div class="heading">
                                         <div class="name">
                                             <span class="GET method" >GET</span>
@@ -1655,12 +2580,12 @@ PATCH http://localhost:8000/api/myposts/6/?category=skill
                                             </button>
 
                                             <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
-                                                <li class="truncate" data-request-info="17" data-response-info="response_17">list of my skills</li>
+                                                <li class="truncate" data-request-info="28" data-response-info="response_28">list of my skills</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="formatted-requests " data-request-id="17"  data-id="response_17">
+                                <div class="formatted-requests " data-request-id="28"  data-id="response_28">
                                     <div class="request code-snippet">
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="list of my skills">
@@ -1675,7 +2600,7 @@ GET http://localhost:8000/api/myposts/?category=skill</code>
                         </div>
                         <div class="row row-no-padding row-eq-height">
                             <div class="col-md-6 col-xs-12 section">
-                                <div class="api-information" id="18">
+                                <div class="api-information" id="29">
                                      <div class="heading">
                                         <div class="name">
                                             <span class="GET method" >GET</span>
@@ -1728,12 +2653,12 @@ GET http://localhost:8000/api/myposts/?category=skill</code>
                                             </button>
 
                                             <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
-                                                <li class="truncate" data-request-info="18" data-response-info="response_18">search skill list</li>
+                                                <li class="truncate" data-request-info="29" data-response-info="response_29">search skill list</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="formatted-requests " data-request-id="18"  data-id="response_18">
+                                <div class="formatted-requests " data-request-id="29"  data-id="response_29">
                                     <div class="request code-snippet">
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="search skill list">
@@ -1821,7 +2746,7 @@ GET http://localhost:8000/api/skilllist/?search=machine&page=2</code>
                         </div>
                         <div class="row row-no-padding row-eq-height">
                             <div class="col-md-6 col-xs-12 section">
-                                <div class="api-information" id="19">
+                                <div class="api-information" id="30">
                                      <div class="heading">
                                         <div class="name">
                                             <span class="GET method" >GET</span>
@@ -1874,12 +2799,12 @@ GET http://localhost:8000/api/skilllist/?search=machine&page=2</code>
                                             </button>
 
                                             <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
-                                                <li class="truncate" data-request-info="19" data-response-info="response_19">get popular skill</li>
+                                                <li class="truncate" data-request-info="30" data-response-info="response_30">get popular skill</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="formatted-requests " data-request-id="19"  data-id="response_19">
+                                <div class="formatted-requests " data-request-id="30"  data-id="response_30">
                                     <div class="request code-snippet">
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="get popular skill">
@@ -1959,7 +2884,7 @@ GET http://localhost:8000/api/skilllist/?popular=True</code>
                         </div>
                         <div class="row row-no-padding row-eq-height">
                             <div class="col-md-6 col-xs-12 section">
-                                <div class="api-information" id="20">
+                                <div class="api-information" id="31">
                                      <div class="heading">
                                         <div class="name">
                                             <span class="GET method" >GET</span>
@@ -2012,12 +2937,12 @@ GET http://localhost:8000/api/skilllist/?popular=True</code>
                                             </button>
 
                                             <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
-                                                <li class="truncate" data-request-info="20" data-response-info="response_20">list of all skills posts</li>
+                                                <li class="truncate" data-request-info="31" data-response-info="response_31">list of all skills posts</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="formatted-requests " data-request-id="20"  data-id="response_20">
+                                <div class="formatted-requests " data-request-id="31"  data-id="response_31">
                                     <div class="request code-snippet">
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="list of all skills posts">
@@ -2032,7 +2957,7 @@ GET http://localhost:8000/api/posts/?category=skill</code>
                         </div>
                         <div class="row row-no-padding row-eq-height">
                             <div class="col-md-6 col-xs-12 section">
-                                <div class="api-information" id="21">
+                                <div class="api-information" id="32">
                                      <div class="heading">
                                         <div class="name">
                                             <span class="GET method" >GET</span>
@@ -2103,12 +3028,12 @@ GET http://localhost:8000/api/posts/?category=skill</code>
                                             </button>
 
                                             <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
-                                                <li class="truncate" data-request-info="21" data-response-info="response_21">get current user's votes on a post</li>
+                                                <li class="truncate" data-request-info="32" data-response-info="response_32">get current user's votes on a post</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="formatted-requests " data-request-id="21"  data-id="response_21">
+                                <div class="formatted-requests " data-request-id="32"  data-id="response_32">
                                     <div class="request code-snippet">
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="get current user's votes on a post">
@@ -2129,7 +3054,7 @@ GET http://localhost:8000/api/votelog/?post=1
                         </div>
                         <div class="row row-no-padding row-eq-height">
                             <div class="col-md-6 col-xs-12 section">
-                                <div class="api-information" id="22">
+                                <div class="api-information" id="33">
                                      <div class="heading">
                                         <div class="name">
                                             <span class="PATCH method" >PATCH</span>
@@ -2200,12 +3125,12 @@ GET http://localhost:8000/api/votelog/?post=1
                                             </button>
 
                                             <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
-                                                <li class="truncate" data-request-info="22" data-response-info="response_22">create/update current user's votes</li>
+                                                <li class="truncate" data-request-info="33" data-response-info="response_33">create/update current user's votes</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="formatted-requests " data-request-id="22"  data-id="response_22">
+                                <div class="formatted-requests " data-request-id="33"  data-id="response_33">
                                     <div class="request code-snippet">
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="create/update current user's votes">
@@ -2226,7 +3151,7 @@ PATCH http://localhost:8000/api/votelog/?post=1
                         </div>
                         <div class="row row-no-padding row-eq-height">
                             <div class="col-md-6 col-xs-12 section">
-                                <div class="api-information" id="23">
+                                <div class="api-information" id="34">
                                      <div class="heading">
                                         <div class="name">
                                             <span class="GET method" >GET</span>
@@ -2303,12 +3228,12 @@ PATCH http://localhost:8000/api/votelog/?post=1
                                             </button>
 
                                             <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
-                                                <li class="truncate" data-request-info="23" data-response-info="response_23">get my activity</li>
+                                                <li class="truncate" data-request-info="34" data-response-info="response_34">get my activity</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="formatted-requests " data-request-id="23"  data-id="response_23">
+                                <div class="formatted-requests " data-request-id="34"  data-id="response_34">
                                     <div class="request code-snippet">
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="get my activity">
@@ -2329,7 +3254,7 @@ GET http://localhost:8000/api/myactivity/?category=book&choice=dismissed
                         </div>
                         <div class="row row-no-padding row-eq-height">
                             <div class="col-md-6 col-xs-12 section">
-                                <div class="api-information" id="24">
+                                <div class="api-information" id="35">
                                      <div class="heading">
                                         <div class="name">
                                             <span class="POST method" >POST</span>
@@ -2398,12 +3323,12 @@ GET http://localhost:8000/api/myactivity/?category=book&choice=dismissed
                                             </button>
 
                                             <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
-                                                <li class="truncate" data-request-info="24" data-response-info="response_24">add message to new convo</li>
+                                                <li class="truncate" data-request-info="35" data-response-info="response_35">add message to new convo</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="formatted-requests " data-request-id="24"  data-id="response_24">
+                                <div class="formatted-requests " data-request-id="35"  data-id="response_35">
                                     <div class="request code-snippet">
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="add message to new convo">
@@ -2422,7 +3347,7 @@ POST http://localhost:8000/api/messages/?post=1
                         </div>
                         <div class="row row-no-padding row-eq-height">
                             <div class="col-md-6 col-xs-12 section">
-                                <div class="api-information" id="25">
+                                <div class="api-information" id="36">
                                      <div class="heading">
                                         <div class="name">
                                             <span class="POST method" >POST</span>
@@ -2497,12 +3422,12 @@ POST http://localhost:8000/api/messages/?post=1
                                             </button>
 
                                             <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
-                                                <li class="truncate" data-request-info="25" data-response-info="response_25">add message to existing conv</li>
+                                                <li class="truncate" data-request-info="36" data-response-info="response_36">add message to existing conv</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="formatted-requests " data-request-id="25"  data-id="response_25">
+                                <div class="formatted-requests " data-request-id="36"  data-id="response_36">
                                     <div class="request code-snippet">
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="add message to existing conv">
@@ -2521,7 +3446,7 @@ POST http://localhost:8000/api/messages/?conversation=1
                         </div>
                         <div class="row row-no-padding row-eq-height">
                             <div class="col-md-6 col-xs-12 section">
-                                <div class="api-information" id="26">
+                                <div class="api-information" id="37">
                                      <div class="heading">
                                         <div class="name">
                                             <span class="GET method" >GET</span>
@@ -2592,12 +3517,12 @@ POST http://localhost:8000/api/messages/?conversation=1
                                             </button>
 
                                             <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
-                                                <li class="truncate" data-request-info="26" data-response-info="response_26">get conversations</li>
+                                                <li class="truncate" data-request-info="37" data-response-info="response_37">get conversations</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="formatted-requests " data-request-id="26"  data-id="response_26">
+                                <div class="formatted-requests " data-request-id="37"  data-id="response_37">
                                     <div class="request code-snippet">
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="get conversations">
@@ -2662,7 +3587,7 @@ GET http://localhost:8000/api/conversations?post=1
                         </div>
                         <div class="row row-no-padding row-eq-height">
                             <div class="col-md-6 col-xs-12 section">
-                                <div class="api-information" id="27">
+                                <div class="api-information" id="38">
                                      <div class="heading">
                                         <div class="name">
                                             <span class="GET method" >GET</span>
@@ -2720,18 +3645,20 @@ GET http://localhost:8000/api/conversations?post=1
                                             </button>
 
                                             <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
-                                                <li class="truncate" data-request-info="27" data-response-info="response_27">get notficiations</li>
+                                                <li class="truncate" data-request-info="38" data-response-info="response_38">get notficiations</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="formatted-requests " data-request-id="27"  data-id="response_27">
+                                <div class="formatted-requests " data-request-id="38"  data-id="response_38">
                                     <div class="request code-snippet">
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="get notficiations">
                                                 <code class="is-highlighted">
 GET http://localhost:8000/api/notifications/
-</code>
+{
+    "read": true
+}</code>
                                             </pre>
                                         </div>
                                     </div>
@@ -2749,18 +3676,153 @@ GET http://localhost:8000/api/notifications/
                                                 <pre class="click-to-expand-wrapper is-snippet-wrapper is-expandable" data-title="get notficiations">
                                                     <code class="is-highlighted">
 {
-    "count": 1,
-    "next": null,
+    "next": 2,
     "previous": null,
+    "count": 17,
     "results": [
         {
-            "read": false,
+            "id": 31,
             "post": {
-                "id": 1,
-                "category": "book"
+                "id": 80,
+                "category": "group"
             },
-            "timestamp": "2021-12-03T20:54:01.670207+05:30",
-            "text": "You have a new message from anmol."
+            "text": "Anmol Gupta added a new post.",
+            "read": false,
+            "timestamp": "2022-02-06T13:57:18.755026+05:30",
+            "type": "FLW",
+            "user": 1
+        },
+        {
+            "id": 30,
+            "post": {
+                "id": 79,
+                "category": "group"
+            },
+            "text": "Anmol Gupta tagged you as the member of a group.",
+            "read": false,
+            "timestamp": "2022-02-06T13:56:45.953096+05:30",
+            "type": "TAG",
+            "user": 1
+        },
+        {
+            "id": 29,
+            "post": {
+                "id": 79,
+                "category": "group"
+            },
+            "text": "Anmol Gupta added a new post.",
+            "read": false,
+            "timestamp": "2022-02-06T13:56:44.959176+05:30",
+            "type": "FLW",
+            "user": 1
+        },
+        {
+            "id": 28,
+            "post": {
+                "id": 78,
+                "category": "group"
+            },
+            "text": "Anmol Gupta added a new post.",
+            "read": false,
+            "timestamp": "2022-02-06T13:32:35.365763+05:30",
+            "type": "FLW",
+            "user": 1
+        },
+        {
+            "id": 27,
+            "post": {
+                "id": 77,
+                "category": "group"
+            },
+            "text": "Anmol Gupta added a new post.",
+            "read": false,
+            "timestamp": "2022-02-06T13:32:28.500993+05:30",
+            "type": "FLW",
+            "user": 1
+        },
+        {
+            "id": 26,
+            "post": {
+                "id": 76,
+                "category": "group"
+            },
+            "text": "Anmol Gupta added a new post.",
+            "read": false,
+            "timestamp": "2022-02-06T13:32:09.140376+05:30",
+            "type": "FLW",
+            "user": 1
+        },
+        {
+            "id": 25,
+            "post": {
+                "id": 75,
+                "category": "group"
+            },
+            "text": "Anmol Gupta added a new post.",
+            "read": false,
+            "timestamp": "2022-02-06T13:31:27.896807+05:30",
+            "type": "FLW",
+            "user": 1
+        },
+        {
+            "id": 24,
+            "post": {
+                "id": 74,
+                "category": "group"
+            },
+            "text": "Anmol Gupta added a new post.",
+            "read": false,
+            "timestamp": "2022-02-06T13:26:15.774349+05:30",
+            "type": "FLW",
+            "user": 1
+        },
+        {
+            "id": 23,
+            "post": {
+                "id": 73,
+                "category": "group"
+            },
+            "text": "Anmol Gupta added a new post.",
+            "read": false,
+            "timestamp": "2022-02-06T13:24:43.947400+05:30",
+            "type": "FLW",
+            "user": 1
+        },
+        {
+            "id": 21,
+            "post": {
+                "id": 72,
+                "category": "group"
+            },
+            "text": "Anmol Gupta added a new post.",
+            "read": true,
+            "timestamp": "2022-02-06T12:28:12.947408+05:30",
+            "type": "FLW",
+            "user": 1
+        },
+        {
+            "id": 20,
+            "post": {
+                "id": 69,
+                "category": "group"
+            },
+            "text": "Sandeep Singh added a new post.",
+            "read": true,
+            "timestamp": "2022-02-06T11:09:37.427857+05:30",
+            "type": "FLW",
+            "user": 1
+        },
+        {
+            "id": 17,
+            "post": {
+                "id": 19,
+                "category": "skill"
+            },
+            "text": "Your skill has 1 endorsement.",
+            "read": true,
+            "timestamp": "2022-02-01T15:54:16.133389+05:30",
+            "type": "VOTE",
+            "user": 1
         }
     ]
 }</code>
@@ -2775,7 +3837,7 @@ GET http://localhost:8000/api/notifications/
                         </div>
                         <div class="row row-no-padding row-eq-height">
                             <div class="col-md-6 col-xs-12 section">
-                                <div class="api-information" id="28">
+                                <div class="api-information" id="39">
                                      <div class="heading">
                                         <div class="name">
                                             <span class="PATCH method" >PATCH</span>
@@ -2833,12 +3895,12 @@ GET http://localhost:8000/api/notifications/
                                             </button>
 
                                             <ul class="dropdown-menu" aria-labelledby="f678f251-1750-4e3a-b5d8-05b4c6b0fb37_dropdown">
-                                                <li class="truncate" data-request-info="28" data-response-info="response_28">update notification</li>
+                                                <li class="truncate" data-request-info="39" data-response-info="response_39">update notification</li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="formatted-requests " data-request-id="28"  data-id="response_28">
+                                <div class="formatted-requests " data-request-id="39"  data-id="response_39">
                                     <div class="request code-snippet">
                                         <div>
                                             <pre class="click-to-expand-wrapper is-snippet-wrapper " data-title="update notification">
@@ -2872,7 +3934,7 @@ PATCH http://localhost:8000/api/notifications/1/
     <script src="js/bootstrap-treeview.min.js"></script>
     <script src="js/main.min.js"></script>
     <script type="application/javascript">
-        var data = [{'text': 'accounts', 'nodes': [{'text': 'login with token', 'href': '#1', 'method': 'POST'}, {'text': 'login with credentials', 'href': '#2', 'method': 'POST'}, {'text': 'get profile of current user', 'href': '#3', 'method': 'GET'}, {'text': 'update profile of current user', 'href': '#4', 'method': 'PATCH'}, {'text': 'get osa details of current user', 'href': '#5', 'method': 'GET'}, {'text': 'get details of other user', 'href': '#6', 'method': 'GET'}, {'text': 'logout', 'href': '#7', 'method': 'POST'}], 'icon': 'fas fa-folder', 'selectable': 'false'}, {'text': 'posts (category = book)', 'nodes': [{'text': 'create my book', 'href': '#8', 'method': 'POST'}, {'text': 'update my book', 'href': '#9', 'method': 'PATCH'}, {'text': 'delete my book', 'href': '#10', 'method': 'POST'}, {'text': 'list of my books', 'href': '#11', 'method': 'GET'}, {'text': 'list of all books', 'href': '#12', 'method': 'GET'}, {'text': 'instance of a book', 'href': '#13', 'method': 'GET'}, {'text': 'search all books', 'href': '#14', 'method': 'GET'}], 'icon': 'fas fa-folder', 'selectable': 'false'}, {'text': 'skill posts', 'nodes': [{'text': 'create', 'href': '#15', 'method': 'POST'}, {'text': 'instance', 'href': '#16', 'method': 'PATCH'}, {'text': 'list of my skills', 'href': '#17', 'method': 'GET'}, {'text': 'search skill list', 'href': '#18', 'method': 'GET'}, {'text': 'get popular skill', 'href': '#19', 'method': 'GET'}, {'text': 'list of all skills posts', 'href': '#20', 'method': 'GET'}], 'icon': 'fas fa-folder', 'selectable': 'false'}, {'text': 'votes', 'nodes': [{'text': "get current user's votes on a post", 'href': '#21', 'method': 'GET'}, {'text': "create/update current user's votes", 'href': '#22', 'method': 'PATCH'}], 'icon': 'fas fa-folder', 'selectable': 'false'}, {'text': 'my activity', 'nodes': [{'text': 'get my activity', 'href': '#23', 'method': 'GET'}], 'icon': 'fas fa-folder', 'selectable': 'false'}, {'text': 'messaging', 'nodes': [{'text': 'add message to new convo', 'href': '#24', 'method': 'POST'}, {'text': 'add message to existing conv', 'href': '#25', 'method': 'POST'}, {'text': 'get conversations', 'href': '#26', 'method': 'GET'}, {'text': 'get notficiations', 'href': '#27', 'method': 'GET'}, {'text': 'update notification', 'href': '#28', 'method': 'PATCH'}], 'icon': 'fas fa-folder', 'selectable': 'false'}]
+        var data = [{'text': 'accounts', 'nodes': [{'text': 'login with token', 'href': '#1', 'method': 'POST'}, {'text': 'login with credentials', 'href': '#2', 'method': 'POST'}, {'text': 'get profile of current user', 'href': '#3', 'method': 'GET'}, {'text': 'update profile of current user', 'href': '#4', 'method': 'PATCH'}, {'text': 'get osa details of current user', 'href': '#5', 'method': 'GET'}, {'text': 'follow other user', 'href': '#6', 'method': 'POST'}, {'text': 'unfollow other user', 'href': '#7', 'method': 'DELETE'}, {'text': 'get following list', 'href': '#8', 'method': 'GET'}, {'text': 'get details of other user', 'href': '#9', 'method': 'GET'}, {'text': 'search users', 'href': '#10', 'method': 'GET'}, {'text': 'logout', 'href': '#11', 'method': 'POST'}], 'icon': 'fas fa-folder', 'selectable': 'false'}, {'text': 'book posts', 'nodes': [{'text': 'create my book', 'href': '#12', 'method': 'POST'}, {'text': 'update my book', 'href': '#13', 'method': 'PATCH'}, {'text': 'delete my book', 'href': '#14', 'method': 'DELETE'}, {'text': 'list of my books', 'href': '#15', 'method': 'GET'}, {'text': 'list of all books', 'href': '#16', 'method': 'GET'}, {'text': 'instance of a book', 'href': '#17', 'method': 'GET'}, {'text': 'search all books', 'href': '#18', 'method': 'GET'}], 'icon': 'fas fa-folder', 'selectable': 'false'}, {'text': 'group posts', 'nodes': [{'text': 'create my group', 'href': '#19', 'method': 'POST'}, {'text': 'update my group', 'href': '#20', 'method': 'PATCH'}, {'text': 'delete my group post', 'href': '#21', 'method': 'DELETE'}, {'text': 'list of my group posts', 'href': '#22', 'method': 'GET'}, {'text': 'list of all group posts', 'href': '#23', 'method': 'GET'}, {'text': 'instance of a group post', 'href': '#24', 'method': 'GET'}, {'text': 'search all group posts', 'href': '#25', 'method': 'GET'}], 'icon': 'fas fa-folder', 'selectable': 'false'}, {'text': 'skill posts', 'nodes': [{'text': 'create', 'href': '#26', 'method': 'POST'}, {'text': 'instance', 'href': '#27', 'method': 'PATCH'}, {'text': 'list of my skills', 'href': '#28', 'method': 'GET'}, {'text': 'search skill list', 'href': '#29', 'method': 'GET'}, {'text': 'get popular skill', 'href': '#30', 'method': 'GET'}, {'text': 'list of all skills posts', 'href': '#31', 'method': 'GET'}], 'icon': 'fas fa-folder', 'selectable': 'false'}, {'text': 'votes', 'nodes': [{'text': "get current user's votes on a post", 'href': '#32', 'method': 'GET'}, {'text': "create/update current user's votes", 'href': '#33', 'method': 'PATCH'}], 'icon': 'fas fa-folder', 'selectable': 'false'}, {'text': 'my activity', 'nodes': [{'text': 'get my activity', 'href': '#34', 'method': 'GET'}], 'icon': 'fas fa-folder', 'selectable': 'false'}, {'text': 'messaging', 'nodes': [{'text': 'add message to new convo', 'href': '#35', 'method': 'POST'}, {'text': 'add message to existing conv', 'href': '#36', 'method': 'POST'}, {'text': 'get conversations', 'href': '#37', 'method': 'GET'}, {'text': 'get notficiations', 'href': '#38', 'method': 'GET'}, {'text': 'update notification', 'href': '#39', 'method': 'PATCH'}], 'icon': 'fas fa-folder', 'selectable': 'false'}]
         $('#tree').treeview({
             data: data,
             levels: 10,
