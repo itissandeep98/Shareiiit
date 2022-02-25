@@ -13,7 +13,7 @@ const persistConfig = {
 	storage: localForage,
 	transforms: [
 		encryptTransform({
-			secretKey: 'fas56asmnasdafsda8s6a54sd98',
+			secretKey: 'fas56asm654nasdafsda8s6a54sd98',
 		}),
 	],
 };
