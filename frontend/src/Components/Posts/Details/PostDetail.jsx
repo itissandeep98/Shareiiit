@@ -105,8 +105,7 @@ function PostDetail(props) {
 												details.is_price_negotiable
 													? 'Price is negotiable'
 													: 'Fixed Price'
-											}
-										>
+											}>
 											<p>
 												<Label size="large" color="teal">
 													Price <Icon name="rupee" className="ml-1" />
@@ -137,7 +136,7 @@ function PostDetail(props) {
 					</Row>
 				</>
 			)}
-			{username && (
+			{username && details?.created_by && (
 				<Row className="mt-5">
 					<Col>
 						<hr />

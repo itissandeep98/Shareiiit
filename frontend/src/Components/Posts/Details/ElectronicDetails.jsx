@@ -117,7 +117,7 @@ function ElectronicDetails(props) {
 					</Row>
 				</>
 			)}
-			{username && (
+			{username && details?.created_by && (
 				<Row className="mt-5">
 					<Col>
 						<hr />

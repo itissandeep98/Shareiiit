@@ -12,7 +12,6 @@ function Messages(props) {
 
 	const updateData = () => {
 		dispatch(fetchMessages({ post: id })).then(res => {
-			console.log(creator, recipient);
 			if (creator?.username != recipient && res.length === 0) {
 				setUsers([{ user2: recipient, messages: [] }]);
 			} else {
