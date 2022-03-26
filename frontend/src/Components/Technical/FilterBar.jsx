@@ -87,7 +87,8 @@ function FilterBar(props) {
 					<Select
 						label="Rating Greate Than"
 						value={rating}
-						onChange={onRatingChange}>
+						onChange={onRatingChange}
+					>
 						{Array.from(Array(6).keys()).map(i => (
 							<MenuItem value={i}>{i}</MenuItem>
 						))}

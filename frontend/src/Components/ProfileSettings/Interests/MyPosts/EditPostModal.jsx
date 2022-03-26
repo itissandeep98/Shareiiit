@@ -159,7 +159,8 @@ function EditPostModal(props) {
 						variant="outlined"
 						className="mt-3 float-right  "
 						onClick={handleSubmit}
-						startIcon={<CheckIcon />}>
+						startIcon={<CheckIcon />}
+					>
 						Update
 					</Button>
 				</form>

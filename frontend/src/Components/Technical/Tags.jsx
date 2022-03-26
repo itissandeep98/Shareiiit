@@ -74,7 +74,8 @@ function Tags(props) {
 								selected={tags?.includes(tag.label)}
 								className="poppins text-break"
 								key={Math.random()}
-								onClick={() => modifyTags(tag.label)}>
+								onClick={() => modifyTags(tag.label)}
+							>
 								<ListItemText primary={tag.label} />
 							</ListItem>
 						))}

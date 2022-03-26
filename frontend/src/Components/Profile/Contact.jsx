@@ -41,7 +41,8 @@ function Contact({ telegram_url, linkedin_url, phone_number }) {
 					onClick={() => {
 						copyToClipboard(`${phone_number}`);
 						showAlert('Phone Number Copied to Clipboard');
-					}}>
+					}}
+				>
 					<a>
 						<Icon name="phone" size="big" />
 					</a>

@@ -25,17 +25,20 @@ function Profile(props) {
 					<Col className="d-flex justify-content-around">
 						<NavLink
 							className="mr-2 rounded-pill text-iiitd border p-3 border-info"
-							to={`/profile/following`}>
+							to={`/profile/following`}
+						>
 							<PeopleIcon /> Following
 						</NavLink>
 						<NavLink
 							className="mr-2 rounded-pill text-iiitd border p-3 border-info"
-							to={'/profile/myposts'}>
+							to={'/profile/myposts'}
+						>
 							<GridOnIcon /> My Posts
 						</NavLink>
 						<NavLink
 							className="mr-2 rounded-pill text-iiitd border p-3 border-info"
-							to={'/profile/myactivity'}>
+							to={'/profile/myactivity'}
+						>
 							<BookmarksIcon /> My Activity
 						</NavLink>
 					</Col>

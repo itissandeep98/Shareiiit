@@ -10,7 +10,6 @@ import {
 	NavItem,
 	Row,
 } from 'reactstrap';
-import { Image } from 'semantic-ui-react';
 import { logoutAction } from '../../Store/ActionCreators/auth';
 import { fetchUser, fetchUserOSA } from '../../Store/ActionCreators/user';
 import Notification from '../Notification';
@@ -36,16 +35,18 @@ function TopHeader() {
 			<Container>
 				<Row className="d-flex flex-row justify-content-between align-items-center">
 					<div>
-						<Image
+						<img
 							src={process.env.PUBLIC_URL + '/assets/images/iiitd2.png'}
 							alt="IIIT-Delhi"
+							className="img-fluid"
 						/>
 					</div>
-					<Image
+					<img
 						src={process.env.PUBLIC_URL + '/assets/images/logo.png'}
 						alt="resource sharing app"
 						size="medium"
-						className="d-none d-lg-block"
+						style={{ height: '70px' }}
+						className="img-fluid d-none d-lg-inline"
 					/>
 				</Row>
 			</Container>

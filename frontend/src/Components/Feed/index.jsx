@@ -71,7 +71,8 @@ function Posts(props) {
 				<Col md={10}>
 					<Container
 						fluid
-						className="shadow my-3 py-4 rounded_lg bg-white align-items-center">
+						className="shadow my-3 py-4 rounded_lg bg-white align-items-center"
+					>
 						<Row>
 							<Col className="text-center">
 								<Create
@@ -83,7 +84,8 @@ function Posts(props) {
 											className="mt-3 text-iiitd"
 											startIcon={<AddIcon />}
 											size="large"
-											onClick={() => setModal(!modal)}>
+											onClick={() => setModal(!modal)}
+										>
 											Create New Post
 										</Button>
 									}
@@ -120,7 +122,8 @@ function Posts(props) {
 											variant="contained"
 											size="small"
 											disabled={moreLoading}
-											onClick={fetchMore}>
+											onClick={fetchMore}
+										>
 											Show More <i className="fa fa-caret-down ml-2" />
 										</Button>
 									)}

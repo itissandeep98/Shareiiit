@@ -1,9 +1,9 @@
+import { TextField, Button } from '@mui/material';
 import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Spinner } from 'reactstrap';
-import { Button, Form, Input } from 'semantic-ui-react';
 import {
 	loginAction,
 	loginCookieAction,
@@ -43,24 +43,33 @@ function Login(props) {
 		<>
 			<Meta head="Login | ShareIIITD" />
 			<h1 className=" display-5">Login</h1>
-			<Form>
-				<Form.Field required>
-					<Input
-						placeholder="Username"
-						value={username}
-						onChange={e => setUsername(e.target.value)}
-					/>
-				</Form.Field>
-				<Form.Field required>
-					<Input
-						type="password"
-						placeholder="Password"
-						value={paswd}
-						onChange={e => setPaswd(e.target.value)}
-					/>
-				</Form.Field>
-				{loading ? <Spinner /> : <Button onClick={handleSubmit}>Login</Button>}
-			</Form>
+			<form>
+				<TextField
+					label="Username"
+					variant="outlined"
+					className="mb-3"
+					required
+					fullWidth
+					value={username}
+					onChange={e => setUsername(e.target.value)}
+					name="username"
+				/>
+				<TextField
+					type="password"
+					label="Password"
+					variant="outlined"
+					className="mb-3"
+					required
+					fullWidth
+					value={paswd}
+					onChange={e => setPaswd(e.target.value)}
+					name="password"
+				/>
+
+				<Button onClick={handleSubmit} variant="contained">
+					{loading ? <Spinner /> : 'Login'}
+				</Button>
+			</form>
 			<hr />
 			{/* <NavLink to="/register">Not Registered? Register Here</NavLink> */}
 		</>

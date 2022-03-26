@@ -159,7 +159,8 @@ function Routing() {
 							restricted={route.restricted}
 							key={index}
 							exact
-							path={route.path}>
+							path={route.path}
+						>
 							<Layout layout={route.layout}>
 								<route.render />
 							</Layout>
@@ -169,7 +170,8 @@ function Routing() {
 							restricted={route.restricted}
 							exact
 							path={route.path}
-							key={index}>
+							key={index}
+						>
 							<Layout layout={route.layout}>
 								<route.render />
 							</Layout>

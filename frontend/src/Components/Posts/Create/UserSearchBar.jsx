@@ -95,7 +95,8 @@ const CustomOption = (props, option, addMembers) => {
 		<div
 			className="p-2"
 			style={{ cursor: 'pointer' }}
-			onClick={e => addMembers(option)}>
+			onClick={e => addMembers(option)}
+		>
 			{option.first_name} {option.last_name} - {option.username}
 		</div>
 	);

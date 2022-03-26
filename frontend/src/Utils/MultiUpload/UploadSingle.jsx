@@ -32,7 +32,8 @@ function UploadSingle(props) {
 		<Col
 			{...getRootProps()}
 			className="text-muted  text-center bg-light mt-3"
-			style={{ cursor: 'copy' }}>
+			style={{ cursor: 'copy' }}
+		>
 			<input {...getInputProps()} />
 			<div className="d-flex justify-content-around my-1">
 				<span className="fa fa-image fa-lg" />

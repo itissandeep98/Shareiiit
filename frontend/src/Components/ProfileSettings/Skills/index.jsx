@@ -51,7 +51,8 @@ function Skills() {
 				<Button
 					variant="outlined"
 					className="text-iiitd"
-					onClick={() => setModal(true)}>
+					onClick={() => setModal(true)}
+				>
 					Add New Skill Post
 				</Button>
 				<Row>

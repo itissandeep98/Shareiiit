@@ -75,7 +75,8 @@ function TechDetails(props) {
 									<Tooltip title="Endorse" placement="top">
 										<IconButton
 											onClick={() => Vote(1)}
-											className={classNames({ 'text-danger': endorse })}>
+											className={classNames({ 'text-danger': endorse })}
+										>
 											<FavoriteBorderIcon />
 											<small> {num_upvotes > 0 && num_upvotes}</small>
 										</IconButton>
@@ -83,7 +84,8 @@ function TechDetails(props) {
 									<Tooltip title="Save" placement="top">
 										<IconButton
 											onClick={() => Vote(2)}
-											className={classNames({ 'text-info': save })}>
+											className={classNames({ 'text-info': save })}
+										>
 											<BookmarkBorderIcon />
 										</IconButton>
 									</Tooltip>

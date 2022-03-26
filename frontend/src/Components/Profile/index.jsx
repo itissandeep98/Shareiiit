@@ -69,7 +69,8 @@ function Profile(props) {
 										variant="text"
 										className="text-iiitd"
 										disabled={loading}
-										onClick={handleFollow}>
+										onClick={handleFollow}
+									>
 										{loading ? (
 											<Spinner size="sm" />
 										) : (

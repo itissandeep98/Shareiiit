@@ -25,7 +25,8 @@ function SkillCard(props) {
 			<Accordion
 				expanded={expanded}
 				onChange={handleChange}
-				className="poppins">
+				className="poppins"
+			>
 				<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 					<Typography className="poppins">{details.skill.label}</Typography>
 					<Rating

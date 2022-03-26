@@ -30,7 +30,8 @@ function Preview(props) {
 									top: '-5px',
 								}}
 								className="rounded-pill p-2"
-								onClick={props.deleteLink}>
+								onClick={props.deleteLink}
+							>
 								<Icon name="times" />
 							</Button>
 							<img src={link} alt="icon" />

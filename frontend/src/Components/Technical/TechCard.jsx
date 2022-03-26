@@ -69,7 +69,8 @@ function TechCard(props) {
 						<Typography
 							variant="overline"
 							color="textSecondary"
-							className="poppins">
+							className="poppins"
+						>
 							<NavLink to={`/${created_by.username}`} className="creatorlink">
 								{created_by.name ? created_by.name : created_by.username}
 							</NavLink>
@@ -87,7 +88,8 @@ function TechCard(props) {
 						<Tooltip title="Endorse" placement="top">
 							<IconButton
 								onClick={() => Vote(1)}
-								className={classNames({ 'text-danger': endorse })}>
+								className={classNames({ 'text-danger': endorse })}
+							>
 								<FavoriteBorderIcon />
 								<small> {num_upvotes > 0 && num_upvotes}</small>
 							</IconButton>
@@ -95,14 +97,16 @@ function TechCard(props) {
 						<Tooltip title="Save" placement="top">
 							<IconButton
 								onClick={() => Vote(2)}
-								className={classNames({ 'text-info': save })}>
+								className={classNames({ 'text-info': save })}
+							>
 								<BookmarkBorderIcon />
 							</IconButton>
 						</Tooltip>
 						<Tooltip title="Dismiss" placement="top">
 							<IconButton
 								onClick={() => Vote(3)}
-								className={classNames({ 'text-danger': dismiss })}>
+								className={classNames({ 'text-danger': dismiss })}
+							>
 								<CloseIcon />
 							</IconButton>
 						</Tooltip>

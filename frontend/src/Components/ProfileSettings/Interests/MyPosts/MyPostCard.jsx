@@ -56,7 +56,8 @@ function MyPostCard(props) {
 								<h3
 									className="text-capitalize"
 									onClick={() => props.history.push(`/posts/${category}/${id}`)}
-									style={{ cursor: 'pointer' }}>
+									style={{ cursor: 'pointer' }}
+								>
 									{title}
 								</h3>
 							</Col>

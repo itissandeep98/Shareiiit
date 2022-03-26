@@ -53,7 +53,8 @@ function MainView(props) {
 							title={tag}
 							placement="top"
 							key={Math.random()}
-							className="mx-1 my-2">
+							className="mx-1 my-2"
+						>
 							<Chip
 								label={tag}
 								onDelete={() => modifyTags(tag)}
@@ -80,7 +81,8 @@ function MainView(props) {
 						variant="contained"
 						size="small"
 						disabled={moreLoading}
-						onClick={fetchMore}>
+						onClick={fetchMore}
+					>
 						Show More <i className="fa fa-caret-down ml-2" />
 					</Button>
 				)}

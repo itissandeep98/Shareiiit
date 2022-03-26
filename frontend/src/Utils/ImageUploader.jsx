@@ -28,7 +28,8 @@ function ImageUploader(props) {
 			<div
 				{...getRootProps()}
 				className="border py-4 text-muted bg-light text-center"
-				style={{ cursor: 'copy' }}>
+				style={{ cursor: 'copy' }}
+			>
 				<input {...getInputProps()} />
 				<p>Drag & Drop Image here, or Click to Select</p>
 			</div>

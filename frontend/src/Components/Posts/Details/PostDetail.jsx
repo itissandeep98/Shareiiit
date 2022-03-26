@@ -105,7 +105,8 @@ function PostDetail(props) {
 												details.is_price_negotiable
 													? 'Price is negotiable'
 													: 'Fixed Price'
-											}>
+											}
+										>
 											<p>
 												<Label size="large" color="teal">
 													Price <Icon name="rupee" className="ml-1" />
