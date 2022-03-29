@@ -1,0 +1,7 @@
+.adv_search {
+	transition: max-height 1s ease-in-out;
+	max-height: 200vh;
+}
+.hidden_details {
+	max-height: 0px;
+}

@@ -38,8 +38,7 @@ function Notification(props) {
 				<>
 					<NavLink
 						className="nav-link p-3 cust_link d-md-none"
-						to="/notification"
-					>
+						to="/notification">
 						Notifications
 					</NavLink>
 					<a className="nav-link p-3 d-none d-md-block">
@@ -53,27 +52,25 @@ function Notification(props) {
 										<Icon corner="top left" name="circle" color="red" />
 									)}
 								</Icon.Group>
-							}
-						>
+							}>
 							<Dropdown.Menu style={{ maxHeight: '300px', overflow: 'auto' }}>
 								<Content
 									notification={notification}
 									read={read}
 									unread={unread}
 								/>
+								{next && (
+									<Button
+										variant="contained"
+										size="small"
+										disabled={moreLoading}
+										onClick={fetchMore}>
+										Show More <i className="fa fa-caret-down ml-2" />
+									</Button>
+								)}
 							</Dropdown.Menu>
 						</Dropdown>
 					</a>
-					{next && (
-						<Button
-							variant="contained"
-							size="small"
-							disabled={moreLoading}
-							onClick={fetchMore}
-						>
-							Show More <i className="fa fa-caret-down ml-2" />
-						</Button>
-					)}
 				</>
 			)}
 		</>

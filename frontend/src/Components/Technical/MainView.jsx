@@ -2,7 +2,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { Button, Chip, Tooltip } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { connect, useDispatch } from 'react-redux';
-import { Col, Container, Row } from 'reactstrap';
+import { Col, Container, Row, Spinner } from 'reactstrap';
 import {
 	fetchNextSkillPosts,
 	fetchSkillPosts,
@@ -52,9 +52,8 @@ function MainView(props) {
 						<Tooltip
 							title={tag}
 							placement="top"
-							key={Math.random()}
-							className="mx-1 my-2"
-						>
+							key={tag}
+							className="mx-1 my-2">
 							<Chip
 								label={tag}
 								onDelete={() => modifyTags(tag)}
@@ -65,7 +64,12 @@ function MainView(props) {
 				</Col>
 			</Row>
 			<Row className="mt-3">
-				{cards?.length > 0 ? (
+				{cards && (
+					<p className="text-muted p-2">
+						<Spinner size={'sm'} /> Loading Posts
+					</p>
+				)}
+				{/* {cards?.length > 0 ? (
 					cards?.map(card => (
 						<Col md={4} className="mt-4">
 							<TechCard {...card} />
@@ -73,7 +77,7 @@ function MainView(props) {
 					))
 				) : (
 					<p className="text-center text-muted w-100">No Results Found !!</p>
-				)}
+				)} */}
 			</Row>
 			<Row className="mt-3 d-flex justify-content-center">
 				{next && (
@@ -81,8 +85,7 @@ function MainView(props) {
 						variant="contained"
 						size="small"
 						disabled={moreLoading}
-						onClick={fetchMore}
-					>
+						onClick={fetchMore}>
 						Show More <i className="fa fa-caret-down ml-2" />
 					</Button>
 				)}

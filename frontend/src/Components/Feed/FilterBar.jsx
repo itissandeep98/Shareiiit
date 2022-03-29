@@ -10,17 +10,11 @@ import {
 	Select,
 	TextField,
 } from '@mui/material';
+import classNames from 'classnames';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-	Col,
-	Container,
-	Modal,
-	ModalBody,
-	ModalHeader,
-	Row,
-	Spinner,
-} from 'reactstrap';
+import { useHistory } from 'react-router-dom';
+import { Col, Container, Row, Spinner } from 'reactstrap';
 import { searchAdvanced, searchPosts } from '../../Store/ActionCreators/search';
 
 function FilterBar(props) {
@@ -33,7 +27,6 @@ function FilterBar(props) {
 		setRequest,
 		setResult,
 	} = props;
-	const [search, setSearch] = useState('');
 	const categories = [
 		{ label: 'Books', value: 'book' },
 		{ label: 'Groups', value: 'group' },
@@ -45,11 +38,39 @@ function FilterBar(props) {
 		{ label: 'Oldest first', value: 'created_at' },
 		{ label: 'Most Upvoted', value: 'upvote_count' },
 	];
-	const [searchLoading, setSearchLoading] = useState(false);
+	const history = useHistory();
+	const dispatch = useDispatch();
 	const posts = useSelector(state => state.posts?.[category]);
 
+	const [search, setSearch] = useState('');
+	const [searchLoading, setSearchLoading] = useState(false);
 	const [modal, setModal] = useState(false);
-	const dispatch = useDispatch();
+
+	useEffect(() => {
+		if (decodeURI(history.location.search).slice(1).length > 2) {
+			const data = JSON.parse(decodeURI(history.location.search).slice(1));
+			setSearch(data.search ?? '');
+			onChange();
+		}
+	}, []);
+
+	useEffect(() => {
+		window.history.replaceState(
+			null,
+			null,
+			'?' + JSON.stringify({ search, category, ordering, request })
+		);
+	}, [category, ordering, request, search]);
+
+	var typingTimer;
+	const startSearch = e => {
+		clearTimeout(typingTimer);
+		typingTimer = setTimeout(onChange, 1000);
+	};
+	const endSearch = e => {
+		clearTimeout(typingTimer);
+	};
+
 	const onChange = () => {
 		if (search.length > 0) {
 			setSearchLoading(true);
@@ -61,14 +82,6 @@ function FilterBar(props) {
 		} else {
 			setResult(posts);
 		}
-	};
-	var typingTimer;
-	const startSearch = e => {
-		clearTimeout(typingTimer);
-		typingTimer = setTimeout(onChange, 1000);
-	};
-	const endSearch = e => {
-		clearTimeout(typingTimer);
 	};
 
 	return (
@@ -99,8 +112,7 @@ function FilterBar(props) {
 						<Select
 							label="Request posts"
 							value={request}
-							onChange={e => setRequest(e.target.value)}
-						>
+							onChange={e => setRequest(e.target.value)}>
 							<MenuItem value={0}>All</MenuItem>
 							<MenuItem value={'True'}>Requested</MenuItem>
 							<MenuItem value={'False'}>Giving Away</MenuItem>
@@ -113,8 +125,7 @@ function FilterBar(props) {
 						<Select
 							label="Category"
 							value={category}
-							onChange={e => setCategory(e.target.value)}
-						>
+							onChange={e => setCategory(e.target.value)}>
 							{categories.map((tag, i) => (
 								<MenuItem value={tag.value} key={i}>
 									{tag.label}
@@ -129,8 +140,7 @@ function FilterBar(props) {
 						<Select
 							label="Category"
 							value={ordering}
-							onChange={e => setOrdering(e.target.value)}
-						>
+							onChange={e => setOrdering(e.target.value)}>
 							{sort_by.map((tag, i) => (
 								<MenuItem value={tag.value} key={i}>
 									{tag.label}
@@ -140,20 +150,19 @@ function FilterBar(props) {
 					</FormControl>
 				</Col>
 			</Row>
+			<AdvancedSearch
+				open={modal}
+				toggle={() => setModal(!modal)}
+				setResult={props.setResult}
+				category={category}
+			/>
 			<Row>
 				<Col>
 					<Button
 						className="float-right text-info"
-						onClick={() => setModal(true)}
-					>
-						Advanced Search
+						onClick={() => setModal(!modal)}>
+						{modal ? 'Show' : 'Hide'} Advanced Search
 					</Button>
-					<AdvancedSearch
-						open={modal}
-						toggle={() => setModal(!modal)}
-						setResult={props.setResult}
-						category={category}
-					/>
 				</Col>
 			</Row>
 		</Container>
@@ -161,7 +170,7 @@ function FilterBar(props) {
 }
 
 function AdvancedSearch(props) {
-	const { open, toggle, setResult, category } = props;
+	const { open, setResult, category } = props;
 	const dispatch = useDispatch();
 	const [loading, setLoading] = useState(false);
 	const [data, setData] = useState({
@@ -184,94 +193,105 @@ function AdvancedSearch(props) {
 		setLoading(true);
 		dispatch(searchAdvanced({ ...data, category })).then(res => {
 			setResult(res);
-			toggle();
 			setLoading(false);
 		});
 	};
 	return (
-		<Modal isOpen={open} toggle={toggle}>
-			<ModalHeader toggle={toggle}>Advanced Search</ModalHeader>
-			<ModalBody>
-				<form>
+		<Row
+			className={classNames('mt-3 adv_search overflow-hidden', {
+				hidden_details: open,
+			})}>
+			<Col md={6}>
+				<TextField
+					label="Title"
+					fullWidth
+					variant="outlined"
+					name="title"
+					onChange={handleChange}
+				/>
+			</Col>
+			<Col md={6}>
+				<TextField
+					label="Description"
+					fullWidth
+					variant="outlined"
+					name="description"
+					onChange={handleChange}
+				/>
+			</Col>
+			<Col md={4}>
+				<TextField
+					label="Username"
+					fullWidth
+					variant="outlined"
+					className="mt-2"
+					name="username"
+					onChange={handleChange}
+				/>
+			</Col>
+
+			{category === 'book' && (
+				<Col md={4}>
 					<TextField
-						label="Title"
+						label="Author"
+						className=" mt-2"
 						fullWidth
 						variant="outlined"
-						name="title"
+						name="author"
+						value={data.author}
 						onChange={handleChange}
 					/>
+				</Col>
+			)}
+
+			{category !== 'group' ? (
+				<Col md={4}>
 					<TextField
-						label="Description"
+						type="number"
+						label="Price"
 						fullWidth
 						variant="outlined"
 						className="mt-2"
-						name="description"
+						name="price"
 						onChange={handleChange}
 					/>
+				</Col>
+			) : (
+				<Col md={6}>
 					<TextField
-						label="Username"
+						label="Members Needed"
+						type="number"
+						className=" mt-2"
 						fullWidth
 						variant="outlined"
-						className="mt-2"
-						name="username"
+						name="members_needed"
+						value={data.members_needed}
 						onChange={handleChange}
 					/>
-					{category === 'book' && (
-						<TextField
-							label="Author"
-							className=" mt-3"
-							fullWidth
-							variant="outlined"
-							name="author"
-							value={data.author}
-							onChange={handleChange}
+				</Col>
+			)}
+			<Col>
+				<FormControlLabel
+					control={
+						<Checkbox
+							checked={data.is_request}
+							onChange={e => setData({ ...data, is_request: !data.is_request })}
+							color="primary"
 						/>
-					)}
-					{category !== 'group' ? (
-						<TextField
-							type="number"
-							label="Price"
-							fullWidth
-							variant="outlined"
-							className="mt-2"
-							name="price"
-							onChange={handleChange}
-						/>
-					) : (
-						<TextField
-							label="Members Needed"
-							type="number"
-							className=" mt-3"
-							fullWidth
-							variant="outlined"
-							name="members_needed"
-							value={data.members_needed}
-							onChange={handleChange}
-						/>
-					)}
-					<FormControlLabel
-						control={
-							<Checkbox
-								checked={data.is_request}
-								onChange={e =>
-									setData({ ...data, is_request: !data.is_request })
-								}
-								color="primary"
-							/>
-						}
-						label="Request Posts"
-					/>
-					<Button
-						variant="outlined"
-						className="mt-2 float-right"
-						onClick={handleSearch}
-						disabled={loading}
-					>
-						{loading ? <Spinner /> : 'Search'}
-					</Button>
-				</form>
-			</ModalBody>
-		</Modal>
+					}
+					label="Request Posts"
+				/>
+			</Col>
+			<Col>
+				<Button
+					variant="outlined"
+					className="mt-2 float-right"
+					onClick={handleSearch}
+					disabled={loading}>
+					{loading ? <Spinner /> : 'Search'}
+				</Button>
+			</Col>
+		</Row>
 	);
 }
 export default FilterBar;

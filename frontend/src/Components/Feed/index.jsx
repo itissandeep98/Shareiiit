@@ -2,6 +2,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { Button } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Col, Container, Row, Spinner } from 'reactstrap';
 import { fetchNextPosts, fetchPosts } from '../../Store/ActionCreators/post';
 import Meta from '../Meta';
@@ -11,6 +12,7 @@ import GroupCard from '../Posts/Cards/GroupCard';
 import OtherCard from '../Posts/Cards/OtherCard';
 import Create from '../Posts/Create/Create';
 import FilterBar from './FilterBar';
+import './style.css';
 
 const CardTemplates = {
 	book: BookCard,
@@ -29,6 +31,7 @@ function Posts(props) {
 	const [loading, setLoading] = useState(false);
 	const [moreLoading, setMoreLoading] = useState(false);
 	const dispatch = useDispatch();
+	const history = useHistory();
 
 	useEffect(() => {
 		setLoading(true);
@@ -47,6 +50,15 @@ function Posts(props) {
 			});
 		}
 	}, [category, ordering, is_request]);
+
+	useEffect(() => {
+		if (decodeURI(history.location.search).slice(1).length > 2) {
+			const data = JSON.parse(decodeURI(history.location.search).slice(1));
+			setCategory(data.category ?? 'book');
+			setOrdering(data.ordering ?? 'created_at');
+			setRequest(data.request ?? 0);
+		}
+	}, []);
 
 	const fetchMore = async () => {
 		setMoreLoading(true);
@@ -71,8 +83,7 @@ function Posts(props) {
 				<Col md={10}>
 					<Container
 						fluid
-						className="shadow my-3 py-4 rounded_lg bg-white align-items-center"
-					>
+						className="shadow my-3 py-4 rounded_lg bg-white align-items-center">
 						<Row>
 							<Col className="text-center">
 								<Create
@@ -84,8 +95,7 @@ function Posts(props) {
 											className="mt-3 text-iiitd"
 											startIcon={<AddIcon />}
 											size="large"
-											onClick={() => setModal(!modal)}
-										>
+											onClick={() => setModal(!modal)}>
 											Create New Post
 										</Button>
 									}
@@ -122,8 +132,7 @@ function Posts(props) {
 											variant="contained"
 											size="small"
 											disabled={moreLoading}
-											onClick={fetchMore}
-										>
+											onClick={fetchMore}>
 											Show More <i className="fa fa-caret-down ml-2" />
 										</Button>
 									)}
