@@ -10,14 +10,12 @@ import PublicRoute from './PublicRoute';
 const Feed = lazy(() => import('../Feed'));
 const Notification = lazy(() => import('../Notification'));
 const AuthComp = lazy(() => import('../Authorization'));
-const ProfileSettings = lazy(() => import('../ProfileSettings'));
+const ProfileSettings = lazy(() => import('../Settings'));
 const Profile = lazy(() => import('../Profile'));
 const PostDetail = lazy(() => import('../Posts/Details/PostDetail'));
-const Following = lazy(() => import('../ProfileSettings/Following'));
-const MyPosts = lazy(() => import('../ProfileSettings/Interests/MyPosts'));
-const Interactions = lazy(() =>
-	import('../ProfileSettings/Interests/MyActivity')
-);
+const Following = lazy(() => import('../Settings/Following'));
+const MyPosts = lazy(() => import('../Settings/Interests/MyPosts'));
+const Interactions = lazy(() => import('../Settings/Interests/MyActivity'));
 const Technical = lazy(() => import('../Technical'));
 const LandingPage = lazy(() => import('../LandingPage'));
 const GroupDetails = lazy(() => import('../Posts/Details/GroupDetails'));
@@ -159,8 +157,7 @@ function Routing() {
 							restricted={route.restricted}
 							key={index}
 							exact
-							path={route.path}
-						>
+							path={route.path}>
 							<Layout layout={route.layout}>
 								<route.render />
 							</Layout>
@@ -170,8 +167,7 @@ function Routing() {
 							restricted={route.restricted}
 							exact
 							path={route.path}
-							key={index}
-						>
+							key={index}>
 							<Layout layout={route.layout}>
 								<route.render />
 							</Layout>

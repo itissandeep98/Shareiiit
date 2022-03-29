@@ -17,6 +17,19 @@ import { useHistory } from 'react-router-dom';
 import { Col, Container, Row, Spinner } from 'reactstrap';
 import { searchAdvanced, searchPosts } from '../../Store/ActionCreators/search';
 
+const categories = [
+	{ label: 'Books', value: 'book' },
+	{ label: 'Groups', value: 'group' },
+	{ label: 'Electronics', value: 'electronic' },
+	{ label: 'Other', value: 'other' },
+];
+
+const sort_by = [
+	{ label: 'Most Recent', value: '-created_at' },
+	{ label: 'Oldest first', value: 'created_at' },
+	{ label: 'Most Upvoted', value: 'upvote_count' },
+];
+
 function FilterBar(props) {
 	const {
 		category,
@@ -27,17 +40,7 @@ function FilterBar(props) {
 		setRequest,
 		setResult,
 	} = props;
-	const categories = [
-		{ label: 'Books', value: 'book' },
-		{ label: 'Groups', value: 'group' },
-		{ label: 'Electronics', value: 'electronic' },
-		{ label: 'Other', value: 'other' },
-	];
-	const sort_by = [
-		{ label: 'Most Recent', value: '-created_at' },
-		{ label: 'Oldest first', value: 'created_at' },
-		{ label: 'Most Upvoted', value: 'upvote_count' },
-	];
+
 	const history = useHistory();
 	const dispatch = useDispatch();
 	const posts = useSelector(state => state.posts?.[category]);
@@ -47,20 +50,12 @@ function FilterBar(props) {
 	const [modal, setModal] = useState(false);
 
 	useEffect(() => {
-		if (decodeURI(history.location.search).slice(1).length > 2) {
-			const data = JSON.parse(decodeURI(history.location.search).slice(1));
-			setSearch(data.search ?? '');
-			onChange();
-		}
-	}, []);
-
-	useEffect(() => {
 		window.history.replaceState(
 			null,
 			null,
-			'?' + JSON.stringify({ search, category, ordering, request })
+			'?' + JSON.stringify({ category, ordering, request })
 		);
-	}, [category, ordering, request, search]);
+	}, [category, ordering, request]);
 
 	var typingTimer;
 	const startSearch = e => {
@@ -161,7 +156,7 @@ function FilterBar(props) {
 					<Button
 						className="float-right text-info"
 						onClick={() => setModal(!modal)}>
-						{modal ? 'Show' : 'Hide'} Advanced Search
+						{modal ? 'Hide' : 'Show'} Advanced Search
 					</Button>
 				</Col>
 			</Row>
@@ -197,101 +192,107 @@ function AdvancedSearch(props) {
 		});
 	};
 	return (
-		<Row
+		<div
 			className={classNames('mt-3 adv_search overflow-hidden', {
-				hidden_details: open,
+				hidden_details: !open,
 			})}>
-			<Col md={6}>
-				<TextField
-					label="Title"
-					fullWidth
-					variant="outlined"
-					name="title"
-					onChange={handleChange}
-				/>
-			</Col>
-			<Col md={6}>
-				<TextField
-					label="Description"
-					fullWidth
-					variant="outlined"
-					name="description"
-					onChange={handleChange}
-				/>
-			</Col>
-			<Col md={4}>
-				<TextField
-					label="Username"
-					fullWidth
-					variant="outlined"
-					className="mt-2"
-					name="username"
-					onChange={handleChange}
-				/>
-			</Col>
-
-			{category === 'book' && (
-				<Col md={4}>
+			<Row>
+				<Col md={6}>
 					<TextField
-						label="Author"
-						className=" mt-2"
+						label="Title"
 						fullWidth
 						variant="outlined"
-						name="author"
-						value={data.author}
+						name="title"
 						onChange={handleChange}
 					/>
 				</Col>
-			)}
-
-			{category !== 'group' ? (
+				<Col md={6}>
+					<TextField
+						label="Description"
+						fullWidth
+						variant="outlined"
+						name="description"
+						onChange={handleChange}
+					/>
+				</Col>
 				<Col md={4}>
 					<TextField
-						type="number"
-						label="Price"
+						label="Username"
 						fullWidth
 						variant="outlined"
 						className="mt-2"
-						name="price"
+						name="username"
 						onChange={handleChange}
 					/>
 				</Col>
-			) : (
-				<Col md={6}>
-					<TextField
-						label="Members Needed"
-						type="number"
-						className=" mt-2"
-						fullWidth
-						variant="outlined"
-						name="members_needed"
-						value={data.members_needed}
-						onChange={handleChange}
-					/>
-				</Col>
-			)}
-			<Col>
-				<FormControlLabel
-					control={
-						<Checkbox
-							checked={data.is_request}
-							onChange={e => setData({ ...data, is_request: !data.is_request })}
-							color="primary"
+
+				{category === 'book' && (
+					<Col md={4}>
+						<TextField
+							label="Author"
+							className=" mt-2"
+							fullWidth
+							variant="outlined"
+							name="author"
+							value={data.author}
+							onChange={handleChange}
 						/>
-					}
-					label="Request Posts"
-				/>
-			</Col>
-			<Col>
-				<Button
-					variant="outlined"
-					className="mt-2 float-right"
-					onClick={handleSearch}
-					disabled={loading}>
-					{loading ? <Spinner /> : 'Search'}
-				</Button>
-			</Col>
-		</Row>
+					</Col>
+				)}
+
+				{category !== 'group' ? (
+					<Col md={4}>
+						<TextField
+							type="number"
+							label="Price"
+							fullWidth
+							variant="outlined"
+							className="mt-2"
+							name="price"
+							onChange={handleChange}
+						/>
+					</Col>
+				) : (
+					<Col md={6}>
+						<TextField
+							label="Members Needed"
+							type="number"
+							className=" mt-2"
+							fullWidth
+							variant="outlined"
+							name="members_needed"
+							value={data.members_needed}
+							onChange={handleChange}
+						/>
+					</Col>
+				)}
+			</Row>
+			<Row>
+				<Col>
+					<FormControlLabel
+						control={
+							<Checkbox
+								checked={data.is_request}
+								onChange={e =>
+									setData({ ...data, is_request: !data.is_request })
+								}
+								color="primary"
+							/>
+						}
+						label="Request Posts"
+					/>
+				</Col>
+				<Col>
+					<Button
+						variant="outlined"
+						className="mt-2 float-right"
+						onClick={handleSearch}
+						disabled={loading}>
+						{loading ? <Spinner /> : 'Search'}
+					</Button>
+				</Col>
+			</Row>
+		</div>
 	);
 }
 export default FilterBar;

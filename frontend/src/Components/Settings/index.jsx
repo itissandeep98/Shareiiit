@@ -21,24 +21,21 @@ function Profile(props) {
 		<Container fluid className="p-3 bg-light h-100">
 			<Meta head="Profile | ShareIIITD" />
 			<Container>
-				<Row>
-					<Col className="d-flex justify-content-around">
+				<Row className="shadow my-3 py-4 rounded_lg bg-white">
+					<Col className=" my-3 float-right">
 						<NavLink
-							className="mr-2 rounded-pill text-iiitd border p-3 border-info"
-							to={`/profile/following`}
-						>
+							className="mx-3 rounded-pill text-iiitd border p-3 border-info"
+							to={`/profile/following`}>
 							<PeopleIcon /> Following
 						</NavLink>
 						<NavLink
-							className="mr-2 rounded-pill text-iiitd border p-3 border-info"
-							to={'/profile/myposts'}
-						>
+							className="mx-3 rounded-pill text-iiitd border p-3 border-info"
+							to={'/profile/myposts'}>
 							<GridOnIcon /> My Posts
 						</NavLink>
 						<NavLink
-							className="mr-2 rounded-pill text-iiitd border p-3 border-info"
-							to={'/profile/myactivity'}
-						>
+							className="mx-3 rounded-pill text-iiitd border p-3 border-info"
+							to={'/profile/myactivity'}>
 							<BookmarksIcon /> My Activity
 						</NavLink>
 					</Col>

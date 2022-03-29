@@ -45,7 +45,7 @@ function TopHeader() {
 						src={process.env.PUBLIC_URL + '/assets/images/logo.png'}
 						alt="resource sharing app"
 						size="medium"
-						style={{ height: '70px' }}
+						style={{ height: '50px' }}
 						className="img-fluid d-none d-lg-inline"
 					/>
 				</Row>

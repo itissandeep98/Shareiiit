@@ -64,12 +64,12 @@ function MainView(props) {
 				</Col>
 			</Row>
 			<Row className="mt-3">
-				{cards && (
+				{!cards && (
 					<p className="text-muted p-2">
 						<Spinner size={'sm'} /> Loading Posts
 					</p>
 				)}
-				{/* {cards?.length > 0 ? (
+				{cards?.length > 0 ? (
 					cards?.map(card => (
 						<Col md={4} className="mt-4">
 							<TechCard {...card} />
@@ -77,7 +77,7 @@ function MainView(props) {
 					))
 				) : (
 					<p className="text-center text-muted w-100">No Results Found !!</p>
-				)} */}
+				)}
 			</Row>
 			<Row className="mt-3 d-flex justify-content-center">
 				{next && (
