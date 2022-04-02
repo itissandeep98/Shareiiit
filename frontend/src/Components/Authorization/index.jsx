@@ -23,7 +23,7 @@ function AuthComp(props) {
 					<Col className="align-items-center d-flex justify-content-center">
 						<div className="w-100 text-center">
 							<h1 className="text-grad font-weight-bold display-1">
-								ShareIIITD
+								ShareIIIT
 							</h1>
 
 							<Login />

@@ -73,11 +73,13 @@ function BasicDetails(props) {
 							<Select
 								label="Tag"
 								value={details?.role}
-								onChange={e => setDetails({ ...details, role: e.target.value })}
-							>
+								onChange={e =>
+									setDetails({ ...details, role: e.target.value })
+								}>
 								<MenuItem value="Student">Student</MenuItem>
 								<MenuItem value="Faculty">Faculty</MenuItem>
 								<MenuItem value="Staff">Staff</MenuItem>
+								<MenuItem value="RWA">RWA</MenuItem>
 							</Select>
 						</FormControl>
 					</Col>
@@ -144,8 +146,7 @@ function BasicDetails(props) {
 				<Button
 					variant="outlined"
 					className="mt-3 float-right  text-iiitd"
-					onClick={updateDetails}
-				>
+					onClick={updateDetails}>
 					Update
 				</Button>
 			</Col>
