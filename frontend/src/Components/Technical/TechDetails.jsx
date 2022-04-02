@@ -62,7 +62,7 @@ function TechDetails(props) {
 			{details && (
 				<>
 					<Meta
-						head={`${details?.skill?.label} by ${details?.created_by?.username} | ShareIIITD`}
+						head={`${details?.skill?.label} by ${details?.created_by?.username} | ShareIIIT`}
 					/>
 					<Row>
 						<Col>

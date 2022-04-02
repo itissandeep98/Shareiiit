@@ -81,8 +81,7 @@ const FeaturesTiles = ({
 
 						<div
 							className="tiles-item reveal-from-bottom"
-							data-reveal-delay="200"
-						>
+							data-reveal-delay="200">
 							<div className="tiles-item-inner">
 								<div className="features-tiles-item-header">
 									<div className="features-tiles-item-image mb-16">
@@ -107,8 +106,7 @@ const FeaturesTiles = ({
 
 						<div
 							className="tiles-item reveal-from-bottom"
-							data-reveal-delay="400"
-						>
+							data-reveal-delay="400">
 							<div className="tiles-item-inner">
 								<div className="features-tiles-item-header">
 									<div className="features-tiles-item-image mb-16">
@@ -124,7 +122,7 @@ const FeaturesTiles = ({
 									<h4 className="mt-0 mb-8">Electronics</h4>
 									<p className="m-0 text-sm">
 										Ask for the charger you forgot at home or borrow an
-										extension cord. ShareIIITD finally provides an easy way of
+										extension cord. ShareIIIT finally provides an easy way of
 										sharing electronics in college.
 									</p>
 								</div>
@@ -159,8 +157,7 @@ const FeaturesTiles = ({
 
 						<div
 							className="tiles-item reveal-from-bottom"
-							data-reveal-delay="200"
-						>
+							data-reveal-delay="200">
 							<div className="tiles-item-inner">
 								<div className="features-tiles-item-header">
 									<div className="features-tiles-item-image mb-16">
@@ -184,8 +181,7 @@ const FeaturesTiles = ({
 
 						<div
 							className="tiles-item reveal-from-bottom"
-							data-reveal-delay="400"
-						>
+							data-reveal-delay="400">
 							<div className="tiles-item-inner">
 								<div className="features-tiles-item-header">
 									<div className="features-tiles-item-image mb-16">

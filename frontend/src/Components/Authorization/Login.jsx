@@ -31,7 +31,7 @@ function Login(props) {
 	useEffect(() => {
 		if (Cookies.get('osa_token')) {
 			setLoading(true);
-			showAlert('OSA login found, logging you in...', 'success');
+			// showAlert('OSA login found, logging you in...', 'success');
 			dispatch(loginCookieAction(Cookies.get('osa_token'))).then(res => {
 				setLoading(false);
 				props.history.push('/feed');
@@ -41,7 +41,7 @@ function Login(props) {
 
 	return (
 		<>
-			<Meta head="Login | ShareIIITD" />
+			<Meta head="Login | ShareIIIT" />
 			<h1 className=" display-5">Login</h1>
 			<form>
 				<TextField

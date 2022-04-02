@@ -17,7 +17,7 @@ function AuthComp(props) {
 						className="align-items-center d-flex justify-content-center">
 						<img
 							src={process.env.PUBLIC_URL + '/assets/images/auth-image.png'}
-							alt="ShareIIITD"
+							alt="ShareIIIT"
 						/>
 					</Col>
 					<Col className="align-items-center d-flex justify-content-center">

@@ -40,7 +40,7 @@ function MyPosts(props) {
 	];
 	return (
 		<Container fluid className="p-3 bg-light h-100">
-			<Meta head="My Posts | ShareIIITD" />
+			<Meta head="My Posts | ShareIIIT" />
 			<Container>
 				<Row className="shadow my-3 py-4 rounded_lg bg-white ">
 					<Col>

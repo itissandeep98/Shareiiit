@@ -11,7 +11,7 @@ function Upvoted(props) {
 
 	return (
 		<Container fluid className="py-4 h-100 rounded_lg bg-white">
-			<Meta head="Upvoted Posts | ShareIIITD" />
+			<Meta head="Upvoted Posts | ShareIIIT" />
 			<Row>
 				<Col>
 					<h1>Upvoted Posts</h1>

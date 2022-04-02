@@ -19,7 +19,7 @@ function Technical() {
 	};
 	return (
 		<Container fluid className="p-3 bg-light h-100">
-			<Meta head="Skills | ShareIIITD" />
+			<Meta head="Skills | ShareIIIT" />
 			<Row>
 				<Col md={2} className="mb-2 d-none d-md-block">
 					<Tags tags={selectedTags} modifyTags={modifyTags} />

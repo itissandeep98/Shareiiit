@@ -11,7 +11,7 @@ function Dismissed(props) {
 
 	return (
 		<Container fluid className="py-4 h-100 rounded_lg bg-white">
-			<Meta head="Dismissed Posts | ShareIIITD" />
+			<Meta head="Dismissed Posts | ShareIIIT" />
 			<Row>
 				<Col>
 					<h1>Dismissed Posts</h1>

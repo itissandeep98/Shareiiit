@@ -78,7 +78,7 @@ function Posts(props) {
 
 	return (
 		<Container fluid className="p-3 bg-light h-100">
-			<Meta head="Feed | ShareIIITD" />
+			<Meta head="Feed | ShareIIIT" />
 			<Row className="justify-content-center">
 				<Col md={10}>
 					<Container

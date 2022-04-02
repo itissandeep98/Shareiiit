@@ -4,7 +4,7 @@ function Meta(props) {
 	const { head, description, url } = props;
 	return (
 		<Helmet>
-			<title>{head ?? 'ShareIIITD'}</title>
+			<title>{head ?? 'ShareIIIT'}</title>
 			<meta name="description" content={description} />
 			<meta name="twitter:description" content={description} />
 			<meta property="og:description" content={description} />

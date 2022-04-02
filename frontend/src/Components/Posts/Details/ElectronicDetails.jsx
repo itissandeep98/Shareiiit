@@ -62,7 +62,7 @@ function ElectronicDetails(props) {
 			)}
 			{details && (
 				<>
-					<Meta head={`${details.title} | ShareIIITD`} />
+					<Meta head={`${details.title} | ShareIIIT`} />
 					<Row>
 						<Col className="d-flex align-items-center">
 							<div className="text-center p-2  d-flex flex-column">

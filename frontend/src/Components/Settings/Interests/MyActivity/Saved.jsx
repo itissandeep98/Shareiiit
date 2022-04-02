@@ -10,7 +10,7 @@ function Saved(props) {
 	const { cards, loading, category } = props;
 	return (
 		<Container fluid className="py-4 h-100 rounded_lg bg-white">
-			<Meta head="Saved Posts | ShareIIITD" />
+			<Meta head="Saved Posts | ShareIIIT" />
 			<Row>
 				<Col>
 					<h1>Saved Posts</h1>

@@ -50,7 +50,7 @@ function Profile(props) {
 		<Container fluid className="p-3 bg-light h-100">
 			{details ? (
 				<Container className="shadow my-3 py-4 rounded_lg bg-white align-items-center">
-					<Meta head={`${details.username} | ShareIIITD`} />
+					<Meta head={`${details.username} | ShareIIIT`} />
 					<Row className=" align-items-center">
 						<Col xs={12} md={3} className=" text-center">
 							<CustomImage
@@ -69,8 +69,7 @@ function Profile(props) {
 										variant="text"
 										className="text-iiitd"
 										disabled={loading}
-										onClick={handleFollow}
-									>
+										onClick={handleFollow}>
 										{loading ? (
 											<Spinner size="sm" />
 										) : (

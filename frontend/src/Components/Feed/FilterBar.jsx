@@ -105,7 +105,7 @@ function FilterBar(props) {
 					<FormControl variant="outlined" fullWidth>
 						<InputLabel>Request posts</InputLabel>
 						<Select
-							label="Request posts"
+							label="Requesting or giving"
 							value={request}
 							onChange={e => setRequest(e.target.value)}>
 							<MenuItem value={0}>All</MenuItem>
