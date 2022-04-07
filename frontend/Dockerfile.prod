@@ -1,0 +1,19 @@
+# pull the official base image
+FROM node:14 as build
+# set working direction
+WORKDIR /app
+# install application dependencies
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm i
+# add app
+COPY . ./
+
+ARG REACT_APP_DUMMY
+ENV REACT_APP_DUMMY=$REACT_APP_DUMMY
+# start app
+CMD npm run build
+
+
+FROM nginx
+COPY --from=build /app/build /usr/share/nginx/html

@@ -1,0 +1,25 @@
+version: "3.2"
+services:
+  backend:
+    restart: always
+    container_name: code
+    command: python manage.py runserver 0.0.0.0:8000
+
+    build:
+      context: ./backend/
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+
+  frontend:
+    restart: always
+    command: npm run start
+    container_name: front
+    build:
+      context: ./frontend/
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    depends_on:
+      - backend
