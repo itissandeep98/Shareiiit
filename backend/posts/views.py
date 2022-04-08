@@ -153,6 +153,17 @@ class PostViewSet(viewsets.ReadOnlyModelViewSet):
             ]
         # Search should exclude only deleted and expired posts, and dismissed posts based on show_dismissed flag.
 
+        # TODO: Identify deleted posts for raising specific exception
+
+        # post_id = self.kwargs.get("pk")
+
+        # if post_id is not None:
+        #     try:
+        #         if Post.objects.get(id=post_id).is_deleted:
+        #             raise APIException("This post has been deleted.")
+        #     except:
+        #         pass
+
         deleted_posts = list(
             Post.objects.filter(is_deleted=True).values_list("id", flat=True)
         )

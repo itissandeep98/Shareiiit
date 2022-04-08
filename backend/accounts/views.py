@@ -4,10 +4,12 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
 from rest_framework.exceptions import APIException
+from rest_framework.decorators import action
 
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
+from django.db.models import Count
 
 
 from .serializers import (
@@ -76,7 +78,7 @@ class UserViewSet(viewsets.ModelViewSet):
         """
         Instantiates and returns the list of permissions that this view requires.
         """
-        if self.action in ["list", "retrieve"]:
+        if self.action in ["list", "retrieve", "popular"]:
             permission_classes = [permissions.IsAuthenticated]
         elif self.action in ["update", "partial_update"]:
             permission_classes = [IsUser]
@@ -87,6 +89,20 @@ class UserViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return User.objects.all().exclude(is_superuser=True)
+
+    @action(detail=False, methods=["get"])
+    def popular(self, request, pk=None):
+        """
+        Action to return top 10 users, sorted by the follower count.
+        """
+
+        queryset = self.get_queryset()
+        queryset = queryset.annotate(
+            follower_count=Count("followers")
+        ).order_by("-follower_count")[:10]
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
 
 class OSADetailsView(generics.RetrieveAPIView):

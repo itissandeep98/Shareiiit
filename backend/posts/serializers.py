@@ -114,7 +114,7 @@ class PostSerializer(serializers.ModelSerializer):
             "is_price_negotiable",
             "status",
             "category",
-            "is_expired",
+            "is_archived",
             "is_deleted",
             "image",
             "image_url",
