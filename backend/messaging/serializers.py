@@ -2,6 +2,7 @@ from django.db.models import fields, Q
 from django.contrib.auth import get_user, get_user_model
 
 from rest_framework import serializers
+from rest_framework.exceptions import APIException
 
 from .models import Message, Conversation, Notification
 from posts.models import Post
@@ -25,6 +26,13 @@ class MessageSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         conversation_id = validated_data.pop("conversation_id")
         post_id = validated_data.pop("post_id")
+
+        post = Post.objects.get(id=post_id)
+
+        if post.is_deleted:
+            raise APIException("Cannot add messages to deleted posts")
+        if post.is_archived:
+            raise APIException("Cannot add messages to archived posts")
 
         if conversation_id is None:
             # if conv id is none, i.e. new conversation is being initiated by sender, so sender becomes user2

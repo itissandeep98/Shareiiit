@@ -49,7 +49,7 @@ class Post(models.Model):
         blank=True, null=True
     )  # image_url became redundant after image field was added
     is_deleted = models.BooleanField(default=False)
-    is_expired = models.BooleanField(default=False)
+    is_archived = models.BooleanField(default=False)
 
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
 

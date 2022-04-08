@@ -137,6 +137,7 @@ class PostViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         category = self.request.query_params.get("category")
         show_dismissed = self.request.query_params.get("show_dismissed", False)
+        show_archived = self.request.query_params.get("show_archived", False)
 
         if category is None:
             raise APIException("Please specify post category.")
@@ -150,21 +151,29 @@ class PostViewSet(viewsets.ReadOnlyModelViewSet):
                     voted_by=self.request.user.id, dismiss_flag=True
                 )
             ]
-
         # Search should exclude only deleted and expired posts, and dismissed posts based on show_dismissed flag.
 
         deleted_posts = list(
             Post.objects.filter(is_deleted=True).values_list("id", flat=True)
         )
 
-        expired_posts = list(
-            Post.objects.filter(is_expired=True).values_list("id", flat=True)
-        )
+        # expired_posts = list(
+        #     Post.objects.filter(is_archived=True).values_list("id", flat=True)
+        # )
+
+        if show_archived:
+            archived_posts = []
+        else:
+            archived_posts = list(
+                Post.objects.filter(is_archived=True).values_list(
+                    "id", flat=True
+                )
+            )
 
         queryset = (
             Category.objects.get(name=category)
             .post_set.exclude(
-                id__in=deleted_posts + expired_posts + dismissed_posts
+                id__in=deleted_posts + archived_posts + dismissed_posts
             )
             .filter(**get_search_kwargs(self.request, category))
             .all()
@@ -240,6 +249,20 @@ class MyPostsViewSet(viewsets.ModelViewSet):
         post.is_deleted = True
         post.save()
         return Response({"status": "post deleted successfully"})
+
+    @action(detail=True, methods=["post"])
+    def archive(self, request, pk=None):
+        post = self.get_object()
+        post.is_archived = True
+        post.save()
+        return Response({"status": "post archived successfully"})
+
+    @action(detail=True, methods=["post"])
+    def unarchive(self, request, pk=None):
+        post = self.get_object()
+        post.is_archived = False
+        post.save()
+        return Response({"status": "post unarchived successfully"})
 
 
 class SkillViewSet(viewsets.ReadOnlyModelViewSet):
