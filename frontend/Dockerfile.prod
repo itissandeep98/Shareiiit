@@ -9,9 +9,6 @@ RUN npm i
 # add app
 COPY . ./
 
-ARG REACT_APP_DUMMY
-ENV REACT_APP_DUMMY=$REACT_APP_DUMMY
-# start app
 CMD npm run build
 
 
