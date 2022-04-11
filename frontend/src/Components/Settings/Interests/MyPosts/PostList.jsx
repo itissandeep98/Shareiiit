@@ -29,7 +29,7 @@ function PostList({ category }) {
 				{cards && cards.length > 0 ? (
 					cards.map((card, index) => (
 						<Col md={6} lg={4} className="my-2" key={card.id}>
-							{card.is_expired ? (
+							{card.is_archived ? (
 								<ExpiredCard details={card} />
 							) : (
 								<MyPostCard details={card} />

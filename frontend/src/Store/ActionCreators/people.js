@@ -9,7 +9,7 @@ const headers = () => ({
 
 export const fetchPeople = user => {
 	return async dispatch => {
-		dispatch({ type: ActionTypes.PEOPLE_DETAILS_FETCH_FAILED });
+		dispatch({ type: ActionTypes.PEOPLE_DETAILS_FETCH_REQUEST });
 		return await axios
 			.get(`${apiUrl}/api/users/${user}/`, {
 				headers: headers(),
@@ -114,6 +114,30 @@ export const unfollowPeople = ({ id }) => {
 						errmess: error.response,
 					});
 				}
+			});
+	};
+};
+
+export const fetchTopPeople = () => {
+	return async dispatch => {
+		dispatch({ type: ActionTypes.TOP_PEOPLE_REQUEST });
+		return await axios
+			.get(`${apiUrl}/api/users/popular/`, {
+				headers: headers(),
+			})
+			.then(response => {
+				const data = response.data;
+				dispatch({
+					type: ActionTypes.TOP_PEOPLE_SUCCESS,
+					data,
+				});
+				return data;
+			})
+			.catch(error => {
+				dispatch({
+					type: ActionTypes.TOP_PEOPLE_FAILED,
+					errmess: 'Error in connection with Server',
+				});
 			});
 	};
 };

@@ -1,12 +1,18 @@
+import { NavLink } from 'react-router-dom';
 import { Col, Container, Row } from 'reactstrap';
-import { Tab } from 'semantic-ui-react';
+import { Menu, Tab } from 'semantic-ui-react';
 import Meta from '../../../Meta';
 import PostList from './PostList';
 
 function MyPosts(props) {
+	const active = props.active || 0;
 	const panes = [
 		{
-			menuItem: 'Books',
+			menuItem: (
+				<Menu.Item key="books" as={NavLink} to="books">
+					Books
+				</Menu.Item>
+			),
 			render: () => (
 				<Tab.Pane attached={false} className="p-0 border-0">
 					<PostList category="book" />
@@ -14,7 +20,11 @@ function MyPosts(props) {
 			),
 		},
 		{
-			menuItem: 'Electronic Items',
+			menuItem: (
+				<Menu.Item key="electronics" as={NavLink} to="electronics">
+					Electronics
+				</Menu.Item>
+			),
 			render: () => (
 				<Tab.Pane attached={false} className="p-0 border-0">
 					<PostList category="electronic" />
@@ -22,7 +32,11 @@ function MyPosts(props) {
 			),
 		},
 		{
-			menuItem: 'Group',
+			menuItem: (
+				<Menu.Item key="groups" as={NavLink} to="groups">
+					Group
+				</Menu.Item>
+			),
 			render: () => (
 				<Tab.Pane attached={false} className="p-0 border-0">
 					<PostList category="group" />
@@ -30,7 +44,11 @@ function MyPosts(props) {
 			),
 		},
 		{
-			menuItem: 'Other Items',
+			menuItem: (
+				<Menu.Item key="others" as={NavLink} to="others">
+					Other
+				</Menu.Item>
+			),
 			render: () => (
 				<Tab.Pane attached={false} className="p-0 border-0">
 					<PostList category="other" />
@@ -49,6 +67,7 @@ function MyPosts(props) {
 							menu={{ secondary: true, pointing: true }}
 							panes={panes}
 							className="top_menu"
+							activeIndex={active}
 						/>
 					</Col>
 				</Row>

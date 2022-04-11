@@ -10,13 +10,15 @@ import CustomImage from '../../../../Utils/CustomImage';
 import DeleteModal from './DeleteModal';
 
 function ExpiredCard(props) {
-	let { id, description, created_at, title, image } = props.details;
+	let { id, description, created_at, title, image, category } = props.details;
 
 	const [deleteModal, setDeleteModal] = useState(false);
 	const dispatch = useDispatch();
 
 	const handleDelete = () => {
-		dispatch(deletePost(id));
+		dispatch(deletePost({ id, category })).then(() =>
+			setDeleteModal(!deleteModal)
+		);
 	};
 
 	return (

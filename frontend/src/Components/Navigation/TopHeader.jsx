@@ -70,6 +70,11 @@ function TopHeader() {
 									Profile
 								</NavLink>
 							</NavItem>
+							<NavItem>
+								<NavLink className="nav-link p-3 cust_link" to="/discover">
+									Discover
+								</NavLink>
+							</NavItem>
 						</Nav>
 						<Nav className="ml-auto" navbar>
 							{/* <NavItem>

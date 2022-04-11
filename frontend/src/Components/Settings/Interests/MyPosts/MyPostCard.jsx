@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router';
 import { Col, Container, Row } from 'reactstrap';
 import { Icon } from 'semantic-ui-react';
-import { deletePost } from '../../../../Store/ActionCreators/post';
+import { archivePost, deletePost } from '../../../../Store/ActionCreators/post';
 import CustomImage from '../../../../Utils/CustomImage';
 import DeleteModal from './DeleteModal';
 import EditPostModal from './EditPostModal';
@@ -21,6 +21,10 @@ function MyPostCard(props) {
 		dispatch(deletePost({ id, category })).then(() =>
 			setDeleteModal(!deleteModal)
 		);
+	};
+
+	const handleArchive = () => {
+		dispatch(archivePost({ id, category, type: 'archive' }));
 	};
 
 	return (
@@ -56,8 +60,7 @@ function MyPostCard(props) {
 								<h3
 									className="text-capitalize"
 									onClick={() => props.history.push(`/posts/${category}/${id}`)}
-									style={{ cursor: 'pointer' }}
-								>
+									style={{ cursor: 'pointer' }}>
 									{title}
 								</h3>
 							</Col>
@@ -94,15 +97,16 @@ function MyPostCard(props) {
 									/>
 								</p>
 							</Tooltip>
-							{/* <Tooltip title="Complete" placement="top">
+							<Tooltip title="Archive" placement="top">
 								<p>
 									<Icon
 										name="check circle outline"
 										size="large"
 										className="btn p-0"
+										onClick={handleArchive}
 									/>
 								</p>
-							</Tooltip> */}
+							</Tooltip>
 						</div>
 					</Col>
 				</Row>

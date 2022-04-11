@@ -8,6 +8,7 @@ import PublicRoute from './PublicRoute';
 
 // const Home = lazy(() => import("../Home"));
 const Feed = lazy(() => import('../Feed'));
+const Discover = lazy(() => import('../Discover'));
 const Notification = lazy(() => import('../Notification'));
 const AuthComp = lazy(() => import('../Authorization'));
 const ProfileSettings = lazy(() => import('../Settings'));
@@ -38,6 +39,30 @@ function Routing() {
 		// 	render: () => <Home />,
 		// },
 		{
+			path: '/profile/myposts/books',
+			private: true,
+			layout: true,
+			render: () => <MyPosts active={0} />,
+		},
+		{
+			path: '/profile/myposts/electronics',
+			private: true,
+			layout: true,
+			render: () => <MyPosts active={1} />,
+		},
+		{
+			path: '/profile/myposts/groups',
+			private: true,
+			layout: true,
+			render: () => <MyPosts active={2} />,
+		},
+		{
+			path: '/profile/myposts/others',
+			private: true,
+			layout: true,
+			render: () => <MyPosts active={3} />,
+		},
+		{
 			path: '/profile/myposts',
 			private: true,
 			layout: true,
@@ -66,6 +91,12 @@ function Routing() {
 			private: true,
 			layout: true,
 			render: () => <Feed />,
+		},
+		{
+			path: '/discover',
+			private: true,
+			layout: true,
+			render: () => <Discover />,
 		},
 		{
 			path: '/notification',

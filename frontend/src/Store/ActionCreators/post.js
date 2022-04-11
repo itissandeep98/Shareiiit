@@ -164,6 +164,30 @@ export const deletePost = ({ id, category }) => {
 	};
 };
 
+export const archivePost = ({ id, category, type }) => {
+	console.log(id, category, type);
+	return async dispatch => {
+		dispatch({ type: ActionTypes.POST_ARCHIVE_REQUEST });
+		return await axios
+			.post(`${apiUrl}/api/myposts/${id}/${type}/?category=${category}`, {
+				headers: headers(),
+			})
+			.then(response => {
+				dispatch({
+					type: ActionTypes.POST_ARCHIVE_SUCCESS,
+					data: response.data,
+				});
+			})
+			.catch(error => {
+				console.log(error.response);
+				dispatch({
+					type: ActionTypes.POST_ARCHIVE_FAILED,
+					errmess: 'Error in connection with Server',
+				});
+			});
+	};
+};
+
 export const updatePost = ({ id, data, category }) => {
 	return async dispatch => {
 		dispatch({ type: ActionTypes.POST_UPDATE_REQUEST });
