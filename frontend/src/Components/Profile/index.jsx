@@ -19,6 +19,7 @@ function Profile(props) {
 	const [details, setDetails] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const username = useSelector(state => state.user?.osadetails?.username);
+	const [imgErr, setImgErr] = useState(false);
 
 	useEffect(() => {
 		updateData();
@@ -55,9 +56,12 @@ function Profile(props) {
 						<Col xs={12} md={3} className=" text-center">
 							<CustomImage
 								src={
-									details.profile?.image ??
-									process.env.PUBLIC_URL + '/assets/images/user.png'
+									!imgErr
+										? details.profile?.image ??
+										  process.env.PUBLIC_URL + '/assets/images/user.png'
+										: process.env.PUBLIC_URL + '/assets/images/user.png'
 								}
+								onError={e => setImgErr(true)}
 							/>
 							<div className="d-flex align-items-center flex-row  justify-content-around">
 								<p className="text-muted pt-3">
