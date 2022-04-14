@@ -169,7 +169,7 @@ export const archivePost = ({ id, category, type }) => {
 	return async dispatch => {
 		dispatch({ type: ActionTypes.POST_ARCHIVE_REQUEST });
 		return await axios
-			.post(`${apiUrl}/api/myposts/${id}/${type}/?category=${category}`, {
+			.post(`${apiUrl}/api/myposts/${id}/${type}/?category=${category}`, {}, {
 				headers: headers(),
 			})
 			.then(response => {

@@ -45,6 +45,15 @@ class ProfileSerializer(serializers.ModelSerializer):
         return obj.user.following.count()
 
 
+class UserCardSerializer(serializers.ModelSerializer):
+    bio = serializers.CharField(source="profile.bio")
+    image = serializers.ImageField(source="profile.image")
+
+    class Meta:
+        model = User
+        fields = ("name", "bio", "image")
+
+
 class UserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer()
     following = serializers.SerializerMethodField()

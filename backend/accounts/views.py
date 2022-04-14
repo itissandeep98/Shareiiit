@@ -17,6 +17,7 @@ from .serializers import (
     UserSerializer,
     OSADetailsSerializer,
     ProfileSerializer,
+    UserCardSerializer,
 )
 from .permissions import IsUser
 from .models import Profile, UserFollowing
@@ -54,9 +55,7 @@ class LogoutView(APIView):
                 status=status.HTTP_200_OK,
             )
         except AttributeError:
-            return Response(
-                {"error": "No user logged in."}, status=status.HTTP_200_OK
-            )
+            return Response({"error": "No user logged in."}, status=status.HTTP_200_OK)
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -90,19 +89,31 @@ class UserViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return User.objects.all().exclude(is_superuser=True)
 
-    @action(detail=False, methods=["get"])
-    def popular(self, request, pk=None):
-        """
-        Action to return top 10 users, sorted by the follower count.
-        """
+    # @action(detail=False, methods=["get"])
+    # def popular(self, request, pk=None):
+    #     """
+    #     Action to return top 10 users, sorted by the follower count.
+    #     """
 
-        queryset = self.get_queryset()
-        queryset = queryset.annotate(
-            follower_count=Count("followers")
-        ).order_by("-follower_count")[:10]
+    #     queryset = self.get_queryset()
+    #     queryset = queryset.annotate(follower_count=Count("followers")).order_by(
+    #         "-follower_count"
+    #     )[:10]
 
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data)
+    #     serializer = self.get_serializer(queryset, many=True)
+    #     return Response(serializer.data)
+
+
+class PopularUserView(generics.ListAPIView):
+    serializer_class = UserCardSerializer
+
+    def get_queryset(self):
+        queryset = User.objects.all().exclude(is_superuser=True)
+        queryset = queryset.annotate(follower_count=Count("followers")).order_by(
+            "-follower_count"
+        )[:10]
+
+        return queryset
 
 
 class OSADetailsView(generics.RetrieveAPIView):
