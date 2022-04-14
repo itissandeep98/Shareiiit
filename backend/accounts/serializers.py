@@ -51,7 +51,7 @@ class UserCardSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ("name", "bio", "image")
+        fields = ("name", "username", "bio", "image")
 
 
 class UserSerializer(serializers.ModelSerializer):
