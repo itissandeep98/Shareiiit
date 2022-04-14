@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { Col, Row, Spinner } from 'reactstrap';
 import { fetchTopPeople } from '../../Store/ActionCreators/people';
+import UserCard from './UserCard';
 
 function TopUsers() {
 	const dispatch = useDispatch();
@@ -15,22 +16,15 @@ function TopUsers() {
 	return (
 		<Row>
 			<Col>
-				<h2>Most Popular Users</h2>
+				<h2>Popular Users</h2>
 				{topPeople ? (
-					<div className="text-break">
+					<Row className="text-break">
 						{topPeople?.map(user => (
-							<Chip
-								label={
-									<NavLink to={`/${user.username}`}>
-										{user?.first_name} {user?.last_name}
-									</NavLink>
-								}
-								size="medium"
-								className="m-1"
-								key={Math.random()}
-							/>
+							<Col sm={6} md={4} lg={3} className="my-2" key={Math.random()}>
+								<UserCard user={user} />
+							</Col>
 						))}
-					</div>
+					</Row>
 				) : (
 					<p className="text-muted">
 						<Spinner size="sm" /> Fetching Popular users

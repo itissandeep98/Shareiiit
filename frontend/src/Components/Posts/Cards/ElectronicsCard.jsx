@@ -8,7 +8,6 @@ import { Col, Container, Row } from 'reactstrap';
 import { Icon } from 'semantic-ui-react';
 import { addVote } from '../../../Store/ActionCreators/vote';
 import CustomImage from '../../../Utils/CustomImage';
-import '../style.scss';
 import Reaction from './Reaction';
 
 function ElectronicsCards(props) {

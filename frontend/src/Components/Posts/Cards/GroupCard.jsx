@@ -6,7 +6,6 @@ import { NavLink } from 'react-router-dom';
 import { Col, Container, Row } from 'reactstrap';
 import { addVote } from '../../../Store/ActionCreators/vote';
 import CustomImage from '../../../Utils/CustomImage';
-import '../style.scss';
 import Reaction from './Reaction';
 
 function GroupCard(props) {

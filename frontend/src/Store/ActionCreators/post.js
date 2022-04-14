@@ -12,7 +12,7 @@ export const fetchPostDetails = ({ id, category }) => {
 		dispatch({ type: ActionTypes.POST_DETAILS_FETCH_REQUEST });
 		return await axios
 			.get(
-				`${apiUrl}/api/posts/${id}/?category=${category}&show_dismissed=True`,
+				`${apiUrl}/api/posts/${id}/?category=${category}&show_dismissed=True&show_archived=True`,
 				{
 					headers: headers(),
 				}

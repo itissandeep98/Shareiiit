@@ -12,8 +12,8 @@ function Discover() {
 					<Container
 						fluid
 						className="shadow my-3 py-4 rounded_lg bg-white align-items-center">
-						<TopUsers />
 						<Search />
+						<TopUsers />
 					</Container>
 				</Col>
 			</Row>

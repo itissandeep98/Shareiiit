@@ -122,11 +122,11 @@ export const fetchTopPeople = () => {
 	return async dispatch => {
 		dispatch({ type: ActionTypes.TOP_PEOPLE_REQUEST });
 		return await axios
-			.get(`${apiUrl}/api/users/popular/`, {
+			.get(`${apiUrl}/api/popularusers/`, {
 				headers: headers(),
 			})
 			.then(response => {
-				const data = response.data;
+				const data = response.data.results;
 				dispatch({
 					type: ActionTypes.TOP_PEOPLE_SUCCESS,
 					data,
