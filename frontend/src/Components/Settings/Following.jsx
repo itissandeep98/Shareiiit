@@ -1,9 +1,8 @@
-import { Chip } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-import { Col, Container, Row } from 'reactstrap';
+import { Col, Container, Row, Spinner } from 'reactstrap';
 import { fetchUserFollowers } from '../../Store/ActionCreators/user';
+import { UserResult } from '../Discover/Search';
 
 function Following() {
 	const dispatch = useDispatch();
@@ -20,18 +19,15 @@ function Following() {
 			<Row>
 				<Col className="shadow mt-3 p-3 rounded_lg">
 					<h3>Following List</h3>
-					{users ? (
+					{!users && (
+						<p className="text-muted">
+							<Spinner size="sm" /> Fetching your following list !!{' '}
+						</p>
+					)}
+					{users?.length > 0 ? (
 						<div className="text-break">
 							{users?.map(user => (
-								<Chip
-									label={
-										<NavLink to={`/${user.user.username}`}>
-											{user.user?.first_name} {user.user?.last_name}
-										</NavLink>
-									}
-									size="medium"
-									key={Math.random()}
-								/>
+								<UserResult user={user.user} />
 							))}
 						</div>
 					) : (

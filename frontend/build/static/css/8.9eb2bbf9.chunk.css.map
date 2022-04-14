@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/Components/Feed/style.css"],"names":[],"mappings":"AAAA,YACC,oCAAqC,CACrC,gBACD,CACA,gBACC,YACD","file":"8.9eb2bbf9.chunk.css","sourcesContent":[".adv_search {\r\n\ttransition: max-height 1s ease-in-out;\r\n\tmax-height: 200vh;\r\n}\r\n.hidden_details {\r\n\tmax-height: 0px;\r\n}\r\n"]}

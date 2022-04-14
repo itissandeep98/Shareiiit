@@ -74,7 +74,7 @@ function Search() {
 	);
 }
 
-const UserResult = ({ user }) => {
+export const UserResult = ({ user }) => {
 	const [imgErr, setImgErr] = useState(false);
 
 	return (
@@ -95,10 +95,10 @@ const UserResult = ({ user }) => {
 					/>
 				</div>
 				<div>
-					<p>{user.username}</p>
-					<small>
+					<p>
 						{user?.first_name} {user?.last_name}
-					</small>
+					</p>
+					<small>{user.username}</small>
 				</div>
 			</div>
 		</NavLink>
