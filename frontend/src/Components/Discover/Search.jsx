@@ -83,21 +83,26 @@ export const UserResult = ({ user }) => {
 			className="bg-light d-inline-block py-2 px-3 rounded_lg m-2 card_hover ">
 			<div className="d-flex flex-row justify-content-between align-items-center">
 				<div className="mr-1">
-					<CustomImage
-						src={
-							!imgErr
-								? user.image ??
-								  process.env.PUBLIC_URL + '/assets/images/user.png'
-								: process.env.PUBLIC_URL + '/assets/images/user.png'
-						}
-						onError={e => setImgErr(true)}
-						avatar
-					/>
+					<div
+						style={{ height: '3rem', width: '3rem', borderRadius: '50%' }}
+						className="overflow-hidden">
+						<CustomImage
+							src={
+								!imgErr
+									? user.image ??
+									  process.env.PUBLIC_URL + '/assets/images/user.png'
+									: process.env.PUBLIC_URL + '/assets/images/user.png'
+							}
+							onError={e => setImgErr(true)}
+							className="h-100 w-100"
+							style={{
+								objectFit: 'cover',
+							}}
+						/>
+					</div>
 				</div>
 				<div>
-					<p>
-						{user?.first_name} {user?.last_name}
-					</p>
+					<p>{user?.name}</p>
 					<small>{user.username}</small>
 				</div>
 			</div>

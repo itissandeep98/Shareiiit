@@ -21,8 +21,8 @@ function Profile(props) {
 		<Container fluid className="p-3 bg-light h-100">
 			<Meta head="Profile | ShareIIIT" />
 			<Container>
-				<Row className="shadow my-3 py-4 rounded_lg bg-white">
-					<Col className=" my-3 d-flex flex-row flex-wrap">
+				<Row className="shadow my-3 rounded_lg bg-white">
+					<Col className=" d-flex flex-row flex-wrap">
 						<NavLink
 							className="rounded-pill text-iiitd border m-2 m-md-3 p-2 p-md-3 border-info"
 							to={`/profile/following`}>
@@ -42,7 +42,6 @@ function Profile(props) {
 						</NavLink>
 					</Col>
 				</Row>
-
 				<BasicDetails />
 				<Skills />
 			</Container>

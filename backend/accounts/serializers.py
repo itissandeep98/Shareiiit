@@ -18,7 +18,7 @@ from rest_framework.authtoken.models import Token
 class OSADetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("id", "username", "first_name", "last_name")
+        fields = ("id", "username", "name")
         extra_kwargs = {"username": {"read_only": True}}
 
 
@@ -28,7 +28,7 @@ class UserFollowingSerializer(serializers.ModelSerializer):
         presentation_serializer=OSADetailsSerializer,
     )
 
-    image = serializers.ImageField(source="profile.image")
+    image = serializers.ImageField(source="user.profile.image")
 
     class Meta:
         model = UserFollowing

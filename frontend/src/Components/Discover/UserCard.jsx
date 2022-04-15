@@ -10,16 +10,23 @@ function UserCard({ user }) {
 		<Container className=" bg-white py-2 rounded_lg h-100 card_hover border">
 			<Row>
 				<Col className="justify-content-center d-flex">
-					<CustomImage
-						src={
-							!imgErr
-								? user.image ??
-								  process.env.PUBLIC_URL + '/assets/images/user.png'
-								: process.env.PUBLIC_URL + '/assets/images/user.png'
-						}
-						onError={e => setImgErr(true)}
+					<div
 						style={{ height: '6rem', width: '6rem', borderRadius: '50%' }}
-					/>
+						className="overflow-hidden">
+						<CustomImage
+							src={
+								!imgErr
+									? user.image ??
+									  process.env.PUBLIC_URL + '/assets/images/user.png'
+									: process.env.PUBLIC_URL + '/assets/images/user.png'
+							}
+							onError={e => setImgErr(true)}
+							className="h-100 w-100"
+							style={{
+								objectFit: 'cover',
+							}}
+						/>
+					</div>
 				</Col>
 			</Row>
 			<Row>

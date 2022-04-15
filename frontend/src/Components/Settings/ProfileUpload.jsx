@@ -39,15 +39,22 @@ function ProfileUpload(props) {
 			</Modal>
 			<div className="d-flex flex-column justify-content-between  ">
 				<Icon.Group size="huge">
-					<CustomImage
-						avatar
-						src={
-							!imgErr
-								? image ?? process.env.PUBLIC_URL + '/assets/images/user.png'
-								: process.env.PUBLIC_URL + '/assets/images/user.png'
-						}
-						onError={e => setImgErr(true)}
-					/>
+					<div
+						style={{ height: '12rem', width: '12rem', borderRadius: '50%' }}
+						className="overflow-hidden">
+						<CustomImage
+							src={
+								!imgErr
+									? image ?? process.env.PUBLIC_URL + '/assets/images/user.png'
+									: process.env.PUBLIC_URL + '/assets/images/user.png'
+							}
+							onError={e => setImgErr(true)}
+							className="h-100 w-100"
+							style={{
+								objectFit: 'cover',
+							}}
+						/>
+					</div>
 					<Icon name="camera" corner onClick={toggle} className="btn p-0" />
 				</Icon.Group>
 				<NavLink to={`/${osadetails?.username}`} className=" mt-4">
