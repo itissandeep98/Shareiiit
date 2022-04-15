@@ -16,4 +16,5 @@ urlpatterns = [
     path("skilllist/", views.SkillListView.as_view()),
     path("votelog/", views.VoteLogView.as_view()),
     path("myactivity/", views.VotedPostsView.as_view()),
+    path("fcm-notif/", views.fcm_notification, name="fcm_notification"),
 ]

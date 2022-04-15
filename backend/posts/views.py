@@ -6,7 +6,10 @@ from rest_framework import generics, permissions, viewsets, filters, mixins
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import APIException
-from rest_framework.decorators import action
+from rest_framework.decorators import action, api_view, permission_classes
+
+from firebase_admin.messaging import Message, Notification as FirebaseNotification
+from fcm_django.models import FCMDevice
 
 
 from django_filters.rest_framework import DjangoFilterBackend
@@ -51,9 +54,7 @@ def get_search_kwargs(request, category):
         kwargs["description__icontains"] = description__icontains
 
     if created_by__username__icontains:
-        kwargs[
-            "created_by__username__icontains"
-        ] = created_by__username__icontains
+        kwargs["created_by__username__icontains"] = created_by__username__icontains
 
     if category == "book":
         if author is not None:
@@ -176,16 +177,12 @@ class PostViewSet(viewsets.ReadOnlyModelViewSet):
             archived_posts = []
         else:
             archived_posts = list(
-                Post.objects.filter(is_archived=True).values_list(
-                    "id", flat=True
-                )
+                Post.objects.filter(is_archived=True).values_list("id", flat=True)
             )
 
         queryset = (
             Category.objects.get(name=category)
-            .post_set.exclude(
-                id__in=deleted_posts + archived_posts + dismissed_posts
-            )
+            .post_set.exclude(id__in=deleted_posts + archived_posts + dismissed_posts)
             .filter(**get_search_kwargs(self.request, category))
             .all()
             .annotate(upvote_count=F("vote_count_log__upvote_count"))
@@ -454,3 +451,23 @@ class NotificationView(
 
     def get_queryset(self):
         return Notification.objects.filter(user=self.request.user)
+
+
+@api_view(["POST"])
+@permission_classes([permissions.AllowAny])
+def fcm_notification(request):
+    device_id = request.data.get("device_id")
+    print(device_id)
+
+    msg = Message(
+        notification=FirebaseNotification(
+            title="Test push notification from OSA",
+            body="One small step for man, one giant leap for mankind.",
+            image="url",
+        ),
+    )
+
+    res = FCMDevice.objects.send_message(msg, False, [device_id])
+
+    print("resposne", res)
+    return Response({"message": "here"})
