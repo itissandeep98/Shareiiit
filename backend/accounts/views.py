@@ -71,7 +71,7 @@ class UserViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action == "retrieve":
             return UserSerializer
-        return OSADetailsSerializer
+        return UserCardSerializer
 
     def get_permissions(self):
         """

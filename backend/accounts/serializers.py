@@ -28,9 +28,11 @@ class UserFollowingSerializer(serializers.ModelSerializer):
         presentation_serializer=OSADetailsSerializer,
     )
 
+    image = serializers.ImageField(source="profile.image")
+
     class Meta:
         model = UserFollowing
-        fields = ("id", "user")
+        fields = ("id", "user", "image")
 
 
 class ProfileSerializer(serializers.ModelSerializer):
