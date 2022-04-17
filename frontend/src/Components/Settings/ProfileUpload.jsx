@@ -64,7 +64,7 @@ function ProfileUpload(props) {
 								{osadetails?.first_name} {osadetails?.last_name}
 							</>
 						) : (
-							osadetails?.username
+							osadetails?.name
 						)}
 					</h5>
 				</NavLink>
