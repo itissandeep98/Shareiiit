@@ -1,18 +1,18 @@
-# /etc/systemd/system/share-iiitd.service 
+# /etc/systemd/system/share-iiit.service 
 
 [Unit]
 Description=osaiiitd backend daemon
-Requires=share-iiitd.socket
+Requires=share-iiit.socket
 After=network.target
 
 [Service]
 User=iiitd
 Group=www-data
-WorkingDirectory=/home/iiitd/share-iiitd/backend
-ExecStart=/home/iiitd/share-iiitd/backend/venv/bin/gunicorn \
+WorkingDirectory=/home/iiitd/share-iiit/backend
+ExecStart=/home/iiitd/share-iiit/backend/venv/bin/gunicorn \
           --access-logfile - \
           --workers 5 \
-          --bind unix:/run/share-iiitd.sock \
+          --bind unix:/run/share-iiit.sock \
           backend.wsgi:application
 
 [Install]
