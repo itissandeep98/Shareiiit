@@ -148,7 +148,7 @@ django_heroku.settings(locals())
 # PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 # STATIC_ROOT = os.path.join(PROJECT_DIR, "static")
 
-OSA_DOMAIN = "http://auth.osa.iiitd.edu.in"
+OSA_DOMAIN = "http://auth.fh.iiitd.edu.in"
 
 OSA_URLS = {
     "TOKEN_AUTH": OSA_DOMAIN + "/token-auth/",

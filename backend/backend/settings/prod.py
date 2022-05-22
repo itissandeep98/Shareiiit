@@ -22,13 +22,21 @@ ALLOWED_HOSTS = ["*"]
 # }
 
 DATABASES = {
+    # "default": {
+    #     "ENGINE": "django.db.backends.mysql",
+    #     "NAME": os.getenv("DB_NAME"),
+    #     "USER": os.getenv("DB_USER"),
+    #     "PASSWORD": os.getenv("DB_USER_PASS"),
+    #     "HOST": "127.0.0.1",
+    #     "PORT": "3306",
+    # },
     "default": {
-        "ENGINE": "django.db.backends.mysql",
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
         "NAME": os.getenv("DB_NAME"),
         "USER": os.getenv("DB_USER"),
-        # "PASSWORD": os.getenv("DB_USER_PASS"),
+        "PASSWORD": os.getenv("DB_USER_PASS"),
         "HOST": "127.0.0.1",
-        "PORT": "3306",
+        "PORT": "5432",
     }
 }
 

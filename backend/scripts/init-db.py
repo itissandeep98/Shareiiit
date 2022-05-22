@@ -1,14 +1,24 @@
 """
 Use this script to populate a new db, if ever needed.
 """
-
+from django.db import IntegrityError, OperationalError
+import csv
+from posts.models import SkillList
 
 def run(*args):
     if "add-skills" in args:
         add_skills()
 
-    if "add-categories" in args:
+    elif "add-categories" in args:
         add_categories()
+
+    elif "set-popular-skills" in args:
+        set_popular_skills()
+
+    else:
+        add_categories()
+        set_popular_skills()
+        add_skills()
 
 
 def add_categories():
@@ -19,9 +29,7 @@ def add_categories():
 
 
 def add_skills():
-    from django.db import IntegrityError, OperationalError
-    import csv
-    from posts.models import SkillList
+    
 
     with open("skills.csv") as f:
         reader = csv.reader(f)
