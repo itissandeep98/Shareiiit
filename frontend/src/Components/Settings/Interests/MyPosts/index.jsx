@@ -9,7 +9,7 @@ function MyPosts(props) {
 	const panes = [
 		{
 			menuItem: (
-				<Menu.Item key="books" as={NavLink} to="books">
+				<Menu.Item key="books" as={NavLink} to="/profile/myposts/books">
 					Books
 				</Menu.Item>
 			),
@@ -21,7 +21,10 @@ function MyPosts(props) {
 		},
 		{
 			menuItem: (
-				<Menu.Item key="electronics" as={NavLink} to="electronics">
+				<Menu.Item
+					key="electronics"
+					as={NavLink}
+					to="/profile/myposts/electronics">
 					Electronics
 				</Menu.Item>
 			),
@@ -33,7 +36,7 @@ function MyPosts(props) {
 		},
 		{
 			menuItem: (
-				<Menu.Item key="groups" as={NavLink} to="groups">
+				<Menu.Item key="groups" as={NavLink} to="/profile/myposts/groups">
 					Group
 				</Menu.Item>
 			),
@@ -45,7 +48,7 @@ function MyPosts(props) {
 		},
 		{
 			menuItem: (
-				<Menu.Item key="others" as={NavLink} to="others">
+				<Menu.Item key="others" as={NavLink} to="/profile/myposts/others">
 					Other
 				</Menu.Item>
 			),

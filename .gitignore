@@ -28,3 +28,4 @@ backend/staticfiles/*
 venv
 media
 backend/.python-version
+.layer0/
