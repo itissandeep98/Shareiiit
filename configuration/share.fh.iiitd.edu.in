@@ -10,6 +10,11 @@ server {
 	#	root /home/iiitd/share-iiitd/backend;
 	#}
 	
+	location /media {
+		autoindex on;
+		alias /home/iiitd/share-iiitd/backend/media/;
+	}
+
 	location /api {
 		include proxy_params;
 		proxy_pass http://unix:/run/share-iiit.sock;
@@ -20,3 +25,4 @@ server {
                 try_files $uri /index.html ;
         }
 }
+
