@@ -1,8 +1,8 @@
 # BTP Project
 
-#### Website: http://share.osa.iiitd.edu.in/
+#### Website: http://share.fh.iiitd.edu.in/
 
-#### Admin Panel: http://share.osa.iiitd.edu.in/api/admin
+#### Admin Panel: http://share.fh.iiitd.edu.in/api/admin
 
 ## Prerequisite
 
