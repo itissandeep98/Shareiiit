@@ -2,7 +2,17 @@
 
 #### Website: http://share.fh.iiitd.edu.in/
 
-#### Admin Panel: http://share.fh.iiitd.edu.in/api/admin
+## Screenshots
+
+![image](https://user-images.githubusercontent.com/44255731/180018625-ea2e5dbb-593c-49be-b006-6c303ba8bc19.png)
+![image](https://user-images.githubusercontent.com/44255731/180018877-d2432399-a136-4344-bdaf-d8ddc8b149df.png)
+![image](https://user-images.githubusercontent.com/44255731/180017731-573f2d49-6b9b-49c0-8d20-ff7bd51b7de0.png)
+![image](https://user-images.githubusercontent.com/44255731/180017821-3288c2b5-46c2-4e88-80de-ee99ba946edc.png)
+![image](https://user-images.githubusercontent.com/44255731/180017898-eb063488-c02b-4ae7-8c0e-00b11a5c87f6.png)
+![image](https://user-images.githubusercontent.com/44255731/180017999-56ba0bff-99c7-48f0-a446-7a8980f28619.png)
+![image](https://user-images.githubusercontent.com/44255731/180018122-0fcbf021-b651-4ab1-9fb4-557286b2be21.png)
+![image](https://user-images.githubusercontent.com/44255731/180018196-fb05051a-b733-4448-aec1-e20381e5a87f.png)
+
 
 ## Prerequisite
 
