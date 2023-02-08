@@ -4,7 +4,7 @@ backports.zoneinfo==0.2.1
 certifi==2021.10.8
 cffi==1.14.5
 charset-normalizer==2.0.9
-cryptography==3.4.6
+cryptography==39.0.1
 dj-database-url==0.5.0
 Django==3.1.14
 django-cleanup==5.2.0
